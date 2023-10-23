@@ -1,7 +1,7 @@
 'use client';
 import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 
 import Navbar from '../components/Navbar'
@@ -23,8 +23,14 @@ export default function Dashboard() {
   });
   const [currentComponent, setCurrentComponent] = useState("Home")
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [userData, setUserData] = useState("")
   const router = useRouter();
-
+  
+  useEffect(() => {
+    if (session?.data?.user?.email) {
+      setUserData(session.data.user.email);
+    } else {setUserData("Usuario")}
+  }, [session?.data?.user?.email]);
 
   const handlePageChange = (pageName: string) => {
     setCurrentComponent(pageName);
@@ -34,7 +40,7 @@ export default function Dashboard() {
 
   switch (currentComponent) {
     case "Home":
-      componentToRender = <Home />;
+      componentToRender = <Home userData={userData}/>;
       break;
     case "Search":
       componentToRender = <Search />;
@@ -55,7 +61,7 @@ export default function Dashboard() {
       componentToRender = <Seguimientos />;
       break;
     default:
-      componentToRender = <Home />;
+      componentToRender = <Home userData={userData}/>;
       break;
   }
   const handlePerfilClick = () => {
@@ -94,8 +100,6 @@ export default function Dashboard() {
   };
   return (
     <div className="p-8">
-      <div className='text-white'>{session?.data?.user?.email }</div>
-      <button className='text-white' onClick={() => signOut()}>Logout</button>
 
       <main className='h-screen bg-zinc-500 '>
       <Navbar currentComponent={currentComponent} setCurrentComponent={setCurrentComponent}
@@ -120,7 +124,7 @@ export default function Dashboard() {
           <button className='py-2 hover:bg-zinc-500'  >
             Configuración
           </button>
-          <button className='py-2 hover:bg-zinc-500' onClick={handleCerrarSesion}>
+           <button className='text-white' onClick={() => signOut()}> 
             Cerrar sesión
           </button>
         </ul>

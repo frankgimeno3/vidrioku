@@ -2,21 +2,19 @@ import { FC, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-// interface NavbarProps {
-//   currentComponent: string;
-//   setCurrentComponent: (component: string) => void;
-// }
+interface HomeProps {
+ userData: any
+}
 
 // const Navbar: FC<NavbarProps> = ({ currentComponent, setCurrentComponent }) => {
 
-const HOME: FC = ({ }) => {
+const HOME: FC <HomeProps> = ({ userData }) => {
   const router = useRouter();
-  const [usuario, setUsuario] = useState("Frank")
-
+ 
 
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
-      <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Bienvenido, {usuario}</h2>
+      <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Bienvenido, {userData}</h2>
       <div className='flex flex-col '>
         <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100  rounded-lg my-6 mt-6">
           <div className='px-12 py-5 '>
