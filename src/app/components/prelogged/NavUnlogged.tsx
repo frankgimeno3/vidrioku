@@ -1,22 +1,18 @@
-import { FC } from 'react';
+import { FC, use } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
  
-interface NavUnloggedProps {
-  currentComponent: string;
-  setCurrentComponent: (component: string) => void;
 
-}
-
-const NavUnlogged: FC<NavUnloggedProps> = ({ currentComponent, setCurrentComponent }) => {
- 
+const NavUnlogged: FC  = ({ }) => {
+   const router = useRouter();
   const redirectHome = ()=>{
-    setCurrentComponent("Hero")
+    router.push('/')
   }
  const  handleIniciarSesion = ()=>{
-  setCurrentComponent("Iniciarsesion")
+  router.push('/signin')
  }
   const handleRegistro = ()=>{
-    setCurrentComponent("Registro")
+    router.push('/signup')
   }
 
   return (

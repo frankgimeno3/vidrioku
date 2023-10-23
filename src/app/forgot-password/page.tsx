@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { auth } from '../firebase';
 import { sendPasswordResetEmail } from "firebase/auth";
+import NavUnlogged from '../components/prelogged/NavUnlogged'
+
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -12,6 +14,8 @@ export default function ForgotPassword() {
 
   return (
     <>
+    <NavUnlogged  />
+
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
