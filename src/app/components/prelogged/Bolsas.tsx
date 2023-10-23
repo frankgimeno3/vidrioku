@@ -25,9 +25,9 @@ const Bolsas: React.FC = ({  }) => {
   }, []);
  
   return (
-    <div className="w-full p-10 align-center text-center">
-    <div className="pb-20">
-      <h1 className="text-4xl mt-8 mb-3 text-white">
+    <div className="w-full   align-center text-center">
+    <div className="pb-20 md:mt-12 md:pt-12">
+      <h1 className="text-4xl   mb-3 text-white">
         Bolsas de empleo técnico{" "}
         <span className="font-bold text-white">especializado</span>
       </h1>

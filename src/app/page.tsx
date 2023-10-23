@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
     <NavUnlogged   />
-    <div className='flex flex-col bg-gray-50 mx-8 p-8 h-screen text-black py-24'>
+    <div className='flex flex-col bg-gray-200 min-h-screen text-black  '>
      
         <Hero />
         <br></br>
