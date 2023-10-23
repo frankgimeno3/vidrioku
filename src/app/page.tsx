@@ -1,11 +1,11 @@
 'use client';
-import NavUnlogged from '../../components/prelogged/NavUnlogged'
-import Hero from '../../components/prelogged/Hero'
-import Bolsas from '../../components/prelogged/Bolsas'
-import Contactenos from '../../components/prelogged/Contactenos'
-import Prefooter from '../../components/prelogged/Prefooter'
-import IniciarSesion from '../../components/prelogged/IniciarSesion'
-import Registro from '../../components/prelogged/Registro'
+import NavUnlogged from './components/prelogged/NavUnlogged'
+import Hero from './components/prelogged/Hero'
+import Bolsas from './components/prelogged/Bolsas'
+import Contactenos from './components/prelogged/Contactenos'
+import Prefooter from './components/prelogged/Prefooter'
+import IniciarSesion from './components/prelogged/IniciarSesion'
+import Registro from './components/prelogged/Registro'
 import { useState } from 'react'
 
 

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router'; 
+import { useRouter } from 'next/navigation'; 
 
 // interface NavbarProps {
 //   currentComponent: string;
@@ -9,14 +9,14 @@ import { useRouter } from 'next/router';
 
 // const Navbar: FC<NavbarProps> = ({ currentComponent, setCurrentComponent }) => {
 
-const Publicaciones: FC = ({  }) => {
+const Seguimientos: FC = ({  }) => {
    const router = useRouter();  
 
    
 
    return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
-    <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Publicaciones</h2>
+    <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Seguimientos</h2>
     <div className=" mx-6  bg-white  h-full text-zinc-900">
       <div className="p-5">
 
@@ -26,4 +26,4 @@ const Publicaciones: FC = ({  }) => {
   );
 };
 
-export default Publicaciones;
+export default Seguimientos;

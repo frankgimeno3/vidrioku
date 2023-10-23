@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import TipoOferta from './searchcomponents/algoritmofertas/TipoOferta'
 import TipoTrabajador from './searchcomponents/algoritmotrabajadores/TipoTrabajador'
 import ListadoTrabajadores from './bolsaTrabajadores/listadoTrabajadores';
