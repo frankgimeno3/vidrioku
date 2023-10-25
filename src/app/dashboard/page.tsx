@@ -84,22 +84,13 @@ export default function Dashboard() {
     setIsMenuOpen(false)
   };
   const handleCerrarSesion = async () => {
-
-    // try {
-    //   await signOut(auth)
-    //   console.log("tamo fuera", auth)
-    //   setTimeout(function () {
-    //     router.push('/');
-    //     setIsMenuOpen(false)
-    //     console.log(auth)
-    //   }, 500);
-
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    router.push("/")
+    setTimeout(() => {
+      signOut()
+    }, 1000);
   };
   return (
-    <div className="p-8">
+    <div className="">
 
       <main className='h-screen bg-zinc-500 '>
       <Navbar currentComponent={currentComponent} setCurrentComponent={setCurrentComponent}
@@ -124,7 +115,7 @@ export default function Dashboard() {
           <button className='py-2 hover:bg-zinc-500'  >
             Configuración
           </button>
-           <button className='text-white' onClick={() => signOut()}> 
+           <button className='text-white' onClick={() => handleCerrarSesion()}> 
             Cerrar sesión
           </button>
         </ul>
