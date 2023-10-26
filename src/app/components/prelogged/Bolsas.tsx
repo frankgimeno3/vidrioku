@@ -26,8 +26,8 @@ const Bolsas: React.FC = ({  }) => {
   }, []);
  
   return (
-    <div className="w-full   align-center text-center">
-    <div className="pb-20 md:mt-12 md:pt-12">
+    <div className="w-full    text-center   mt-12">
+    <div className="pb-20  ">
       <h2 className="text-4xl   mb-3 text-white">
         Bolsa de empleo técnico{" "}
       </h2>
@@ -37,7 +37,7 @@ const Bolsas: React.FC = ({  }) => {
         para acceder a la bolsa de empleo especializada que desee
       </h2>
     </div>
-    <div className=" mx-24 px-24 ">
+    <div className=" md:mx-24 md:px-24 ">
         <Cuadrados/>
      </div>
   </div>

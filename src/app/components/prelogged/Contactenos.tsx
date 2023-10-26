@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { useState } from 'react' 
 import Link from "next/link";
+import Email from './Email';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,66 +11,50 @@ const Contactenos: React.FC = ({  }) => {
  
   return (
     <>
-    <div className="flex flex-col p-10 bg-white p-2vh w-full">
+    <div className="flex flex-col p-10 bg-white bg-opacity-40 p-4 w-full">
       <div className="mx-auto max-w-6xl">
-        <h1 className="text-5xl mt-2 mb-3 text-center">Sobre Nosotros</h1>
-        <div className="flex grid grid-cols-3 gap-10 p-5">
+        <h1 className="text-4xl mt-2 mb-3 text-center text-white">Sobre Nosotros</h1>
+        <div className="flex grid grid-cols-3 gap-10 p-5 text-black">
           <div
-            className="flex flex-col items-center justify-center shadow-md bg-cyan-950 rounded-lg"
-            style={{ height: "40vh" }}
+            className="flex flex-col items-center justify-center shadow-md bg-white rounded-lg"
+            style={{ height: "45vh" }}
           >
-            <p className="text-white text-base text-center p-8">
+            <p className="  text-base text-center px-8 p-2">
               Facilitamos la conexión entre aquellos que buscan talento y
-              aquellos que poseen un conocimiento especializado. Encuentre
-              trabajadores técnicos altamente especializados en todo el mundo
-              hispanohablante, o comparta su valiosa experiencia como
-              profesional con perfil técnico.
+              aquellos que poseen un conocimiento especializado.
             </p>
+            <Image src="/icons/handshake.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
+
           </div>
 
           <div
-            className="flex flex-col items-center justify-center shadow-md bg-cyan-950 rounded-lg"
-            style={{ height: "40vh" }}
+            className="flex flex-col items-center justify-center shadow-md bg-white rounded-lg"
+            style={{ height: "45vh" }}
           >
-            <p className="text-white text-base text-center p-8">
-              Contamos con una comunidad en constante crecimiento, compuesta
-              por expertos calificados dispuestos a ofrecer sus habilidades y
-              conocimientos a través de nuestra plataforma intuitiva y
-              eficiente.
+            <p className=" text-base text-center p-8">
+              Ofrecemos un sistema de chat para facilitar el contacto
             </p>
+            <Image src="/icons/message.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
+
           </div>
 
           <div
-            className="flex flex-col items-center justify-center shadow-md bg-cyan-950 rounded-lg"
-            style={{ height: "40vh" }}
+            className="flex flex-col items-center justify-center shadow-md bg-white rounded-lg"
+            style={{ height: "45vh" }}
           >
-            <p className="text-white text-base text-center p-8">
-              Tanto si usted representa a una empresa en búsqueda de
-              profesionales técnicos como si es un trabajador especializado
-              deseoso de ampliar sus horizontes laborales, le invitamos a
-              unirse a nuestra comunidad y aprovechar las ventajas de nuestro
-              amplio mercado laboral en el mundo hispanohablante.
+            <p className="  text-base text-center p-8">
+             Contamos con un sistema de alertas y notificaciones, para que pueda recibir avisos cuando tengamos algún candidato u oferta que encaje con sus expectativas
             </p>
+            <Image src="/icons/bell.png" alt="Logo3" width={190} height={190}  className='opacity-60 mx-auto hover:opacity-100'/>
+
           </div>
         </div>
-        <div className="flex justify-center mx-auto text-base mt-10 ">
-          <Link href="/quienessomos">
-          <button className="bg-stone-100  text-gray-800 py-2 px-4  rounded-md border-b-2  hover:bg-gray-600 hover:border-b-white hover:text-white">
-            Descubra hoy mismo cómo podemos ayudarle a alcanzar el éxito en el
-            ámbito técnico especializado.
-          </button>
-          </Link>
-        </div>
+ 
       </div>
     </div>
     <div className="mt-10 pb-10 flex-column justify-center ">
-      <h2 className="text-5xl text-white mb-5">Quiere saber más?</h2>
-      <div className="flex justify-center mx-auto text-base max-w-sm">
-        <Link href="/contacto" passHref>
-          <button className="bg-white  text-gray-800 rounded-md py-2 px-4 hover:bg-gray-600 hover:border-b-white hover:text-white">
-            Contáctenos
-          </button>
-        </Link>
+      <div className="flex justify-center mx-auto text-base   ">
+        <Email/>
       </div>
     </div>
   </>
