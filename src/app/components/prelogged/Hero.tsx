@@ -14,7 +14,7 @@ const Hero: React.FC = ({ }) => {
   return (
      <div className="relative w-full  h-screen">
       <video
-        className="  absolute top-0 left-0 object-cover h-screen w-screen bg-red-400 overflow-hidden"
+        className="  absolute top-0 left-0 object-cover h-screen w-screen bg-sky-900 overflow-hidden"
         src={videoUrl}
         autoPlay
         loop

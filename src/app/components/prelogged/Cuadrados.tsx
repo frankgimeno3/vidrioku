@@ -40,7 +40,7 @@ const Cuadrados: React.FC = ({ }) => {
             Operarios
           </h3>
           <p className="mb-2">
-            Arquitectos técnicos e ingenieros, especializados en la realización y el análisis de proyectos en que el vidrio juega un factor clave
+            Encuentre operarios de todo tipo, desde peones de fábrica, operarios de transporte, mantenimiento, y otros, todos ellos especializados en el sector del vidrio.
           </p>
           <Image src="/icons/operarios.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
 
