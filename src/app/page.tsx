@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
     <NavUnlogged   />
-    <div className='flex flex-col bg-gray-200 min-h-screen text-black  '>
+    <div className='flex flex-col bg-gradient-to-b from-zinc-900 to-zinc-600 min-h-screen text-black  '>
      
         <Hero />
         <br></br>

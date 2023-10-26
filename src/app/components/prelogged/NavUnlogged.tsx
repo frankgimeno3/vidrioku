@@ -20,19 +20,19 @@ const NavUnlogged: FC  = ({ }) => {
       <div className="flex items-center" 
       onClick={redirectHome}
       >  
-        <Image src="/logos/3.png" alt="Logo3" width={50} height={50} />
+        <Image src="/logos/3.png" alt="Logo3" width={50} height={50}  className='hover:opacity-90  '/>
       </div>
       <div className="flex items-center">
         <div className="mr-4" 
         onClick={handleRegistro}
         >
-        <button>Registro</button>
+        <button className='hover:font-bold'>Registro</button>
 
         </div>
         <div className="mr-4"
         onClick={handleIniciarSesion}
         >
-        <button>Iniciar Sesión</button>
+        <button className='hover:font-bold'>Iniciar Sesión</button>
         </div>
          
       </div>
