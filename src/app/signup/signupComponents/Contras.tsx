@@ -4,10 +4,11 @@ import { useRouter } from 'next/navigation';
 
 
 interface ContrasProps {
-
+    setPassword: any,
+    setPasswordAgain: any
 }
 
-const Contras: React.FC<ContrasProps> = ({ }) => {
+const Contras: React.FC<ContrasProps> = ({ setPassword, setPasswordAgain}) => {
 
     return (
         <>

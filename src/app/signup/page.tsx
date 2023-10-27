@@ -6,6 +6,8 @@ import { auth } from '../firebase';
 import NavUnlogged from '../components/prelogged/NavUnlogged'
 import Image from 'next/image';
 
+import Contras from './signupComponents/Contras';
+
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -110,7 +112,7 @@ export default function Signup() {
                       </select>
                     </div>
                   </div>
-                  <Contras />
+                  <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain}/>
 
                   <div>
                     <button
