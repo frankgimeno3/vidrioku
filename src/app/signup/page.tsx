@@ -74,8 +74,8 @@ export default function Signup() {
       <div className='relative'>
         <NavUnlogged />
 
-        <div className=" mx-56 px-56">
-          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  h-screen mx-24 bg-zinc-900 bg-opacity-30">
+        <div className=" md:mx-56 md:px-56">
+          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  h-screen md:mx-24 bg-zinc-900 bg-opacity-30">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <Image
                 className="mx-auto"
