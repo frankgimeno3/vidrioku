@@ -12,6 +12,8 @@ import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from '
 import { db } from '../firebase';
 import Tipo from './signupComponents/Tipo';
 import Correo from './signupComponents/Correo';
+import EmpresasContent from './signupComponents/EmpresasContent';
+import ProfesionalesContent from './signupComponents/ProfesionalesContent';
 
 
 export default function Signup() {
@@ -20,7 +22,17 @@ export default function Signup() {
   const [passwordAgain, setPasswordAgain] = useState('');
   const [userType, setUserType] = useState('profesional');
   const [isAccepted, setIsAccepted] = useState(false);
-  const [videoUrl, setVideoUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");   
+    
+  const [nombre, setNombre] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [edad, setEdad] = useState("");
+  const [genero, setGenero] = useState("");
+  const [ubi, setUbi] = useState("");
+
+  const [nombreEmpresa, setNombreEmpresa] = useState("");
+  const [ubiEmpresa, setUbiEmpresa] = useState("");
+  const [cifEmpresa, setCifEmpresa] = useState("");
 
   useEffect(() => {
     setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
@@ -83,7 +95,9 @@ export default function Signup() {
                   <Correo setEmail={setEmail}/>
                   <Tipo userType={userType} handleUserTypeChange={handleUserTypeChange}/>
                   <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain}/>
-
+                  {userType === "profesional" && <ProfesionalesContent setNombre={setNombre} setApellidos={setApellidos}
+setEdad={setEdad} setGenero={setGenero} setUbi={setUbi}/>}
+                  {userType === "empresa"  && <EmpresasContent/>}
                   <div>
                     <button
                       disabled={(!email || !password || !passwordAgain) || (password !== passwordAgain)}

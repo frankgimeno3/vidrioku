@@ -9,7 +9,7 @@ const Cuadrados: React.FC = ({ }) => {
  
 
   return (
-    <div className='flex flex-col md:flex-row text-center border border-red-200   '>
+    <div className='flex flex-col md:flex-row text-center'>
       <div className='flex flex-col  '>
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  >
 
@@ -52,7 +52,7 @@ const Cuadrados: React.FC = ({ }) => {
           <p className="mb-2">
             Arquitectos técnicos e ingenieros, especializados en la realización y el análisis de proyectos en que el vidrio juega un factor clave
           </p>
-          <Image src="/icons/comercialycompras.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
+          <Image src="/icons/comercialycompras.png" alt="Logo3" width={150} height={150}  className='opacity-60 mx-auto hover:opacity-100'/>
 
         </div>
       </div>
