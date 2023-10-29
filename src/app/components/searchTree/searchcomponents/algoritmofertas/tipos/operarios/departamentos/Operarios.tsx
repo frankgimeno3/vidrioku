@@ -1,9 +1,9 @@
 import { FC } from "react";
 interface OperariosProps {
-    setIsTrabajadoresSelected: (component: boolean) => void;
+    setIsOfertasSelected: (component: boolean) => void;
 }
 
-const Operarios: FC <OperariosProps> = ({setIsTrabajadoresSelected}) => {
+const Operarios: FC <OperariosProps> = ({setIsOfertasSelected}) => {
 
 
     return (<>
