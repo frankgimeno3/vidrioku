@@ -13,7 +13,7 @@ const OfertasList: FC <OfertasListProps> = ({ userData }) => {
 
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
- 
+            contenido listado ofertas
     </div>
   );
 };

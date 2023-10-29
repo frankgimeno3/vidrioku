@@ -13,6 +13,7 @@ import Perfil from '../components/screens/Perfil2'
 import Publicaciones from '../components/screens/Publicaciones'
 import Seguimientos from '../components/screens/Seguimientos'
 import Mensajes from '../components/screens/Mensajes'
+import ProfesionalesList from './profesionalescomponents/ProfesionalesList'
 
 export default function Dashboard() {
   const session = useSession({
@@ -21,7 +22,7 @@ export default function Dashboard() {
       redirect('/signin');
     },
   });
-  const [currentComponent, setCurrentComponent] = useState("Home")
+  const [currentComponent, setCurrentComponent] = useState("Profesionales")
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [userData, setUserData] = useState("")
   const router = useRouter();
@@ -61,7 +62,7 @@ export default function Dashboard() {
       componentToRender = <Seguimientos />;
       break;
     default:
-      componentToRender = <Home userData={userData}/>;
+      componentToRender = <ProfesionalesList userData={userData}/>;
       break;
   }
   const handlePerfilClick = () => {
