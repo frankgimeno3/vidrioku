@@ -27,8 +27,8 @@ const OfertasList: FC<OfertasListProps> = ({ userData }) => {
       </nav>
       <div className='flex flex-col   mx-12 bg-white '>
         <div className='bg-white flex flex-row w-full h-screen'>
-          <div className='flex flex-col flex-1 justify-between'>
-            <div>
+          <div className='flex flex-col flex-1 justify-between h-full'>
+            <div className='max-h-full overflow-scroll'>
               <Oferta />
               <Oferta />
               <Anuncio />
