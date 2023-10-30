@@ -8,7 +8,7 @@ import FiltroOfertas from './filtroOfertas'
 const ListadoOfertas: FC = ({ }) => {
 
   return (
-    <div className='mmin-h-screen flex flex-col'>
+    <div className='min-h-screen flex flex-col'>
       <nav className='flex flex-col p-2 bg-gray-50'>
         <SearchOfertas/>
         <FiltroOfertas/>
