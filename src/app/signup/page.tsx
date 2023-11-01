@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 import Contras from './signupComponents/Contras';
 
-import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
+import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, setDoc, } from 'firebase/firestore';
 import { db } from '../firebase';
 import Tipo from './signupComponents/Tipo';
 import Correo from './signupComponents/Correo';
@@ -46,9 +46,10 @@ export default function Signup() {
 
   const addUserInFirebase = async () => {
     if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
-      await addDoc(collection(db, 'users'), {
-        userEmail: email.trim(),
-        userType: userType,
+      const userDocRef = doc(db, 'users', email.trim());
+  
+      // Utiliza la referencia con el nombre del documento para agregar datos
+      await setDoc(userDocRef, {
         nombre: nombre.trim(),
         apellidos: apellidos.trim(),
         edad: edad.trim(),
