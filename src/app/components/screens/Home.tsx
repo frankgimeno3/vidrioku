@@ -12,7 +12,7 @@ const HOME: FC <HomeProps> = ({ userData }) => {
   const router = useRouter();
  
   useEffect(() => {
-    console.log("userdata: ", userData)
+    console.log("userdata: ", {userData})
   }, []);
 
   return (

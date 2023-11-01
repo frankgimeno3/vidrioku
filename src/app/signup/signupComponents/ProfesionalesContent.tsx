@@ -15,7 +15,7 @@ const ProfesionalesContent: React.FC<ProfesionalesContentProps> = ({ setNombre, 
 
     return (
         <div>
-            <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-white">
+            <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-white ">
                 Nombre completo (sin apellidos)
             </label> 
             <div className="mt-2">
@@ -30,7 +30,7 @@ const ProfesionalesContent: React.FC<ProfesionalesContentProps> = ({ setNombre, 
                 />
             </div>
 
-            <label htmlFor="apellidos" className="block text-sm font-medium leading-6 text-white">
+            <label htmlFor="apellidos" className="block text-sm font-medium leading-6 text-white  mt-3">
                 Apellidos
             </label> 
             <div className="mt-2">
@@ -45,7 +45,7 @@ const ProfesionalesContent: React.FC<ProfesionalesContentProps> = ({ setNombre, 
                 />
             </div>
 
-            <label htmlFor="edad" className="block text-sm font-medium leading-6 text-white">
+            <label htmlFor="edad" className="block text-sm font-medium leading-6 text-white  mt-3">
                 Año de nacimiento
             </label> 
             <div className="mt-2">
@@ -60,8 +60,8 @@ const ProfesionalesContent: React.FC<ProfesionalesContentProps> = ({ setNombre, 
                 />
             </div>
 
-            <label htmlFor="genero" className="block text-sm font-medium leading-6 text-white">
-                 setGenero
+            <label htmlFor="genero" className="block text-sm font-medium leading-6 text-white mt-3">
+                 Género
             </label> 
             <div className="mt-2">
                 <input
@@ -75,7 +75,7 @@ const ProfesionalesContent: React.FC<ProfesionalesContentProps> = ({ setNombre, 
                 />
             </div>
 
-            <label htmlFor="ubi" className="block text-sm font-medium leading-6 text-white">
+            <label htmlFor="ubi" className="block text-sm font-medium leading-6 text-white  mt-3">
                 Residencia actual
             </label> 
             <div className="mt-2">

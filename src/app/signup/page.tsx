@@ -22,8 +22,8 @@ export default function Signup() {
   const [passwordAgain, setPasswordAgain] = useState('');
   const [userType, setUserType] = useState('profesional');
   const [isAccepted, setIsAccepted] = useState(false);
-  const [videoUrl, setVideoUrl] = useState("");   
-    
+  const [videoUrl, setVideoUrl] = useState("");
+
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [edad, setEdad] = useState("");
@@ -45,17 +45,22 @@ export default function Signup() {
   };
 
   const addUserInFirebase = async () => {
-    if (email !== '' && password !== '' && passwordAgain !== '') {
+    if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
       await addDoc(collection(db, 'users'), {
         userEmail: email.trim(),
         userType: userType,
+        nombre: nombre.trim(),
+        apellidos: apellidos.trim(),
+        edad: edad.trim(),
+        genero: genero.trim(),
+        ubi: ubi.trim(),
       });
     }
   };
 
   const signup = () => {
-    createUserWithEmailAndPassword(auth, email, password);
-    addUserInFirebase();
+    createUserWithEmailAndPassword(auth, email, password); //esto ocurre en firebase-authentication
+    addUserInFirebase(); // esto ocurre en firestre
     setIsAccepted(true);
     setTimeout(() => {
       router.push("/signin");
@@ -75,7 +80,7 @@ export default function Signup() {
         <NavUnlogged />
 
         <div className=" md:mx-56 md:px-56">
-          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  h-screen md:mx-24 bg-zinc-900 bg-opacity-30">
+          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  min-h-screen md:mx-24 bg-zinc-900 bg-opacity-30">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <Image
                 className="mx-auto"
@@ -92,15 +97,15 @@ export default function Signup() {
 
               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="space-y-6">
-                  <Correo setEmail={setEmail}/>
-                  <Tipo userType={userType} handleUserTypeChange={handleUserTypeChange}/>
-                  <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain}/>
+                  <Correo setEmail={setEmail} />
+                  <Tipo userType={userType} handleUserTypeChange={handleUserTypeChange} />
+                  <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain} />
                   {userType === "profesional" && <ProfesionalesContent setNombre={setNombre} setApellidos={setApellidos}
-setEdad={setEdad} setGenero={setGenero} setUbi={setUbi}/>}
-                  {userType === "empresa"  && <EmpresasContent/>}
+                    setEdad={setEdad} setGenero={setGenero} setUbi={setUbi} />}
+                  {userType === "empresa" && <EmpresasContent />}
                   <div>
                     <button
-                      disabled={(!email || !password || !passwordAgain) || (password !== passwordAgain)}
+                      disabled={(!email || !password || !passwordAgain || !setNombre || !setApellidos || !setUbi) || (password !== passwordAgain)}
                       onClick={() => signup()}
                       className="disabled:opacity-40 flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                     >
