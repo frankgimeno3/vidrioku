@@ -11,7 +11,6 @@ import Navbar from '../components/Navbar';
 const Search: FC = () => {
   const router = useRouter();
   const [tipoConsulta, setTipoConsulta] = useState('');
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   // const [isOfertasSelected, setIsOfertasSelected] = useState(false);
   // const [isTrabajadoresSelected, setIsTrabajadoresSelected] = useState(false);
@@ -28,7 +27,7 @@ const Search: FC = () => {
 
   return (
     <>
-          <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+          <Navbar   />
 
       <div className="flex flex-col    bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>

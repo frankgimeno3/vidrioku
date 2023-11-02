@@ -1,15 +1,13 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
 
-interface NavbarProps {
-  isMenuOpen: any
-  setIsMenuOpen: any
-}
 
-const Navbar: FC<NavbarProps> = ({ isMenuOpen,
-  setIsMenuOpen }) => {
+const Navbar: FC  = ({   }) => {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [currentComponent, setCurrentComponent] = useState("Home")
 
 
   const redirectHome = () => {
@@ -32,6 +30,36 @@ const Navbar: FC<NavbarProps> = ({ isMenuOpen,
     setIsMenuOpen(false)
   };
 
+  const handlePerfilClick = () => {
+    router.push("/perfil")
+    setIsMenuOpen(false)
+  };
+
+  const handleMensajesClick = () => {
+    router.push("/chat")
+    setIsMenuOpen(false)
+  };
+
+  const handleOfertasClick = () => {
+    router.push("/misofertas")
+    setIsMenuOpen(false)
+  };
+
+  const handleSeguimientosClick = () => {
+    router.push("/seguimientos")
+    setIsMenuOpen(false)
+  };
+
+  const handleConfiguracionClick = () => {
+    router.push("/configuracion")
+    setIsMenuOpen(false)
+  };
+  const handleCerrarSesion = async () => {
+    router.push("/")
+    setTimeout(() => {
+      signOut()
+    }, 1000);
+  };
   return (
     <>
  
@@ -67,6 +95,30 @@ const Navbar: FC<NavbarProps> = ({ isMenuOpen,
             </svg>
           </div>
         </div>
+      </div>
+
+      <div className={isMenuOpen ?
+        'fixed top-0 right-0 flex flex-col text-gray-800 z-50 bg-zinc-800  mt-16 ' : 'hidden'}>
+        <ul className='flex flex-col text-md text-gray-100 w-screen '>
+          <button className='py-2 hover:bg-zinc-500' onClick={handlePerfilClick}>
+            Perfil
+          </button>
+          <button className='py-2 hover:bg-zinc-500' onClick={handleMensajesClick}>
+            Mensajes
+          </button>
+          <button className='py-2 hover:bg-zinc-500' onClick={handleOfertasClick}>
+            Mis Ofertas
+          </button>
+          <button className='py-2 hover:bg-zinc-500' onClick={handleSeguimientosClick}>
+            Seguimientos
+          </button>
+          <button className='py-2 hover:bg-zinc-500' onClick={handleConfiguracionClick} >
+            Configuración
+          </button>
+           <button className='text-white' onClick={() => handleCerrarSesion()}> 
+            Cerrar sesión
+          </button>
+        </ul>
       </div>
     </>
   );
