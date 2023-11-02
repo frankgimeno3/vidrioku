@@ -27,11 +27,11 @@ const Navbar: FC<NavbarProps> = ({ currentComponent, setCurrentComponent, isMenu
 
 
   const handleSearchClick = () => {
-    setCurrentComponent('Search')
+     setCurrentComponent('Search')
     setIsMenuOpen(false)
   };
   const handleNotificationsClick = () => {
-    setCurrentComponent('Notifications')
+     setCurrentComponent('Notifications')
     setIsMenuOpen(false)
   };
 

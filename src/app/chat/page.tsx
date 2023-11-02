@@ -1,3 +1,4 @@
+"use client"
 import { FC, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -54,13 +55,16 @@ const Mensajes: FC = ({ }) => {
         <div className='my-3'>
           <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1"
             onClick={selectUser1}>
-            <Image
+              <div>
+              <Image
               src="/profilepictures/2.jpg"
               alt="ing1"
               width={100}
-              height={50}
+              height={100}
               className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
             />
+              </div>
+            
             <div className='flex flex-col px-3 flex-3'>
               <h2 className='text-right  pt-2 text-gray-400 text-sm'>Mensaje de usuario</h2>
 
@@ -72,13 +76,15 @@ const Mensajes: FC = ({ }) => {
           <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1"
             onClick={selectUser2}>
 
+            <div className=''>
             <Image
               src="/inventedlogos/4.png"
               alt="ing1"
               width={100}
-              height={50}
+              height={100}
               className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
             />
+            </div>
             <div className='flex flex-col px-3 flex-3'>
               <h2 className='text-right  pt-2 text-gray-400 text-sm'>Mensaje de Empresa</h2>
 
@@ -90,13 +96,16 @@ const Mensajes: FC = ({ }) => {
           <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1"
             onClick={selectUser3}>
 
+            <div>
             <Image
               src="/profilepictures/3.jpg"
               alt="ing2"
               width={100}
-              height={50}
+              height={100}
               className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
             />
+            </div>
+            
             <div className='flex flex-col px-3 flex-3'>
               <h2 className='text-right  pt-2 text-gray-400 text-sm'>Mensaje de usuario</h2>
 
@@ -108,13 +117,16 @@ const Mensajes: FC = ({ }) => {
           <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1"
             onClick={selectUser4}>
 
+            <div>
             <Image
               src="/inventedlogos/5.png"
               alt="ing1"
               width={100}
-              height={50}
+              height={100}
               className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
             />
+            </div>
+            
             <div className='flex flex-col px-4 flex-3'>
               <h2 className='text-right  pt-2 text-gray-400 text-sm'>Mensaje de Empresa</h2>
 
@@ -126,14 +138,14 @@ const Mensajes: FC = ({ }) => {
           <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1"
             onClick={selectUser5}>
 
-            <div className='w-20 border border-white  '>
+            <div >
               <Image
                 src="/inventedlogos/6.png"
                 alt="ing1"
                 width={100}
-                height={10}
-                className=" shadow-lg rounded-full"
-              />
+                height={100}
+                className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
+                />
             </div>
 
             <div className='flex flex-col px-4  '>
@@ -168,7 +180,7 @@ const Mensajes: FC = ({ }) => {
               <Image
                 src={userSelectedImg}
                 alt="ing1"
-                width={100}
+                width={10}
                 height={50}
                 className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
               />

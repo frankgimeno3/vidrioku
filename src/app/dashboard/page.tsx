@@ -6,13 +6,15 @@ import { useRouter } from "next/navigation";
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import Home from '../components/screens/Home'
+import Home from '../components/screens/HomeEmpr'
 import Search from '../components/searchTree/Search'
-import Notifications from '../components/screens/Notifications'
+import Notifications from '../notifications/page'
 import Perfil from '../components/screens/Perfil2'
 import Publicaciones from '../components/screens/Publicaciones'
 import Seguimientos from '../components/screens/Seguimientos'
-import Mensajes from '../components/screens/Mensajes'
+import Mensajes from '../chat/page'
+
+
 
 export default function Dashboard() {
   const session = useSession({
@@ -32,6 +34,7 @@ export default function Dashboard() {
     } else {setUserData("Usuario")}
   }, [session?.data?.user?.email]);
 
+  
   const handlePageChange = (pageName: string) => {
     setCurrentComponent(pageName);
   };
@@ -52,13 +55,13 @@ export default function Dashboard() {
       componentToRender = <Perfil />;
       break;
     case "Publicaciones":
-      componentToRender = <Publicaciones />;
+      componentToRender = <Publicaciones/>;
       break;
     case "Mensajes":
-      componentToRender = <Mensajes />;
+      componentToRender = <Mensajes/>;
       break;
     case "Seguimientos":
-      componentToRender = <Seguimientos />;
+      componentToRender = <Seguimientos/>;
       break;
     default:
       componentToRender = <Home userData={userData}/>;
