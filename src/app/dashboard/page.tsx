@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Home from '../components/screens/HomeEmpr'
-import Search from '../components/searchTree/Search'
+import Search from '../search/page'
 import Notifications from '../notifications/page'
 import Perfil from '../components/screens/Perfil2'
 import Publicaciones from '../components/screens/Publicaciones'
@@ -34,39 +34,8 @@ export default function Dashboard() {
     } else {setUserData("Usuario")}
   }, [session?.data?.user?.email]);
 
+ 
   
-  const handlePageChange = (pageName: string) => {
-    setCurrentComponent(pageName);
-  };
-
-  let componentToRender;
-
-  switch (currentComponent) {
-    case "Home":
-      componentToRender = <Home userData={userData}/>;
-      break;
-    case "Search":
-      componentToRender = <Search />;
-      break;
-    case "Notifications":
-      componentToRender = <Notifications />;
-      break;
-    case "Perfil":
-      componentToRender = <Perfil />;
-      break;
-    case "Publicaciones":
-      componentToRender = <Publicaciones/>;
-      break;
-    case "Mensajes":
-      componentToRender = <Mensajes/>;
-      break;
-    case "Seguimientos":
-      componentToRender = <Seguimientos/>;
-      break;
-    default:
-      componentToRender = <Home userData={userData}/>;
-      break;
-  }
   const handlePerfilClick = () => {
     setCurrentComponent('Perfil')
     setIsMenuOpen(false)
@@ -96,10 +65,9 @@ export default function Dashboard() {
     <div className="">
 
       <main className='h-screen bg-zinc-500 '>
-      <Navbar currentComponent={currentComponent} setCurrentComponent={setCurrentComponent}
-        isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      {componentToRender}
-      <Footer onPageChange={handlePageChange} />
+      <Navbar  isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Home userData={userData}/>
+            {/* <Footer onPageChange={handlePageChange} /> */}
       <div className={isMenuOpen ?
         'fixed top-0 right-0 flex flex-col text-gray-800 z-50 bg-zinc-800  mt-20 ' : 'hidden'}>
         <ul className='flex flex-col text-md text-gray-100 w-screen '>
