@@ -11,7 +11,7 @@ import Search from '../search/page'
 import Notifications from '../notifications/page'
 import Perfil from '../components/screens/Perfil2'
 import Publicaciones from '../components/screens/Publicaciones'
-import Seguimientos from '../components/screens/Seguimientos'
+import Seguimientos from '../misofertas/page'
 import Mensajes from '../chat/page'
 import OfertasList from './ofertascomponents/OfertasList'
 
