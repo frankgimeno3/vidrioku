@@ -39,6 +39,10 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
     console.log("userdata: ", { userData })
   }, []);
 
+  const crearofertahandler = ()=>{
+    router.push("/crearoferta")
+  }
+
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, {filteredUsers.map((user, id) => (user.nombre))}</h2>
@@ -83,6 +87,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
         <p className='font-bold'>Mis ofertas de empleo</p>
           <button
             className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
+            onClick={crearofertahandler}
           >Crear oferta de empleo</button>
         </div>
         <div className='h-full flex-1 text-center my-3'>
