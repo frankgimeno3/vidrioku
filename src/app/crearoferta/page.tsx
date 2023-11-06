@@ -3,8 +3,10 @@ import { FC, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-const Crearoferta: FC = ({ }) => {
+const Crearoferta: FC = () => {
   const router = useRouter();
 
   const [titulo, setTitulo] = useState('');
@@ -19,27 +21,55 @@ const Crearoferta: FC = ({ }) => {
   const [habilidadAEliminar, setHabilidadAEliminar] = useState<number | null>(null);
 
   const handleHabilidadRequeridaChange = (e: any) => {
-    e.preventDefault();
     setHabilidadRequerida(e.target.value);
   };
 
-  const handleInsertarHabilidad = (e: any) => {
-    e.preventDefault();
+  const handleInsertarHabilidad = (event: any) => {
+    event.preventDefault();
     if (habilidadRequerida.trim() !== '') {
       setHabilidades([...habilidades, habilidadRequerida]);
+      setHabilidadRequerida('');
     }
   };
 
-  const handleEliminarHabilidad = (index: number) => {
-    
-    setHabilidadAEliminar(index);
+  const handleEliminarHabilidad = (event: any, index: number) => {
+    event.preventDefault();
+    const nuevasHabilidades = habilidades.filter((_, i) => i !== index);
+    setHabilidades(nuevasHabilidades);
   };
 
-  const confirmarEliminarHabilidad = () => {
-    if (habilidadAEliminar !== null) {
-      const nuevasHabilidades = habilidades.filter((_, index) => index !== habilidadAEliminar);
-      setHabilidades(nuevasHabilidades);
-      setHabilidadAEliminar(null);
+  const addOfferInFirebase = async (event: any) => {
+    event.preventDefault();
+    if (titulo !== '' && cargo !== '' && tipoJornada !== '' && tipoLocalizacion !== '') {
+      const userDocRef = doc(db, 'ofertas', 'nuevodoc'); // Cambia 'nuevoDocumento' por el ID que desees
+
+      try {
+        await setDoc(userDocRef, {
+          titulo: titulo.trim(),
+          cargo: cargo.trim(),
+          jornada: tipoJornada.trim(),
+          tipoubi: tipoLocalizacion.trim(),
+          ubicacion: ubicacion.trim(),
+          descripcion: descripcion.trim(),
+          experiencia: habilidades,
+          adicional: comentarios.trim(),
+          empresa: "empresa1",
+          solcitantes: [],
+        });
+        console.log("titulo:", titulo, "cargo:", cargo, "jornada:", tipoJornada, "tipoubi:", tipoLocalizacion, "ubicacion:", ubicacion, "descripcion:", descripcion, "experiencia:", habilidades
+        , "adicional:", comentarios.trim(), "empresa:", "blablabla", "solcitantes:", [])
+
+      }
+      catch (error) {
+        console.error('Error al crear la oferta en Firestore:', error);
+      }
+
+      // Redirige a la página deseada después de crear la oferta
+      // router.push('/ruta-de-redireccion');
+    } else {
+      console.log("campos vacíos")
+      console.log("titulo:", titulo, "cargo:", cargo, "jornada:", tipoJornada, "tipoubi:", tipoLocalizacion, "ubicacion:", ubicacion, "descripcion:", descripcion, "experiencia:", habilidades
+      , "adicional:", comentarios.trim(), "empresa:", "blablabla", "solcitantes:", [])
     }
   };
 
@@ -49,83 +79,114 @@ const Crearoferta: FC = ({ }) => {
       <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center px-80">
         <h2 className='py-10'>Crear oferta</h2>
         <form className='flex flex-col mx-72 text-sm '>
-          <label>Título de la oferta</label>
+          <label htmlFor="titulo">Título de la oferta</label>
           <input
-            placeholder='Introduzca título'
+            type="text"
+            id="titulo"
+            name="titulo"
+            placeholder="Introduzca título"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
-            className='text-gray-500 text-sm mb-2  rounded-md'
+            className="text-gray-500 text-sm mb-2 rounded-md"
           />
-          <label>Cargo ofrecido</label>
+
+          <label htmlFor="cargo">Cargo ofrecido</label>
           <input
-            placeholder='Introduzca cargo'
+            type="text"
+            id="cargo"
+            name="cargo"
+            placeholder="Introduzca cargo"
             value={cargo}
             onChange={(e) => setCargo(e.target.value)}
-            className='text-gray-500 text-sm mb-2  rounded-md'
+            className="text-gray-500 text-sm mb-2 rounded-md"
           />
-          <label>Tipo de jornada</label>
+
+          <label htmlFor="tipoJornada">Tipo de jornada</label>
           <select
+            id="tipoJornada"
+            name="tipoJornada"
             value={tipoJornada}
             onChange={(e) => setTipoJornada(e.target.value)}
-            className='text-gray-500 text-sm mb-2 rounded-md'
+            className="text-gray-500 text-sm mb-2 rounded-md"
           >
             <option>Jornada Completa</option>
             <option>Jornada Parcial</option>
           </select>
-          <label>Tipo de localización</label>
+
+          <label htmlFor="tipoLocalizacion">Tipo de localización</label>
           <select
+            id="tipoLocalizacion"
+            name="tipoLocalizacion"
             value={tipoLocalizacion}
             onChange={(e) => setTipoLocalizacion(e.target.value)}
-            className='text-gray-500 text-sm mb-2  rounded-md'
+            className="text-gray-500 text-sm mb-2 rounded-md"
           >
             <option>Trabajo Híbrido</option>
             <option>Trabajo Remoto</option>
             <option>Trabajo Presencial</option>
           </select>
+
           {tipoLocalizacion !== 'Remoto' && (
             <>
-              <label>Ubicación</label>
+              <label htmlFor="ubicacion">Ubicación</label>
               <input
-                placeholder='Introduzca ubicación del empleo'
+                type="text"
+                id="ubicacion"
+                name="ubicacion"
+                placeholder="Introduzca ubicación del empleo"
                 value={ubicacion}
                 onChange={(e) => setUbicacion(e.target.value)}
-                className='text-gray-500 text-sm mb-2  rounded-md'
+                className="text-gray-500 text-sm mb-2 rounded-md"
               />
-            </>)
-          }
-          <label>Descripción general del empleo</label>
+            </>
+          )}
+
+          <label htmlFor="descripcion">Descripción general del empleo</label>
           <textarea
-            placeholder='Introduzca descripción del empleo'
+            id="descripcion"
+            name="descripcion"
+            placeholder="Introduzca descripción del empleo"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
-            className='text-gray-500 text-sm mb-2  rounded-md'
+            className="text-gray-500 text-sm mb-2 rounded-md"
           />
-          <label>Experiencia y habilidades requeridas</label>
+
+          <label htmlFor="habilidadRequerida">Experiencia y habilidades requeridas</label>
           <input
-            placeholder='Insertar habilidad requerida'
+            type="text"
+            id="habilidadRequerida"
+            name="habilidadRequerida"
+            placeholder="Insertar habilidad requerida"
             value={habilidadRequerida}
             onChange={handleHabilidadRequeridaChange}
-            className='text-gray-500 text-sm mb-2  rounded-md'
+            className="text-gray-500 text-sm mb-2 rounded-md"
           />
-          <button onClick={handleInsertarHabilidad} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
-            Insertar
+
+          <button onClick={handleInsertarHabilidad} className="bg-white px-3 py-1 rounded-lg mx-44 text-sm m-2 text-gray-500 text-sm mb-2">
+            Insertar requisitos
           </button>
-          <ul>
+
+          <ul className="mx-12 mb-2">
             {habilidades.map((habilidad, index) => (
-              <div className='flex flex-row' key={index}>
-                <li>{habilidad}</li>
-                <button onClick={() => handleEliminarHabilidad(index)} className='ml-2'>X</button>
+              <div className="flex flex-row w-full bg-gray-100 text-gray-700 rounded-lg my-1 shadow-lg " key={index}>
+                <li className="flex-1 my-auto">{habilidad}</li>
+                <div className="shadow">
+                  <button onClick={() => handleEliminarHabilidad(event, index)} className="m-2 px-2 bg-gray-300 rounded-lg py-0.5 shadow-lg">x</button>
+                </div>
               </div>
             ))}
           </ul>
-          <label>Comentarios adicionales</label>
+
+          <label htmlFor="comentarios">Comentarios adicionales</label>
           <textarea
+            id="comentarios"
+            name="comentarios"
             value={comentarios}
             onChange={(e) => setComentarios(e.target.value)}
-            className='text-gray-500 text-sm mb-2 rounded-md'
-            placeholder='Añada comentarios adicionales aquí'
+            className="text-gray-500 text-sm mb-2 rounded-md"
+            placeholder="Añada comentarios adicionales aquí"
           />
-          <button className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
+          <button onClick={addOfferInFirebase} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
             Crear oferta
           </button>
         </form>

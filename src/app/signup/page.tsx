@@ -56,7 +56,7 @@ export default function Signup() {
         genero: genero.trim(),
         ubi: ubi.trim(),
       });
-    }
+     }
   };
 
   const signup = () => {
