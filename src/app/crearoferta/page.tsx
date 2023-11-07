@@ -1,10 +1,11 @@
 "use client"
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
+import { useSession } from 'next-auth/react';
 
 const Crearoferta: FC = () => {
   const router = useRouter();
@@ -20,6 +21,22 @@ const Crearoferta: FC = () => {
   const [comentarios, setComentarios] = useState('');
   const [habilidadAEliminar, setHabilidadAEliminar] = useState<number | null>(null);
 
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signin');
+    },
+  });
+   const [userData, setUserData] = useState("")
+   
+  useEffect(() => {
+    if (session?.data?.user?.email) {
+      setUserData(session.data.user.email);
+    } else {setUserData("Usuario")}
+  }, [session?.data?.user?.email]);
+
+ 
+  
   const handleHabilidadRequeridaChange = (e: any) => {
     setHabilidadRequerida(e.target.value);
   };
@@ -52,7 +69,7 @@ const Crearoferta: FC = () => {
           descripcion: descripcion.trim(),
           experiencia: habilidades,
           adicional: comentarios.trim(),
-          empresa: "empresa1",
+          empresa: userData,
           solcitantes: [],
         });
  
@@ -62,9 +79,7 @@ const Crearoferta: FC = () => {
         console.error('Error al crear la oferta en Firestore:', error);
       }
     } else {
-      console.log("Campos vacíos");
-      console.log("titulo:", titulo, "cargo:", cargo, "jornada:", tipoJornada, "tipoubi:", tipoLocalizacion, "ubicacion:", ubicacion, "descripcion:", descripcion, "experiencia:", habilidades
-      , "adicional:", comentarios.trim(), "empresa:", "blablabla", "solcitantes:", []);
+      console.log("Campos vacíos"); 
     }
   };
   return (
