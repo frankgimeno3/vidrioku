@@ -3,13 +3,13 @@ import { FC, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
-import { doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const Crearoferta: FC = () => {
   const router = useRouter();
 
-  const [titulo, setTitulo] = useState('');
+  const [titulo, setTitulo] = useState('')
   const [cargo, setCargo] = useState('');
   const [tipoJornada, setTipoJornada] = useState('');
   const [tipoLocalizacion, setTipoLocalizacion] = useState('Híbrido');
@@ -41,10 +41,9 @@ const Crearoferta: FC = () => {
   const addOfferInFirebase = async (event: any) => {
     event.preventDefault();
     if (titulo !== '' && cargo !== '' && tipoJornada !== '' && tipoLocalizacion !== '') {
-      const userDocRef = doc(db, 'ofertas', 'nuevodoc'); // Cambia 'nuevoDocumento' por el ID que desees
-
       try {
-        await setDoc(userDocRef, {
+        const offersCollection = collection(db, 'ofertas');
+        const newOfferRef = await addDoc(offersCollection, {
           titulo: titulo.trim(),
           cargo: cargo.trim(),
           jornada: tipoJornada.trim(),
@@ -56,23 +55,18 @@ const Crearoferta: FC = () => {
           empresa: "empresa1",
           solcitantes: [],
         });
-        console.log("titulo:", titulo, "cargo:", cargo, "jornada:", tipoJornada, "tipoubi:", tipoLocalizacion, "ubicacion:", ubicacion, "descripcion:", descripcion, "experiencia:", habilidades
-        , "adicional:", comentarios.trim(), "empresa:", "blablabla", "solcitantes:", [])
-
-      }
-      catch (error) {
+ 
+        // Redirect to the desired page after creating the offer
+        // router.push('/misofertas');
+      } catch (error) {
         console.error('Error al crear la oferta en Firestore:', error);
       }
-
-      // Redirige a la página deseada después de crear la oferta
-      // router.push('/ruta-de-redireccion');
     } else {
-      console.log("campos vacíos")
+      console.log("Campos vacíos");
       console.log("titulo:", titulo, "cargo:", cargo, "jornada:", tipoJornada, "tipoubi:", tipoLocalizacion, "ubicacion:", ubicacion, "descripcion:", descripcion, "experiencia:", habilidades
-      , "adicional:", comentarios.trim(), "empresa:", "blablabla", "solcitantes:", [])
+      , "adicional:", comentarios.trim(), "empresa:", "blablabla", "solcitantes:", []);
     }
   };
-
   return (
     <>
       <Navbar />
