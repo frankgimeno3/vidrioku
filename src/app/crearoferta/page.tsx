@@ -57,7 +57,7 @@ const Crearoferta: FC = () => {
         });
  
         // Redirect to the desired page after creating the offer
-        // router.push('/misofertas');
+        router.push('/misofertas');
       } catch (error) {
         console.error('Error al crear la oferta en Firestore:', error);
       }
