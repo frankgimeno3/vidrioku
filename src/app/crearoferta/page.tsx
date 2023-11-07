@@ -12,7 +12,7 @@ const Crearoferta: FC = () => {
 
   const [titulo, setTitulo] = useState('')
   const [cargo, setCargo] = useState('');
-  const [tipoJornada, setTipoJornada] = useState('');
+  const [tipoJornada, setTipoJornada] = useState('Jornada Completa');
   const [tipoLocalizacion, setTipoLocalizacion] = useState('Híbrido');
   const [ubicacion, setUbicacion] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -27,16 +27,16 @@ const Crearoferta: FC = () => {
       redirect('/signin');
     },
   });
-   const [userData, setUserData] = useState("")
-   
+  const [userData, setUserData] = useState("")
+
   useEffect(() => {
     if (session?.data?.user?.email) {
       setUserData(session.data.user.email);
-    } else {setUserData("Usuario")}
+    } else { setUserData("Usuario") }
   }, [session?.data?.user?.email]);
 
- 
-  
+
+
   const handleHabilidadRequeridaChange = (e: any) => {
     setHabilidadRequerida(e.target.value);
   };
@@ -72,14 +72,14 @@ const Crearoferta: FC = () => {
           empresa: userData,
           solcitantes: [],
         });
- 
+
         // Redirect to the desired page after creating the offer
         router.push('/misofertas');
       } catch (error) {
         console.error('Error al crear la oferta en Firestore:', error);
       }
     } else {
-      console.log("Campos vacíos"); 
+      console.log("Campos vacíos");
     }
   };
   return (
@@ -115,7 +115,7 @@ const Crearoferta: FC = () => {
             id="tipoJornada"
             name="tipoJornada"
             value={tipoJornada}
-            onChange={(e) => setTipoJornada(e.target.value)}
+            onChange={(e) => setTipoJornada(e.target.value)}  
             className="text-gray-500 text-sm mb-2 rounded-md"
           >
             <option>Jornada Completa</option>
@@ -205,3 +205,6 @@ const Crearoferta: FC = () => {
 };
 
 export default Crearoferta;
+
+
+
