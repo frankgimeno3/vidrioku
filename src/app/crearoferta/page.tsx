@@ -7,6 +7,12 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useSession } from 'next-auth/react';
 
+import Titulo from './componentes/Titulo';
+import Cargo from './componentes/Cargo';
+import Jornada from './componentes/Jornada';
+import Localizacion from './componentes/Localizacion';
+
+
 const Crearoferta: FC = () => {
   const router = useRouter();
 
@@ -88,54 +94,12 @@ const Crearoferta: FC = () => {
       <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center px-80">
         <h2 className='py-10'>Crear oferta</h2>
         <form className='flex flex-col mx-72 text-sm '>
-          <label htmlFor="titulo">Título de la oferta</label>
-          <input
-            type="text"
-            id="titulo"
-            name="titulo"
-            placeholder="Introduzca título"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            className="text-gray-500 text-sm mb-2 rounded-md"
-          />
-
-          <label htmlFor="cargo">Cargo ofrecido</label>
-          <input
-            type="text"
-            id="cargo"
-            name="cargo"
-            placeholder="Introduzca cargo"
-            value={cargo}
-            onChange={(e) => setCargo(e.target.value)}
-            className="text-gray-500 text-sm mb-2 rounded-md"
-          />
-
-          <label htmlFor="tipoJornada">Tipo de jornada</label>
-          <select
-            id="tipoJornada"
-            name="tipoJornada"
-            value={tipoJornada}
-            onChange={(e) => setTipoJornada(e.target.value)}  
-            className="text-gray-500 text-sm mb-2 rounded-md"
-          >
-            <option>Jornada Completa</option>
-            <option>Jornada Parcial</option>
-          </select>
-
-          <label htmlFor="tipoLocalizacion">Tipo de localización</label>
-          <select
-            id="tipoLocalizacion"
-            name="tipoLocalizacion"
-            value={tipoLocalizacion}
-            onChange={(e) => setTipoLocalizacion(e.target.value)}
-            className="text-gray-500 text-sm mb-2 rounded-md"
-          >
-            <option>Trabajo Híbrido</option>
-            <option>Trabajo Remoto</option>
-            <option>Trabajo Presencial</option>
-          </select>
-
-          {tipoLocalizacion !== 'Remoto' && (
+        <Titulo titulo={titulo} setTitulo={setTitulo} />
+        <Cargo cargo={cargo} setCargo={setCargo} />
+        <Jornada tipoJornada={tipoJornada} setTipoJornada={setTipoJornada} />
+        <Localizacion tipoLocalizacion={tipoLocalizacion} setTipoLocalizacion={setTipoLocalizacion} />
+  
+        {tipoLocalizacion !== 'Remoto' && (
             <>
               <label htmlFor="ubicacion">Ubicación</label>
               <input
