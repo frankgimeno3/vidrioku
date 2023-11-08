@@ -11,6 +11,10 @@ import Titulo from './componentes/Titulo';
 import Cargo from './componentes/Cargo';
 import Jornada from './componentes/Jornada';
 import Localizacion from './componentes/Localizacion';
+import Ubicacion from './componentes/Ubicacion';
+import Descripcion from './componentes/Descripcion';
+import Requerimientos from './componentes/Requerimientos';
+import Additional from './componentes/Additional';
 
 
 const Crearoferta: FC = () => {
@@ -100,41 +104,12 @@ const Crearoferta: FC = () => {
         <Localizacion tipoLocalizacion={tipoLocalizacion} setTipoLocalizacion={setTipoLocalizacion} />
   
         {tipoLocalizacion !== 'Remoto' && (
-            <>
-              <label htmlFor="ubicacion">Ubicación</label>
-              <input
-                type="text"
-                id="ubicacion"
-                name="ubicacion"
-                placeholder="Introduzca ubicación del empleo"
-                value={ubicacion}
-                onChange={(e) => setUbicacion(e.target.value)}
-                className="text-gray-500 text-sm mb-2 rounded-md"
-              />
-            </>
+            <Ubicacion ubicacion={ubicacion} setUbicacion={setUbicacion}/>
           )}
 
-          <label htmlFor="descripcion">Descripción general del empleo</label>
-          <textarea
-            id="descripcion"
-            name="descripcion"
-            placeholder="Introduzca descripción del empleo"
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            className="text-gray-500 text-sm mb-2 rounded-md"
-          />
-
-          <label htmlFor="habilidadRequerida">Experiencia y habilidades requeridas</label>
-          <input
-            type="text"
-            id="habilidadRequerida"
-            name="habilidadRequerida"
-            placeholder="Insertar habilidad requerida"
-            value={habilidadRequerida}
-            onChange={handleHabilidadRequeridaChange}
-            className="text-gray-500 text-sm mb-2 rounded-md"
-          />
-
+        <Descripcion descripcion={descripcion} setDescripcion={setDescripcion}/>
+        <Requerimientos habilidadRequerida={habilidadRequerida} handleHabilidadRequeridaChange={handleHabilidadRequeridaChange}/>
+          
           <button onClick={handleInsertarHabilidad} className="bg-white px-3 py-1 rounded-lg mx-44 text-sm m-2 text-gray-500 text-sm mb-2">
             Insertar requisitos
           </button>
@@ -149,16 +124,8 @@ const Crearoferta: FC = () => {
               </div>
             ))}
           </ul>
+        <Additional  comentarios={comentarios} setComentarios={setComentarios}  />
 
-          <label htmlFor="comentarios">Comentarios adicionales</label>
-          <textarea
-            id="comentarios"
-            name="comentarios"
-            value={comentarios}
-            onChange={(e) => setComentarios(e.target.value)}
-            className="text-gray-500 text-sm mb-2 rounded-md"
-            placeholder="Añada comentarios adicionales aquí"
-          />
           <button onClick={addOfferInFirebase} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
             Crear oferta
           </button>
