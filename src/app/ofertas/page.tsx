@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import Home from '../components/screens/HomeTrab'
+import Home from '../dashboard/components/HomeTrab'
 import Search from '../search/page'
 import Notifications from '../notifications/page'
 import Perfil from '../components/screens/Perfil2'
