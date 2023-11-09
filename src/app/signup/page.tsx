@@ -30,8 +30,6 @@ export default function Signup() {
   const [genero, setGenero] = useState("");
   const [ubi, setUbi] = useState("");
   const [actividad, setActividad] = useState("");
-
-  const [ubiEmpresa, setUbiEmpresa] = useState("");
   const [cifEmpresa, setCifEmpresa] = useState("");
 
   useEffect(() => {
@@ -49,8 +47,7 @@ export default function Signup() {
       if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
         const userDocRef = doc(db, 'users', email.trim());
     
-        // Utiliza la referencia con el nombre del documento para agregar datos
-        await setDoc(userDocRef, {
+         await setDoc(userDocRef, {
           nombre: nombre.trim(),
           apellidos: apellidos.trim(),
           edad: edad.trim(),
@@ -61,13 +58,14 @@ export default function Signup() {
        }
     }
     else {
-      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
+      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && cifEmpresa!== '' ) {
         const userDocRef = doc(db, 'users', email.trim());
     
          await setDoc(userDocRef, {
           nombre: nombre.trim(),
           actividad: actividad.trim(),
-          userType: userType.trim()
+          userType: userType.trim(),
+          cifEmpresa: cifEmpresa.trim()
         });
        }
     }
@@ -117,7 +115,7 @@ export default function Signup() {
                   <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain} />
                   {userType === "profesional" && <ProfesionalesContent setNombre={setNombre} setApellidos={setApellidos}
                     setEdad={setEdad} setGenero={setGenero} setUbi={setUbi} />}
-                  {userType === "empresa" && <EmpresasContent setNombre={setNombre} setActividad={setActividad} />}
+                  {userType === "empresa" && <EmpresasContent setNombre={setNombre} setActividad={setActividad} setCifEmpresa={setCifEmpresa} />}
                   <div>
                     <button
                       disabled={(!email || !password || !passwordAgain || !setNombre || !setApellidos || !setUbi) || (password !== passwordAgain)}
