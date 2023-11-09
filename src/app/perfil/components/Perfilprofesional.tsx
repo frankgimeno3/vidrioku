@@ -5,7 +5,7 @@ import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from '
 import { db } from '../../firebase';
 
 
-interface PerfilempresaProps {
+interface PerfilprofesionalProps {
   userData: any
 }
 
@@ -18,7 +18,7 @@ interface User {
   userEmail: string;
 }
 
-const Perfilempresa: FC<PerfilempresaProps> = ({ userData }) => {
+const Perfilprofesional: FC<PerfilprofesionalProps> = ({ userData }) => {
   const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
   const filteredUsers = users.filter((user) => user.userEmail === userData.t);
@@ -50,7 +50,7 @@ const Perfilempresa: FC<PerfilempresaProps> = ({ userData }) => {
         {filteredUsers.map((user, id) => (
           <li key={id} className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-600">
             <div className="flex flex-col p-4 w-full flex justify-between text-center justify-center px--auto">
-              <Image src="/icons/empresas.png" alt="" width={200} height={200} className="mx-auto my-5" />
+              <Image src="/icons/profesionals.png" alt="" width={200} height={200} className="mx-auto my-5" />
               <div className="flex flex-row mx-auto">
                 <span className="mr-1">{user.nombre}</span>
                 <span className="capitalize">{user.apellidos}</span>
@@ -65,7 +65,7 @@ const Perfilempresa: FC<PerfilempresaProps> = ({ userData }) => {
                <div >
                 <button
                   className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
-                >Editar información de mi perfil de empresa</button>
+                >Editar información de mi perfil de profesional</button>
               </div>
             </div>
           </li>
@@ -79,4 +79,4 @@ const Perfilempresa: FC<PerfilempresaProps> = ({ userData }) => {
   );
 };
 
-export default Perfilempresa;
+export default Perfilprofesional;

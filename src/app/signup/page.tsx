@@ -31,7 +31,6 @@ export default function Signup() {
   const [ubi, setUbi] = useState("");
   const [actividad, setActividad] = useState("");
 
-  const [nombreEmpresa, setNombreEmpresa] = useState("");
   const [ubiEmpresa, setUbiEmpresa] = useState("");
   const [cifEmpresa, setCifEmpresa] = useState("");
 
@@ -46,18 +45,32 @@ export default function Signup() {
   };
 
   const addUserInFirebase = async () => {
-    if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
-      const userDocRef = doc(db, 'users', email.trim());
-  
-      // Utiliza la referencia con el nombre del documento para agregar datos
-      await setDoc(userDocRef, {
-        nombre: nombre.trim(),
-        apellidos: apellidos.trim(),
-        edad: edad.trim(),
-        genero: genero.trim(),
-        ubi: ubi.trim(),
-      });
-     }
+    if (userType == 'profesional'){
+      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
+        const userDocRef = doc(db, 'users', email.trim());
+    
+        // Utiliza la referencia con el nombre del documento para agregar datos
+        await setDoc(userDocRef, {
+          nombre: nombre.trim(),
+          apellidos: apellidos.trim(),
+          edad: edad.trim(),
+          genero: genero.trim(),
+          ubi: ubi.trim(),
+          userType: userType.trim()
+        });
+       }
+    }
+    else {
+      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
+        const userDocRef = doc(db, 'users', email.trim());
+    
+         await setDoc(userDocRef, {
+          nombre: nombre.trim(),
+          actividad: actividad.trim(),
+          userType: userType.trim()
+        });
+       }
+    }
   };
 
   const signup = () => {
