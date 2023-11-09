@@ -37,10 +37,8 @@ export default function Dashboard() {
   useEffect(() => {
     if (session?.data?.user?.email) {
       setUserData(session.data.user.email);
-      console.log(userData);
     } else {
       setUserData('Usuario');
-      console.log(userData);
     }
   }, [session?.data?.user?.email]);
   
@@ -50,8 +48,9 @@ export default function Dashboard() {
         const docRef = doc(db, "users", userData);
         const response = await getDoc(docRef);
         if (response.exists()) {
-          const userData = response.data() as User;
-          setUserType(userData.userType);
+          const myUserData = response.data() as User;
+          setUserType(myUserData.userType);
+          console.log(myUserData)
         }
       }
     };
@@ -65,9 +64,8 @@ export default function Dashboard() {
 
       <main className='h-screen bg-zinc-500 '>
         <Navbar />
-        <p className='bg-red text-black text-2xl py-24'>. {userType}</p>
-       {userType == 'empresa' && <HomeEmpr userData={userData} />}
-       {userType == 'profesional' &&<HomeTrab userData={userData} /> }
+        {userType == 'empresa' && <HomeEmpr userData={userData} />}
+        {userType == 'profesional' &&<HomeTrab userData={userData} /> }
         {/* <Footer onPageChange={handlePageChange} /> */}
 
       </main>
