@@ -58,9 +58,7 @@ export default function Dashboard() {
 
     fetchDoc();
   }, [userData]);
- 
- 
- 
+  
 
   return (
     <div className="">
@@ -68,8 +66,8 @@ export default function Dashboard() {
       <main className='h-screen bg-zinc-500 '>
         <Navbar />
         <p className='bg-red text-black text-2xl py-24'>. {userType}</p>
-        {/* <HomeEmpr userData={userData} />
-        <HomeTrab userData={userData} /> */}
+       {userType == 'empresa' && <HomeEmpr userData={userData} />}
+       {userType == 'profesional' &&<HomeTrab userData={userData} /> }
         {/* <Footer onPageChange={handlePageChange} /> */}
 
       </main>
