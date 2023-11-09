@@ -15,6 +15,7 @@ import HomeTrab from './components/HomeTrab';
 interface User {
   id: any,
   userEmail: string;
+  userType: string;
 }
 
 
@@ -45,15 +46,21 @@ export default function Dashboard() {
   
   useEffect(() => {
     const fetchDoc = async () => {
-      const docRef = doc(db, "users", userData);
-      const response = await getDoc(docRef);
-  
-      console.log("Document data:", response.data());
-      setDocSnap(response); // Actualizar el estado de docSnap
+      if (userData) {
+        const docRef = doc(db, "users", userData);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const userData = response.data() as User;
+          setUserType(userData.userType);
+        }
+      }
     };
-  
+
     fetchDoc();
   }, [userData]);
+ 
+ 
+ 
 
   return (
     <div className="">
