@@ -29,6 +29,7 @@ export default function Signup() {
   const [edad, setEdad] = useState("");
   const [genero, setGenero] = useState("");
   const [ubi, setUbi] = useState("");
+  const [actividad, setActividad] = useState("");
 
   const [nombreEmpresa, setNombreEmpresa] = useState("");
   const [ubiEmpresa, setUbiEmpresa] = useState("");
@@ -103,7 +104,7 @@ export default function Signup() {
                   <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain} />
                   {userType === "profesional" && <ProfesionalesContent setNombre={setNombre} setApellidos={setApellidos}
                     setEdad={setEdad} setGenero={setGenero} setUbi={setUbi} />}
-                  {userType === "empresa" && <EmpresasContent />}
+                  {userType === "empresa" && <EmpresasContent setNombre={setNombre} setActividad={setActividad} />}
                   <div>
                     <button
                       disabled={(!email || !password || !passwordAgain || !setNombre || !setApellidos || !setUbi) || (password !== passwordAgain)}
