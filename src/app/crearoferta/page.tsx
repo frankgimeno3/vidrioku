@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
-import { addDoc, collection } from 'firebase/firestore';
+import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useSession } from 'next-auth/react';
 
@@ -81,6 +81,7 @@ const Crearoferta: FC = () => {
           adicional: comentarios.trim(),
           empresa: userData,
           solcitantes: [],
+          publicación: Timestamp.now
         });
 
         // Redirect to the desired page after creating the offer
@@ -103,7 +104,7 @@ const Crearoferta: FC = () => {
         <Jornada tipoJornada={tipoJornada} setTipoJornada={setTipoJornada} />
         <Localizacion tipoLocalizacion={tipoLocalizacion} setTipoLocalizacion={setTipoLocalizacion} />
   
-        {tipoLocalizacion !== 'Remoto' && (
+        {tipoLocalizacion !== 'Trabajo Remoto' && (
             <Ubicacion ubicacion={ubicacion} setUbicacion={setUbicacion}/>
           )}
 

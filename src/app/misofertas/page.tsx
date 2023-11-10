@@ -62,7 +62,8 @@ const Misofertas: FC = () => {
 
       <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
         <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Mis Ofertas</h2>
-        <div className="p-5">
+        <div className="p-5 bg-white bg-opacity-10 ">
+          <h2 className='ml-56'>Ofertas activas</h2>
           {misOfertas.map((oferta, index) => (
             <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
               <h3 className='font-medium'>{oferta.titulo}</h3>
@@ -70,6 +71,24 @@ const Misofertas: FC = () => {
               <div className='flex flex-row justify-center pt-3'>
                 <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Editar oferta</button>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver perfiles recomendados</button>
+                <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Desactivar oferta</button>
+                <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar oferta</button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="p-5 bg-white bg-opacity-10 ">
+          <h2 className='ml-56'>Ofertas inactivas</h2>
+          {misOfertas.map((oferta, index) => (
+            <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
+              <h3 className='font-medium'>{oferta.titulo}</h3>
+              <p>{oferta.cargo}</p>
+              <div className='flex flex-row justify-center pt-3'>
+                <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Reactivar oferta</button>
+                <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar oferta</button>
+
               </div>
             </div>
           ))}
