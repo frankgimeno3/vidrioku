@@ -59,7 +59,7 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({  }) => {
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre}</h2>
           <div className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-600">
             <div className="flex flex-col p-4 w-full flex justify-between text-center justify-center px--auto">
-              <Image src="/icons/profesionals.png" alt="" width={200} height={200} className="mx-auto my-5" />
+              <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5" />
               <div className="flex flex-row mx-auto">
                 <span className="mr-1">{user?.nombre}</span>
                 <span className="capitalize">{user?.apellidos}</span>

@@ -61,7 +61,6 @@ export default function Miperfil() {
 
       <main className='h-screen bg-zinc-500 '>
         <Navbar />
-        {userType}
         {userType == 'empresa' && <Perfilempresa userData={userData} />}
         {userType == 'profesional' && <Perfilprofesional userData={userData} />}
         {/* <Footer onPageChange={handlePageChange} /> */}
