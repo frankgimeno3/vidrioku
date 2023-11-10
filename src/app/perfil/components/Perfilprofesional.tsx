@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { useSession } from 'next-auth/react';
 
 
 interface PerfilprofesionalProps {
@@ -18,14 +19,14 @@ interface User {
   userEmail: string;
 }
 
-const Perfilprofesional: FC<PerfilprofesionalProps> = ({ userData }) => {
+const Perfilprofesional: FC<PerfilprofesionalProps> = ({  }) => {
   const session = useSession({
     required: true,
     onUnauthenticated() {
       redirect('/signin');
     },
   });
-  const [userType, setUserType] = useState<string>('');
+  const [user, setUser] = useState<User>();
   const [userData, setUserData] = useState("")
   const router = useRouter();
 
@@ -44,7 +45,7 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ userData }) => {
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
-          setUserType(myUserData.userType);
+          setUser(myUserData);
           console.log(myUserData)
         }
       }
@@ -55,21 +56,19 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ userData }) => {
 
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
-      <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">  {filteredUsers.map((user, id) => (user.nombre))} S.A.</h2>
-      <ul>
-        {filteredUsers.map((user, id) => (
-          <li key={id} className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-600">
+      <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre}</h2>
+          <div className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-600">
             <div className="flex flex-col p-4 w-full flex justify-between text-center justify-center px--auto">
               <Image src="/icons/profesionals.png" alt="" width={200} height={200} className="mx-auto my-5" />
               <div className="flex flex-row mx-auto">
-                <span className="mr-1">{user.nombre}</span>
-                <span className="capitalize">{user.apellidos}</span>
+                <span className="mr-1">{user?.nombre}</span>
+                <span className="capitalize">{user?.apellidos}</span>
               </div>
               <div className="flex flex-row mx-auto">
-                <span className='mr-1'>{user.edad} </span>
-                <span className="capitalize">({user.genero})</span>
+                <span className='mr-1'>{user?.edad} </span>
+                <span className="capitalize">({user?.genero})</span>
               </div>
-              <span>{user.ubi}</span>
+              <span>{user?.ubi}</span>
               <span>{userData}</span>
         
                <div >
@@ -78,10 +77,8 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ userData }) => {
                 >Editar información de mi perfil de profesional</button>
               </div>
             </div>
-          </li>
-        ))}
-      </ul>
-      <div className='mx-auto mt-5'>
+          </div>
+       <div className='mx-auto mt-5'>
       <h2>Ofertas activas</h2> 
 
       </div>
