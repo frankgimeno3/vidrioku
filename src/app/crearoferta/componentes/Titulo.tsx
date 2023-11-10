@@ -6,7 +6,7 @@ interface TituloProps {
   
   const Titulo: React.FC<TituloProps> = ({ titulo, setTitulo }) => {
   return (
-    <div>
+    <div className='flex flex-col'>
       <label htmlFor="titulo">Título de la oferta</label>
       <input
         type="text"
