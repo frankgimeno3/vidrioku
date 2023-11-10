@@ -19,29 +19,39 @@ interface User {
 }
 
 const Perfilprofesional: FC<PerfilprofesionalProps> = ({ userData }) => {
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signin');
+    },
+  });
+  const [userType, setUserType] = useState<string>('');
+  const [userData, setUserData] = useState("")
   const router = useRouter();
-  const [users, setUsers] = useState<User[]>([]);
-  const filteredUsers = users.filter((user) => user.userEmail === userData.t);
 
   useEffect(() => {
-    const q = query(collection(db, 'users'));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let usersArr: any = [];
-
-      querySnapshot.forEach((doc: any) => {
-        usersArr.push({ ...doc.data(), id: doc.id });
-      });
-      setUsers(usersArr);
-
-    });
-  }, []);
+    if (session?.data?.user?.email) {
+      setUserData(session.data.user.email);
+    } else {
+      setUserData('Usuario');
+    }
+  }, [session?.data?.user?.email]);
+  
   useEffect(() => {
-    console.log("userdata: ", { userData })
-  }, []);
+    const fetchDoc = async () => {
+      if (userData) {
+        const docRef = doc(db, "users", userData);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const myUserData = response.data() as User;
+          setUserType(myUserData.userType);
+          console.log(myUserData)
+        }
+      }
+    };
 
-  const crearofertahandler = ()=>{
-    router.push("/crearoferta")
-  }
+    fetchDoc();
+  }, [userData]);
 
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
