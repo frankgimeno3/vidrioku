@@ -42,6 +42,10 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
     router.push("/crearoferta")
   }
 
+  const misofertashandler = ()=>{
+    router.push("/misofertas")
+  }
+
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
@@ -82,12 +86,20 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
         </div>
         <div className='h-full flex-1 text-center my-3'>
         <p className='font-bold'>Mis ofertas de empleo</p>
-          <button
+        <button
             className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
             onClick={crearofertahandler}
           >Crear oferta de empleo</button>
         </div>
-        <div className='h-full flex-1 text-center my-3'>
+        <button
+            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
+            onClick={crearofertahandler}
+          >Ofertas Activas</button>
+         <button
+            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
+            onClick={crearofertahandler}
+          >Histórico de ofertas</button>
+         <div className='h-full flex-1 text-center my-3'>
           <p className='font-bold'>Han visto tu currículum</p>
           <p>2 empresas esta semana</p>
           <p>4 empresas este mes</p>

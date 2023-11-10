@@ -10,10 +10,12 @@ const firebaseConfig = {
   authDomain: "vidrioku-b757e.firebaseapp.com",
   projectId: "vidrioku-b757e",
   storageBucket: "vidrioku-b757e.appspot.com",
+  // storageBucket: "gs://vidrioku-b757e.appspot.com",           ESTO LO HARÉ SEMANA QUE VIENE
   messagingSenderId: "227150739660",
   appId: "1:227150739660:web:b98796ce21c6f095756a69"
 };
 
+// var storage = firebase.storage()     ESTO LO HARÉ SEMANA QUE VIENE
 
 // Initialize Firebase
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
