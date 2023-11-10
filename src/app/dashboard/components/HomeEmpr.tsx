@@ -84,21 +84,19 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
           >Ver mensajes de empleo</button>
         </div>
-        <div className='h-full flex-1 text-center my-3'>
+        <div className='flex h-full flex-1 flex-col text-center my-3'>
         <p className='font-bold'>Mis ofertas de empleo</p>
         <button
-            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
+            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1 mx-32"
             onClick={crearofertahandler}
           >Crear oferta de empleo</button>
+          <button
+            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1 mx-32"
+            onClick={misofertashandler}
+          >Mis Ofertas</button>
+ 
         </div>
-        <button
-            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
-            onClick={crearofertahandler}
-          >Ofertas Activas</button>
-         <button
-            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
-            onClick={crearofertahandler}
-          >Histórico de ofertas</button>
+        
          <div className='h-full flex-1 text-center my-3'>
           <p className='font-bold'>Han visto tu currículum</p>
           <p>2 empresas esta semana</p>
