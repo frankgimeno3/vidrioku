@@ -49,6 +49,7 @@ export default function Signup() {
     
          await setDoc(userDocRef, {
           nombre: nombre.trim(),
+          email: email.trim(),
           apellidos: apellidos.trim(),
           edad: edad.trim(),
           genero: genero.trim(),
