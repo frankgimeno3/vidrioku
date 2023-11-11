@@ -81,9 +81,9 @@ const Crearoferta: FC = () => {
           adicional: comentarios.trim(),
           empresa: userData,
           solcitantes: [],
-          publicación: Timestamp.now
+          publicacion: Timestamp.now() // Corrección aquí
         });
-
+  
         // Redirect to the desired page after creating the offer
         router.push('/misofertas');
       } catch (error) {
