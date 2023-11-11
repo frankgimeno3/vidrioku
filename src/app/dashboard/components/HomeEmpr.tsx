@@ -37,7 +37,12 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
     fetchDoc();
   }, [userData]);
   
-
+const chathandler = ()=>{
+  router.push("/chat")
+}
+  const perfilhandler = ()=>{
+    router.push("/perfil")
+  }
   const crearofertahandler = ()=>{
     router.push("/crearoferta")
   }
@@ -65,14 +70,11 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
               <span>{userData}</span>
               <div >
                 <button
+                    onClick={perfilhandler}
                   className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
                 >Perfil de empresa completo</button>
               </div>
-              <div >
-                <button
-                  className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
-                >Editar información de mi perfil de empresa</button>
-              </div>
+ 
             </div>
           </div>
  
@@ -82,6 +84,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
           <p className='font-bold'>Mensajes nuevos</p>
           <button
             className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
+            onClick={chathandler}
           >Ver mensajes de empleo</button>
         </div>
         <div className='flex h-full flex-1 flex-col text-center my-3'>
