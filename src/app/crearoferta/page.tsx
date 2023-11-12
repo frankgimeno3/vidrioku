@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
-import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useSession } from 'next-auth/react';
 
@@ -65,6 +65,23 @@ const Crearoferta: FC = () => {
     setHabilidades(nuevasHabilidades);
   };
 
+  const addOfferToAuthor = async (userId: string, offerId: string) => {
+    try {
+      const docRef = doc(db, "users", userId);
+      const userDoc = await getDoc(docRef);
+  
+      if (userDoc.exists()) {
+        const ofertasCreadas = userDoc.data().ofertascreadas || [];
+        ofertasCreadas.push(offerId);
+        await setDoc(docRef, { ofertasCreadas });
+      } else {
+        console.error('El documento del usuario no existe');
+      }
+    } catch (error) {
+      console.error('Error al añadir la oferta al autor:', error);
+    }
+  };
+  
   const addOfferInFirebase = async (event: any) => {
     event.preventDefault();
     if (titulo !== '' && cargo !== '' && tipoJornada !== '' && tipoLocalizacion !== '') {
@@ -81,11 +98,10 @@ const Crearoferta: FC = () => {
           adicional: comentarios.trim(),
           empresa: userData,
           solcitantes: [],
-          publicacion: Timestamp.now() // Corrección aquí
+          publicacion: Timestamp.now()  
         });
   
-        // Redirect to the desired page after creating the offer
-        router.push('/misofertas');
+         router.push('/misofertas');
       } catch (error) {
         console.error('Error al crear la oferta en Firestore:', error);
       }
