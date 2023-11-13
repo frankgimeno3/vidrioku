@@ -10,11 +10,10 @@ import Oferta from './compListados/Oferta';
 import Rendercomponent from './compListados/rendercomponent/Rendercomponent';
 
 interface OfertasListProps {
-  userData: any
-}
+ }
 
 
-const OfertasList: FC<OfertasListProps> = ({ userData }) => {
+const OfertasList: FC<OfertasListProps> = ({   }) => {
   const router = useRouter();
 
 
