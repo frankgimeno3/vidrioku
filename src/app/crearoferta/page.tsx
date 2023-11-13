@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
-import { Timestamp, addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useSession } from 'next-auth/react';
 
@@ -71,9 +71,21 @@ const Crearoferta: FC = () => {
       const userDoc = await getDoc(docRef);
   
       if (userDoc.exists()) {
-        const ofertasCreadas = userDoc.data().ofertascreadas || [];
-        ofertasCreadas.push(offerId);
-        await setDoc(docRef, { ofertasCreadas });
+        const userData = userDoc.data();
+  
+        if (userData.ofertascreadas && Array.isArray(userData.ofertascreadas)) {
+          // Conservar el resto del documento y agregar el nuevo offerId al array existente
+          await setDoc(docRef, {
+            ...userData,
+            ofertascreadas: [...userData.ofertascreadas, offerId],
+          });
+        } else {
+          // Si ofertascreadas no existe o no es un array, crea uno nuevo
+          await setDoc(docRef, {
+            ...userData,
+            ofertascreadas: [offerId],
+          });
+        }
       } else {
         console.error('El documento del usuario no existe');
       }
