@@ -15,7 +15,9 @@ interface OfertasListProps {
 
 const OfertasList: FC<OfertasListProps> = ({   }) => {
   const router = useRouter();
+  const [selectedComponent, setSelectedComponent] = useState("none")
 
+  
 
   return (
     <div className="flex flex-col  min-h-screen bg-zinc-800 ">
