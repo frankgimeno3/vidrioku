@@ -100,7 +100,7 @@ const Crearoferta: FC = () => {
           solcitantes: [],
           publicacion: Timestamp.now()  
         });
-  
+        addOfferToAuthor(userData, newOfferRef.id)
          router.push('/misofertas');
       } catch (error) {
         console.error('Error al crear la oferta en Firestore:', error);
