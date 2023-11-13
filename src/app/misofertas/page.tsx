@@ -56,12 +56,20 @@ const Misofertas: FC = () => {
     return <p>Cargando ofertas...</p>;
   }
 
+  const nuevaofertahandler = ()=>{
+    router.push("/crearoferta")
+  }
+
   return (
     <>
       <Navbar />
 
       <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
-        <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Mis Ofertas</h2>
+        <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
+          <h2 className="   font-bold text-lg   ">Mis Ofertas</h2>
+          <button className='bg-white rounded-lg px-3 py-1 text-sm text-gray-500'
+          onClick={nuevaofertahandler}>Crear nueva oferta</button>
+        </div>
         <div className="p-5 bg-white bg-opacity-10 ">
           <h2 className='ml-56'>Ofertas activas</h2>
           {misOfertas.map((oferta, index) => (
