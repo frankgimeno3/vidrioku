@@ -44,7 +44,7 @@ const OfertasList: FC<OfertasListProps> = ({   }) => {
             </nav>
           </div>
           <div className='flex-1 h-full bg-gray-100 p-5'>
-            <Rendercomponent/>
+            <Rendercomponent selectedComponent={selectedComponent}/>
           </div>
 
         </div>
