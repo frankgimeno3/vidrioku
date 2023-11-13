@@ -110,7 +110,8 @@ const Crearoferta: FC = () => {
           adicional: comentarios.trim(),
           empresa: userData,
           solcitantes: [],
-          publicacion: Timestamp.now()  
+          publicacion: Timestamp.now(),
+          estado: "activa"
         });
         addOfferToAuthor(userData, newOfferRef.id)
          router.push('/misofertas');
