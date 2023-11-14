@@ -30,12 +30,12 @@ type Oferta = {
 
 const OfertasList: FC<OfertasListProps> = ({ }) => {
   const router = useRouter();
-  const [selectedComponent, setSelectedComponent] = useState("none")
+  const [renderoferta, setrenderoferta] = useState<Oferta | null>(null);
   const [loading, setLoading] = useState(true);
   const [misOfertas, setMisOfertas] = useState<Oferta[]>([]);
 
-  const componentselectorhandler = () => {
-    setSelectedComponent("nombredelcomponent")
+  const handleOfertaClick = (oferta: Oferta) => {
+    setrenderoferta(oferta);
   }
 
   useEffect(() => {
@@ -77,11 +77,20 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
               <Pasarela /> */}
             <ul className='max-h-full overflow-scroll'>
               {misOfertas.map((oferta, index) => (
-                <Oferta key={index} titulo={oferta.titulo} cargo={oferta.cargo} jornada={oferta.jornada} tipoubi={oferta.tipoubi}
-                 ubicacion={oferta.ubicacion} descripcion={oferta.descripcion} experiencia={oferta.experiencia} adicional={oferta.adicional} 
-                 empresa={oferta.empresa}  estado={oferta.estado}
-                //  publicacion={oferta.publicacion}
-                 />
+                <div key={index} onClick={() => handleOfertaClick(oferta)}>
+                  <Oferta
+                    titulo={oferta.titulo}
+                    cargo={oferta.cargo}
+                    jornada={oferta.jornada}
+                    tipoubi={oferta.tipoubi}
+                    ubicacion={oferta.ubicacion}
+                    descripcion={oferta.descripcion}
+                    experiencia={oferta.experiencia}
+                    adicional={oferta.adicional}
+                    empresa={oferta.empresa}
+                    estado={oferta.estado}
+                  />
+                </div>
               ))}
             </ul>
             <nav className="bg-gray-200 py-2 px-1 text-center ">
@@ -89,9 +98,21 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
             </nav>
           </div>
           <div className='flex-1 h-full bg-gray-100 p-5'>
-            <Rendercomponent selectedComponent={selectedComponent} />
+            {renderoferta && (
+              <Rendercomponent
+                titulo={renderoferta.titulo}
+                cargo={renderoferta.cargo}
+                jornada={renderoferta.jornada}
+                tipoubi={renderoferta.tipoubi}
+                ubicacion={renderoferta.ubicacion}
+                descripcion={renderoferta.descripcion}
+                experiencia={renderoferta.experiencia}
+                adicional={renderoferta.adicional}
+                empresa={renderoferta.empresa}
+                estado={renderoferta.estado}
+              />
+            )}
           </div>
-
         </div>
 
       </div>
