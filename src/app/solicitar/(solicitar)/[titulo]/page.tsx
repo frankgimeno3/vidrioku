@@ -5,10 +5,10 @@ import Navbar from '../../../components/Navbar'
 
 type Params = {
   params: {
-    titulo: any
+    id: any
   }
 }
-const Solicitud = async ({params: {titulo}}: Params) => {
+const Solicitud = async ({params: {id}}: Params) => {
   const router = useRouter();
    return (
 <>
@@ -17,7 +17,7 @@ const Solicitud = async ({params: {titulo}}: Params) => {
 
 <div className='flex flex-col   mx-12 bg-white '>
   <div className='bg-white flex flex-row w-full h-screen'>
-    <h1 className='text-black text-5xl'>{titulo}</h1>
+    <h1 className='text-black text-5xl'>{id}</h1>
   </div>
   </div>
   </div>
