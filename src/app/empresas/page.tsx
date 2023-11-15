@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function empresas(props) {
+function empresas() {
   return (
     <div>empresas</div>
   )
