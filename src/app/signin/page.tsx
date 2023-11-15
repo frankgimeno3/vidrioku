@@ -43,7 +43,11 @@ export default function Signin() {
               </h2>
             </div>
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm"
+            onSubmit={(e) => {
+              e.preventDefault();
+              signIn('credentials', { email, password, redirect: true, callbackUrl: '/dashboard' });
+          }}>
               <div className="space-y-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
@@ -103,7 +107,7 @@ export default function Signin() {
                   Crear una cuenta
                 </button>
               </p>
-            </div>
+            </form>
           </div>
         </div>
       </div>
