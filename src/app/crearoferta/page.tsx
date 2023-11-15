@@ -100,6 +100,7 @@ const Crearoferta: FC = () => {
       try {
         const offersCollection = collection(db, 'ofertas');
         const newOfferRef = await addDoc(offersCollection, {
+          id:'',
           titulo: titulo.trim(),
           cargo: cargo.trim(),
           jornada: tipoJornada.trim(),
@@ -111,8 +112,11 @@ const Crearoferta: FC = () => {
           empresa: userData,
           solcitantes: [],
           publicacion: Timestamp.now(),
-          estado: "activa"
+          estado: "activa",
+
         });
+        await updateDoc(newOfferRef, { id: newOfferRef.id });
+
         addOfferToAuthor(userData, newOfferRef.id)
          router.push('/misofertas');
       } catch (error) {

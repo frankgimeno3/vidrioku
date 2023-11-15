@@ -26,6 +26,7 @@ type Oferta = {
   empresa: string,
   publicacion: Timestamp,
   estado: string,
+  id: any
 };
 
 const OfertasList: FC<OfertasListProps> = ({ }) => {
@@ -45,10 +46,10 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
       const ofertasCollection = collection(db, 'ofertas');
       const q = query(ofertasCollection);
       const querySnapshot = await getDocs(q);
-
       const offersData: Oferta[] = [];
       querySnapshot.forEach((doc) => {
         offersData.push(doc.data() as Oferta);
+        console.log(offersData )
       });
 
       setMisOfertas(offersData);
@@ -79,6 +80,7 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
               {misOfertas.map((oferta, index) => (
                 <div key={index} onClick={() => handleOfertaClick(oferta)}>
                   <Oferta
+                    id={oferta.id} 
                     titulo={oferta.titulo}
                     cargo={oferta.cargo}
                     jornada={oferta.jornada}
