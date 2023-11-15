@@ -4,6 +4,7 @@ import Descripcion from '@/app/crearoferta/componentes/Descripcion';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 interface RendercomponentProps {
+    id:any,
     titulo: string,
     cargo: string,
     jornada: string,
@@ -16,7 +17,7 @@ interface RendercomponentProps {
     estado: string,
 }
 
-const Rendercomponent: FC<RendercomponentProps> = ({ titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia,
+const Rendercomponent: FC<RendercomponentProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia,
     adicional, empresa, estado }) => {
     const router = useRouter();
 
@@ -50,7 +51,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ titulo, cargo, jornada, tip
             </p>
             <p className='text-sm mt-1'>
                 {adicional}            </p>
-            <Link href={`/solicitar/${titulo}}`}>
+            <Link href={`/solicitar/${id}}`}>
                 <button className='p-2 border shadow-lg rounded-lg text-xs mt-5' >
                     Solicitar Empleo</button>
             </Link>

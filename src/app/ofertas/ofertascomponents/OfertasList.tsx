@@ -80,7 +80,6 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
               {misOfertas.map((oferta, index) => (
                 <div key={index} onClick={() => handleOfertaClick(oferta)}>
                   <Oferta
-                    id={oferta.id } 
                     titulo={oferta.titulo}
                     cargo={oferta.cargo}
                     jornada={oferta.jornada}
@@ -102,6 +101,7 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
           <div className='flex-1 h-full bg-gray-100 p-5'>
             {renderoferta && (
               <Rendercomponent
+                id={oferta.id } 
                 titulo={renderoferta.titulo}
                 cargo={renderoferta.cargo}
                 jornada={renderoferta.jornada}
