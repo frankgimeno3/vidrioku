@@ -20,7 +20,7 @@ interface RendercomponentProps {
 const Rendercomponent: FC<RendercomponentProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia,
     adicional, empresa, estado }) => {
     const router = useRouter();
-    const queryParams = `?id=${id}`
+
 
     return (
         <div className='flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll'>
@@ -51,7 +51,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ id, titulo, cargo, jornada,
             </p>
             <p className='text-sm mt-1'>
                 {adicional}            </p>
-            <Link href={`/solicitar${queryParams}}`}>
+            <Link href={`/solicitar/${id}}`}>
                 <button className='p-2 border shadow-lg rounded-lg text-xs mt-5' >
                     Solicitar Empleo</button>
             </Link>

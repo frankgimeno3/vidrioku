@@ -3,7 +3,7 @@ import { FC } from 'react';
  import Navbar from '../../../components/Navbar'
 
 interface SolicitudProps   {
-  params: {id: any}
+  params: {id: string}
 }
 
 type Oferta = {
