@@ -1,3 +1,4 @@
+"use client"
 import { FC } from "react";
 import Image from "next/image";
 import Descripcion from "@/app/crearoferta/componentes/Descripcion";
@@ -31,8 +32,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({
     empresa,
     estado,
 }) => {
-    const router = useRouter();
-
+ 
     return (
         <div className="flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll">
             <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
