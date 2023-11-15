@@ -31,7 +31,6 @@ const Solicitud: FC <SolicitudProps>=  ({params}) => {
   <div className='bg-white flex flex-row w-full h-screen'>
     <h3 className='bg-red-200 text-black'>no me está mostrando el {params.id}</h3>
  
-
   </div>
   </div>
   </div>
