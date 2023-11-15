@@ -94,8 +94,7 @@ export default function Dashboard() {
     <div className="">
 
       <main className='h-screen bg-zinc-500 '>
-      <Navbar currentComponent={currentComponent} setCurrentComponent={setCurrentComponent}
-        isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Navbar   />
       {componentToRender}
       <Footer onPageChange={handlePageChange} />
       <div className={isMenuOpen ?
