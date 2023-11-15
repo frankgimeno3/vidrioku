@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Image from 'next/image';
 import Descripcion from '@/app/crearoferta/componentes/Descripcion';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 interface RendercomponentProps {
     titulo: string,
     cargo: string,
@@ -19,11 +20,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ titulo, cargo, jornada, tip
     adicional, empresa, estado }) => {
     const router = useRouter();
 
-    const handleSolicitarEmpleo = () => {
-        const queryParams = `?titulo=${titulo}&cargo=${cargo}&jornada=${jornada}&ubicacion=${ubicacion}&descripcion=${descripcion}&experiencia=${experiencia}&adicional=${adicional}&empresa=${empresa}&estado=${estado}`;
-        router.push(`/solicitar${queryParams}`);
-    };
-
+ 
     return (
         <div className='flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll'>
             <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
@@ -53,9 +50,10 @@ const Rendercomponent: FC<RendercomponentProps> = ({ titulo, cargo, jornada, tip
             </p>
             <p className='text-sm mt-1'>
                 {adicional}            </p>
-            <button className='p-2 border shadow-lg rounded-lg text-xs mt-5' 
-            onClick={handleSolicitarEmpleo}>
-                Solicitar Empleo</button>
+            <Link href={`/ofertas/${titulo}}`}>
+                <button className='p-2 border shadow-lg rounded-lg text-xs mt-5' >
+                    Solicitar Empleo</button>
+            </Link>
 
         </div>
 
