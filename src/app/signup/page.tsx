@@ -43,11 +43,11 @@ export default function Signup() {
   };
 
   const addUserInFirebase = async () => {
-    if (userType == 'profesional'){
+    if (userType == 'profesional') {
       if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
         const userDocRef = doc(db, 'users', email.trim());
-    
-         await setDoc(userDocRef, {
+
+        await setDoc(userDocRef, {
           nombre: nombre.trim(),
           email: email.trim(),
           apellidos: apellidos.trim(),
@@ -56,20 +56,20 @@ export default function Signup() {
           ubi: ubi.trim(),
           userType: userType.trim()
         });
-       }
+      }
     }
     else {
-      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && cifEmpresa!== '' ) {
+      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && cifEmpresa !== '') {
         const userDocRef = doc(db, 'users', email.trim());
-    
-         await setDoc(userDocRef, {
+
+        await setDoc(userDocRef, {
           nombre: nombre.trim(),
           email: email.trim(),
           actividad: actividad.trim(),
           userType: userType.trim(),
           cifEmpresa: cifEmpresa.trim()
         });
-       }
+      }
     }
   };
 
@@ -111,7 +111,10 @@ export default function Signup() {
             {isAccepted === false && <>
 
               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <div className="space-y-6">
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  signup();
+                }} className="space-y-6">
                   <Correo setEmail={setEmail} />
                   <Tipo userType={userType} handleUserTypeChange={handleUserTypeChange} />
                   <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain} />
@@ -127,20 +130,20 @@ export default function Signup() {
                       Crear cuenta
                     </button>
                   </div>
-                </div>
-              </div>
-            </>}
-            {isAccepted && <>
-              <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-                Cuenta creada con éxito
-              </h2>
-              <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-                Redireccionando al inicio de sesión...
-              </h2>
-            </>}
-          </div>
+              </form>
+            </div>
+          </>}
+          {isAccepted && <>
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+              Cuenta creada con éxito
+            </h2>
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+              Redireccionando al inicio de sesión...
+            </h2>
+          </>}
         </div>
       </div>
     </div>
+    </div >
   )
 }
