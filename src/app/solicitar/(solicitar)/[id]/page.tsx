@@ -1,12 +1,14 @@
 "use client"
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
  import Navbar from '../../../components/Navbar'
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
 interface SolicitudProps   {
   params: {id: string}
 }
 
-type Oferta = {
+type OfertaProps = {
   titulo: string,
   cargo: string,
   jornada: string,
@@ -21,7 +23,25 @@ type Oferta = {
 };
 
 const Solicitud: FC <SolicitudProps>=  ({params}) => {
-  // console.log("esto tendría que ser id", id)
+  const [loading, setLoading] = useState(true);
+  const [oferta, setOferta] = useState<OfertaProps>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const ofertasCollection = collection(db, 'ofertas');
+      const q = query(ofertasCollection, where('id', '==', params.id));  
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        setOferta(doc.data() as OfertaProps); // Asignar el documento obtenido como valor al estado oferta
+      });
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [params.id]);
     return (
 <>
       <Navbar   />
@@ -29,7 +49,7 @@ const Solicitud: FC <SolicitudProps>=  ({params}) => {
 
 <div className='flex flex-col   mx-12 bg-white '>
   <div className='bg-white flex flex-row w-full h-screen'>
-    <h3 className='bg-red-200 text-black'>no me está mostrando el {params.id}</h3>
+    <h3 className='bg-red-200 text-black'>{oferta?.descripcion}</h3>
  
   </div>
   </div>

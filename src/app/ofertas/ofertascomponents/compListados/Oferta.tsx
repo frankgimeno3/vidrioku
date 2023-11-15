@@ -17,6 +17,7 @@ interface OfertaProps {
    estado: string,
 }
 const Oferta: FC <OfertaProps>= ({id, titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia, adicional, empresa, estado}) => {
+ 
   return (
     <div className="flex flex-row justify-left items-center p-5 bg-gray-50 hover:bg-gray-100 shadow-lg mb-1 text-gray-600">
       <Image src={"/inventedlogos/1.png"} alt="pepo" height={75} width={75} />
