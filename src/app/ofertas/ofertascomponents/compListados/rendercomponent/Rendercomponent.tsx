@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import Image from 'next/image';
-import Descripcion from '@/app/crearoferta/componentes/Descripcion';
-import { useRouter } from 'next/router'; // Se corrigió el import de useRouter
-import Link from 'next/link';
+import { FC } from "react";
+import Image from "next/image";
+import Descripcion from "@/app/crearoferta/componentes/Descripcion";
+import { useRouter } from "next/router"; // Se corrigió el import de useRouter
+import Link from "next/link";
 
 interface RendercomponentProps {
     id: any;
@@ -34,40 +34,40 @@ const Rendercomponent: FC<RendercomponentProps> = ({
     const router = useRouter();
 
     return (
-        <div className='flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll'>
+        <div className="flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll">
             <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
-            <h2 className='mt-5 text-xl'>{titulo}</h2>
-            <div className='flex flex-col text-sm text-gray-500'>
+            <h2 className="mt-5 text-xl">{titulo}</h2>
+            <div className="flex flex-col text-sm text-gray-500">
                 <p>{cargo}</p>
                 <p>{empresa}</p>
                 <p>{ubicacion}</p>
             </div>
-            <p className='text-sm mt-5'>
+            <p className="text-sm mt-5">
                 Descripción de la oferta
             </p>
-            <p className='text-sm mt-1'>
+            <p className="text-sm mt-1">
                 {descripcion}
             </p>
-            <p className='text-sm mt-5'>
+            <p className="text-sm mt-5">
                 Requerimientos
             </p>
-            <p className='text-sm mt-1'>
+            <p className="text-sm mt-1">
                 {experiencia}
             </p>
-            <p className='text-sm mt-5'>
+            <p className="text-sm mt-5">
                 Tipo de jornada
             </p>
-            <p className='text-sm mt-1'>
+            <p className="text-sm mt-1">
                 {jornada}
             </p>
-            <p className='text-sm mt-5'>
+            <p className="text-sm mt-5">
                 Detalles adicionales
             </p>
-            <p className='text-sm mt-1'>
+            <p className="text-sm mt-1">
                 {adicional}
             </p>
             <Link href={`/solicitar/${id}`}> {/* Se corrigió la plantilla de la URL */}
-                <button className='p-2 border shadow-lg rounded-lg text-xs mt-5'>
+                <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
                     Solicitar Empleo
                 </button>
             </Link>
