@@ -80,7 +80,7 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
               {misOfertas.map((oferta, index) => (
                 <div key={index} onClick={() => handleOfertaClick(oferta)}>
                   <Oferta
-                    id={oferta.id} 
+                    id={oferta.id } 
                     titulo={oferta.titulo}
                     cargo={oferta.cargo}
                     jornada={oferta.jornada}
