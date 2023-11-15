@@ -83,7 +83,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
               <p className="text-sm mt-1">
                 {oferta?.adicional}
               </p>
-              <Link href={`/`}>
+              <Link href={`/missolicitudes`}>
                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
                   Enviar solicitud
                 </button>
