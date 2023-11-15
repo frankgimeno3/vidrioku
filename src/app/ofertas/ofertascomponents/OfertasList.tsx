@@ -49,8 +49,7 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
       const offersData: Oferta[] = [];
       querySnapshot.forEach((doc) => {
         offersData.push(doc.data() as Oferta);
-        console.log(offersData)
-      });
+       });
 
       setMisOfertas(offersData);
       setLoading(false); // Indicar que la carga ha finalizado
