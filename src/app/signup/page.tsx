@@ -54,7 +54,8 @@ export default function Signup() {
           edad: edad.trim(),
           genero: genero.trim(),
           ubi: ubi.trim(),
-          userType: userType.trim()
+          userType: userType.trim(),
+          solicitudes: []
         });
       }
     }
@@ -67,7 +68,8 @@ export default function Signup() {
           email: email.trim(),
           actividad: actividad.trim(),
           userType: userType.trim(),
-          cifEmpresa: cifEmpresa.trim()
+          cifEmpresa: cifEmpresa.trim(),
+          ofertascreadas:[]
         });
       }
     }

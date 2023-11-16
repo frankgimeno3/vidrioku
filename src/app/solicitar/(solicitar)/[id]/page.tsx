@@ -1,10 +1,11 @@
 "use client"
 import { FC, useEffect, useState } from 'react';
 import Navbar from '../../../components/Navbar'
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import Image from "next/image"
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface SolicitudProps {
   params: { id: string }
@@ -25,6 +26,7 @@ type OfertaProps = {
 };
 
 const Solicitud: FC<SolicitudProps> = ({ params }) => {
+  const router = useRouter()
   const [loading, setLoading] = useState(true);
   const [oferta, setOferta] = useState<OfertaProps>();
 
@@ -44,6 +46,34 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
 
     fetchData();
   }, [params.id]);
+
+  const handleSolicitud =   async (userId: string, offerId: string) => {
+    try {
+      const docRef = doc(db, "users", userId);
+      const userDoc = await getDoc(docRef);
+  
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+  
+        if (userData.solicitudes && Array.isArray(userData.solicitudes)) {
+           await setDoc(docRef, {
+            ...userData,
+            solicitudes: [...userData.solicitudes, offerId],
+          });
+        } else {
+           await setDoc(docRef, {
+            ...userData,
+            solicitudes: [offerId],
+          });
+         router.push("/missolicitudes")
+        }
+      } else {
+        console.error('El documento del usuario no existe');
+      }
+    } catch (error) {
+      console.error('Error al crear la solicitud:', error);
+    }
+  };
   return (
     <>
       <Navbar />
@@ -83,12 +113,11 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
               <p className="text-sm mt-1">
                 {oferta?.adicional}
               </p>
-              <Link href={`/missolicitudes`}>
-                <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
+                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5"
+                onClick={handleSolicitud}>
                   Enviar solicitud
                 </button>
-              </Link>
-            </div>
+             </div>
           </div>
         </div>
       </div>
