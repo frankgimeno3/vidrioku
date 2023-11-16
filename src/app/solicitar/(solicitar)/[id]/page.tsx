@@ -6,6 +6,8 @@ import { db } from '@/app/firebase';
 import Image from "next/image"
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 interface SolicitudProps {
   params: { id: string }
@@ -30,6 +32,20 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [oferta, setOferta] = useState<OfertaProps>();
 
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signin');
+    },
+  });
+  const [userId, setUserId] = useState("")
+
+  useEffect(() => {
+    if (session?.data?.user?.email) {
+      setUserId(session.data.user.email);
+    } else { setUserId("Usuario") }
+  }, [session?.data?.user?.email]);
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -38,7 +54,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        setOferta(doc.data() as OfertaProps); // Asignar el documento obtenido como valor al estado oferta
+        setOferta(doc.data() as OfertaProps);  
       });
 
       setLoading(false);
@@ -47,25 +63,25 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
     fetchData();
   }, [params.id]);
 
-  const handleSolicitud =   async (userId: string, offerId: string) => {
+  const handleSolicitud = async (userId: string, offerId: string) => {
     try {
       const docRef = doc(db, "users", userId);
       const userDoc = await getDoc(docRef);
-  
+
       if (userDoc.exists()) {
         const userData = userDoc.data();
-  
+
         if (userData.solicitudes && Array.isArray(userData.solicitudes)) {
-           await setDoc(docRef, {
+          await setDoc(docRef, {
             ...userData,
             solicitudes: [...userData.solicitudes, offerId],
           });
         } else {
-           await setDoc(docRef, {
+          await setDoc(docRef, {
             ...userData,
             solicitudes: [offerId],
           });
-         router.push("/missolicitudes")
+          router.push("/missolicitudes")
         }
       } else {
         console.error('El documento del usuario no existe');
@@ -113,11 +129,12 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
               <p className="text-sm mt-1">
                 {oferta?.adicional}
               </p>
-                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5"
-                onClick={handleSolicitud}>
-                  Enviar solicitud
-                </button>
-             </div>
+              <button
+                className="p-2 border shadow-lg rounded-lg text-xs mt-5"
+                onClick={() => handleSolicitud(userId, oferta?.id)}>
+                Enviar solicitud
+              </button>
+            </div>
           </div>
         </div>
       </div>
