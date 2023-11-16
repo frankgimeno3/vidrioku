@@ -1,7 +1,7 @@
 "use client"
 import { FC, useEffect, useState } from 'react';
 import Navbar from '../../../components/Navbar'
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import Image from "next/image"
 import Link from 'next/link';
@@ -32,6 +32,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [oferta, setOferta] = useState<OfertaProps>();
 
+  //primero detectamos el usuario, registramos su id, y de paso bloqueamos la ruta
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -46,6 +47,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
     } else { setUserId("Usuario") }
   }, [session?.data?.user?.email]);
   
+  //luego, mostramos la oferta que conocemos por los params
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -63,7 +65,55 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
     fetchData();
   }, [params.id]);
 
-  const handleSolicitud = async (userId: string, offerId: string) => {
+
+// 1-creamos funcion que añade solicitud a empresa
+const addSolicitudAEmpresa = async (userId: string, solicitudId: string) => {
+  try {
+    const docRef = doc(db, "users", userId);
+    const userDoc = await getDoc(docRef);
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+
+      if (userData.ofertascreadas && Array.isArray(userData.ofertascreadas)) {
+         await setDoc(docRef, {
+          ...userData,
+          ofertascreadas: [...userData.ofertascreadas, offerId],
+        });
+      } else {
+         await setDoc(docRef, {
+          ...userData,
+          ofertascreadas: [offerId],
+        });
+      }
+    } else {
+      console.error('El documento del usuario no existe');
+    }
+  } catch (error) {
+    console.error('Error al añadir la oferta al autor:', error);
+  }
+};
+// 2-creamos funcion que añade solicitud a empresa
+
+ const addSolicitudInFirebase = async (userId: string, offerId: string) => {
+      try {
+      const offersCollection = collection(db, 'ofertas');
+      const newOfferRef = await addDoc(offersCollection, {
+        offerId: offerId,
+        userId: offerId,
+         
+
+      });
+      await updateDoc(newOfferRef, { id: newOfferRef.id });
+
+      addOfferToAuthor(userData, newOfferRef.id)
+       router.push('/misofertas');
+    } catch (error) {
+      console.error('Error al crear la oferta en Firestore:', error);
+    }
+   
+};
+   const addSolicitudAUsuario = async (userId: string, offerId: string) => {
     try {
       const docRef = doc(db, "users", userId);
       const userDoc = await getDoc(docRef);
