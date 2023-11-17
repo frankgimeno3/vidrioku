@@ -5,7 +5,7 @@ import { addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, whe
 import { db } from '@/app/firebase';
 import Image from "next/image"
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
@@ -46,7 +46,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       setUserId(session.data.user.email);
     } else { setUserId("Usuario") }
   }, [session?.data?.user?.email]);
-  
+
   //luego, mostramos la oferta que conocemos por los params
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +56,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        setOferta(doc.data() as OfertaProps);  
+        setOferta(doc.data() as OfertaProps);
       });
 
       setLoading(false);
@@ -66,54 +66,37 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
   }, [params.id]);
 
 
-// 1-creamos funcion que añade solicitud a empresa
-const addSolicitudAEmpresa = async (userId: string, solicitudId: string) => {
-  try {
-    const docRef = doc(db, "users", userId);
-    const userDoc = await getDoc(docRef);
+  // 1-creamos funcion que añade solicitud a empresa
+  const addSolicitudAEmpresa = async (empresaId: string, solicitudId: string) => {
+    try {
+      const docRef = doc(db, "users", empresaId);
+      const userDoc = await getDoc(docRef);
+      console.log(empresaId)
 
-    if (userDoc.exists()) {
-      const userData = userDoc.data();
+      if (userDoc.exists()) {
+        const empresaSelected = userDoc.data();
 
-      if (userData.ofertascreadas && Array.isArray(userData.ofertascreadas)) {
-         await setDoc(docRef, {
-          ...userData,
-          ofertascreadas: [...userData.ofertascreadas, offerId],
-        });
+        if (empresaSelected.solicitudes && Array.isArray(empresaSelected.solicitudes)) {
+          await setDoc(docRef, {
+            ...empresaSelected,
+            solicitudes: [...empresaSelected.solicitudes, solicitudId],
+          });
+        } else {
+          await setDoc(docRef, {
+            ...empresaSelected,
+            solicitudes: [solicitudId],
+          });
+        }
       } else {
-         await setDoc(docRef, {
-          ...userData,
-          ofertascreadas: [offerId],
-        });
+        console.error('No se encontró la empresa');
       }
-    } else {
-      console.error('El documento del usuario no existe');
-    }
-  } catch (error) {
-    console.error('Error al añadir la oferta al autor:', error);
-  }
-};
-// 2-creamos funcion que añade solicitud a empresa
-
- const addSolicitudInFirebase = async (userId: string, offerId: string) => {
-      try {
-      const offersCollection = collection(db, 'ofertas');
-      const newOfferRef = await addDoc(offersCollection, {
-        offerId: offerId,
-        userId: offerId,
-         
-
-      });
-      await updateDoc(newOfferRef, { id: newOfferRef.id });
-
-      addOfferToAuthor(userData, newOfferRef.id)
-       router.push('/misofertas');
     } catch (error) {
-      console.error('Error al crear la oferta en Firestore:', error);
+      console.error('Error al enviar la solicitud a la empresa:', error);
     }
-   
-};
-   const addSolicitudAUsuario = async (userId: string, offerId: string) => {
+  };
+
+  // 2- creamos funcion que vincula al usuario la oferta a la que ha solicitado
+  const addSolicitudAUsuario = async (userId: string, offerId: string) => {
     try {
       const docRef = doc(db, "users", userId);
       const userDoc = await getDoc(docRef);
@@ -121,15 +104,15 @@ const addSolicitudAEmpresa = async (userId: string, solicitudId: string) => {
       if (userDoc.exists()) {
         const userData = userDoc.data();
 
-        if (userData.solicitudes && Array.isArray(userData.solicitudes)) {
+        if (userData.ofertasSolicitadas && Array.isArray(userData.ofertasSolicitadas)) {
           await setDoc(docRef, {
             ...userData,
-            solicitudes: [...userData.solicitudes, offerId],
+            ofertasSolicitadas: [...userData.ofertasSolicitadas, offerId],
           });
         } else {
           await setDoc(docRef, {
             ...userData,
-            solicitudes: [offerId],
+            ofertasSolicitadas: [offerId],
           });
           router.push("/missolicitudes")
         }
@@ -140,6 +123,28 @@ const addSolicitudAEmpresa = async (userId: string, solicitudId: string) => {
       console.error('Error al crear la solicitud:', error);
     }
   };
+  //  3-creamos funcion que añade solicitud a OFERTA
+
+  //  3-creamos funcion que añade solicitud a firebase, aunandolo todo  
+  const addSolicitudInFirebase = async (userId: string, offerId: string, empresa: string) => {
+    try {
+      const solicitudesCollection = collection(db, 'solicitudes');
+      const newSolicitudRef = await addDoc(solicitudesCollection, {
+        offerId: offerId,
+        userId: userId,
+
+      });
+      await updateDoc(newSolicitudRef, { id: newSolicitudRef.id });
+
+      addSolicitudAEmpresa(empresa, newSolicitudRef.id)
+      addSolicitudAUsuario(userId, offerId)
+      router.push('/misofertas');
+    } catch (error) {
+      console.error('Error al crear la oferta en Firestore:', error);
+    }
+
+  };
+
   return (
     <>
       <Navbar />
@@ -181,7 +186,7 @@ const addSolicitudAEmpresa = async (userId: string, solicitudId: string) => {
               </p>
               <button
                 className="p-2 border shadow-lg rounded-lg text-xs mt-5"
-                onClick={() => handleSolicitud(userId, oferta?.id)}>
+                onClick={() => oferta && addSolicitudInFirebase(userId, oferta.id, oferta.empresa)}>
                 Enviar solicitud
               </button>
             </div>
