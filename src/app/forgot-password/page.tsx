@@ -4,17 +4,27 @@ import { auth } from '../firebase';
 import { sendPasswordResetEmail } from "firebase/auth";
 import NavUnlogged from '../components/prelogged/NavUnlogged'
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 
 export default function ForgotPassword() {
+  const router = useRouter();
+
+
   const [email, setEmail] = useState('');
   const [videoUrl, setVideoUrl] = useState("");
-
+  const [buttonPushed, setButtonPushed] = useState(false)
   useEffect(() => {
     setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
   }, []);
+
+
   const resetEmail = () => {
     sendPasswordResetEmail(auth, email);
+    setButtonPushed(true)
+      setTimeout(()=>{ router.push("/signin")}
+      , 4000);
+
   };
 
   return (
@@ -43,8 +53,7 @@ export default function ForgotPassword() {
                 Olvidé mi contraseña
               </h2>
             </div>
-
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            {!buttonPushed && <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
               <div className="space-y-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
@@ -73,7 +82,15 @@ export default function ForgotPassword() {
                   </button>
                 </div>
               </div>
+            </div>}
+            {buttonPushed && 
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <div className="space-y-6">
+              <div>
+                 <h3>Hemos enviado un mensaje a su correo, por favor, ábralo y cree una nueva contraseña</h3>
+              </div>
             </div>
+          </div>}
           </div>
         </div>
       </div>
