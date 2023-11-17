@@ -103,7 +103,7 @@ export default function Signin() {
 
               <p className="mt-10 text-center text-sm text-gray-400">
                 No tiene cuenta en Vidrioku? {' '}
-                <button onClick={() => router.push('signup')} className="font-semibold leading-6 text-indigo-400 hover:text-indigo-300">
+                <button onClick={() => router.push('/signup')} className="font-semibold leading-6 text-indigo-400 hover:text-indigo-300">
                   Crear una cuenta
                 </button>
               </p>
