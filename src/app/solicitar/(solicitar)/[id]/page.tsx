@@ -164,7 +164,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       addSolicitudAEmpresa(empresa, newSolicitudRef.id)
       addSolicitudAUsuario(userId, offerId)
       addSolicitudAOferta(offerId, newSolicitudRef.id)
-      router.push('/misofertas');
+      router.push('/missolicitudes');
     } catch (error) {
       console.error('Error al crear la oferta en Firestore:', error);
     }

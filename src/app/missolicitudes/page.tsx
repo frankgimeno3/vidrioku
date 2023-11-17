@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function misSolicitudes() {
   return (
-    <div>empresas</div>
+    <div>check de mis solicitudes</div>
   )
 }
 
