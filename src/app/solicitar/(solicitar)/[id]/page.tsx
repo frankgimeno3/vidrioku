@@ -114,8 +114,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
             ...userData,
             ofertasSolicitadas: [offerId],
           });
-          router.push("/missolicitudes")
-        }
+         }
       } else {
         console.error('El documento del usuario no existe');
       }
@@ -125,6 +124,32 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
   };
   //  3-creamos funcion que añade solicitud a OFERTA
 
+  const addSolicitudAOferta = async (offerId: string, solicitudId: string) => {
+    try {
+      const docRef = doc(db, "ofertas", offerId);
+      const offerDoc = await getDoc(docRef);
+
+      if (offerDoc.exists()) {
+        const offerData = offerDoc.data();
+
+        if (offerData.solicitudes && Array.isArray(offerData.solicitudes)) {
+          await setDoc(docRef, {
+            ...offerData,
+            solicitudes: [...offerData.solicitudes, solicitudId],
+          });
+        } else {
+          await setDoc(docRef, {
+            ...offerData,
+            solicitudes: [solicitudId],
+          });
+         }
+      } else {
+        console.error('La oferta no existe');
+      }
+    } catch (error) {
+      console.error('Error al añadir solicitud a oferta:', error);
+    }
+  };
   //  3-creamos funcion que añade solicitud a firebase, aunandolo todo  
   const addSolicitudInFirebase = async (userId: string, offerId: string, empresa: string) => {
     try {
