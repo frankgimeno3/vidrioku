@@ -10,18 +10,18 @@ const Ofertas: React.FC = ({ }) => {
  const router = useRouter()
 
  const handleDepTecnico = ()=>{
-  router.push("/bolsa/deptecnico")
+  router.push("/bolsaofertas/deptecnico")
  }
  const handleIngenieros
  = ()=>{
-  router.push("/bolsa/ingenieros")
+  router.push("/bolsaofertas/ingenieros")
  }
  const  handleOperarios
   = ()=>{
-  router.push("/bolsa/operarios")
+  router.push("/bolsaofertas/operarios")
  }
  const handleComercialCompras = ()=>{
-  router.push("/bolsa/comercialcompras")
+  router.push("/bolsaofertas/comercialcompras")
  }
 
   return (
@@ -30,7 +30,7 @@ const Ofertas: React.FC = ({ }) => {
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96" onClick={handleDepTecnico} >
 
           <h3 className="text-2xl mb-2 hover:text-blue-500">
-            Departamento técnico
+            Ofertas para departamento técnico
           </h3>
           <p className="mb-2">
             Arquitectos técnicos e ingenieros, especializados en la realización y el análisis de proyectos en que el vidrio juega un factor clave
@@ -40,7 +40,7 @@ const Ofertas: React.FC = ({ }) => {
         </div>
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  onClick={handleIngenieros}      >
           <h3 className="text-2xl mb-2 hover:text-blue-500">
-            Ingenieros
+          Ofertas para ingenieros
           </h3>
           <p className="mb-2">
             En nuestra bolsa específica de ingenieros encontrará personal licenciado en ingeniería, filtrado según su educación o experiencia previa
@@ -53,7 +53,7 @@ const Ofertas: React.FC = ({ }) => {
 
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  onClick={handleOperarios}      >
           <h3 className="text-2xl mb-2 hover:text-blue-500">
-            Operarios
+            Ofertas para operarios
           </h3>
           <p className="mb-2">
             Encuentre operarios de todo tipo, desde peones de fábrica, operarios de transporte, mantenimiento, y otros, todos ellos especializados en el sector del vidrio.
@@ -63,7 +63,7 @@ const Ofertas: React.FC = ({ }) => {
         </div>
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"   onClick={handleComercialCompras}     >
           <h3 className="text-2xl mb-2 hover:text-blue-500">
-            Departamento comercial y compras
+            Ofertas para el departamento comercial y compras
           </h3>
           <p className="mb-2">
             Arquitectos técnicos e ingenieros, especializados en la realización y el análisis de proyectos en que el vidrio juega un factor clave

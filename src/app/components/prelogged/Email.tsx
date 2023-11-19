@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 
 const Email: React.FC = ({ }) => {
     const form = useRef<HTMLFormElement>(null);
-
+    const [isEmailSent, setIsEmailSent] = useState(false)
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -16,8 +16,12 @@ const Email: React.FC = ({ }) => {
           "tW78cuPW4vf9Xroeo"
         )
         .then((result) => {
-          form.current?.reset();
- 
+          setIsEmailSent(true)
+          window.scrollTo(0, 0);
+          setTimeout(()=>{
+            setIsEmailSent(false)
+            form.current?.reset();
+          }, 3000);
         });
     }
   };
@@ -40,8 +44,8 @@ const Email: React.FC = ({ }) => {
     return isValid;
   };
 
-  return (
-    <form ref={form} onSubmit={sendEmail} className='mt-1 flex flex-col text-white'>
+  return (<>
+    <form ref={form} onSubmit={sendEmail} className='mt-1 flex flex-col text-white relative '>
       <h2 className="text-5xl text-center  text-white mb-3">Quiere saber más?</h2>
       <p className=' mx-20 px-24 pb-5 text-sm'>Háganos una consulta rellenando el formulario a continuación:</p>
       <div className='flex flex-col mx-5 text-xs text-left  px-5 '>
@@ -54,6 +58,11 @@ const Email: React.FC = ({ }) => {
         <button type="submit" value="Send" className='my-5 py-3 w-40  bg-sky-50  text-xs rounded-lg shadow-white hover:scale-110 hover:bg-white text-gray-700 transition-transform duration-1000'> Send </button>
       </div>
     </form>
+    {isEmailSent && <div>
+      <h2 className='bg-white p-12 rounded shadow text-gray-500 text-4xl absolute top-24 left-1/2 transform -translate-x-1/2 z-50'>
+            Se ha enviado un correo a nuestro staff, le contactaremos lo antes posible</h2>
+      </div>}
+      </>
   );
 };
 

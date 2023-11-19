@@ -10,18 +10,18 @@ const Candidatos: React.FC = ({ }) => {
  const router = useRouter()
 
  const handleDepTecnico = ()=>{
-  router.push("/bolsa/deptecnico")
+  router.push("/bolsacandidatos/deptecnico")
  }
  const handleIngenieros
  = ()=>{
-  router.push("/bolsa/ingenieros")
+  router.push("/bolsacandidatos/ingenieros")
  }
  const  handleOperarios
   = ()=>{
-  router.push("/bolsa/operarios")
+  router.push("/bolsacandidatos/operarios")
  }
  const handleComercialCompras = ()=>{
-  router.push("/bolsa/comercialcompras")
+  router.push("/bolsacandidatos/comercialcompras")
  }
 
   return (
@@ -30,7 +30,7 @@ const Candidatos: React.FC = ({ }) => {
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96" onClick={handleDepTecnico} >
 
           <h3 className="text-2xl mb-2 hover:text-blue-500">
-            Departamento técnico
+            Profesionales expertos en departamento técnico
           </h3>
           <p className="mb-2">
             Arquitectos técnicos e ingenieros, especializados en la realización y el análisis de proyectos en que el vidrio juega un factor clave
@@ -63,7 +63,7 @@ const Candidatos: React.FC = ({ }) => {
         </div>
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"   onClick={handleComercialCompras}     >
           <h3 className="text-2xl mb-2 hover:text-blue-500">
-            Departamento comercial y compras
+            Profesionales expertos en departamento comercial y compras
           </h3>
           <p className="mb-2">
             Arquitectos técnicos e ingenieros, especializados en la realización y el análisis de proyectos en que el vidrio juega un factor clave
