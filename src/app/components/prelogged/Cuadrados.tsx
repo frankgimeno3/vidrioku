@@ -2,11 +2,12 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
 
 const Cuadrados: React.FC = ({ }) => {
- 
+ const router = useRouter
 
   return (
     <div className='flex flex-col md:flex-row text-center'>
