@@ -85,7 +85,7 @@ const chathandler = ()=>{
           <button
             className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
             onClick={chathandler}
-          >Ver mensajes de empleo</button>
+          >Ver mensajes nuevos</button>
         </div>
         <div className='flex h-full flex-1 flex-col text-center my-3'>
         <p className='font-bold'>Mis ofertas de empleo</p>
@@ -101,14 +101,17 @@ const chathandler = ()=>{
         </div>
         
          <div className='h-full flex-1 text-center my-3'>
-          <p className='font-bold'>Han visto tu currículum</p>
-          <p>2 empresas esta semana</p>
-          <p>4 empresas este mes</p>
-        </div>
+          <p className='font-bold'>Solicitudes  </p>
+          <button
+            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1 mx-32"
+            onClick={misofertashandler}
+          >Ver Solicitudes Recibidas</button>
+ 
+         </div>
         <div className='h-full flex-1 text-center my-3'>
-          <p className='font-bold'>Solicitudes enviadas</p>
-          <p>Solicitudes leídas</p>
-          <p>Solicitudes no leídas</p>
+          <p className='font-bold'>Seguimientos</p>
+          <p>Cambios en profesionales seguidos</p>
+          <p>Cambios en empresas seguidas</p>
         </div>
       </div>
     </div>
