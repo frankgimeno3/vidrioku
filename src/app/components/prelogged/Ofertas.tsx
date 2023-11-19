@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
 
-const Cuadrados: React.FC = ({ }) => {
+const Ofertas: React.FC = ({ }) => {
  const router = useRouter()
 
  const handleDepTecnico = ()=>{
@@ -75,4 +75,4 @@ const Cuadrados: React.FC = ({ }) => {
     </div>
   )
 }
-export default Cuadrados
+export default Ofertas

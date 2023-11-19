@@ -2,7 +2,8 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Cuadrados from './Cuadrados';
+import Candidatos from './Candidatos';
+import Ofertas from './Ofertas';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +28,7 @@ const Bolsas: React.FC = ({  }) => {
  
   return (
     <div className="w-full    text-center   mt-12">
-    <div className="pb-20  ">
+    <div className="pb-10  ">
       <h2 className="text-4xl   mb-3 text-white">
         Bolsa de empleo técnico{" "}
       </h2>
@@ -37,8 +38,13 @@ const Bolsas: React.FC = ({  }) => {
         para acceder a la bolsa de empleo especializada que desee
       </h2>
     </div>
+    <div className='flex flex-row justify-center pb-10'>
+    <button className='bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'>Ver ofertas</button>
+    <button className='bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'>Ver candidatos</button>
+    </div>
     <div className=" md:mx-24 md:px-24 ">
-        <Cuadrados/>
+    <Candidatos/>
+    <Ofertas/>
      </div>
   </div>
   )
