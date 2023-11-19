@@ -1,9 +1,9 @@
 import React from 'react'
 
-function page() {
+function ingenieros() {
   return (
-    <div>page</div>
+    <div>ingenieros</div>
   )
 }
 
-export default page
+export default ingenieros
