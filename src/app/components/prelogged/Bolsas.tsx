@@ -45,9 +45,10 @@ const Bolsas: React.FC = ({  }) => {
     onClick={()=>setBolsasShown("candidatos")}>Ver candidatos</button>
     </div>
     <div className=" md:mx-24 md:px-24 ">
-      {}
-    <Candidatos/>
-    <Ofertas/>
+    {bolsasShown=="candidatos" &&     <Candidatos/>
+}
+    {bolsasShown=="ofertas" &&     <Ofertas/>
+}
      </div>
   </div>
   )
