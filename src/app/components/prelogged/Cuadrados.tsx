@@ -7,12 +7,27 @@ import { useRouter } from 'next/navigation';
 const inter = Inter({ subsets: ['latin'] })
 
 const Cuadrados: React.FC = ({ }) => {
- const router = useRouter
+ const router = useRouter()
+
+ const handleDepTecnico = ()=>{
+  router.push("/bolsa/deptecnico")
+ }
+ const handleIngenieros
+ = ()=>{
+  router.push("/bolsa/ingenieros")
+ }
+ const  handleOperarios
+  = ()=>{
+  router.push("/bolsa/operarios")
+ }
+ const handleComercialCompras = ()=>{
+  router.push("/bolsa/comercialcompras")
+ }
 
   return (
     <div className='flex flex-col md:flex-row text-center'>
       <div className='flex flex-col  '>
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  >
+        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96" onClick={handleDepTecnico} >
 
           <h3 className="text-2xl mb-2 hover:text-blue-500">
             Departamento técnico
@@ -23,7 +38,7 @@ const Cuadrados: React.FC = ({ }) => {
           <Image src="/icons/dtecnico.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
 
         </div>
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"        >
+        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  onClick={handleIngenieros}      >
           <h3 className="text-2xl mb-2 hover:text-blue-500">
             Ingenieros
           </h3>
@@ -36,7 +51,7 @@ const Cuadrados: React.FC = ({ }) => {
       </div>
       <div className='flex flex-col '>
 
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"        >
+        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  onClick={handleOperarios}      >
           <h3 className="text-2xl mb-2 hover:text-blue-500">
             Operarios
           </h3>
@@ -46,7 +61,7 @@ const Cuadrados: React.FC = ({ }) => {
           <Image src="/icons/operarios.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
 
         </div>
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"        >
+        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"   onClick={handleComercialCompras}     >
           <h3 className="text-2xl mb-2 hover:text-blue-500">
             Departamento comercial y compras
           </h3>
