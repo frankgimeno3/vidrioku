@@ -7,7 +7,8 @@ import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image';
 import Navbar from '@/app/components/Navbar';
-import ToggleCheckbox from './components/ToggleCheckbox';
+import TogglePermiso from './components/TogglePermiso';
+import ToggleVehiculo from './components/ToggleVehiculo';
 
 interface PerfilprofesionalProps {
   userData: any
@@ -209,19 +210,13 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
             </div>
             <div className="flex flex-col my-2">
               <label >Permiso de conducción? </label>
-              <ToggleCheckbox />
+              <TogglePermiso />
 
             </div>
             <div className="flex flex-col my-2">
               <label >Vehículo propio? </label>
-              <input
-                type="text"
-                id="apellidos"
-                name="apellidos"
-                placeholder={user?.apellidos}
-                onChange={(e) => setApellidos(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
+              <ToggleVehiculo />
+
             </div>
           </div>
         </div>
