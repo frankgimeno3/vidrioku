@@ -1,6 +1,6 @@
 "use client"
 import { db } from '@/app/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
@@ -47,7 +47,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const [vehiculo, setVehiculo] = useState(user?.vehiculo)
   const [carta, setCarta] = useState(user?.carta)
 
-
+ 
   const router = useRouter();
 
   const session = useSession({
@@ -98,6 +98,44 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
     event.preventDefault();
     setIsDNI(true)
   }
+
+
+  const editarPerfil = async (userId: string, apellidos: any, edad: any, genero: any, nombre: any,
+     ubi: any, userEmail: any, DNI: any, NIE: any, tel: any, permiso: any, vehiculo: any, carta: any, linkedin: any) => {
+      try {
+        const docRef = doc(db, "users", userId);
+        const userDoc = await getDoc(docRef);
+    
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+    
+          await setDoc(docRef, {
+            ...userData,
+            email: nuevoValorDeEmail, // Reemplaza "nuevoValorDeEmail" con el valor actualizado
+            apellidos: apellidos,
+            edad: edad,
+            genero: genero,
+            nombre: nombre,
+            ubi: ubi,
+            userEmail: userEmail,
+            DNI: DNI,
+            NIE: NIE,
+            tel: tel,
+            permiso: permiso,
+            vehiculo: vehiculo,
+            carta: carta,
+            linkedin: linkedin,
+            userType: nuevoValorDeUserType, // Reemplaza "nuevoValorDeUserType" con el valor actualizado
+            solicitudes: nuevoValorDeSolicitudes, // Reemplaza "nuevoValorDeSolicitudes" con el valor actualizado
+          });
+        } else {
+          console.error('El documento del usuario no existe');
+        }
+      } catch (error) {
+        console.error('Error al crear la solicitud:', error);
+      }
+    };
+
   return (
     <>
       <Navbar />
@@ -218,9 +256,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
             <div className="flex flex-col my-2">
               <label htmlFor="vehiculo" >Vehículo propio? </label>
               <ToggleVehiculo setVehiculo={setVehiculo} />
-              
-
-
+         
             </div>
           </div>
         </div>
@@ -232,7 +268,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
           ></textarea>
         </div>
         <div className="mx-auto py-5 text-center">
-          <button type="submit" onClick={guardarCambiosHandler} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
+          <button type="submit" onClick={()=> editarPerfil()} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
             Guardar Cambios
           </button>
         </div>
