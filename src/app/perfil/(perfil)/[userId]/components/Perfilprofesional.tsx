@@ -4,6 +4,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
 import { db } from '../../../../firebase';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 
 interface PerfilprofesionalProps {
@@ -105,12 +106,13 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
             <p className='mr-5'>Carta de presentación </p>
             <span>INSERTAR AQUÍ</span>
           </div>
+          <Link href={`/perfil/${userData}`}>
           <div className='mx-auto py-5'>
             <button
               className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
             >Editar información de mi perfil de profesional</button>
           </div>
-
+          </Link>
         </div>
         <div className='mx-auto mt-5 text-center flex-1 '>
           <h2 className='font-bold'>Currículum vitae</h2>
