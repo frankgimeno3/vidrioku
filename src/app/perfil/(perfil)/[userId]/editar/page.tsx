@@ -1,7 +1,25 @@
+"use client"
+import { db } from '@/app/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { FC, useEffect, useState } from 'react'
+import Image from 'next/image';
 
-function editarPerfil() {
+interface PerfilprofesionalProps {
+  userData: any
+}
+
+interface User {
+  apellidos: string;
+  edad: number;
+  genero: string;
+  nombre: string;
+  ubi: string;
+  userEmail: string;
+}
+const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const session = useSession({
     required: true,
     onUnauthenticated() {
