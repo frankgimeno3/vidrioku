@@ -27,6 +27,7 @@ interface User {
   permiso: string;
   vehiculo: string;
   carta: string;
+  linkedin: string;
 }
 const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const [user, setUser] = useState<User | undefined>();
@@ -41,6 +42,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const [DNI, setDNI] = useState(user?.DNI)
   const [NIE, setNIE] = useState(user?.NIE)
   const [tel, setTel] = useState(user?.tel)
+  const [linkedin, setLinkedin] = useState(user?.linkedin)
   const [permiso, setPermiso] = useState(user?.permiso)
   const [vehiculo, setVehiculo] = useState(user?.vehiculo)
   const [carta, setCarta] = useState(user?.carta)
@@ -165,64 +167,69 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
               <input type="text"
                 id="DNI"
                 name="DNI"
-                placeholder={user?.DNI}
+                placeholder={user?.DNI  || "Inserte aquí la URL de su número de DNI"}
                 onChange={(e) => setDNI(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
               <button onClick={niehandler}
               className='bg-gray-50 shadow rounded my-2 border px-3 py-1 mx-44'>
-                Haz click aquí si tienes NIE en vez de DNI</button>
+                Haz click aquí si tiene NIE en vez de DNI</button>
             </div>}
             {!isDNI && <div className="flex flex-col  my-2 ">
               <label htmlFor="NIE" >NIE: </label>
               <input
                 type="text"
-                id="apellidos"
-                name="apellidos"
-                placeholder={user?.apellidos}
-                onChange={(e) => setApellidos(e.target.value)}
+                id="NIE"
+                name="NIE"
+                placeholder={user?.NIE || "Inserte aquí la URL de su número de NIE"}
+                onChange={(e) => setNIE(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
               <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-2 border px-3 py-1 mx-44'>
-              Haz click aquí si tienes DNI en vez de NIE</button>
+              Haz click aquí si tiene DNI en vez de NIE</button>
             </div>}
             <div className="flex flex-col my-2">
-              <label >Teléfono </label>
+              <label htmlFor="tel" >Teléfono </label>
               <input
                 type="text"
-                id="apellidos"
-                name="apellidos"
-                placeholder={user?.apellidos}
-                onChange={(e) => setApellidos(e.target.value)}
+                id="tel"
+                name="tel"
+                placeholder={user?.tel || "Inserte aquí la URL de su número de teléfono" }
+                onChange={(e) => setTel(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
             <div className="flex flex-col my-2">
-              <label >Linkedin </label>
+              <label htmlFor="linkedin"  >Linkedin </label>
               <input
                 type="text"
-                id="apellidos"
-                name="apellidos"
-                placeholder={user?.apellidos}
-                onChange={(e) => setApellidos(e.target.value)}
+                id="linkedin"
+                name="linkedin"
+                placeholder="Inserte aquí la URL de su perfil de Linkedin"
+                onChange={(e) => setLinkedin(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
             <div className="flex flex-col my-2">
-              <label >Permiso de conducción? </label>
-              <TogglePermiso />
+              <label htmlFor="permiso" >Permiso de conducción? </label>
+              <TogglePermiso setPermiso={setPermiso} />
 
             </div>
             <div className="flex flex-col my-2">
-              <label >Vehículo propio? </label>
-              <ToggleVehiculo />
+              <label htmlFor="vehiculo" >Vehículo propio? </label>
+              <ToggleVehiculo setVehiculo={setVehiculo} />
+              
+
 
             </div>
           </div>
         </div>
         <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500 ">
-          <label >Carta de presentación </label>
-          <textarea placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas" className='m-5'></textarea>
+          <label htmlFor="carta" >Carta de presentación </label>
+          <textarea placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas" 
+          className='m-5 rounded shadow mx-96 bg-gray-50'
+          onChange={(e) => setCarta(e.target.value)}
+          ></textarea>
         </div>
         <div className="mx-auto py-5 text-center">
           <button type="submit" onClick={guardarCambiosHandler} className="bg-blue-500 text-white px-4 my-2 rounded text-center">

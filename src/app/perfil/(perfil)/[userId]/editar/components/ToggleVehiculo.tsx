@@ -1,10 +1,15 @@
 import { useState } from 'react';
 
-const ToggleVehiculo = () => {
+interface ToggleVehiculoProps {
+  setVehiculo:any
+}
+
+const ToggleVehiculo: React.FC<ToggleVehiculoProps> = ({ setVehiculo}) => {
   const [isChecked, setChecked] = useState(false);
 
   const handleToggle = () => {
     setChecked(!isChecked);
+    setVehiculo(isChecked)
   };
 
   return (

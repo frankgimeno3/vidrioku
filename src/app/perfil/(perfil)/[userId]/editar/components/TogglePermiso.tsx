@@ -1,10 +1,15 @@
 import { useState } from 'react';
 
-const TogglePermiso = () => {
+interface TogglePermisoProps {
+  setPermiso: any
+}
+
+const TogglePermiso: React.FC<TogglePermisoProps> = ({ setPermiso}) => {
   const [isChecked, setChecked] = useState(false);
 
   const handleToggle = () => {
     setChecked(!isChecked);
+    setPermiso(isChecked)
   };
 
   return (
