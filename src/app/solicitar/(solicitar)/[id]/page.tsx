@@ -31,7 +31,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(true);
   const [oferta, setOferta] = useState<OfertaProps>();
-
+  const [presentacion, setPresentacion] =  useState("")
   //primero detectamos el usuario, registramos su id, y de paso bloqueamos la ruta
   const session = useSession({
     required: true,
@@ -151,13 +151,13 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
     }
   };
   //  3-creamos funcion que añade solicitud a firebase, aunandolo todo  
-  const addSolicitudInFirebase = async (userId: string, offerId: string, empresa: string) => {
+  const addSolicitudInFirebase = async (userId: string, offerId: string, empresa: string, presentacion:string) => {
     try {
       const solicitudesCollection = collection(db, 'solicitudes');
       const newSolicitudRef = await addDoc(solicitudesCollection, {
         offerId: offerId,
         userId: userId,
-
+        presentacion: presentacion
       });
       await updateDoc(newSolicitudRef, { id: newSolicitudRef.id });
 
@@ -210,9 +210,18 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
               <p className="text-sm mt-1">
                 {oferta?.adicional}
               </p>
+
+              <form>
+                <h2>Agrega un mensaje personal</h2>
+                <label htmlFor="presentacion"> </label>
+                <textarea
+                placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas" 
+                className='m-5 rounded shadow mx-96 bg-gray-50'
+                onChange={(e) => setPresentacion(e.target.value)} />
+              </form>
               <button
                 className="p-2 border shadow-lg rounded-lg text-xs mt-5"
-                onClick={() => oferta && addSolicitudInFirebase(userId, oferta.id, oferta.empresa)}>
+                onClick={() => oferta && addSolicitudInFirebase(userId, oferta.id, oferta.empresa, presentacion)}>
                 Enviar solicitud
               </button>
             </div>
