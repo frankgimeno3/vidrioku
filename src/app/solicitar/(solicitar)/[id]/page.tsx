@@ -177,8 +177,8 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       <div className="flex flex-col  max-h-screen bg-zinc-800 ">
 
         <div className='flex flex-col   mx-12 bg-white '>
-          <div className='bg-white flex flex-row w-full h-screen'>
-            <div className="flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll">
+          <div className='bg-white flex flex-row w-full h-screen '>
+            <div className="flex  flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll">
               <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
               <h2 className="mt-5 text-xl">{oferta?.titulo}</h2>
               <div className="flex flex-col text-sm text-gray-500">
@@ -211,16 +211,16 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
                 {oferta?.adicional}
               </p>
 
-              <form>
+              <form className='mt-5   w-full'>
                 <h2>Agrega un mensaje personal</h2>
                 <label htmlFor="presentacion"> </label>
                 <textarea
                 placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas" 
-                className='m-5 rounded shadow mx-96 bg-gray-50'
+                className='m-5 rounded shadow     w-96 h-56 bg-gray-50'
                 onChange={(e) => setPresentacion(e.target.value)} />
               </form>
               <button
-                className="p-2 border shadow-lg rounded-lg text-xs mt-5"
+                className="p-2 border shadow-lg rounded-lg text-xs mt-1"
                 onClick={() => oferta && addSolicitudInFirebase(userId, oferta.id, oferta.empresa, presentacion)}>
                 Enviar solicitud
               </button>
