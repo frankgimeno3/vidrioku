@@ -20,7 +20,7 @@ interface User {
   genero: string;
   nombre: string;
   ubi: string;
-  userEmail: string;
+  // userEmail: string;
   DNI: string;
   NIE: string;
   tel: string;
@@ -28,24 +28,24 @@ interface User {
   vehiculo: string;
   carta: string;
   linkedin: string;
-}
+ }
 const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const [user, setUser] = useState<User | undefined>();
   const [userData, setUserData] = useState("");
   const [isDNI, setIsDNI] = useState(true);
 
-  const [nombre, setNombre] = useState(user?.nombre)
-  const [apellidos, setApellidos] = useState(user?.apellidos)
-  const [edad, setEdad] = useState(user?.edad)
-  const [genero, setGenero] = useState(user?.genero)
-  const [ubi, setUbi] = useState(user?.ubi)
-  const [DNI, setDNI] = useState(user?.DNI)
-  const [NIE, setNIE] = useState(user?.NIE)
-  const [tel, setTel] = useState(user?.tel)
-  const [linkedin, setLinkedin] = useState(user?.linkedin)
-  const [permiso, setPermiso] = useState(user?.permiso)
-  const [vehiculo, setVehiculo] = useState(user?.vehiculo)
-  const [carta, setCarta] = useState(user?.carta)
+  const [nombreActualizado, setNombreActualizado] = useState(user?.nombre)
+  const [apellidosActualizado, setApellidosActualizado] = useState(user?.apellidos)
+  const [edadActualizado, setEdadActualizado] = useState(user?.edad)
+  const [generoActualizado, setGeneroActualizado] = useState(user?.genero)
+  const [ubiActualizado, setUbiActualizado] = useState(user?.ubi)
+  const [DNIActualizado, setDNIActualizado] = useState(user?.DNI)
+  const [NIEActualizado, setNIEActualizado] = useState(user?.NIE)
+  const [telActualizado, setTelActualizado] = useState(user?.tel)
+  const [linkedinActualizado, setLinkedinActualizado] = useState(user?.linkedin)
+  const [permisoActualizado, setPermisoActualizado] = useState(user?.permiso)
+  const [vehiculoActualizado, setVehiculoActualizado] = useState(user?.vehiculo)
+  const [cartaActualizado, setCartaActualizado] = useState(user?.carta)
 
  
   const router = useRouter();
@@ -100,41 +100,60 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   }
 
 
-  const editarPerfil = async (userId: string, apellidos: any, edad: any, genero: any, nombre: any,
-     ubi: any, userEmail: any, DNI: any, NIE: any, tel: any, permiso: any, vehiculo: any, carta: any, linkedin: any) => {
-      try {
-        const docRef = doc(db, "users", userId);
-        const userDoc = await getDoc(docRef);
-    
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-    
-          await setDoc(docRef, {
-            ...userData,
-            email: nuevoValorDeEmail, // Reemplaza "nuevoValorDeEmail" con el valor actualizado
-            apellidos: apellidos,
-            edad: edad,
-            genero: genero,
-            nombre: nombre,
-            ubi: ubi,
-            userEmail: userEmail,
-            DNI: DNI,
-            NIE: NIE,
-            tel: tel,
-            permiso: permiso,
-            vehiculo: vehiculo,
-            carta: carta,
-            linkedin: linkedin,
-            userType: nuevoValorDeUserType, // Reemplaza "nuevoValorDeUserType" con el valor actualizado
-            solicitudes: nuevoValorDeSolicitudes, // Reemplaza "nuevoValorDeSolicitudes" con el valor actualizado
-          });
-        } else {
-          console.error('El documento del usuario no existe');
-        }
-      } catch (error) {
-        console.error('Error al crear la solicitud:', error);
+  const editarPerfil = async (
+    userId: string,
+    apellidos: any,
+    edad: any,
+    genero: any,
+    nombre: any,
+    ubi: any,
+    DNI: any,
+    NIE: any,
+    tel: any,
+    permiso: any,
+    vehiculo: any,
+    carta: any,
+    linkedin: any
+  ) => {
+    try {
+      const docRef = doc(db, "users", userId);
+      const userDoc = await getDoc(docRef);
+  
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+  
+        // Elimina campos con valores undefined
+        const updatedData = {
+          apellidos: apellidos,
+          edad: edad,
+          genero: genero,
+          nombre: nombre,
+          ubi: ubi,
+          DNI: DNI,
+          NIE: NIE,
+          tel: tel,
+          permiso: permiso,
+          vehiculo: vehiculo,
+          carta: carta,
+          linkedin: linkedin,
+        };
+  
+        // Filtra campos undefined
+        const filteredData = Object.fromEntries(
+          Object.entries(updatedData).filter(([_, value]) => value !== undefined)
+        );
+  
+        await setDoc(docRef, {
+          ...userData,
+          ...filteredData,
+        });
+      } else {
+        console.error('El documento del usuario no existe');
       }
-    };
+    } catch (error) {
+      console.error('Error al crear la solicitud:', error);
+    }
+  };
 
   return (
     <>
@@ -150,7 +169,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="nombre"
                 name="nombre"
                 placeholder={user?.nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                onChange={(e) => setNombreActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
@@ -161,7 +180,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="apellidos"
                 name="apellidos"
                 placeholder={user?.apellidos}
-                onChange={(e) => setApellidos(e.target.value)}
+                onChange={(e) => setApellidosActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
 
               />
@@ -173,7 +192,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="edad"
                 name="edad"
                 placeholder={user?.edad?.toString() ?? ''}
-                onChange={(e) => setEdad(parseInt(e.target.value) || undefined)}
+                onChange={(e) => setEdadActualizado(parseInt(e.target.value) || undefined)}
                 className='w-full text-center bg-gray-50 shadow rounded'
 
               />
@@ -185,7 +204,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="genero"
                 name="genero"
                 placeholder={user?.genero}
-                onChange={(e) => setGenero(e.target.value)}
+                onChange={(e) => setGeneroActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
@@ -196,7 +215,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="ubi"
                 name="ubi"
                 placeholder={user?.ubi}
-                onChange={(e) => setUbi(e.target.value)}
+                onChange={(e) => setUbiActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
@@ -206,7 +225,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="DNI"
                 name="DNI"
                 placeholder={user?.DNI  || "Inserte aquí la URL de su número de DNI"}
-                onChange={(e) => setDNI(e.target.value)}
+                onChange={(e) => setDNIActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
               <button onClick={niehandler}
@@ -220,7 +239,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="NIE"
                 name="NIE"
                 placeholder={user?.NIE || "Inserte aquí la URL de su número de NIE"}
-                onChange={(e) => setNIE(e.target.value)}
+                onChange={(e) => setNIEActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
               <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-2 border px-3 py-1 mx-44'>
@@ -233,7 +252,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="tel"
                 name="tel"
                 placeholder={user?.tel || "Inserte aquí la URL de su número de teléfono" }
-                onChange={(e) => setTel(e.target.value)}
+                onChange={(e) => setTelActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
@@ -244,18 +263,18 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 id="linkedin"
                 name="linkedin"
                 placeholder="Inserte aquí la URL de su perfil de Linkedin"
-                onChange={(e) => setLinkedin(e.target.value)}
+                onChange={(e) => setLinkedinActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
             <div className="flex flex-col my-2">
               <label htmlFor="permiso" >Permiso de conducción? </label>
-              <TogglePermiso setPermiso={setPermiso} />
+              <TogglePermiso setPermiso={setPermisoActualizado} />
 
             </div>
             <div className="flex flex-col my-2">
               <label htmlFor="vehiculo" >Vehículo propio? </label>
-              <ToggleVehiculo setVehiculo={setVehiculo} />
+              <ToggleVehiculo setVehiculo={setVehiculoActualizado} />
          
             </div>
           </div>
@@ -264,12 +283,15 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
           <label htmlFor="carta" >Carta de presentación </label>
           <textarea placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas" 
           className='m-5 rounded shadow mx-96 bg-gray-50'
-          onChange={(e) => setCarta(e.target.value)}
+          onChange={(e) => setCartaActualizado(e.target.value)}
           ></textarea>
         </div>
         <div className="mx-auto py-5 text-center">
-          <button type="submit" onClick={()=> editarPerfil()} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
+          <button type="submit" onClick={()=> editarPerfil(userData, apellidosActualizado, edadActualizado, generoActualizado,
+          nombreActualizado,  ubiActualizado,  DNIActualizado, NIEActualizado, telActualizado, permisoActualizado, 
+          vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
             Guardar Cambios
+ 
           </button>
         </div>
       </form>
