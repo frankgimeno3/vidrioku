@@ -43,8 +43,8 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const [NIEActualizado, setNIEActualizado] = useState(user?.NIE)
   const [telActualizado, setTelActualizado] = useState(user?.tel)
   const [linkedinActualizado, setLinkedinActualizado] = useState(user?.linkedin)
-  const [permisoActualizado, setPermisoActualizado] = useState(user?.permiso)
-  const [vehiculoActualizado, setVehiculoActualizado] = useState(user?.vehiculo)
+  const [permisoActualizado, setPermisoActualizado] = useState(user?.permiso || false)
+  const [vehiculoActualizado, setVehiculoActualizado] = useState(user?.vehiculo || false)
   const [cartaActualizado, setCartaActualizado] = useState(user?.carta)
 
  
@@ -269,14 +269,14 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
             </div>
             <div className="flex flex-col my-2">
               <label htmlFor="permiso" >Permiso de conducción? </label>
-              <TogglePermiso setPermiso={setPermisoActualizado} />
+              <TogglePermiso setPermiso={setPermisoActualizado} permisoActualizado={permisoActualizado} />
 
             </div>
-            <div className="flex flex-col my-2">
+            {permisoActualizado  && <div className="flex flex-col my-2">
               <label htmlFor="vehiculo" >Vehículo propio? </label>
-              <ToggleVehiculo setVehiculo={setVehiculoActualizado} />
+              <ToggleVehiculo setVehiculo={setVehiculoActualizado} vehiculoActualizado={vehiculoActualizado}/>
          
-            </div>
+            </div>}
           </div>
         </div>
         <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500 ">
