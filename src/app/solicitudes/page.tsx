@@ -3,6 +3,7 @@ import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
@@ -79,8 +80,9 @@ function page() {
                   className="bg-gray-200 mb-1 p-2"
                   key={solicitudIndex}>
                     <p>{solicitudId}</p>
+                    <Link href={`/solicitudes/${solicitudId}`}>
                     <button className='bg-white rounded px-4 py-1 '>Ver detalles</button>
-  
+                    </Link>
                   </li>
               ))}
             </ul>

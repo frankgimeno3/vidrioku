@@ -5,8 +5,10 @@ import Navbar from '../components/Navbar';
 import { useSession } from 'next-auth/react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
+import Link from 'next/link';
 
 type Oferta = {
+  id:string;
   titulo: string;
   cargo: string;
 };
@@ -59,6 +61,7 @@ const Misofertas: FC = () => {
   const nuevaofertahandler = ()=>{
     router.push("/crearoferta")
   }
+ 
 
   return (
     <>
@@ -94,7 +97,9 @@ const Misofertas: FC = () => {
               <p>{oferta.cargo}</p>
               <div className='flex flex-row justify-center pt-3'>
                 <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Reactivar oferta</button>
-                <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                <Link href={`/solicitudes/${oferta.id}`}>
+                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                </Link>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar oferta</button>
 
               </div>
