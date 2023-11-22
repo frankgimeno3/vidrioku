@@ -3,6 +3,9 @@ import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react'
+import DetallesOferta from './components/DetallesOferta';
+import DetallesPerfil from './components/DetallesPerfil';
+import DetallesSolicitud from './components/DetallesSolicitud';
 
 type solicitudProps = {
     titulo: string,
@@ -53,11 +56,16 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
                 </div>
                 <div className="p-5 bg-white bg-opacity-10 ">        
                 
-                    <p>Solicitud {params.id}</p>
+                    <p>Número de solicitud {params.id}</p>
 
                     <p>Oferta a la que pertenece</p>
-
-                    <p>Oferta a la que pertenece</p>
+                        <DetallesOferta/>
+                    <p>Detalles del profesional</p>
+                        <DetallesPerfil/>
+                    <p>Detalles de la solicitud</p>
+                        <DetallesSolicitud />
+                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow'>
+                        Conectar con el profesional</button>
                 </div>
             </div>
         </>
