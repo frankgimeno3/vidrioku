@@ -23,6 +23,7 @@ interface SolicitudesProps {
 const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
 
     const [solicitud, setSolicitud] = useState<solicitudProps>();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,7 +49,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
 
             <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
                 <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
-                    <h2 className="font-bold text-lg">Solicitudes nuevas</h2>
+                    <h2 className="font-bold text-lg">Detalles de la solicitud</h2>
                 </div>
                 <div className="p-5 bg-white bg-opacity-10 ">        
                 
@@ -63,8 +64,4 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     )
 }
 export default solicitudseleccionada
-
-function setLoading(arg0: boolean) {
-    throw new Error('Function not implemented.');
-}
-
+ 

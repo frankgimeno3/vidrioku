@@ -8,7 +8,7 @@ import { db } from '../firebase';
 import Link from 'next/link';
 
 type Oferta = {
-  id:string;
+  id: string;
   titulo: string;
   cargo: string;
 };
@@ -58,10 +58,10 @@ const Misofertas: FC = () => {
     return <p>Cargando ofertas...</p>;
   }
 
-  const nuevaofertahandler = ()=>{
+  const nuevaofertahandler = () => {
     router.push("/crearoferta")
   }
- 
+
 
   return (
     <>
@@ -71,7 +71,7 @@ const Misofertas: FC = () => {
         <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
           <h2 className="   font-bold text-lg   ">Mis Ofertas</h2>
           <button className='bg-white rounded-lg px-3 py-1 text-sm text-gray-500'
-          onClick={nuevaofertahandler}>Crear nueva oferta</button>
+            onClick={nuevaofertahandler}>Crear nueva oferta</button>
         </div>
         <div className="p-5 bg-white bg-opacity-10 ">
           <h2 className='ml-56'>Ofertas activas</h2>
@@ -81,7 +81,9 @@ const Misofertas: FC = () => {
               <p>{oferta.cargo}</p>
               <div className='flex flex-row justify-center pt-3'>
                 <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Editar oferta</button>
-                <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                <Link href={`/solicitudes`}>
+                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                </Link>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver perfiles recomendados</button>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Desactivar oferta</button>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar oferta</button>
@@ -97,7 +99,7 @@ const Misofertas: FC = () => {
               <p>{oferta.cargo}</p>
               <div className='flex flex-row justify-center pt-3'>
                 <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Reactivar oferta</button>
-                <Link href={`/solicitudes/${oferta.id}`}>
+                <Link href={`/solicitudes`}>
                   <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
                 </Link>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar oferta</button>
