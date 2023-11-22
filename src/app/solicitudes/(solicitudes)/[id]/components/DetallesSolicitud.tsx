@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-function DetallesSolicitud() {
+type solicitudProps = {
+    solicitudId: any;
+ };
+ 
+
+const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
   return (
-    <div>DetallesSolicitud</div>
+    <div className='bg-white py-5 text-gray-500'>DetallesSolicitud</div>
   )
 }
 

@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-function DetallesPerfil() {
-  return (
-    <div>DetallesPerfil</div>
+type perfilProps = {
+    usuario: any;
+ };
+ 
+ const DetallesPerfil: FC< perfilProps> = ({ usuario }) => {
+
+   return (
+    <div className='bg-white py-5 text-gray-500'>DetallesPerfil</div>
   )
 }
 

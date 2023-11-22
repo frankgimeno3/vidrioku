@@ -8,17 +8,9 @@ import DetallesPerfil from './components/DetallesPerfil';
 import DetallesSolicitud from './components/DetallesSolicitud';
 
 type solicitudProps = {
-    titulo: string,
-    cargo: string,
-    jornada: string,
-    tipoubi: string,
-    ubicacion: string,
-    descripcion: string,
-    experiencia: string,
-    adicional: string,
-    empresa: string,
-    estado: string,
-    id: any
+    id: any;
+    offerId: any;
+    userId: any;
 };
 interface SolicitudesProps {
     params: { id: string }
@@ -30,7 +22,10 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const [isOfertaClicked, setIsOfertaClicked] = useState(false)
     const [isPerfilClicked, setIsPerfilClicked] = useState(false)
     const [isSolicitudClicked, setIsSolicitudClicked] = useState(false)
-    
+    const [usuario, setUsuario] = useState();
+    const [oferta, setOferta] = useState();
+    const [solicitudId, setSolicitudId] = useState()
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -47,6 +42,12 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
 
         fetchData();
     }, [params.id]);
+
+    useEffect(() => {
+        setSolicitudId(solicitud?.id)
+        setUsuario(solicitud?.userId)
+        setOferta(solicitud?.offerId)
+    }, [solicitud]);
 
     const toggleDetallesOferta = ()=>{
         setIsOfertaClicked(!isOfertaClicked)
@@ -72,13 +73,13 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
                 
                     <p className='py-5'>Número de solicitud {params.id}</p>
 
-                    <button className='py-5' onClick={toggleDetallesOferta}>Oferta a la que pertenece</button>
-                        {isOfertaClicked && <DetallesOferta/>}
-                    <button className='py-5' onClick={toggleDetallesPerfil}>Detalles del profesional</button>
-                        {isPerfilClicked && <DetallesPerfil/>}
-                    <button className='py-5' onClick={toggleDetallesSolicitud}>Detalles de la solicitud</button>
-                        {isSolicitudClicked && <DetallesSolicitud />}
-                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto'>
+                    <button className='py-5 bg-gray-50 bg-gray-500  ' onClick={toggleDetallesOferta}>Oferta a la que pertenece</button>
+                        {isOfertaClicked && <DetallesOferta oferta={oferta} />}
+                    <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesPerfil}>Detalles del profesional</button>
+                        {isPerfilClicked && <DetallesPerfil usuario={usuario}/>}
+                    <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesSolicitud}>Detalles de la solicitud</button>
+                        {isSolicitudClicked && <DetallesSolicitud solicitudId={solicitudId}/>}
+                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
                         Conectar con el profesional</button>
                 </div>
             </div>
