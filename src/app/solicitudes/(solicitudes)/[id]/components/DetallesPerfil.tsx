@@ -1,29 +1,35 @@
 import { db } from '@/app/firebase';
-import { doc, getDoc } from 'firebase/firestore';
-import React, { FC, useEffect } from 'react'
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import React, { FC, useEffect, useState } from 'react'
 
 type perfilProps = {
     usuario: any;
  };
- 
+ interface usuarioProps {
+    
+}
 
  const DetallesPerfil: FC< perfilProps> = ({ usuario }) => {
+    const [loading, setLoading] = useState(true);
+    const [ usuarioSelected, setUsuarioSelected] = useState< usuarioProps>();
 
     useEffect(() => {
-        const fetchDoc = async () => {
-          if (userData) {
-            const docRef = doc(db, "users", userData);
-            const response = await getDoc(docRef);
-            if (response.exists()) {
-              const myUserData = response.data() as User;
-              setUser(myUserData);
-              console.log(myUserData)
-            }
-          }
+        const fetchData = async () => {
+          setLoading(true);
+          const  usuariosCollection = collection(db, ' usuarios');
+          const q = query( usuariosCollection, where('id', '==',  usuario));
+          const querySnapshot = await getDocs(q);
+    
+          querySnapshot.forEach((doc) => {
+            setUsuarioSelected(doc.data() as  usuarioProps);
+          });
+    
+          setLoading(false);
         };
     
-        fetchDoc();
-      }, [usuario]);
+        fetchData();
+      }, [ usuario]);
+    
 
    return (
     <div className='bg-white py-5 text-gray-500'>DetallesPerfil</div>

@@ -1,6 +1,6 @@
 import { db } from '@/app/firebase';
-import { doc, getDoc } from 'firebase/firestore';
-import React, { FC, useEffect } from 'react'
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import React, { FC, useEffect, useState } from 'react'
 
 
 type solicitudProps = {
@@ -9,22 +9,25 @@ type solicitudProps = {
 
 
 const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
-     
- useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as User;
-          setUser(myUserData);
-          console.log(myUserData)
-        }
-      }
-    };
+    const [loading, setLoading] = useState(true);
+    const [ usuarioSelected, setUsuarioSelected] = useState< solicitudProps>();
 
-    fetchDoc();
-  }, [solicitudId]);
+    useEffect(() => {
+        const fetchData = async () => {
+          setLoading(true);
+          const  usuariosCollection = collection(db, ' solicitudes');
+          const q = query( usuariosCollection, where('id', '==',  solicitudId));
+          const querySnapshot = await getDocs(q);
+    
+          querySnapshot.forEach((doc) => {
+            setUsuarioSelected(doc.data() as  solicitudProps);
+          });
+    
+          setLoading(false);
+        };
+    
+        fetchData();
+      }, [ solicitudId]);
 
   return (
     <div className='bg-white py-5 text-gray-500'>DetallesSolicitud</div>
