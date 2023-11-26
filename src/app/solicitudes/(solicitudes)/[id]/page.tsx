@@ -34,11 +34,10 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
             const querySnapshot = await getDocs(q);
 
             querySnapshot.forEach((doc) => {
-                setSolicitud(doc.data() as solicitudProps);
+                setSolicitud(doc.data() as solicitudProps); 
             });
 
             setLoading(false);
-            console.log(oferta, solicitud, usuario)
         };
 
         fetchData();
@@ -48,6 +47,8 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
         setSolicitudId(solicitud?.id)
         setUsuario(solicitud?.userId)
         setOferta(solicitud?.offerId)
+        console.log(oferta, solicitud, usuario) 
+
     }, [solicitud]);
 
     const toggleDetallesOferta = ()=>{
