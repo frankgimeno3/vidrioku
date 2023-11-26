@@ -6,7 +6,13 @@ type perfilProps = {
     usuario: any;
  };
  interface usuarioProps {
-    
+    apellidos: string;
+    edad: number;
+    genero: string;
+    nombre: string;
+    ubi: string;
+    userEmail: string;
+   
 }
 
  const DetallesPerfil: FC< perfilProps> = ({ usuario }) => {
@@ -16,8 +22,8 @@ type perfilProps = {
     useEffect(() => {
         const fetchData = async () => {
           setLoading(true);
-          const  usuariosCollection = collection(db, ' usuarios');
-          const q = query( usuariosCollection, where('id', '==',  usuario));
+          const  usuariosCollection = collection(db, 'users');
+          const q = query( usuariosCollection, where('email', '==',  usuario));
           const querySnapshot = await getDocs(q);
     
           querySnapshot.forEach((doc) => {
@@ -25,16 +31,20 @@ type perfilProps = {
           });
     
           setLoading(false);
-          console.log("usuarioSelected", usuarioSelected)
-
+ 
         };
     
         fetchData();
-      }, [ usuario]);
+      }, [ ]);
     
 
    return (
-    <div className='bg-white py-5 text-gray-500'>DetallesPerfil</div>
+    <div className='bg-white py-5 text-gray-500'>
+      <p><span className='font-bold'>Nombre y apellidos: </span>{usuarioSelected?.nombre} {usuario?.apellidos} </p>
+      <p><span className='font-bold'>Ubicación: </span>{usuarioSelected?.ubi}</p>
+      <p><span className='font-bold'>Edad: </span>{usuarioSelected?.edad}</p>
+      <p><span className='font-bold'>Género: </span>{usuarioSelected?.genero}</p>
+     </div>
   )
 }
 

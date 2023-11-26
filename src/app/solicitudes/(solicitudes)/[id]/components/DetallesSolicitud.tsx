@@ -7,10 +7,18 @@ type solicitudProps = {
     solicitudId: any;
  };
 
+ interface Solicitud {
+  solicitudId: any;
+  offerId:any
+  userId:any
+  presentacion:any
+ 
+}
+
 
 const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
     const [loading, setLoading] = useState(true);
-    const [ solicitudSelected, setSolicitudSelected] = useState< solicitudProps>();
+    const [ solicitudSelected, setSolicitudSelected] = useState< Solicitud>();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,18 +28,19 @@ const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
           const querySnapshot = await getDocs(q);
     
           querySnapshot.forEach((doc) => {
-            setSolicitudSelected(doc.data() as  solicitudProps);
+            setSolicitudSelected(doc.data() as  Solicitud);
           });
     
           setLoading(false);
-          console.log("solicitudSelected", solicitudSelected)
-        };
+         };
     
         fetchData();
       }, [ solicitudId]);
 
   return (
-    <div className='bg-white py-5 text-gray-500'>DetallesSolicitud</div>
+    <div className='bg-white py-5 text-gray-500'>
+      <p><span className='font-bold'>Presentación: </span>{solicitudSelected?.presentacion}</p>
+    </div>
   )
 }
 

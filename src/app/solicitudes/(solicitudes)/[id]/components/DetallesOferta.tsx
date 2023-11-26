@@ -49,10 +49,9 @@ const DetallesOferta: FC< ofertaProps> = ({ oferta }) => {
 
   return (
     <div className='bg-white py-5 text-gray-500'>
-        <h1>{ofertaSelected?.id}</h1>
-        <h1>{ofertaSelected?.titulo}</h1>
-        <h1>{ofertaSelected?.cargo}</h1>
-        <h1>{ofertaSelected?.id}</h1>
+        <h1><span className='font-bold'>Id de la oferta</span> {ofertaSelected?.id}</h1>
+        <h1><span className='font-bold'>Título de la oferta</span> {ofertaSelected?.titulo}</h1>
+        <h1><span className='font-bold'>Cargo ofrecido</span> {ofertaSelected?.cargo}</h1>
     </div>
   )
 }
