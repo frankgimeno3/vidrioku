@@ -38,6 +38,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
             });
 
             setLoading(false);
+            console.log(oferta, solicitud, usuario)
         };
 
         fetchData();

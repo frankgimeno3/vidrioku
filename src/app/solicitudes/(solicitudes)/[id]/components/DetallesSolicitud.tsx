@@ -10,7 +10,7 @@ type solicitudProps = {
 
 const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
     const [loading, setLoading] = useState(true);
-    const [ usuarioSelected, setUsuarioSelected] = useState< solicitudProps>();
+    const [ solicitudSelected, setSolicitudSelected] = useState< solicitudProps>();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,10 +20,11 @@ const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
           const querySnapshot = await getDocs(q);
     
           querySnapshot.forEach((doc) => {
-            setUsuarioSelected(doc.data() as  solicitudProps);
+            setSolicitudSelected(doc.data() as  solicitudProps);
           });
     
           setLoading(false);
+          console.log("solicitudSelected", solicitudSelected)
         };
     
         fetchData();

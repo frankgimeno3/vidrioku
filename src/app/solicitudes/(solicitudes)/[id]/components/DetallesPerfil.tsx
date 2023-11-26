@@ -25,6 +25,8 @@ type perfilProps = {
           });
     
           setLoading(false);
+          console.log("usuarioSelected", usuarioSelected)
+
         };
     
         fetchData();
