@@ -6,6 +6,8 @@ import React, { FC, useEffect, useState } from 'react'
 import DetallesOferta from './components/DetallesOferta';
 import DetallesPerfil from './components/DetallesPerfil';
 import DetallesSolicitud from './components/DetallesSolicitud';
+import { useRouter } from 'next/navigation';
+import ConectarButton from './components/ConectarButton';
 
 type solicitudProps = {
     id: any;
@@ -16,6 +18,7 @@ interface SolicitudesProps {
     params: { id: string }
 }
 const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
+    const router = useRouter()
 
     const [solicitud, setSolicitud] = useState<solicitudProps>();
     const [loading, setLoading] = useState(true);
@@ -63,6 +66,14 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
         setIsSolicitudClicked(!isSolicitudClicked)
     }
 
+    const deleteSolicitud = ()=>{
+
+    }
+
+    const volverSolicitudes = ()=>{
+        router.push("/solicitudes")
+    }
+
     return (
         <>
             <Navbar />
@@ -81,8 +92,12 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
                         {isPerfilClicked && <DetallesPerfil usuario={usuario}/>}
                     <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesSolicitud}>Detalles de la solicitud</button>
                         {isSolicitudClicked && <DetallesSolicitud solicitudId={solicitudId}/>}
-                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
-                        Conectar con el profesional</button>
+                        <ConectarButton usuario={usuario} oferta={oferta} solicitudId={solicitudId}/>
+                        <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
+                        Rechazar solicitud</button>
+                        <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
+                        onClick={volverSolicitudes}>
+                        Volver a solicitudes</button>
                 </div>
             </div>
         </>

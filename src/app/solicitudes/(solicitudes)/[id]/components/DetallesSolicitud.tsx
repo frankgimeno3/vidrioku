@@ -23,7 +23,7 @@ const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
     useEffect(() => {
         const fetchData = async () => {
           setLoading(true);
-          const  usuariosCollection = collection(db, ' solicitudes');
+          const  usuariosCollection = collection(db, 'solicitudes');
           const q = query( usuariosCollection, where('id', '==',  solicitudId));
           const querySnapshot = await getDocs(q);
     
@@ -39,7 +39,7 @@ const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
 
   return (
     <div className='bg-white py-5 text-gray-500'>
-      <p><span className='font-bold'>Presentación: </span>{solicitudSelected?.presentacion}</p>
+      <p><span className='font-bold'>Presentación: </span>{solicitudSelected?.presentacion || "El usuario no ha incluido presentación"}</p>
     </div>
   )
 }

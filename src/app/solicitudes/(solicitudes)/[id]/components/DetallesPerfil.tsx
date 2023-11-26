@@ -40,7 +40,6 @@ type perfilProps = {
 
    return (
     <div className='bg-white py-5 text-gray-500'>
-      <p><span className='font-bold'>Nombre y apellidos: </span>{usuarioSelected?.nombre} {usuario?.apellidos} </p>
       <p><span className='font-bold'>Ubicación: </span>{usuarioSelected?.ubi}</p>
       <p><span className='font-bold'>Edad: </span>{usuarioSelected?.edad}</p>
       <p><span className='font-bold'>Género: </span>{usuarioSelected?.genero}</p>
