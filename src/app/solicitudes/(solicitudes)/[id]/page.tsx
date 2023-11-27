@@ -47,12 +47,13 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     }, [params.id]);
 
     useEffect(() => {
-        setSolicitudId(solicitud?.id)
-        setUsuario(solicitud?.userId)
-        setOferta(solicitud?.offerId)
-        console.log(oferta, solicitud, usuario) 
-
+        if (solicitud) {
+            setSolicitudId(solicitud.id);
+            setUsuario(solicitud.userId);
+            setOferta(solicitud.offerId);
+        }
     }, [solicitud]);
+
 
     const toggleDetallesOferta = ()=>{
         setIsOfertaClicked(!isOfertaClicked)

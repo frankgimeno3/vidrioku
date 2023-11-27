@@ -70,9 +70,9 @@ function page() {
           .filter((oferta) => oferta.solicitudes && oferta.solicitudes.length > 0)  
           .map((oferta, index) => (
             <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
-              <h3 className='font-medium'>{oferta.titulo}</h3>
-              <p>{oferta.cargo}</p>
-              <p className='font-bold'>Solicitudes de la oferta</p>
+              <h3 className='font-medium'><span className='font-bold text-gray-600 mr-2'>Título de la oferta: </span>{oferta.titulo}</h3>
+              <p><span className='font-bold text-gray-600 mr-2'>Cargo ofrecido: </span>{oferta.cargo}</p>
+              <p className='font-bold mt-5'>Solicitudes de la oferta</p>
 
               <ul>
               {oferta.solicitudes.map((solicitudId: any, solicitudIndex: any) => (

@@ -15,7 +15,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
 
     const [empresa, setEmpresa] = useState()
     const [userData, setUserData] = useState('');
-    const [idConversacionAsignado, setIdConversacionAasignado] = useState()
+    const [idConversacionAsignado, setIdConversacionAsignado] = useState()
 
     const session = useSession({
         required: true,
@@ -34,7 +34,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
       //creamos funcion para crear primer mensaje para usar + adelante
       const addmessageInFirebase = async (  conversationId: any, usuario:any, empresa:any) => {
         try {
-           const messagesCollection = collection(db, 'conversations');
+           const messagesCollection = collection(db, 'messages');
            const newMessageRef = await addDoc(messagesCollection, {
                messageId: '',
                conversacion: conversationId,
@@ -42,10 +42,10 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
                receptor: usuario,
                readc1: true,
                readc2: false,
-               sent: Timestamp.now,
+               sent: Timestamp.now(),
                content: `Hola ${usuario}, somos la empresa ${empresa}, estamos interesados en su perfil.`,
            });
-           await updateDoc(newMessageRef, { conversationId: newMessageRef.id });
+           await updateDoc(newMessageRef, { messageId: newMessageRef.id });
 
        } catch (error) {
            console.error('Error al crear la conversación en Firestore:', error);
@@ -54,7 +54,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
 
    //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
     const addConversationInFirebase = async (  solicitudId: any, usuario:any, empresa:any) => {
-        setIdConversacionAasignado
+        
          try {
             const conversationsCollection = collection(db, 'conversations');
             const newConversationRef = await addDoc(conversationsCollection, {
@@ -64,11 +64,11 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
                 colaborador2: usuario,
                 lastMessageSeenC1: true,
                 lastMessageSeenc2: false,
-                lastMessageSent: Timestamp.now,
+                lastMessageSent: Timestamp.now(),
                 messagesArray: []
              });
             await updateDoc(newConversationRef, { conversationId: newConversationRef.id });
-            await addmessageInFirebase(newConversationRef, usuario, userData)
+            addmessageInFirebase(newConversationRef, usuario, userData)
 
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
@@ -77,17 +77,19 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
     };
 
 
+    
 
     const startConversation = () => {
-
         addConversationInFirebase(solicitudId, usuario, userData)
     }
     return (
-        <Link href={"/chat"}>
+        <>
+        {/* <Link href={"/chat"}> */}
             <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
-                onClick={() => { startConversation }}>
+                onClick={() => { startConversation() }}>
                 Conectar con el profesional</button>
-        </Link>
+        {/* </Link> */}
+        </>
     )
 }
 
