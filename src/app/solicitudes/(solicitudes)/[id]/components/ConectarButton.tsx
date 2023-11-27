@@ -15,6 +15,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
 
     const [empresa, setEmpresa] = useState()
     const [userData, setUserData] = useState('');
+    const [idConversacionAsignado, setIdConversacionAasignado] = useState()
 
     const session = useSession({
         required: true,
@@ -30,7 +31,30 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
         }
       }, [session?.data?.user?.email]);
 
+      //creamos funcion para crear primer mensaje para usar + adelante
+      const addmessageInFirebase = async (  conversationId: any, usuario:any, empresa:any) => {
+        try {
+           const messagesCollection = collection(db, 'conversations');
+           const newMessageRef = await addDoc(messagesCollection, {
+               messageId: '',
+               conversacion: conversationId,
+               emisor: empresa,
+               receptor: usuario,
+               readc1: true,
+               readc2: false,
+               sent: Timestamp.now,
+               content: `Hola ${usuario}, somos la empresa ${empresa}, estamos interesados en su perfil.`,
+           });
+           await updateDoc(newMessageRef, { conversationId: newMessageRef.id });
+
+       } catch (error) {
+           console.error('Error al crear la conversación en Firestore:', error);
+       }
+   };
+
+   //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
     const addConversationInFirebase = async (  solicitudId: any, usuario:any, empresa:any) => {
+        setIdConversacionAasignado
          try {
             const conversationsCollection = collection(db, 'conversations');
             const newConversationRef = await addDoc(conversationsCollection, {
@@ -42,16 +66,16 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
                 lastMessageSeenc2: false,
                 lastMessageSent: Timestamp.now,
                 messagesArray: []
-                // content: `Hola, ${usuario}, somos la empresa ${empresa}`,
-            });
+             });
             await updateDoc(newConversationRef, { conversationId: newConversationRef.id });
-
+            await addmessageInFirebase(newConversationRef, usuario, userData)
 
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
         }
 
     };
+
 
 
     const startConversation = () => {

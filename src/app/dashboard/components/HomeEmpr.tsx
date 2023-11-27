@@ -50,6 +50,9 @@ const chathandler = ()=>{
   const misofertashandler = ()=>{
     router.push("/misofertas")
   }
+  const missolicitudeshandler = ()=>{
+    router.push("/solicitudes")
+  }
 
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
@@ -104,7 +107,7 @@ const chathandler = ()=>{
           <p className='font-bold'>Solicitudes  </p>
           <button
             className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1 mx-32"
-            onClick={misofertashandler}
+            onClick={missolicitudeshandler}
           >Ver Solicitudes Recibidas</button>
  
          </div>
