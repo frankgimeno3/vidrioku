@@ -17,7 +17,8 @@ import Image
     interlocutor:any
    }
   
-  const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor }) => {    return (
+  const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor }) => {    
+    return (
         <div className="flex flex-row items-center pb-2   bg-white bg-opacity-10   ">
 
             <div>

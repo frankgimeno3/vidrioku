@@ -60,7 +60,8 @@ const Chatcontent: FC<ChatcontentProps> = ({ user, conversationChosen }) => {
     return (
         <div className='flex flex-col h-screen flex-1  '>
             <ChatHeader interlocutor={conversationData?.colaborador2}/>
-            <ContentRendering/>
+            <ContentRendering interlocutor={conversationData?.colaborador2} user={user} 
+                    messagesArray={conversationData?.messagesArray}/>
             <InputForm user={user}/>
         </div>
     );
