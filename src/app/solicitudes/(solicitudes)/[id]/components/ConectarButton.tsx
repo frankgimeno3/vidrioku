@@ -1,5 +1,5 @@
 import { db } from '@/app/firebase';
-import { Timestamp, addDoc, collection, updateDoc } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { redirect, } from 'next/navigation'
@@ -11,10 +11,22 @@ interface ConectarButtonProps {
     solicitudId: any
 }
 
+interface User {
+  id:any
+  apellidos: string;
+  edad: number;
+  genero: string;
+  nombre: string;
+  ubi: string;
+  userEmail: string;
+  conversations: any
+}
+
+
 const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solicitudId }) => {
 
     const [empresa, setEmpresa] = useState()
-    const [userData, setUserData] = useState('');
+    const [userData, setUserData] = useState<User | undefined>();
     const [idConversacionAsignado, setIdConversacionAsignado] = useState()
 
     const session = useSession({
@@ -25,11 +37,11 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
       });
       useEffect(() => {
         if (session?.data?.user?.email) {
-          setUserData(session.data.user.email);
+            setUserData(session.data.user as User);
         } else {
-          setUserData('Usuario');
+            setUserData(undefined);
         }
-      }, [session?.data?.user?.email]);
+    }, [session?.data?.user?.email]);
 
       //creamos funcion para crear primer mensaje para usar + adelante
       const addmessageInFirebase = async (  conversationId: any, usuario:any, empresa:any) => {
@@ -52,6 +64,33 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
        }
    };
 
+   const addConversationToUsuario = async (conversationId: any, usuario: User) => {
+    try {
+        const docRef = doc(db, "users", usuario.id);
+        const userDoc = await getDoc(docRef);
+
+        if (userDoc.exists()) {
+            const datosUsuario = userDoc.data() as User;
+
+            if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
+                await updateDoc(docRef, {
+                    ...datosUsuario,
+                    conversations: [...datosUsuario.conversations, conversationId],
+                });
+            } else {
+                await updateDoc(docRef, {
+                    ...datosUsuario,
+                    conversations: [conversationId],
+                });
+            }
+        } else {
+            console.error('El documento del usuario no existe');
+        }
+    } catch (error) {
+        console.error('Error al crear la solicitud:', error);
+    }
+};
+
    //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
     const addConversationInFirebase = async (  solicitudId: any, usuario:any, empresa:any) => {
         
@@ -69,7 +108,8 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
              });
             await updateDoc(newConversationRef, { conversationId: newConversationRef.id });
             addmessageInFirebase(newConversationRef, usuario, userData)
-
+            addConversationToUsuario(newConversationRef, usuario)
+            // addConversationToEmpresa(newConversationRef, userData)
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
         }

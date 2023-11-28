@@ -19,6 +19,7 @@ interface User {
     nombre: string;
     ubi: string;
     userEmail: string;
+    conversations: any
 }
 
 const ChatList: FC<ChatListProps> = ({ userData, selectUser1 }) => {
@@ -41,7 +42,7 @@ const ChatList: FC<ChatListProps> = ({ userData, selectUser1 }) => {
         fetchDoc();
     }, [userData]);
 
-    
+
 
     return (
         <div className='my-3 flex flex-1 flex-col'>
