@@ -9,10 +9,10 @@ import ChatList from "./components/ChatList"
 import Chatcontent from "./components/Chatcontent"
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
- 
- 
+
+
 interface User {
-  id:any
+  id: any
   apellidos: string;
   edad: number;
   genero: string;
@@ -26,8 +26,7 @@ const Mensajes: FC = ({ }) => {
   const [userData, setUserData] = useState('');
   const [user, setUser] = useState<User>();
 
-  const [isConversation, setIsConversation] = useState(false)
- const [conversationChosen, setConversationChosen] = useState()
+  const [conversationChosen, setConversationChosen] = useState()
 
   const session = useSession({
     required: true,
@@ -43,38 +42,35 @@ const Mensajes: FC = ({ }) => {
       setUserData('Usuario');
     }
   }, [session?.data?.user?.email]);
- 
+
   //obtenemos datos de nuestro usuario
   useEffect(() => {
     const fetchDoc = async () => {
-        if (userData) {
-            const docRef = doc(db, "users", userData);
-            const response = await getDoc(docRef);
-            if (response.exists()) {
-                const myUserData = response.data() as User;
-                setUser(myUserData);
-            }
+      if (userData) {
+        const docRef = doc(db, "users", userData);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const myUserData = response.data() as User;
+          setUser(myUserData);
         }
+      }
     };
 
     fetchDoc();
-}, [userData]);
- 
- 
-  const backToMenu = () => {
-    setIsConversation(false)
-  }
+  }, [userData]);
+
+
   return (
     <>
       <Navbar />
       <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
         <div className='flex flex-row'>
-        <ChatList user={user || undefined} setIsConversation={setIsConversation} setConversationChosen={setConversationChosen} />
-          {isConversation && 
-                <Chatcontent userData={userData} backToMenu={backToMenu} 
-                userSelectedImg={userSelectedImg} userSelectedName={userSelectedName} />
-          }
+          <ChatList user={user || undefined} setConversationChosen={setConversationChosen} 
+          />
+
+          <Chatcontent user={user}  conversationChosen={conversationChosen} />
+
         </div>
       </div>
     </>

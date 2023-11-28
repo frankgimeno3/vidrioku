@@ -6,8 +6,7 @@ import { db } from '@/app/firebase';
 
 interface MessageListComponentProps {
   value: any
-  setIsConversation: any
-  setConversationChosen: any
+   setConversationChosen: any
 }
 interface User {
   id: any
@@ -30,7 +29,7 @@ interface Conversation {
   messagesArray: any
 }
 
-const MessageListComponent: FC<MessageListComponentProps> = ({ value, setIsConversation, setConversationChosen }) => {
+const MessageListComponent: FC<MessageListComponentProps> = ({ value,    setConversationChosen }) => {
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
 
@@ -72,9 +71,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value, setIsConve
 
 
   return (
-       <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1"
-        onClick={() => { setIsConversation(true) }}
-      >
+       <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" >
         <div>
           <Image
             src="/profilepictures/2.jpg"
@@ -89,7 +86,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value, setIsConve
           <h2 className='text-right  pt-2 text-gray-400 text-sm'>Último mensaje: </h2>
 
           <div className='flex flex-col'></div>
-          <h2 className='mt-1 text-sm   mx-5'>El usuario
+          <h2 className='mt-1 text-sm mx-5'>El usuario
             <span className='font-bold'> {interlocutor?.nombre} {interlocutor?.apellidos} </span>le ha enviado un mensaje </h2>
         </div>
       </div>
