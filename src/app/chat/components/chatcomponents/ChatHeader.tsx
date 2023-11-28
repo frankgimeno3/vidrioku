@@ -14,10 +14,10 @@ import Image
     conversations: any;
   }
  interface ChatHeaderProps {
-    user: User | undefined;
+    interlocutor:any
    }
   
-  const ChatHeader: FC<ChatHeaderProps> = ({ user }) => {    return (
+  const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor }) => {    return (
         <div className="flex flex-row items-center pb-2   bg-white bg-opacity-10   ">
 
             <div>
@@ -30,7 +30,7 @@ import Image
                 />
             </div>
 
-            <h2 className='pt-2 px-3'>{user?.nombre} {user?.apellidos}</h2>
+            <h2 className='pt-2 px-3'>{interlocutor}</h2>
         </div>
     )
 }

@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-function InputForm() {
-  return (
+interface InputFormProps {
+  user:any
+ }
+
+const InputForm: FC<InputFormProps> = ({ user }) => {
+return (
     <div>
         <form className="flex flex-row  mx-6  py-2 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1 justify-between mb-5 ">
                 <input className='text-gray-300 py-3 pl-5 px-5 text-sm bg-transparent runded w-full mx-4 placeholder-gray-300' 

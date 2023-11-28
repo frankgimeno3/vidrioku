@@ -69,7 +69,7 @@ const Mensajes: FC = ({ }) => {
           <ChatList user={user || undefined} setConversationChosen={setConversationChosen} 
           />
 
-          <Chatcontent user={user}  conversationChosen={conversationChosen} />
+          <Chatcontent user={user || undefined}  conversationChosen={conversationChosen} />
 
         </div>
       </div>

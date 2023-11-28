@@ -28,13 +28,7 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
       console.error("No hay conversations or conversations is not an array");
     }
   }, [user]);
-
-  useEffect(() => {
-    console.log("Nuevo user:", user);
-    if (user) {
-      console.log("Conversations:", user.conversations);
-    }
-  }, [user]);
+ 
 
   
   return (
