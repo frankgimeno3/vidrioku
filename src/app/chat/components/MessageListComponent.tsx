@@ -3,6 +3,7 @@ import Image
   from 'next/image'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
+
 interface MessageListComponentProps {
   value: any
 }
@@ -38,8 +39,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value }) => {
         if (response.exists()) {
           const conversationDataObject = response.data();
           setConversationData(conversationDataObject);
-          console.log("conversationData", conversationData)
-        }
+         }
       }
     };
 
@@ -54,13 +54,14 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value }) => {
         if (response.exists()) {
           const interlocutorData = response.data() as User;
           setInterlocutor(interlocutorData);
-          console.log("interlocutor", interlocutor)
-        }
+         }
       }
     };
 
     fetchDoc();
   }, [conversationData]);
+
+ 
 
 
   return (
@@ -76,7 +77,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value }) => {
       </div>
 
       <div className='flex flex-col px-3 flex-3'>
-        <h2 className='text-right  pt-2 text-gray-400 text-sm'>{value}</h2>
+        <h2 className='text-right  pt-2 text-gray-400 text-sm'>Último mensaje: </h2>
 
         <div className='flex flex-col'></div>
         <h2 className='mt-1 text-sm   mx-5'>El usuario

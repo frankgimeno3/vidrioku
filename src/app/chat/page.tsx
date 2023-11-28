@@ -63,8 +63,6 @@ const Mensajes: FC = ({ }) => {
  
   const backToMenu = () => {
     setIsConversation(false)
-    // setUserSelectedName("")
-    // setUserSelectedImg("")
   }
   return (
     <>
