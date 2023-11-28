@@ -72,7 +72,7 @@ const Mensajes: FC = ({ }) => {
       <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
         <div className='flex flex-row'>
-          <ChatList   user={user}   />
+        <ChatList user={user || undefined} />
           {/* {isConversation && 
                 <Chatcontent userData={userData} backToMenu={backToMenu} 
                 userSelectedImg={userSelectedImg} userSelectedName={userSelectedName} />
