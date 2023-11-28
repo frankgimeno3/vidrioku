@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import MessageListComponent from './MessageListComponent';
 
 interface User {
@@ -9,28 +9,44 @@ interface User {
   nombre: string;
   ubi: string;
   userEmail: string;
-  conversations: any[];
+  conversations: any;
 }
 
 interface ChatListProps {
-  user?: User | undefined;
+  user: User | undefined;
 }
 
-  const ChatList: FC<ChatListProps> = ({ user }) => {
-    const conversationsArray = user?.conversations || [];
-    const validConversationsArray = Array.isArray(conversationsArray) ? conversationsArray : [];
+const ChatList: FC<ChatListProps> = ({ user }) => {
+  const [conversationsArray, setConversationsArray] = useState<string[]>([]);
 
-    return (
-      <div className="my-3 flex flex-1 flex-col">
-        {validConversationsArray.length === 0 || (validConversationsArray.length === 1 && !validConversationsArray[0].trim()) ? (
-          <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
-        ) : (
-          validConversationsArray.map((conversation, index) => (
-            <MessageListComponent key={index} value={conversation} />
-          ))
-        )}
-      </div>
-    );
-  };
+  useEffect(() => {
+    if (user && user.conversations && Array.isArray(user.conversations)) {
+      setConversationsArray(user.conversations);
+    } else {
+      setConversationsArray([]);
+      console.error("No hay conversations or conversations is not an array");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log("Nuevo user:", user);
+    if (user) {
+      console.log("Conversations:", user.conversations);
+    }
+  }, [user]);
+
   
-  export default ChatList;
+  return (
+    <div className="my-3 flex flex-1 flex-col">
+      {conversationsArray.length === 0 || (conversationsArray.length === 1 && !conversationsArray[0].trim()) ? (
+        <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
+      ) : (
+        conversationsArray.map((conversation, index) => (
+          <MessageListComponent key={index} value={conversation} />
+        ))
+      )}
+    </div>
+  );
+};
+
+export default ChatList;
