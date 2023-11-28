@@ -7,15 +7,27 @@ import { signOut, useSession } from 'next-auth/react';
 
 import ChatList from "./components/ChatList"
 import Chatcontent from "./components/Chatcontent"
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
  
  
+interface User {
+  id:any
+  apellidos: string;
+  edad: number;
+  genero: string;
+  nombre: string;
+  ubi: string;
+  userEmail: string;
+  conversations: any
+}
 const Mensajes: FC = ({ }) => {
   const router = useRouter();
   const [userData, setUserData] = useState('');
+  const [user, setUser] = useState<User>();
 
   const [isConversation, setIsConversation] = useState(false)
-  const [userSelectedName, setUserSelectedName] = useState("")
-  const [userSelectedImg, setUserSelectedImg] = useState("")
+ 
 
   const session = useSession({
     required: true,
@@ -32,17 +44,27 @@ const Mensajes: FC = ({ }) => {
     }
   }, [session?.data?.user?.email]);
  
+  //obtenemos datos de nuestro usuario
+  useEffect(() => {
+    const fetchDoc = async () => {
+        if (userData) {
+            const docRef = doc(db, "users", userData);
+            const response = await getDoc(docRef);
+            if (response.exists()) {
+                const myUserData = response.data() as User;
+                setUser(myUserData);
+            }
+        }
+    };
 
-  const selectUser1 = () => {
-    setIsConversation(true)
-    setUserSelectedName("Miquel Àngel Rodriguez")
-    setUserSelectedImg("/profilepictures/3.jpg")
-  }
-
+    fetchDoc();
+}, [userData]);
+ 
+ 
   const backToMenu = () => {
     setIsConversation(false)
-    setUserSelectedName("")
-    setUserSelectedImg("")
+    // setUserSelectedName("")
+    // setUserSelectedImg("")
   }
   return (
     <>
@@ -50,11 +72,11 @@ const Mensajes: FC = ({ }) => {
       <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
         <div className='flex flex-row'>
-          <ChatList   userData={userData} selectUser1={selectUser1} />
-          {isConversation && 
+          <ChatList   user={user}   />
+          {/* {isConversation && 
                 <Chatcontent userData={userData} backToMenu={backToMenu} 
                 userSelectedImg={userSelectedImg} userSelectedName={userSelectedName} />
-          }
+          } */}
         </div>
       </div>
     </>

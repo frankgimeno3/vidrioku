@@ -2,14 +2,12 @@ import React, { FC } from 'react'
 import Image
  from 'next/image'
 interface MessageListComponentProps {
-     selectUser1: any
-  
+   
 }
-const MessageListComponent: FC<MessageListComponentProps> = ({ selectUser1,  }) => {
+const MessageListComponent: FC<MessageListComponentProps> = ({   }) => {
 
    return (
-    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1"
-    onClick={selectUser1}>
+    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1">
     <div>
       <Image
         src="/profilepictures/2.jpg"

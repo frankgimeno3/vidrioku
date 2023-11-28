@@ -25,9 +25,7 @@ interface User {
 
 const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solicitudId }) => {
 
-    const [empresa, setEmpresa] = useState()
-    const [userData, setUserData] = useState<User | undefined>();
-    const [idConversacionAsignado, setIdConversacionAsignado] = useState()
+    const [userData, setUserData] = useState<User>();
 
     const session = useSession({
         required: true,
@@ -107,9 +105,14 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
                 messagesArray: []
              });
             await updateDoc(newConversationRef, { conversationId: newConversationRef.id });
-            addmessageInFirebase(newConversationRef, usuario, userData)
-            addConversationToUsuario(newConversationRef, usuario)
-            // addConversationToEmpresa(newConversationRef, userData)
+            if (userData) {
+              addmessageInFirebase(newConversationRef, usuario, userData);
+              addConversationToUsuario(newConversationRef, userData);
+              addConversationToUsuario(newConversationRef, usuario);
+          } else {
+              console.error('User data is undefined');
+          }
+
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
         }
