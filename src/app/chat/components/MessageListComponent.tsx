@@ -6,6 +6,8 @@ import { db } from '@/app/firebase';
 
 interface MessageListComponentProps {
   value: any
+  setIsConversation: any
+  setConversationChosen: any
 }
 interface User {
   id: any
@@ -28,9 +30,14 @@ interface Conversation {
   messagesArray: any
 }
 
-const MessageListComponent: FC<MessageListComponentProps> = ({ value }) => {
+const MessageListComponent: FC<MessageListComponentProps> = ({ value, setIsConversation, setConversationChosen }) => {
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
+
+  useEffect(()=>{
+    setConversationChosen(value)
+  }, [value])
+
   useEffect(() => {
     const fetchDoc = async () => {
       if (value) {
@@ -39,7 +46,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value }) => {
         if (response.exists()) {
           const conversationDataObject = response.data();
           setConversationData(conversationDataObject);
-         }
+        }
       }
     };
 
@@ -54,37 +61,39 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value }) => {
         if (response.exists()) {
           const interlocutorData = response.data() as User;
           setInterlocutor(interlocutorData);
-         }
+        }
       }
     };
 
     fetchDoc();
   }, [conversationData]);
 
- 
+
 
 
   return (
-    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1">
-      <div>
-        <Image
-          src="/profilepictures/2.jpg"
-          alt="ing1"
-          width={100}
-          height={100}
-          className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
-        />
-      </div>
+       <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1"
+        onClick={() => { setIsConversation(true) }}
+      >
+        <div>
+          <Image
+            src="/profilepictures/2.jpg"
+            alt="ing1"
+            width={100}
+            height={100}
+            className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
+          />
+        </div>
 
-      <div className='flex flex-col px-3 flex-3'>
-        <h2 className='text-right  pt-2 text-gray-400 text-sm'>Último mensaje: </h2>
+        <div className='flex flex-col px-3 flex-3'>
+          <h2 className='text-right  pt-2 text-gray-400 text-sm'>Último mensaje: </h2>
 
-        <div className='flex flex-col'></div>
-        <h2 className='mt-1 text-sm   mx-5'>El usuario
-          <span className='font-bold'> {interlocutor?.nombre} {interlocutor?.apellidos} </span>le ha enviado un mensaje </h2>
+          <div className='flex flex-col'></div>
+          <h2 className='mt-1 text-sm   mx-5'>El usuario
+            <span className='font-bold'> {interlocutor?.nombre} {interlocutor?.apellidos} </span>le ha enviado un mensaje </h2>
+        </div>
       </div>
-    </div>
-  )
+   )
 }
 
 export default MessageListComponent

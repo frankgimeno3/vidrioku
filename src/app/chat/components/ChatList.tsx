@@ -14,9 +14,11 @@ interface User {
 
 interface ChatListProps {
   user: User | undefined;
+  setIsConversation: any
+  setConversationChosen: any
 }
 
-const ChatList: FC<ChatListProps> = ({ user }) => {
+const ChatList: FC<ChatListProps> = ({ user, setIsConversation, setConversationChosen }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
         <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
       ) : (
         conversationsArray.map((conversation, index) => (
-          <MessageListComponent key={index} value={conversation} />
+          <MessageListComponent key={index} value={conversation} setIsConversation={setIsConversation} setConversationChosen={setConversationChosen} />
         ))
       )}
     </div>
