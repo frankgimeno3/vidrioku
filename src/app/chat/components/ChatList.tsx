@@ -21,15 +21,12 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
 
   useEffect(() => {
-    if (user && user.conversations && Array.isArray(user.conversations)) {
+    if (user) {
       setConversationsArray(user.conversations);
-    } else {
+     } else {
       setConversationsArray([]);
-      console.error("No hay conversations or conversations is not an array");
-    }
+     }
   }, [user]);
- 
-
   
   return (
     <div className="my-3 flex flex-1 flex-col">
@@ -37,7 +34,7 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
         <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
       ) : (
         conversationsArray.map((conversation, index) => (
-          <MessageListComponent key={index} value={conversation}   setConversationChosen={setConversationChosen} />
+          <MessageListComponent key={index} conversation={conversation}   setConversationChosen={setConversationChosen} />
         ))
       )}
     </div>

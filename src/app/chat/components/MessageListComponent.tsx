@@ -5,7 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 
 interface MessageListComponentProps {
-  value: any
+  conversation: any
    setConversationChosen: any
 }
 interface User {
@@ -29,18 +29,18 @@ interface Conversation {
   messagesArray: any
 }
 
-const MessageListComponent: FC<MessageListComponentProps> = ({ value,    setConversationChosen }) => {
+const MessageListComponent: FC<MessageListComponentProps> = ({ conversation,    setConversationChosen }) => {
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
   const [colab2, setColab2] = useState()
-  useEffect(()=>{
-    setConversationChosen(value)
-  }, [value])
+  
+  
+ 
 
   useEffect(() => {
     const fetchDoc = async () => {
-      if (value) {
-        const docRef = doc(db, "conversations", value);
+      if (conversation) {
+        const docRef = doc(db, "conversations", conversation);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const conversationDataObject = response.data();
@@ -50,7 +50,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value,    setConv
     };
 
     fetchDoc();
-  }, [value]);
+  }, [conversation]);
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -81,7 +81,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value,    setConv
 
 
   return (
-       <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" >
+       <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" 
+       onClick={()=>{setConversationChosen(conversation)}}>
         <div>
           <Image
             src="/profilepictures/2.jpg"
