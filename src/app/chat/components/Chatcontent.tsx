@@ -9,25 +9,14 @@ import ChatHeader from './chatcomponents/ChatHeader';
 
 
 interface ChatcontentProps {
-    user: User | undefined
-    conversationChosen: any
+  userId:any
+  conversationChosen: any
 }
 
-interface User {
-    id: any
-    apellidos: string;
-    edad: number;
-    genero: string;
-    nombre: string;
-    ubi: string;
-    userEmail: string;
-    conversations: any
-  }
-
+ 
   interface Conversation {
     colaborador1: any
     colaborador2: any
-    conversacion: any
     conversationId: any
     lastMessageSeenC1: any
     lastMessageSeenc2: any
@@ -35,7 +24,7 @@ interface User {
     messagesArray: any
   }
 
-const Chatcontent: FC<ChatcontentProps> = ({ user, conversationChosen }) => {
+const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
     const [conversationData, setConversationData] = useState<any>()
 
     useEffect(() => {
@@ -51,18 +40,15 @@ const Chatcontent: FC<ChatcontentProps> = ({ user, conversationChosen }) => {
         };
     
         fetchDoc();
-      }, [conversationChosen]);
+    }, [conversationChosen]);
 
-
- 
   
-
     return (
         <div className='flex flex-col h-screen flex-1  '>
             <ChatHeader interlocutor={conversationData?.colaborador2}/>
-            <ContentRendering interlocutor={conversationData?.colaborador2} user={user} 
+            <ContentRendering interlocutor={conversationData?.colaborador2} userId={userId} 
                     messagesArray={conversationData?.messagesArray}/>
-            <InputForm user={user}/>
+            <InputForm userId={userId} conversationId={conversationData?.conversationId}/>
         </div>
     );
 };

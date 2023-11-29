@@ -47,7 +47,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
            const messagesCollection = collection(db, 'messages');
            const newMessageRef = await addDoc(messagesCollection, {
                messageId: '',
-               conversacion: conversationId,
+               conversationId: conversationId,
                emisor: empresa,
                receptor: usuario,
                readc1: true,
@@ -95,7 +95,6 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
          try {
             const conversationsCollection = collection(db, 'conversations');
             const newConversationRef = await addDoc(conversationsCollection, {
-                conversationId: '',
                 conversacion: solicitudId,
                 colaborador1: empresa,
                 colaborador2: usuario,
@@ -104,8 +103,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
                 lastMessageSent: Timestamp.now(),
                 messagesArray: []
              });
-            await updateDoc(newConversationRef, { conversationId: newConversationRef.id });
-            if (userData) {
+             if (userData) {
               addmessageInFirebase(newConversationRef, usuario, userData);
               addConversationToUsuario(newConversationRef, userData);
               addConversationToUsuario(newConversationRef, usuario);

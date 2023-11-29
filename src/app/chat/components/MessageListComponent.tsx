@@ -32,7 +32,7 @@ interface Conversation {
 const MessageListComponent: FC<MessageListComponentProps> = ({ value,    setConversationChosen }) => {
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
-
+  const [colab2, setColab2] = useState()
   useEffect(()=>{
     setConversationChosen(value)
   }, [value])
@@ -54,8 +54,18 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value,    setConv
 
   useEffect(() => {
     const fetchDoc = async () => {
-      if (value) {
-        const docRef = doc(db, "users", conversationData.colaborador2);
+      if (conversationData) {
+        setColab2(conversationData.colaborador2)
+      }
+    };
+
+    fetchDoc();
+  }, [conversationData]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (colab2) {
+        const docRef = doc(db, "users", colab2);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const interlocutorData = response.data() as User;
@@ -65,7 +75,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ value,    setConv
     };
 
     fetchDoc();
-  }, [conversationData]);
+  }, [colab2]);
 
 
 

@@ -28,6 +28,7 @@ import Image
                     width={10}
                     height={50}
                     className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
+                    priority={false}
                 />
             </div>
 

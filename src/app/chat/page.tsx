@@ -25,6 +25,7 @@ const Mensajes: FC = ({ }) => {
   const router = useRouter();
   const [userData, setUserData] = useState('');
   const [user, setUser] = useState<User>();
+  const [userId, setUserId] = useState()
 
   const [conversationChosen, setConversationChosen] = useState()
 
@@ -59,6 +60,16 @@ const Mensajes: FC = ({ }) => {
     fetchDoc();
   }, [userData]);
 
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (user) {
+        setUserId(user.id)
+      }
+    };
+
+    fetchDoc();
+  }, [user]);
+
 
   return (
     <>
@@ -69,7 +80,7 @@ const Mensajes: FC = ({ }) => {
           <ChatList user={user || undefined} setConversationChosen={setConversationChosen} 
           />
 
-          <Chatcontent user={user || undefined}  conversationChosen={conversationChosen} />
+          <Chatcontent userId={userId}  conversationChosen={conversationChosen} />
 
         </div>
       </div>

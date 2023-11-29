@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 
 interface InputFormProps {
-  user:any
+  userId:any
+  conversationId:any
  }
 
-const InputForm: FC<InputFormProps> = ({ user }) => {
+const InputForm: FC<InputFormProps> = ({ userId }) => {
 return (
     <div>
         <form className="flex flex-row  mx-6  py-2 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-1 justify-between mb-5 ">
