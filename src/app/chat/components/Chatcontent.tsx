@@ -26,29 +26,33 @@ interface ChatcontentProps {
 
 const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
     const [conversationData, setConversationData] = useState<any>()
+    const [messagesArray, setMessagesArray] = useState<any>()
 
     useEffect(() => {
-        const fetchDoc = async () => {
-          if (conversationChosen) {
-            const docRef = doc(db, "conversations", conversationChosen);
-            const response = await getDoc(docRef);
-            if (response.exists()) {
-              const conversationDataObject = response.data() as Conversation;
-              setConversationData(conversationDataObject);
-            }
+      const fetchDoc = async () => {
+        if (conversationChosen) {
+          const docRef = doc(db, "conversations", conversationChosen);
+          const response = await getDoc(docRef);
+          if (response.exists()) {
+            const conversationDataObject = response.data() as Conversation;
+            setConversationData(conversationDataObject);
           }
-        };
-    
-        fetchDoc();
-    }, [conversationChosen]);
+        }
+      };
+  
+      fetchDoc();
+  }, [conversationChosen]);
+
+  useEffect(() => {
+    setMessagesArray(conversationData?.messagesArray)
+}, [conversationData]);
 
   
     return (
-        <div className='flex flex-col h-screen flex-1  '>
+        <div className='flex flex-col h-full flex-1  '>
             <ChatHeader interlocutor={conversationData?.colaborador2}/>
-            <ContentRendering interlocutor={conversationData?.colaborador2} userId={userId} 
-                    messagesArray={conversationData?.messagesArray}/>
-            <InputForm userId={userId} conversationId={conversationData?.conversationId}/>
+             <ContentRendering interlocutor={conversationData?.colaborador2} userId={userId} messagesArray={messagesArray}/>
+             <InputForm userId={userId} conversationId={conversationData?.conversationId}/>
         </div>
     );
 };
