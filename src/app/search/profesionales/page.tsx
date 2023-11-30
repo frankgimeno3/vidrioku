@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
-  
+
 import { Timestamp, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useSession } from 'next-auth/react';
@@ -26,6 +26,7 @@ interface User {
   nombre: string;
   ubi: string;
   userEmail: string;
+  userType: any;
 }
 
 
@@ -37,6 +38,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
 
   const [renderProfesional, setRenderProfesional] = useState()
   const [trabajadoresArray, setTrabajadoresArray] = useState<User[]>([]);
+  const [trabajadoresArrayFiltrado, setTrabajadoresArrayFiltrado] = useState<User[]>([]);
 
 
   const session = useSession({
@@ -64,28 +66,31 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   };
 
 
-  // const handleUserClick = (oferta: User) => {
-  //   setrenderuser(trabajador);
-  // }
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);  
+      setLoading(true);
 
       const usersCollection = collection(db, 'users');
       const q = query(usersCollection);
       const querySnapshot = await getDocs(q);
       const usersArray: User[] = [];
       querySnapshot.forEach((doc) => {
-        usersArray.push(doc.data() as User );
+        usersArray.push(doc.data() as User);
       });
 
       setTrabajadoresArray(usersArray);
-      setLoading(false);  
+      setLoading(false);
     };
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // Filter trabajadoresArray and set the result to trabajadoresArrayFiltrado
+    const filteredArray = trabajadoresArray.filter((trabajador) => trabajador.userType === 'profesional');
+    setTrabajadoresArrayFiltrado(filteredArray);
+  }, [trabajadoresArray]);
 
   if (loading) {
     return <p>Cargando profesionales...</p>;
@@ -110,9 +115,9 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
             <div className='flex flex-col   mx-12 bg-white '>
               <div className='bg-white flex flex-row w-full h-screen'>
                 <div className='flex flex-col flex-1 justify-between h-full'>
- 
-                <ul className='max-h-full overflow-scroll'>
-                    {trabajadoresArray.map((trabajador, index) => (
+
+                  <ul className='max-h-full overflow-scroll'>
+                    {trabajadoresArrayFiltrado.map((trabajador, index) => (
                       <div key={index}>
                         <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
                       </div>
@@ -123,7 +128,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
                   </nav>
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <Rendercomponent renderProfesional={renderProfesional}/>
+                  <Rendercomponent renderProfesional={renderProfesional} />
                 </div>
               </div>
             </div>
