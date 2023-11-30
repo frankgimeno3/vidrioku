@@ -1,6 +1,6 @@
 import { db } from '@/app/firebase';
 import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import React, { FC, useEffect, useState } from 'react';
+ import React, { FC, useEffect, useState } from 'react';
 
 interface InputFormProps {
   userId: any;
@@ -18,7 +18,7 @@ interface Conversation {
 }
 
 const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
-  const [inputContent, setInputContent] = useState<any>();
+   const [inputContent, setInputContent] = useState<any>();
   const [conversationData, setConversationData] = useState<any>();
   const [interlocutorSelected, setInterlocutorSelected] = useState<any>();
 
@@ -102,7 +102,8 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
   const handleEnviar = (e: React.FormEvent) => {
     e.preventDefault();  
       addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
-  };
+      window.location.reload();
+    };
 
   return (
     <div>
