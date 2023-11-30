@@ -13,15 +13,14 @@ interface User {
 }
 
 interface ChatHeaderProps {
-  interlocutor: any;
-}
+ }
 
-const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor }) => {
+const ChatHeader: FC<ChatHeaderProps> = ({   }) => {
   return (
     <div className="flex flex-row items-center pb-2 bg-white bg-opacity-10">
       <div>
         <Image
-          src="/profilepictures/2.jpg"
+          src="/icons/empty-user-profile.png"
           alt="ing1"
           width={50}
           height={50}
@@ -30,7 +29,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor }) => {
         />
       </div>
 
-      <h2 className="pt-2 px-3">{interlocutor || "Seleccione un chat para interactuar"}</h2>
+      <h2 className="pt-2 px-3">Seleccione un chat para continuar</h2>
     </div>
   );
 };
