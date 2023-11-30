@@ -35,7 +35,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<any>()
 
-  const [renderuser, setrenderuser] = useState()
+  const [renderProfesional, setRenderProfesional] = useState()
   const [trabajadoresArray, setTrabajadoresArray] = useState<User[]>([]);
 
 
@@ -114,7 +114,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
                 <ul className='max-h-full overflow-scroll'>
                     {trabajadoresArray.map((trabajador, index) => (
                       <div key={index}>
-                        <Profesional trabajador={trabajador} />
+                        <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
                       </div>
                     ))}
                   </ul>
@@ -123,7 +123,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
                   </nav>
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <Rendercomponent />
+                  <Rendercomponent renderProfesional={renderProfesional}/>
                 </div>
               </div>
             </div>
