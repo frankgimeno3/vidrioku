@@ -8,8 +8,8 @@ import ListadoOfertas from '../components/searchTree/bolsaOfertas/listadoOfertas
 import Perfil from '../components/screens/Perfil2';
 import Navbar from '../components/Navbar';
 import Searchnav from './components/Searchnav';
-import Profesionales from './profesionales/Profesionales';
-import OfertasList from './ofertas/OfertasList';
+import Profesionales from './profesionales/page';
+import OfertasList from './ofertas/page';
 
 const Search: FC = () => {
   const router = useRouter();
