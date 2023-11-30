@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import SearchOfertas from './searchOfertas'
-import FiltroOfertas from './filtroOfertas'
-import PageListButtons from './compListados/PageListButtons';
-import Anuncio from './compListados/Anuncio';
-import Pasarela from './compListados/Pasarela';
-import Oferta from './compListados/Oferta';
-import Rendercomponent from './compListados/rendercomponent/Rendercomponent';
+import SearchOfertas from './ofertascomponents/searchOfertas'
+import FiltroOfertas from './ofertascomponents/filtroOfertas'
+import PageListButtons from './ofertascomponents/compListados/PageListButtons';
+import Anuncio from './ofertascomponents/compListados/Anuncio';
+import Pasarela from './ofertascomponents/compListados/Pasarela';
+import Oferta from './ofertascomponents/compListados/Oferta';
+import Rendercomponent from './ofertascomponents/compListados/rendercomponent/Rendercomponent';
 import { Timestamp, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 
@@ -66,7 +66,7 @@ const OfertasList: FC<OfertasListProps> = ({ }) => {
 
     <div className="flex flex-col  min-h-screen bg-zinc-800 ">
 
-      <nav className="bg-gray-200 py-2 px-1 text-center">
+      <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
         <SearchOfertas />
         <FiltroOfertas />
       </nav>

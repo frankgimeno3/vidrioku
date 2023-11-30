@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
  
  
-import OfertasList from './ofertascomponents/OfertasList'
+import OfertasList from './OfertasList'
 
 export default function Ofertas() {
   const session = useSession({

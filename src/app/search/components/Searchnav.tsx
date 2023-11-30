@@ -9,7 +9,6 @@ interface SolicitudesProps {
 const Searchnav: FC<SolicitudesProps> = ({ setOfertas, setTrabajadores, tipoConsulta }) => {
 
     return (
-        <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100 min-h-screen ">
             <div className="flex flex-col p-5 ">
                 <h2 className='text-center'>Qué desea consultar?</h2>
                 <div className="flex flex-row pt-1 text-xs">
@@ -33,7 +32,6 @@ const Searchnav: FC<SolicitudesProps> = ({ setOfertas, setTrabajadores, tipoCons
 
         
 
-        </div>
     )
 }
 
