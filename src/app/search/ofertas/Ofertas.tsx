@@ -4,12 +4,11 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+ 
  
 import OfertasList from './ofertascomponents/OfertasList'
 
-export default function Dashboard() {
+export default function Ofertas() {
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -38,13 +37,10 @@ export default function Dashboard() {
     <div className="">
 
       <main className='h-screen bg-zinc-500 '>
-      <Navbar   />
-      <OfertasList  />
-       <Footer onPageChange={handlePageChange} />
-     
-    </main>
+       <OfertasList  />
+     </main>
     </div>
   )
 }
 
-Dashboard.requireAuth = true
+Ofertas.requireAuth = true
