@@ -1,3 +1,4 @@
+"use client"
 import Navbar from '@/app/components/Navbar';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';

@@ -21,7 +21,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor }) => {
     <div className="flex flex-row items-center pb-2 bg-white bg-opacity-10">
       <div>
         <Image
-          src="/profilepictures/2.jpg"
+          src="/icons/empty-user-profile.png"
           alt="ing1"
           width={50}
           height={50}

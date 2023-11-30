@@ -3,11 +3,11 @@ import Image
   from 'next/image'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
+import Link from 'next/link';
 
 interface MessageListComponentProps {
   conversation: any
-  setConversationChosen: any
-}
+ }
 interface User {
   id: any
   apellidos: string;
@@ -39,7 +39,7 @@ interface Mensaje {
 }
 
 
-const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, setConversationChosen }) => {
+const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) => {
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
   const [colab2, setColab2] = useState()
@@ -116,8 +116,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, set
   }, [lastMessage]);
 
   return (
-    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1"
-      onClick={() => { setConversationChosen(conversation) }}>
+    <Link href={`/chat/${conversation}`}>
+    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" >
       <div>
         <Image
           src="/icons/empty-user-profile.png"
@@ -136,6 +136,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, set
         <p className='mt-1 text-sm mx-10'>''{contenidoUltimo?.content}''</p>
       </div>
     </div>
+    </Link>
   )
 }
 
