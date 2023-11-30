@@ -13,40 +13,31 @@ import Searchnav from '../components/Searchnav';
 import FiltroProfesionales from "./profesionalescomponents/filtroProfesionales"
 import SearchProfesionales from "./profesionalescomponents/searchProfesionales"
 import PageListButtons from './profesionalescomponents/compListados/PageListButtons';
-interface OfertasProps {
+import Profesional from './profesionalescomponents/compListados/Profesional';
+import Rendercomponent from './profesionalescomponents/compListados/rendercomponent/Rendercomponent'
+interface ProfesionalesProps {
 }
 
-type Oferta = {
-  titulo: string,
-  cargo: string,
-  jornada: string,
-  tipoubi: string,
-  ubicacion: string,
-  descripcion: string,
-  experiencia: string,
-  adicional: string,
-  empresa: string,
-  publicacion: Timestamp,
-  estado: string,
-  id: any
-};
 
-const Ofertas: FC<OfertasProps> = ({ }) => {
+interface User {
+  apellidos: string;
+  edad: number;
+  genero: string;
+  nombre: string;
+  ubi: string;
+  userEmail: string;
+}
+
+
+const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const router = useRouter();
-  const [renderoferta, setrenderoferta] = useState<Oferta | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [misOfertas, setMisOfertas] = useState<Oferta[]>([]);
-  const [userData, setUserData] = useState("")
   const [tipoConsulta, setTipoConsulta] = useState('Trabajadores');
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState<any>()
 
+  const [renderuser, setrenderuser] = useState()
+  const [trabajadoresArray, setTrabajadoresArray] = useState<User[]>([]);
 
-  const setOfertas = () => {
-    setTipoConsulta('Ofertas');
-  };
-
-  const setTrabajadores = () => {
-    setTipoConsulta('Trabajadores');
-  };
 
   const session = useSession({
     required: true,
@@ -61,31 +52,43 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
     } else { setUserData("Usuario") }
   }, [session?.data?.user?.email]);
 
-  const handleOfertaClick = (oferta: Oferta) => {
-    setrenderoferta(oferta);
-  }
+
+
+
+  const setOfertas = () => {
+    setTipoConsulta('Ofertas');
+  };
+
+  const setTrabajadores = () => {
+    setTipoConsulta('Trabajadores');
+  };
+
+
+  // const handleUserClick = (oferta: User) => {
+  //   setrenderuser(trabajador);
+  // }
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Indicar que se está cargando
+      setLoading(true);  
 
-      const ofertasCollection = collection(db, 'ofertas');
-      const q = query(ofertasCollection);
+      const usersCollection = collection(db, 'users');
+      const q = query(usersCollection);
       const querySnapshot = await getDocs(q);
-      const offersData: Oferta[] = [];
+      const usersArray: User[] = [];
       querySnapshot.forEach((doc) => {
-        offersData.push(doc.data() as Oferta);
+        usersArray.push(doc.data() as User );
       });
 
-      setMisOfertas(offersData);
-      setLoading(false); // Indicar que la carga ha finalizado
+      setTrabajadoresArray(usersArray);
+      setLoading(false);  
     };
 
     fetchData();
   }, []);
 
   if (loading) {
-    return <p>Cargando ofertas...</p>;
+    return <p>Cargando profesionales...</p>;
   }
 
   return (
@@ -107,24 +110,11 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
             <div className='flex flex-col   mx-12 bg-white '>
               <div className='bg-white flex flex-row w-full h-screen'>
                 <div className='flex flex-col flex-1 justify-between h-full'>
-                  {/* <Anuncio />
-              <Pasarela /> */}
-                  <ul className='max-h-full overflow-scroll'>
-                    {misOfertas.map((oferta, index) => (
-                      <div key={index} onClick={() => handleOfertaClick(oferta)}>
-                        {/* <Oferta
-                          id={oferta.id}
-                          titulo={oferta.titulo}
-                          cargo={oferta.cargo}
-                          jornada={oferta.jornada}
-                          tipoubi={oferta.tipoubi}
-                          ubicacion={oferta.ubicacion}
-                          descripcion={oferta.descripcion}
-                          experiencia={oferta.experiencia}
-                          adicional={oferta.adicional}
-                          empresa={oferta.empresa}
-                          estado={oferta.estado}
-                        /> */}
+ 
+                <ul className='max-h-full overflow-scroll'>
+                    {trabajadoresArray.map((trabajador, index) => (
+                      <div key={index}>
+                        <Profesional trabajador={trabajador} />
                       </div>
                     ))}
                   </ul>
@@ -133,34 +123,15 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                   </nav>
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
-                  {/* {renderoferta && (
-                    <Rendercomponent
-                      id={renderoferta.id}
-                      titulo={renderoferta.titulo}
-                      cargo={renderoferta.cargo}
-                      jornada={renderoferta.jornada}
-                      tipoubi={renderoferta.tipoubi}
-                      ubicacion={renderoferta.ubicacion}
-                      descripcion={renderoferta.descripcion}
-                      experiencia={renderoferta.experiencia}
-                      adicional={renderoferta.adicional}
-                      empresa={renderoferta.empresa}
-                      estado={renderoferta.estado}
-                    />
-                  )} */}
+                  <Rendercomponent />
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
-
-
       </div>
-
     </>
   );
 };
 
-export default Ofertas;
+export default Profesionales
