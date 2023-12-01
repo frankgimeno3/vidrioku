@@ -2,7 +2,9 @@
 import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react'
 
 interface ConectarProps {
@@ -23,7 +25,24 @@ interface User {
 
 const Conectar: FC<ConectarProps> = ({ params }) => {
   const [user, setUser] = useState<any>()
+  const [userData, setUserData] = useState<User>();
 
+    //OBTENEMOS DATOS DE NOSOTROS MISMOS
+
+    const session = useSession({
+        required: true,
+        onUnauthenticated() {
+            redirect('/signin');
+        },
+    });
+    useEffect(() => {
+        if (session?.data?.user?.email) {
+            setUserData(session.data.user as User);
+        } else {
+            setUserData(undefined);
+        }
+    }, [session?.data?.user?.email]);
+  //AQUÍ OBTENEMOS DATOS DEL PROFESIONAL
   useEffect(() => {
     const fetchDoc = async () => {
       if (params) {
@@ -40,6 +59,11 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
     console.log(user)
   }, [params]);
  
+
+  //CREAMOS CONVERSACION
+  //CREAMOS MENSAJE Y LO ASOCIAMOS A LA CONVERSACION
+  //AÑADIMOS CONVERSACION A LA EMPRESA
+  //AÑADIMOS CONVERSACION AL PROFESIONAL
   return (
     <>
       <Navbar />
