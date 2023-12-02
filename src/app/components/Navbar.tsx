@@ -45,10 +45,7 @@ const Navbar: FC  = ({   }) => {
     setIsMenuOpen(false)
   };
 
-  const handleSeguimientosClick = () => {
-    router.push("/seguimientos")
-    setIsMenuOpen(false)
-  };
+
 
   const handleConfiguracionClick = () => {
     router.push("/configuracion")
@@ -108,9 +105,6 @@ const Navbar: FC  = ({   }) => {
           </button>
           <button className='py-2 hover:bg-zinc-500' onClick={handleOfertasClick}>
             Mis Ofertas
-          </button>
-          <button className='py-2 hover:bg-zinc-500' onClick={handleSeguimientosClick}>
-            Seguimientos
           </button>
           <button className='py-2 hover:bg-zinc-500' onClick={handleConfiguracionClick} >
             Configuración
