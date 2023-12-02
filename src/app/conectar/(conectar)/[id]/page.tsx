@@ -1,7 +1,7 @@
 "use client"
 import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -25,9 +25,9 @@ interface User {
 
 const Conectar: FC<ConectarProps> = ({ params }) => {
   const [user, setUser] = useState<any>()
-  const [userData, setUserData] = useState<User>();
+  const [nuestroId, setnuestroId] = useState<User>();
 
-    //OBTENEMOS DATOS DE NOSOTROS MISMOS
+    //OBTENEMOS DATOS DE NOSOTROS MISMOS COMO nuestroId
 
     const session = useSession({
         required: true,
@@ -37,12 +37,12 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
     });
     useEffect(() => {
         if (session?.data?.user?.email) {
-            setUserData(session.data.user as User);
+          setnuestroId(session.data.user as User);
         } else {
-            setUserData(undefined);
+          setnuestroId(undefined);
         }
     }, [session?.data?.user?.email]);
-  //AQUÍ OBTENEMOS DATOS DEL PROFESIONAL
+  //AQUÍ OBTENEMOS DATOS DEL PROFESIONAL COMO USER
   useEffect(() => {
     const fetchDoc = async () => {
       if (params) {
@@ -60,10 +60,90 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
   }, [params]);
  
 
-  //CREAMOS CONVERSACION
-  //CREAMOS MENSAJE Y LO ASOCIAMOS A LA CONVERSACION
-  //AÑADIMOS CONVERSACION A LA EMPRESA
-  //AÑADIMOS CONVERSACION AL PROFESIONAL
+    //creamos funcion para crear primer mensaje para usar + adelante
+    const addmessageInFirebase = async (conversationId: any, usuario: any, empresa: any) => {
+      try {
+          const messagesCollection = collection(db, 'messages');
+          const newMessageRef = await addDoc(messagesCollection, {
+              messageId: '',
+              conversationId: conversationId,
+              emisor: empresa,
+              receptor: usuario,
+              readc1: true,
+              readc2: false,
+              sent: Timestamp.now(),
+              content: `Hola ${usuario}, somos la empresa ${empresa}, estamos interesados en su perfil.`,
+          });
+          await updateDoc(newMessageRef, { messageId: newMessageRef.id });
+
+      } catch (error) {
+          console.error('Error al crear la conversación en Firestore:', error);
+      }
+  };
+
+  const addConversationToUsuario = async (conversationId: any, usuario: User) => {
+      try {
+          const docRef = doc(db, "users", usuario.id);
+          const userDoc = await getDoc(docRef);
+
+          if (userDoc.exists()) {
+              const datosUsuario = userDoc.data() as User;
+
+              if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
+                  await updateDoc(docRef, {
+                      ...datosUsuario,
+                      conversations: [...datosUsuario.conversations, conversationId],
+                  });
+              } else {
+                  await updateDoc(docRef, {
+                      ...datosUsuario,
+                      conversations: [conversationId],
+                  });
+              }
+          } else {
+              console.error('El documento del usuario no existe');
+          }
+      } catch (error) {
+          console.error('Error al crear la solicitud:', error);
+      }
+  };
+
+  //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
+  const addConversationInFirebase = async (usuario: any, empresa: any) => {
+
+      try {
+          const conversationsCollection = collection(db, 'conversations');
+          const newConversationRef = await addDoc(conversationsCollection, {
+              conversacion: "",
+              colaborador1: empresa,
+              colaborador2: usuario,
+              lastMessageSeenC1: true,
+              lastMessageSeenc2: false,
+              lastMessageSent: Timestamp.now(),
+              messagesArray: []
+          });
+          await updateDoc(newConversationRef, { conversacion: newConversationRef.id });
+
+          if (nuestroId) { 
+              addmessageInFirebase(newConversationRef, usuario, nuestroId);
+              addConversationToUsuario(newConversationRef, nuestroId);
+              addConversationToUsuario(newConversationRef, usuario);
+          } else {
+              console.error('User data is undefined');
+          }
+
+      } catch (error) {
+          console.error('Error al crear la conversación en Firestore:', error);
+      }
+
+  };
+
+
+
+
+  const startConversation = () => {
+      addConversationInFirebase(user, nuestroId)
+  }
   return (
     <>
       <Navbar />
@@ -76,7 +156,8 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
             <textarea className='rounded-lg w-full text-gray-600 h-64 p-6' placeholder='Por favor, inserte a continuación el mensaje para comenzar la conversación con el usuario'/>
           </div>
           <Link href={'/chat'}>
-          <button className=' mx-auto mt-5  bg-gray-50 text-xs rounded-lg shadow p-4 py-2 text-gray-600'>Enviar y conectar</button>
+          <button className=' mx-auto mt-5  bg-gray-50 text-xs rounded-lg shadow p-4 py-2 text-gray-600'
+          onClick={()=>{startConversation()}}>Enviar y conectar</button>
           </Link>
         </div>
       </div>
