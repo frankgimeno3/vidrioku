@@ -59,9 +59,9 @@ export default function Dashboard() {
   
 
   return (
-    <div className="">
+    <div className=" ">
 
-      <main className='h-screen bg-zinc-500 '>
+      <main className=' bg-gradient-to-b from-zinc-900 to-zinc-600 min-h-screen  '>
         <Navbar />
         {userType == 'empresa' && <HomeEmpr userData={userData} />}
         {userType == 'profesional' &&<HomeTrab userData={userData} /> }

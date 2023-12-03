@@ -10,7 +10,9 @@ import Navbar from '../components/Navbar';
 type Solicitud = {
   id: string;
   offerId: string;
-  userId: string;};
+  userId: string;
+  presentacion:any;
+};
 
 function misSolicitudes() {
   const session = useSession({
@@ -43,7 +45,7 @@ function misSolicitudes() {
       });
 
       setMisSolicitudes(solicitudesData);
-      setLoading(false); // Indicar que la carga ha finalizado
+      setLoading(false); 
     };
 
     fetchData();
@@ -63,9 +65,10 @@ function misSolicitudes() {
         <div className="p-5 bg-white bg-opacity-10 ">       
                 {misSolicitudes.map((solicitud, index) => (
             <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
-              <h3 className='font-medium'>{solicitud.offerId}</h3>
-              <h3 className='font-medium'>{solicitud.userId}</h3>
-              <p>{solicitud.id}</p>
+              <h3 className=''><span className='font-medium mr-2'>Id de la oferta: </span>{solicitud.offerId}</h3>
+              <h3 className='mb-2'><span className='font-medium mr-2'>Solicitante: </span>{solicitud.userId}</h3>
+              <p className='font-medium'>Presentación del solicitante:</p>
+              <p>{solicitud.presentacion}</p>
               <div className='flex flex-row justify-center pt-3'>
               <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar solicitud</button>
               <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver empresa</button>

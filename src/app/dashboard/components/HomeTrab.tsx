@@ -44,7 +44,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
     fetchDoc();
   }, [userData]);
 
-  const miPerfilHandler = ()=>{
+  const miPerfilHandler = () => {
     router.push(`/perfil/${userData}`)
   }
 
@@ -53,7 +53,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
       <div className="flex flex-row   bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <div className='flex flex-col flex-1 '>
           <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
-          <div className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-700 h-full">
+          <div className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-700 h-full ml-12">
             <div className="flex flex-col p-4 w-full flex justify-between text-center justify-center px-auto ">
               <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5" />
               <div className="flex flex-row mx-auto">
@@ -66,7 +66,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
               </div>
               <span>{user?.ubi}</span>
               <span>{userData}</span>
-               
+
               <div >
                 <button
                   className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
@@ -78,7 +78,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
         </div>
         <div className='flex flex-col flex-1'>
           <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Qué te has perdido?</h2>
-          <div className='flex flex-col  h-full '>
+          <div className='flex flex-col  h-full mr-12'>
             <div className='h-full flex-1 text-center bg-gradient-to-b from-gray-900 to-gray-800'>
               <p className='font-bold'>Mensajes nuevos</p>
             </div>
