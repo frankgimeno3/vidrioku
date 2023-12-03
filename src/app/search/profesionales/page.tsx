@@ -98,7 +98,9 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
 
   return (
     <>
- 
+      <Navbar />
+
+      <div className="flex flex-col    bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
         <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100 min-h-screen ">
 
@@ -132,7 +134,8 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
             </div>
           </div>
         </div>
-     </>
+      </div>
+    </>
   );
 };
 
