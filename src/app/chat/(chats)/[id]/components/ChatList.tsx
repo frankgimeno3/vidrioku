@@ -29,7 +29,8 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
   }, [user]);
   
   return (
-    <div className="my-3 flex flex-1 flex-col">
+    <div className="  flex flex-1 flex-col overflow-scroll"  style={{ height: '740px', overflowX: 'auto' }} > 
+    <div className="my-3 flex  flex-col "> 
       {conversationsArray.length === 0 || (conversationsArray.length === 1 && !conversationsArray[0].trim()) ? (
         <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
       ) : (
@@ -38,7 +39,8 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
         ))
       )}
     </div>
-  );
+    </div>
+    );
 };
 
 export default ChatList;

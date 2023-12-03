@@ -24,8 +24,11 @@ interface User {
 
 
 const Conectar: FC<ConectarProps> = ({ params }) => {
-  const [user, setUser] = useState<any>()
-  const [nuestroId, setnuestroId] = useState<User>();
+  const [paramsunsolved, setparamsunsolved] = useState<any>()
+  const [paramssolved, setparamssolved] = useState<any>()
+  const [user, setUser] = useState<any>();
+  const [nuestroId, setNuestroId] = useState<User>();
+  const [content, setContent] = useState<string>('');
 
     //OBTENEMOS DATOS DE NOSOTROS MISMOS COMO nuestroId
 
@@ -37,16 +40,27 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
     });
     useEffect(() => {
         if (session?.data?.user?.email) {
-          setnuestroId(session.data.user as User);
+          setNuestroId(session.data.user as User);
         } else {
-          setnuestroId(undefined);
+          setNuestroId(undefined);
         }
     }, [session?.data?.user?.email]);
   //AQUÍ OBTENEMOS DATOS DEL PROFESIONAL COMO USER
   useEffect(() => {
+    setparamsunsolved(params.id)
+ 
+  }, [params]);
+
+  useEffect(() => {
+    if (paramsunsolved) {
+      setparamssolved(paramsunsolved.replace(/%40/g, '@'));
+     }
+  }, [paramsunsolved]);
+
+  useEffect(() => { 
     const fetchDoc = async () => {
-      if (params) {
-        const docRef = doc(db, "users", params.id);
+      if (paramssolved) {
+        const docRef = doc(db, "users", paramssolved);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
@@ -56,48 +70,51 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
     };
 
     fetchDoc();
-    console.log(user)
-  }, [params]);
+   }, [paramssolved]);
  
-
-    //creamos funcion para crear primer mensaje para usar + adelante
-    const addmessageInFirebase = async (conversationId: any, usuario: any, empresa: any) => {
-      try {
-          const messagesCollection = collection(db, 'messages');
-          const newMessageRef = await addDoc(messagesCollection, {
-              messageId: '',
-              conversationId: conversationId,
-              emisor: empresa,
-              receptor: usuario,
-              readc1: true,
-              readc2: false,
-              sent: Timestamp.now(),
-              content: `Hola ${usuario}, somos la empresa ${empresa}, estamos interesados en su perfil.`,
-          });
-          await updateDoc(newMessageRef, { messageId: newMessageRef.id });
-
-      } catch (error) {
-          console.error('Error al crear la conversación en Firestore:', error);
-      }
+  const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value);
   };
 
-  const addConversationToUsuario = async (conversationId: any, usuario: User) => {
+    //creamos funcion para crear primer mensaje para usar + adelante
+    const addmessageInFirebase = async ( conversationId: any, usuario: any, empresa: any, contenidoMensaje: string ) => {
       try {
-          const docRef = doc(db, "users", usuario.id);
+        const messagesCollection = collection(db, 'messages');
+        const newMessageRef = await addDoc(messagesCollection, {
+          messageId: '',
+          conversationId: conversationId,
+          emisor: empresa.email,
+          receptor: usuario.email,
+          readc1: true,
+          readc2: false,
+          sent: Timestamp.now(),
+          content: contenidoMensaje, // Utilizamos el contenido del mensaje pasado como argumento
+        });
+        await updateDoc(newMessageRef, { messageId: newMessageRef.id });
+      } catch (error) {
+        console.error('Error al crear la conversación en Firestore:', error);
+      }
+    };
+
+  const addConversationToUsuario = async (conversationId: any, usuario: any) => {
+      try {
+          const docRef = doc(db, "users", usuario.email);
           const userDoc = await getDoc(docRef);
+         
 
           if (userDoc.exists()) {
               const datosUsuario = userDoc.data() as User;
-
-              if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
+ 
+              if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)
+                ) {
                   await updateDoc(docRef, {
                       ...datosUsuario,
-                      conversations: [...datosUsuario.conversations, conversationId],
+                      conversations: [...datosUsuario.conversations, conversationId.id],
                   });
               } else {
                   await updateDoc(docRef, {
                       ...datosUsuario,
-                      conversations: [conversationId],
+                      conversations: [conversationId.id],
                   });
               }
           } else {
@@ -110,59 +127,61 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
 
   //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
   const addConversationInFirebase = async (usuario: any, empresa: any) => {
+    try {
+      const conversationsCollection = collection(db, 'conversations');
+      const newConversationRef = await addDoc(conversationsCollection, {
+        conversacion: '',
+        colaborador1: empresa.email,
+        colaborador2: usuario.email,
+        lastMessageSeenC1: true,
+        lastMessageSeenc2: false,
+        lastMessageSent: Timestamp.now(),
+        messagesArray: [],
+      });
+      await updateDoc(newConversationRef, { conversacion: newConversationRef.id });
 
-      try {
-          const conversationsCollection = collection(db, 'conversations');
-          const newConversationRef = await addDoc(conversationsCollection, {
-              conversacion: "",
-              colaborador1: empresa,
-              colaborador2: usuario,
-              lastMessageSeenC1: true,
-              lastMessageSeenc2: false,
-              lastMessageSent: Timestamp.now(),
-              messagesArray: []
-          });
-          await updateDoc(newConversationRef, { conversacion: newConversationRef.id });
-
-          if (nuestroId) { 
-              addmessageInFirebase(newConversationRef, usuario, nuestroId);
-              addConversationToUsuario(newConversationRef, nuestroId);
-              addConversationToUsuario(newConversationRef, usuario);
-          } else {
-              console.error('User data is undefined');
-          }
-
-      } catch (error) {
-          console.error('Error al crear la conversación en Firestore:', error);
+      if (nuestroId) {
+        addmessageInFirebase(newConversationRef, usuario, nuestroId, content);  
+        addConversationToUsuario(newConversationRef, nuestroId);
+        addConversationToUsuario(newConversationRef, usuario);
+      } else {
+        console.error('User data is undefined');
       }
-
+    } catch (error) {
+      console.error('Error al crear la conversación en Firestore:', error);
+    }
   };
-
-
-
 
   const startConversation = () => {
       addConversationInFirebase(user, nuestroId)
   }
   return (
     <>
-      <Navbar />
-      <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-        <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Conectar</h2>
-        <div className="flex flex-col  mx-6  bg-white bg-opacity-5  text-zinc-100 min-h-screen text-center  ">
-
-          <p className='text-lg pt-12'>Está a punto de conectar con el usuario {user?.nombre} {user?.apellidos}</p>
-           <div className='mx-96 px-24 mt-6 '>
-            <textarea className='rounded-lg w-full text-gray-600 h-64 p-6' placeholder='Por favor, inserte a continuación el mensaje para comenzar la conversación con el usuario'/>
-          </div>
-          <Link href={'/chat'}>
-          <button className=' mx-auto mt-5  bg-gray-50 text-xs rounded-lg shadow p-4 py-2 text-gray-600'
-          onClick={()=>{startConversation()}}>Enviar y conectar</button>
-          </Link>
+      {/* ... (código anterior) */}
+      <div className="flex flex-col  mx-6  bg-white bg-opacity-5  text-zinc-100 min-h-screen text-center  ">
+        <p className="text-lg pt-12">Está a punto de conectar con el usuario {user?.nombre} {user?.apellidos}</p>
+        <div className="mx-96 px-24 mt-6 ">
+          {/* Añadimos el evento onChange para manejar el contenido del textarea */}
+          <textarea
+            className="rounded-lg w-full text-gray-600 h-64 p-6"
+            placeholder="Por favor, inserte a continuación el mensaje para comenzar la conversación con el usuario"
+            value={content}
+            onChange={handleTextareaChange}
+          />
         </div>
+        <Link href={'/chat'}>
+          <button
+            className="mx-auto mt-5 bg-gray-50 text-xs rounded-lg shadow p-4 py-2 text-gray-600"
+            onClick={() => {
+              startConversation();
+            }}
+          >
+            Enviar y conectar
+          </button>
+        </Link>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Conectar
+export default Conectar;
