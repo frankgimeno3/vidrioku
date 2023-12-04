@@ -58,7 +58,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
             const messagesCollection = collection(db, 'messages');
             const newMessageRef = await addDoc(messagesCollection, {
                 messageId: '',
-                conversationId: conversationId,
+                conversationId: conversationId.id,
                 emisor: empresa,
                 receptor: usuario,
                 readc1: true,
@@ -77,20 +77,19 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
         try {
             const docRef = doc(db, "users", usuarioDB);
             const userDoc = await getDoc(docRef);
-            console.log("conversation id:", conversationId)
-            if (userDoc.exists()) {
+             if (userDoc.exists()) {
                 const datosUsuario = userDoc.data() as User;
                 console.log("ha llegado hasta aqui y estos son los datos del usuario", datosUsuario)
                 if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
                     await updateDoc(docRef, {
                         ...datosUsuario,
-                        conversations: [...datosUsuario.conversations, conversationId],
+                        conversations: [...datosUsuario.conversations, conversationId.id],
                     });
                 } else {
                     console.log("no ha llegado")
                     await updateDoc(docRef, {
                         ...datosUsuario,
-                        conversations: [conversationId],
+                        conversations: [conversationId.id],
                     });
                 }
             } else {
@@ -116,7 +115,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
                 messagesArray: []
             });
             if (userData) {
-                addmessageInFirebase(newConversationRef, usuario, nosotros);
+                 addmessageInFirebase(newConversationRef, usuario, nosotros);
                 addConversationToUsuario(newConversationRef, nosotros);
                 addConversationToUsuario(newConversationRef, usuario);
             } else {
@@ -125,8 +124,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
 
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
-            console.log(solicitudId, usuario, empresa)
-        }
+         }
 
     };
 

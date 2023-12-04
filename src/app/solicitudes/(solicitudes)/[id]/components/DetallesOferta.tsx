@@ -34,8 +34,7 @@ const DetallesOferta: FC< ofertaProps> = ({ oferta }) => {
     
           querySnapshot.forEach((doc) => {
             setOfertaSelected(doc.data() as OfertaProps);
-            console.log("ofertaSelected", ofertaSelected)
-
+ 
           });
     
           setLoading(false);

@@ -52,7 +52,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversation) {
-        const docRef = doc(db, "conversations", conversation);
+        const docRef = doc(db, "conversations", conversation.id);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const conversationDataObject = response.data();
