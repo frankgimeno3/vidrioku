@@ -1,13 +1,14 @@
 "use client"
 import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react'
 import DetallesOferta from './components/DetallesOferta';
 import DetallesPerfil from './components/DetallesPerfil';
 import DetallesSolicitud from './components/DetallesSolicitud';
-import { useRouter } from 'next/navigation';
-import ConectarButton from './components/ConectarButton';
+import { redirect, useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 type solicitudProps = {
     id: any;
@@ -17,19 +18,56 @@ type solicitudProps = {
 interface SolicitudesProps {
     params: { id: string }
 }
+
+interface User {
+    id: any
+    apellidos: string;
+    edad: number;
+    genero: string;
+    nombre: string;
+    ubi: string;
+    email: any;
+    conversations: any
+}
+
 const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const router = useRouter()
 
+    const [userData, setUserData] = useState<User>();
     const [solicitud, setSolicitud] = useState<solicitudProps>();
     const [loading, setLoading] = useState(true);
     const [isOfertaClicked, setIsOfertaClicked] = useState(false)
     const [isPerfilClicked, setIsPerfilClicked] = useState(false)
     const [isSolicitudClicked, setIsSolicitudClicked] = useState(false)
-    const [usuario, setUsuario] = useState();
+    const [interlocutor, setInterlocutor] = useState();     //este será el otro usuario
     const [oferta, setOferta] = useState();
     const [solicitudId, setSolicitudId] = useState()
+    //estados del button
+    const [nosotros, setNosotros] = useState<any>()
+    const [messageRef, setMessageRef] = useState<any>()
+    const [conversationRef, setConversationRef] = useState<any>()
 
-    
+    const session = useSession({
+        required: true,
+        onUnauthenticated() {
+            redirect('/signin');
+        },
+    });
+    useEffect(() => {
+        if (session?.data?.user?.email) {
+            setUserData(session.data.user as User);
+        } else {
+            setUserData(undefined);
+        }
+    }, [session?.data?.user?.email]);
+
+    useEffect(() => {
+        if (userData) {
+            setNosotros(userData.email)
+        }
+    }, [userData]);
+
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -38,7 +76,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
             const querySnapshot = await getDocs(q);
 
             querySnapshot.forEach((doc) => {
-                setSolicitud(doc.data() as solicitudProps); 
+                setSolicitud(doc.data() as solicitudProps);
             });
 
             setLoading(false);
@@ -50,30 +88,141 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     useEffect(() => {
         if (solicitud) {
             setSolicitudId(solicitud.id);
-            setUsuario(solicitud.userId);
+            setInterlocutor(solicitud.userId);
             setOferta(solicitud.offerId);
         }
     }, [solicitud]);
 
 
-    const toggleDetallesOferta = ()=>{
+    const toggleDetallesOferta = () => {
         setIsOfertaClicked(!isOfertaClicked)
     }
 
-    const toggleDetallesPerfil = ()=>{
+    const toggleDetallesPerfil = () => {
         setIsPerfilClicked(!isPerfilClicked)
     }
 
-    const toggleDetallesSolicitud = ()=>{
+    const toggleDetallesSolicitud = () => {
         setIsSolicitudClicked(!isSolicitudClicked)
     }
 
-    const deleteSolicitud = ()=>{
+    const deleteSolicitud = () => {
 
     }
 
-    const volverSolicitudes = ()=>{
+    const volverSolicitudes = () => {
         router.push("/solicitudes")
+    }
+
+    //a partir de aquí, todo va a ser button
+
+    const addConversationToUsuario = async (conversationId: any, usuarioDB: any) => {
+        try {
+            const docRef = doc(db, "users", usuarioDB);
+            const userDoc = await getDoc(docRef);
+             if (userDoc.exists()) {
+                const datosUsuario = userDoc.data() as User;
+                 if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
+                    await updateDoc(docRef, {
+                        ...datosUsuario,
+                        conversations: [...datosUsuario.conversations, conversationId.id],
+                    });
+                } else {
+                     await updateDoc(docRef, {
+                        ...datosUsuario,
+                        conversations: [conversationId.id],
+                    });
+                }
+            } else {
+                console.error('El documento del usuario no existe');
+            }
+        } catch (error) {
+            console.error('Error al añadir conversacion a usuario:', error);
+        }
+    };
+
+    const addmessageInFirebase = async (conversationId: any, usuario: any, empresa: any) => {
+        try {
+            const messagesCollection = collection(db, 'messages');
+            const newMessageRef = await addDoc(messagesCollection, {
+                messageId: '',
+                conversationId: conversationId.id,
+                emisor: empresa,
+                receptor: usuario,
+                readc1: true,
+                readc2: false,
+                sent: Timestamp.now(),
+                content: `Hola ${usuario}, somos la empresa ${empresa}, estamos interesados en su perfil.`,
+            });
+            await updateDoc(newMessageRef, { messageId: newMessageRef.id });
+            try {
+                const docRef = doc(db, "conversations", conversationId.id);
+               const userDoc = await getDoc(docRef);
+                if (userDoc.exists()) {
+                   const datosConversacion = userDoc.data();
+                   console.log("ha llegado hasta aqui y estos son los datos de la conversación", datosConversacion, "idMensaje", newMessageRef)
+                   if (datosConversacion.messagesArray ) {
+                       await updateDoc(docRef, {
+                           ...datosConversacion,
+                           messagesArray: [...datosConversacion.messagesArray, newMessageRef.id],
+                       });
+                   } else {
+                       console.log("la conver está vacía")
+                       await updateDoc(docRef, {
+                           ...datosConversacion, 
+                           messagesArray: [newMessageRef.id],
+                       }); 
+                   }
+               } else {
+                   console.error('El documento de la conversacion no parece existir');
+               }
+           } catch (error) {
+               console.error('Error al encontrar la conversacion para añadir el mensaje correspondiente:', error);
+           }
+         } catch (error) {
+            console.error('Error al crear la conversación en Firestore:', error);
+        }
+        
+    };
+
+ 
+   
+    //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
+    const addConversationInFirebase = async (usuario: any, empresa: any) => {
+        console.log("Ahora dentro de adconver. usuario: ", usuario, "empresa; ", empresa)
+        try {
+            const conversationsCollection = collection(db, 'conversations');
+            const newConversationRef = await addDoc(conversationsCollection, {
+                conversacion: '',
+                colaborador1: empresa,
+                colaborador2: usuario,
+                lastMessageSeenC1: true,
+                lastMessageSeenc2: false,
+                lastMessageSent: Timestamp.now(),
+                messagesArray: []
+            });
+    
+            await updateDoc(newConversationRef, { conversacion: newConversationRef.id });
+    
+            setTimeout(function() {
+                addConversationToUsuario(newConversationRef, nosotros);
+                addConversationToUsuario(newConversationRef, usuario);
+                setTimeout(function() {
+                    addmessageInFirebase(newConversationRef, usuario, nosotros);
+                 }, 200);   
+             }, 200);            
+
+    
+            setConversationRef(newConversationRef);
+    
+        } catch (error) {
+            console.error('Error al crear la conversación en Firestore:', error);
+        }
+    };
+ 
+
+    const startConversation = (usuario: any, nosotros:any) => {
+        addConversationInFirebase(usuario, nosotros)
     }
 
     return (
@@ -84,20 +233,24 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
                 <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
                     <h2 className="font-bold text-lg text-center mx-auto">Detalles de la solicitud</h2>
                 </div>
-                <div className="flex flex-col p-5 bg-white bg-opacity-10 text-center">        
-                
+                <div className="flex flex-col p-5 bg-white bg-opacity-10 text-center">
+
                     <p className='py-5'>Número de solicitud {params.id}</p>
 
                     <button className='py-5 bg-gray-50 bg-gray-500  ' onClick={toggleDetallesOferta}>Oferta a la que pertenece</button>
-                        {isOfertaClicked && <DetallesOferta oferta={oferta} />}
+                    {isOfertaClicked && <DetallesOferta oferta={oferta} />}
                     <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesPerfil}>Detalles del profesional</button>
-                        {isPerfilClicked && <DetallesPerfil usuario={usuario}/>}
+                    {isPerfilClicked && <DetallesPerfil usuario={interlocutor} />}
                     <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesSolicitud}>Detalles de la solicitud</button>
-                        {isSolicitudClicked && <DetallesSolicitud solicitudId={solicitudId}/>}
-                        <ConectarButton usuario={usuario} solicitudId={solicitudId}/>
-                        <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
-                        Rechazar solicitud</button>
+                    {isSolicitudClicked && <DetallesSolicitud solicitudId={solicitudId} />}
+                    <Link href={'/chat'}>
                         <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
+                            onClick={() => { startConversation(interlocutor, nosotros) }}>
+                            Conectar con el profesional</button>
+                    </Link>
+                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
+                        Rechazar solicitud</button>
+                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
                         onClick={volverSolicitudes}>
                         Volver a solicitudes</button>
                 </div>
@@ -106,4 +259,3 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     )
 }
 export default solicitudseleccionada
- 
