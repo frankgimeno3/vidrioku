@@ -29,6 +29,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const [oferta, setOferta] = useState();
     const [solicitudId, setSolicitudId] = useState()
 
+    
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -93,7 +94,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
                         {isPerfilClicked && <DetallesPerfil usuario={usuario}/>}
                     <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesSolicitud}>Detalles de la solicitud</button>
                         {isSolicitudClicked && <DetallesSolicitud solicitudId={solicitudId}/>}
-                        <ConectarButton usuario={usuario} oferta={oferta} solicitudId={solicitudId}/>
+                        <ConectarButton usuario={usuario} solicitudId={solicitudId}/>
                         <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
                         Rechazar solicitud</button>
                         <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'

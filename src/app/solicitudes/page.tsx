@@ -77,11 +77,11 @@ function page() {
               <ul>
               {oferta.solicitudes.map((solicitudId: any, solicitudIndex: any) => (
                  <li 
-                  className="bg-gray-200 mb-1 p-2"
+                  className="bg-gray-200 mb-1 p-4 hover:bg-gray-100"
                   key={solicitudIndex}>
-                    <p>{solicitudId}</p>
+                    <p><span className='font-medium my-2 mr-2'>Id de la solicitud:</span>{solicitudId}</p>
                     <Link href={`/solicitudes/${solicitudId}`}>
-                    <button className='bg-white rounded px-4 py-1 '>Ver detalles</button>
+                    <button className='bg-white rounded px-4 py-1 mt-2 hover:bg-gray-100 border shadow-lg'>Ver detalles</button>
                     </Link>
                   </li>
               ))}

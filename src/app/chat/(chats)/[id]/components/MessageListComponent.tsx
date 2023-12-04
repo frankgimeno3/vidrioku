@@ -3,11 +3,11 @@ import Image
   from 'next/image'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
-import Link from 'next/link';
+ import { useRouter } from 'next/navigation';
 
 interface MessageListComponentProps {
   conversation: any
- }
+}
 interface User {
   id: any
   apellidos: string;
@@ -40,12 +40,14 @@ interface Mensaje {
 
 
 const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) => {
+  const router = useRouter()
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
   const [colab2, setColab2] = useState()
   const [messagesArray, setMessagesArray] = useState<any>()
   const [lastMessage, setLastMessage] = useState<any>()
   const [contenidoUltimo, setContenidoUltimo] = useState<any>()
+  const [conversationId, setConversationId] = useState<any>()
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -88,8 +90,15 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   }, [colab2]);
 
   useEffect(() => {
-    if (conversationData) {setMessagesArray(conversationData.messagesArray)}
+    if (conversationData) { setMessagesArray(conversationData.messagesArray) }
+  }, [conversationData]);
+  
+  useEffect(() => {
+    if (conversationData) { setMessagesArray(conversationData.messagesArray) }
+  }, [conversationData]);
 
+    useEffect(() => {
+    if (conversationData) { setConversationId(conversationData.conversationId) }
   }, [conversationData]);
 
   useEffect(() => {
@@ -115,28 +124,28 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
     fetchDoc();
   }, [lastMessage]);
 
-  return (
-    <Link href={`/chat/${conversation}`}>
-    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" >
-      <div>
-        <Image
-          src="/icons/empty-user-profile.png"
-          alt="ing1"
-          width={100}
-          height={100}
-          className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
-        />
-      </div>
+  return ( 
+       <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" 
+       onClick={()=>{router.push(`/chat/${conversationId}`)}}>
+        <div>
+          <Image
+            src="/icons/empty-user-profile.png"
+            alt="ing1"
+            width={100}
+            height={100}
+            className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
+          />
+        </div>
 
-      <div className='flex flex-col px-3 flex-3  w-full ml-5'>
-        <h2 className='text-right  pt-2 text-gray-400 text-sm'>{interlocutor?.nombre} {interlocutor?.apellidos}</h2>
+        <div className='flex flex-col px-3 flex-3  w-full ml-5'>
+          <h2 className='text-right  pt-2 text-gray-400 text-sm'>{interlocutor?.nombre} {interlocutor?.apellidos}</h2>
 
-        <div className='flex flex-col'></div>
-        <p className='font font-medium mt-4'>Último mensaje de la conversación:</p>
-        <p className='mt-1 text-sm mx-10'>''{contenidoUltimo?.content}''</p>
+          <div className='flex flex-col'></div>
+          <p className='font font-medium mt-4'>Último mensaje de la conversación:</p>
+          <p className='mt-1 text-sm mx-10'>''{contenidoUltimo?.content}''</p>
+        </div>
       </div>
-    </div>
-    </Link>
+  
   )
 }
 

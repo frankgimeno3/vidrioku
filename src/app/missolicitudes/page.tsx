@@ -50,7 +50,7 @@ function misSolicitudes() {
 
     fetchData();
   }, [userId]);
-
+ 
 
   return (
     <>
@@ -70,7 +70,7 @@ function misSolicitudes() {
               <p className='font-medium'>Presentación del solicitante:</p>
               <p>{solicitud.presentacion}</p>
               <div className='flex flex-row justify-center pt-3'>
-              <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar solicitud</button>
+              <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Cancelar solicitud</button>
               <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver empresa</button>
               </div>
             </div>

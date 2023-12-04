@@ -23,7 +23,7 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
   useEffect(() => {
     if (user) {
       setConversationsArray(user.conversations);
-     } else {
+      } else {
       setConversationsArray([]);
      }
   }, [user]);
@@ -34,7 +34,7 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
         <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
       ) : (
         conversationsArray.map((conversation, index) => (
-          <MessageListComponent key={index} conversation={conversation}   setConversationChosen={setConversationChosen} />
+          <MessageListComponent key={index} conversation={conversation}     />
         ))
       )}
     </div>

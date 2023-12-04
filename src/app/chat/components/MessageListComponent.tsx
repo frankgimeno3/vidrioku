@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
-import Image
-  from 'next/image'
+import Image  from 'next/image'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
-import Link from 'next/link';
-
+import { useRouter } from 'next/navigation';
+ 
 interface MessageListComponentProps {
   conversation: any
  }
@@ -46,6 +45,9 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   const [messagesArray, setMessagesArray] = useState<any>()
   const [lastMessage, setLastMessage] = useState<any>()
   const [contenidoUltimo, setContenidoUltimo] = useState<any>()
+  const [conversationId, setConversationId] = useState<any>()
+
+  const router = useRouter()
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -101,6 +103,11 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   }, [messagesArray]);
 
   useEffect(() => {
+    if (conversationData) { setConversationId(conversationData.conversationId) }
+  }, [conversationData]);
+
+
+  useEffect(() => {
     const fetchDoc = async () => {
       if (lastMessage) {
         const docRef = doc(db, "messages", lastMessage);
@@ -116,9 +123,9 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   }, [lastMessage]);
 
   return (
-    <Link href={`/chat/${conversation}`}>
-    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" >
-      <div>
+     <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" 
+     onClick={()=>{router.push(`/chat/${conversationId}`)}}>
+     <div>
         <Image
           src="/icons/empty-user-profile.png"
           alt="ing1"
@@ -136,8 +143,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
         <p className='mt-1 text-sm mx-10'>''{contenidoUltimo?.content}''</p>
       </div>
     </div>
-    </Link>
-  )
+   )
 }
 
 export default MessageListComponent

@@ -14,10 +14,9 @@ interface User {
 
 interface ChatListProps {
   user: User | undefined;
-  setConversationChosen: any
-}
+ }
 
-const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
+const ChatList: FC<ChatListProps> = ({ user }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
   return (
     <div className="  flex flex-1 flex-col overflow-scroll"  style={{ height: '740px', overflowX: 'auto' }} > 
     <div className="my-3 flex  flex-col "> 
-      {conversationsArray.length === 0 || (conversationsArray.length === 1 && !conversationsArray[0].trim()) ? (
+      {conversationsArray.length === 0 ? (
         <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
       ) : (
         conversationsArray.map((conversation, index) => (

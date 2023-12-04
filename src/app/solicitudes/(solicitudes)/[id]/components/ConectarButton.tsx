@@ -3,11 +3,11 @@ import { Timestamp, addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'f
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { redirect, } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 interface ConectarButtonProps {
     usuario: any
-    oferta: any
     solicitudId: any
 }
 
@@ -18,14 +18,17 @@ interface User {
     genero: string;
     nombre: string;
     ubi: string;
-    userEmail: string;
+    email: any;
     conversations: any
 }
 
 
-const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solicitudId }) => {
+const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId }) => {
+    // tengo comprobado que usuario llega bien
 
     const [userData, setUserData] = useState<User>();
+    const [nosotros, setNosotros] = useState<any>()
+    const router = useRouter()
 
     const session = useSession({
         required: true,
@@ -40,6 +43,14 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
             setUserData(undefined);
         }
     }, [session?.data?.user?.email]);
+
+    useEffect(() => {
+        if (userData) {
+            setNosotros(userData.email)
+        }
+    }, [userData]);
+    // EL USUARIO YA ESTÁ BIEN COMO ESTÁ...
+
 
     //creamos funcion para crear primer mensaje para usar + adelante
     const addmessageInFirebase = async (conversationId: any, usuario: any, empresa: any) => {
@@ -62,20 +73,21 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
         }
     };
 
-    const addConversationToUsuario = async (conversationId: any, usuario: User) => {
+    const addConversationToUsuario = async (conversationId: any, usuarioDB: any) => {
         try {
-            const docRef = doc(db, "users", usuario.id);
+            const docRef = doc(db, "users", usuarioDB);
             const userDoc = await getDoc(docRef);
-
+            console.log("conversation id:", conversationId)
             if (userDoc.exists()) {
                 const datosUsuario = userDoc.data() as User;
-
+                console.log("ha llegado hasta aqui y estos son los datos del usuario", datosUsuario)
                 if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
                     await updateDoc(docRef, {
                         ...datosUsuario,
                         conversations: [...datosUsuario.conversations, conversationId],
                     });
                 } else {
+                    console.log("no ha llegado")
                     await updateDoc(docRef, {
                         ...datosUsuario,
                         conversations: [conversationId],
@@ -104,8 +116,8 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
                 messagesArray: []
             });
             if (userData) {
-                addmessageInFirebase(newConversationRef, usuario, userData);
-                addConversationToUsuario(newConversationRef, userData);
+                addmessageInFirebase(newConversationRef, usuario, nosotros);
+                addConversationToUsuario(newConversationRef, nosotros);
                 addConversationToUsuario(newConversationRef, usuario);
             } else {
                 console.error('User data is undefined');
@@ -113,18 +125,17 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, oferta, solici
 
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
+            console.log(solicitudId, usuario, empresa)
         }
 
     };
 
 
-
-
     const startConversation = () => {
-        addConversationInFirebase(solicitudId, usuario, userData)
+        addConversationInFirebase(solicitudId, usuario, nosotros)
     }
     return (
-        <Link href={"/chat"}>
+        <Link href={'/chat'}>
             <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
                 onClick={() => { startConversation() }}>
                 Conectar con el profesional</button>
