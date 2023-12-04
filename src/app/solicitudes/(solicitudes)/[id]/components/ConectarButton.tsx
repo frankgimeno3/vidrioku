@@ -29,6 +29,8 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
     const [userData, setUserData] = useState<User>();
     const [nosotros, setNosotros] = useState<any>()
     const router = useRouter()
+    const [messageRef, setMessageRef] = useState<any>()
+
 
     const session = useSession({
         required: true,
@@ -67,7 +69,8 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
                 content: `Hola ${usuario}, somos la empresa ${empresa}, estamos interesados en su perfil.`,
             });
             await updateDoc(newMessageRef, { messageId: newMessageRef.id });
-
+            setMessageRef(newMessageRef.id)
+            console.log("newMessageRef:", newMessageRef.id)
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
         }
@@ -100,6 +103,10 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
         }
     };
 
+    const addNewMessageToArrayInConversation = (idConversacion: any, idMensaje: any)=>{
+
+    }
+
     //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
     const addConversationInFirebase = async (solicitudId: any, usuario: any, empresa: any) => {
 
@@ -115,9 +122,10 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario, solicitudId })
                 messagesArray: []
             });
             if (userData) {
-                 addmessageInFirebase(newConversationRef, usuario, nosotros);
+                addmessageInFirebase(newConversationRef, usuario, nosotros);
                 addConversationToUsuario(newConversationRef, nosotros);
                 addConversationToUsuario(newConversationRef, usuario);
+                addNewMessageToArrayInConversation(newConversationRef, messageRef)
             } else {
                 console.error('User data is undefined');
             }
