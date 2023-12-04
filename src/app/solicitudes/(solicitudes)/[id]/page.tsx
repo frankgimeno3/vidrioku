@@ -160,15 +160,13 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
                const userDoc = await getDoc(docRef);
                 if (userDoc.exists()) {
                    const datosConversacion = userDoc.data();
-                   console.log("ha llegado hasta aqui y estos son los datos de la conversación", datosConversacion, "idMensaje", newMessageRef)
-                   if (datosConversacion.messagesArray ) {
+                    if (datosConversacion.messagesArray ) {
                        await updateDoc(docRef, {
                            ...datosConversacion,
                            messagesArray: [...datosConversacion.messagesArray, newMessageRef.id],
                        });
                    } else {
-                       console.log("la conver está vacía")
-                       await updateDoc(docRef, {
+                        await updateDoc(docRef, {
                            ...datosConversacion, 
                            messagesArray: [newMessageRef.id],
                        }); 
@@ -189,8 +187,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
    
     //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
     const addConversationInFirebase = async (usuario: any, empresa: any) => {
-        console.log("Ahora dentro de adconver. usuario: ", usuario, "empresa; ", empresa)
-        try {
+         try {
             const conversationsCollection = collection(db, 'conversations');
             const newConversationRef = await addDoc(conversationsCollection, {
                 conversacion: '',

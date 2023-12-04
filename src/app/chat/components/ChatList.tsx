@@ -14,10 +14,9 @@ interface User {
 
 interface ChatListProps {
   user: User | undefined;
-  setConversationChosen: any
 }
 
-const ChatList: FC<ChatListProps> = ({ user, setConversationChosen }) => {
+const ChatList: FC<ChatListProps> = ({ user }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
 
   useEffect(() => {

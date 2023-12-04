@@ -91,7 +91,6 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
 
   useEffect(() => {
     if (conversationData) {setMessagesArray(conversationData.messagesArray)}
-
   }, [conversationData]);
 
   useEffect(() => {
@@ -103,8 +102,12 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   }, [messagesArray]);
 
   useEffect(() => {
-    if (conversationData) { setConversationId(conversationData.conversationId) }
-  }, [conversationData]);
+    if (conversationData) { setConversationId(conversationData.conversacion) }
+    }, [conversationData]);
+
+   useEffect(() => {
+    console.log("conversationId:", conversationId)
+   }, [conversationId]);
 
 
   useEffect(() => {

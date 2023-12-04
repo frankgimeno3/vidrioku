@@ -92,15 +92,6 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   useEffect(() => {
     if (conversationData) { setMessagesArray(conversationData.messagesArray) }
   }, [conversationData]);
-  
-  useEffect(() => {
-    if (conversationData) { setMessagesArray(conversationData.messagesArray) }
-  }, [conversationData]);
-
-    useEffect(() => {
-    if (conversationData) { setConversationId(conversationData.conversationId) }
-  }, [conversationData]);
-
   useEffect(() => {
     if (messagesArray) {
       const ultimo = conversationData.messagesArray[conversationData.messagesArray.length - 1];
@@ -110,6 +101,15 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   }, [messagesArray]);
 
   useEffect(() => {
+    if (conversationData) { setConversationId(conversationData.conversacion) }
+    }, [conversationData]);
+
+   useEffect(() => {
+    console.log("conversationId:", conversationId)
+   }, [conversationId]);
+
+
+   useEffect(() => {
     const fetchDoc = async () => {
       if (lastMessage) {
         const docRef = doc(db, "messages", lastMessage);
