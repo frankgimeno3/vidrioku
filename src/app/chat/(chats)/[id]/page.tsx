@@ -67,7 +67,6 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
     const fetchDoc = async () => {
       if (user) {
         setUserId(user.id)
-        console.log(user)
       }
     };
 

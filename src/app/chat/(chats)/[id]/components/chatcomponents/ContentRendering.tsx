@@ -55,12 +55,7 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
 
     setFilteredArray(sortedArray);
   }, [renderingObjectArray]);
-
-  useEffect(() => {
-    if (filteredArray) {
-      console.log(filteredArray);
-    }
-  }, [filteredArray]);
+ 
 
   const usertype = (message: any) => {
     return message.emisor === interlocutor ? 'mr-24' : 'ml-24';

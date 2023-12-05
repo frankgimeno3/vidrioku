@@ -1,6 +1,6 @@
 import { db } from '@/app/firebase';
 import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
- import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 interface InputFormProps {
   userId: any;
@@ -18,10 +18,11 @@ interface Conversation {
 }
 
 const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
-   const [inputContent, setInputContent] = useState<any>();
+  const [inputContent, setInputContent] = useState<any>();
   const [conversationData, setConversationData] = useState<any>();
   const [interlocutorSelected, setInterlocutorSelected] = useState<any>();
 
+  //OBTENEMOS INFO DE LA CONVERSACION ACTUAL
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversationId) {
@@ -32,10 +33,16 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
           setConversationData(conversationDataObject);
         }
       }
+      else{
+                console.log("De momento no llegan bien las props", conversationId) //esto hay que evitar que siga dando undefined
+
+      }
     };
 
     fetchDoc();
   }, [conversationId]);
+
+  //DEDUCIMOS DE LA CONVER EL COLAB QUE SOMOS, comparando con el userId que sale de session
 
   useEffect(() => {
     if (conversationData && conversationData.colaborador1 == userId) {
@@ -45,23 +52,24 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
     }
   }, [conversationData, userId]);
 
+
   const addMessageToConversation = async (messageId: any, conversationId: any) => {
     try {
-      const docRef = doc(db, "conversations", conversationId);
+      const docRef = doc(db, "conversations", conversationId.id);
       const userDoc = await getDoc(docRef);
-  
+
       if (userDoc.exists()) {
         const datosConversacion = userDoc.data() as any;
-  
+
         if (datosConversacion.messagesArray && Array.isArray(datosConversacion.messagesArray)) {
           await updateDoc(docRef, {
             ...datosConversacion,
-            messagesArray: [...datosConversacion.messagesArray, messageId.id], // Assuming messageId is an object with an 'id' property
+            messagesArray: [...datosConversacion.messagesArray, messageId.id],
           });
         } else {
           await updateDoc(docRef, {
             ...datosConversacion,
-            messagesArray: [messageId.id], // Assuming messageId is an object with an 'id' property
+            messagesArray: [messageId.id],
           });
         }
       } else {
@@ -71,28 +79,24 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
       console.error('Error al añadir la conversacion:', error);
     }
   };
-  
 
-  const addmessageInFirebase = async (
-    conversationId: any,
-    usuario: any,
-    interlocutor: any,
-    contenido: any
-  ) => {
+
+  const addmessageInFirebase = async (conversationId: any, usuario: any, interlocutor: any, content: any) => {
     try {
       const messagesCollection = collection(db, 'messages');
+      console.log("conversationid", conversationId)
       const newMessageRef = await addDoc(messagesCollection, {
         messageId: '',
-        conversationId: conversationId,
+        conversationId: conversationId.id,
         emisor: usuario,
         receptor: interlocutor,
         readc1: true,
         readc2: false,
         sent: Timestamp.now(),
-        content: contenido,
+        content: content,
       });
       await updateDoc(newMessageRef, { messageId: newMessageRef.id });
-      await addMessageToConversation(newMessageRef, conversationId)
+      await addMessageToConversation(newMessageRef, conversationId.id)
 
     } catch (error) {
       console.error('Error al crear la conversación en Firestore:', error);
@@ -100,10 +104,10 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
   };
 
   const handleEnviar = (e: React.FormEvent) => {
-    e.preventDefault();  
-      addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
-      window.location.reload();
-    };
+    e.preventDefault();
+    console.log("esto ocurre")
+    addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
+  };
 
   return (
     <div>
@@ -117,8 +121,8 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
           required
         ></input>
         <button
-          className="text-gray-300  px-2 mx-2 mr-4 text-sm bg-white bg-opacity-10 rounded-lg text-xs"
-          onClick={handleEnviar}
+          className="text-gray-300 px-2 mx-2 mr-4 text-sm bg-white bg-opacity-10 rounded-lg text-xs"
+          onClick={handleEnviar} // Remove the parentheses here
         >
           Enviar
         </button>
