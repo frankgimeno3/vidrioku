@@ -112,6 +112,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
     e.preventDefault();
     // console.log("esto ocurre")
     addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
+    //falta gestionar el reload aquí y ya
   };
 
   return (
