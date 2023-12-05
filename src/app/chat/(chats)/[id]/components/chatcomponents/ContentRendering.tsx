@@ -85,7 +85,7 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
         ))}
       </div>
     </div>
-  );
+  ); 
 };
 
 export default ContentRendering;
