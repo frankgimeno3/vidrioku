@@ -27,6 +27,8 @@ interface ChatcontentProps {
 const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
     const [conversationData, setConversationData] = useState<any>()
     const [messagesArray, setMessagesArray] = useState<any>()
+    const [userIdRecibido, setUserIdRecibido] = useState<any>()
+    const [conversationRecibida, setConversationRecibida] = useState<any>()
 
     useEffect(() => {
       const fetchDoc = async () => {
@@ -47,12 +49,22 @@ const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
     setMessagesArray(conversationData?.messagesArray)
 }, [conversationData]);
 
-  
+useEffect(() => {
+  setUserIdRecibido(userId)
+}, [userId]);
+
+useEffect(() => {
+  if(conversationData){
+    setConversationRecibida(conversationData.conversacion)
+  }
+}, [conversationData]);
+
+
     return (
         <div className='flex flex-col h-full flex-1  '>
             <ChatHeader interlocutor={conversationData?.colaborador2}/>
              <ContentRendering interlocutor={conversationData?.colaborador2} userId={userId} messagesArray={messagesArray}/>
-             <InputForm userId={userId} conversationId={conversationData?.conversationId}/>
+             <InputForm userId={userIdRecibido} conversationId={conversationRecibida}/>
         </div>
     );
 };

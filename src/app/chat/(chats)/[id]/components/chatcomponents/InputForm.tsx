@@ -23,25 +23,30 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
   const [interlocutorSelected, setInterlocutorSelected] = useState<any>();
 
   //OBTENEMOS INFO DE LA CONVERSACION ACTUAL
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (conversationId) {
-        const docRef = doc(db, 'conversations', conversationId);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const conversationDataObject = response.data() as Conversation;
-          setConversationData(conversationDataObject);
-        }
-      }
-      else{
-                console.log("De momento no llegan bien las props", conversationId) //esto hay que evitar que siga dando undefined
+      // useEffect(() => {
+      //   const fetchDoc = async () => {
+      //     if (conversationId) {
+      //       const docRef = doc(db, 'conversations', conversationId);
+      //       const response = await getDoc(docRef);
+      //       if (response.exists()) {
+      //         const conversationDataObject = response.data() as Conversation;
+      //         setConversationData(conversationDataObject);
+      //       }
+      //     }
+      //     else{
+      //               console.log("De momento no llegan bien las props", conversationId) //esto hay que evitar que siga dando undefined
+      //     }
+      //   };
+      //   fetchDoc();
+      // }, [conversationId]);
+      useEffect(() => {
+        console.log("conversationId: ", conversationId)
+      }, [conversationId]);
 
-      }
-    };
-
-    fetchDoc();
-  }, [conversationId]);
-
+      useEffect(() => {
+        console.log("userId: ", userId)
+      }, [userId]);
+    
   //DEDUCIMOS DE LA CONVER EL COLAB QUE SOMOS, comparando con el userId que sale de session
 
   useEffect(() => {
@@ -84,7 +89,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
   const addmessageInFirebase = async (conversationId: any, usuario: any, interlocutor: any, content: any) => {
     try {
       const messagesCollection = collection(db, 'messages');
-      console.log("conversationid", conversationId)
+      // console.log("conversationid", conversationId)
       const newMessageRef = await addDoc(messagesCollection, {
         messageId: '',
         conversationId: conversationId.id,
