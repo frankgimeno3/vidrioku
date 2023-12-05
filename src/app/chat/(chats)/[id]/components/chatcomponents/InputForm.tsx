@@ -23,29 +23,25 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
   const [interlocutorSelected, setInterlocutorSelected] = useState<any>();
 
   //OBTENEMOS INFO DE LA CONVERSACION ACTUAL
-      // useEffect(() => {
-      //   const fetchDoc = async () => {
-      //     if (conversationId) {
-      //       const docRef = doc(db, 'conversations', conversationId);
-      //       const response = await getDoc(docRef);
-      //       if (response.exists()) {
-      //         const conversationDataObject = response.data() as Conversation;
-      //         setConversationData(conversationDataObject);
-      //       }
-      //     }
-      //     else{
-      //               console.log("De momento no llegan bien las props", conversationId) //esto hay que evitar que siga dando undefined
-      //     }
-      //   };
-      //   fetchDoc();
-      // }, [conversationId]);
-      useEffect(() => {
-        console.log("conversationId: ", conversationId)
+      
+  
+  useEffect(() => {
+        const fetchDoc = async () => {
+          if (conversationId) {
+            // console.log("conversationId: ", conversationId)
+            const docRef = doc(db, 'conversations', conversationId);
+            const response = await getDoc(docRef);
+            if (response.exists()) {
+              const conversationDataObject = response.data() as Conversation;
+              setConversationData(conversationDataObject);
+              // console.log("conversationDataObject: ", conversationDataObject) - SÍ FUNCIONA CORRECTAMENTE
+
+            }
+          } 
+        };
+        fetchDoc();
       }, [conversationId]);
 
-      useEffect(() => {
-        console.log("userId: ", userId)
-      }, [userId]);
     
   //DEDUCIMOS DE LA CONVER EL COLAB QUE SOMOS, comparando con el userId que sale de session
 
@@ -57,10 +53,14 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
     }
   }, [conversationData, userId]);
 
+  // useEffect(() => {
+  //   console.log("interlocutorSelected: ", interlocutorSelected) ------------------ ESTO FUNCIONA
+  // }, [interlocutorSelected]);
 
   const addMessageToConversation = async (messageId: any, conversationId: any) => {
+    console.log("conversation: ", conversationId)
     try {
-      const docRef = doc(db, "conversations", conversationId.id);
+      const docRef = doc(db, "conversations", conversationId);
       const userDoc = await getDoc(docRef);
 
       if (userDoc.exists()) {
@@ -89,10 +89,10 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
   const addmessageInFirebase = async (conversationId: any, usuario: any, interlocutor: any, content: any) => {
     try {
       const messagesCollection = collection(db, 'messages');
-      // console.log("conversationid", conversationId)
+      console.log("conversationid", conversationId)
       const newMessageRef = await addDoc(messagesCollection, {
         messageId: '',
-        conversationId: conversationId.id,
+        conversationId: conversationId,
         emisor: usuario,
         receptor: interlocutor,
         readc1: true,
@@ -101,7 +101,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
         content: content,
       });
       await updateDoc(newMessageRef, { messageId: newMessageRef.id });
-      await addMessageToConversation(newMessageRef, conversationId.id)
+      await addMessageToConversation(newMessageRef, conversationId)
 
     } catch (error) {
       console.error('Error al crear la conversación en Firestore:', error);
@@ -110,7 +110,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
 
   const handleEnviar = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("esto ocurre")
+    // console.log("esto ocurre")
     addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
   };
 
