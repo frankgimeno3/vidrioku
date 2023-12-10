@@ -108,11 +108,13 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
     }
   };
 
-  const handleEnviar = (e: React.FormEvent) => {
+  const handleEnviar = async (e: React.FormEvent) => {
     e.preventDefault();
     // console.log("esto ocurre")
-    addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
-    //falta gestionar el reload aquí y ya
+    await addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
+    
+    // Incrementa el valor del estado local para forzar la actualización
+    setForceUpdate((prev) => prev + 1);
   };
 
   return (
@@ -128,7 +130,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
         ></input>
         <button
           className="text-gray-300 px-2 mx-2 mr-4 text-sm bg-white bg-opacity-10 rounded-lg text-xs"
-          onClick={handleEnviar} // Remove the parentheses here
+          onClick={handleEnviar}  
         >
           Enviar
         </button>
