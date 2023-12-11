@@ -39,10 +39,9 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const [isOfertaClicked, setIsOfertaClicked] = useState(false)
     const [isPerfilClicked, setIsPerfilClicked] = useState(false)
     const [isSolicitudClicked, setIsSolicitudClicked] = useState(false)
-    const [interlocutor, setInterlocutor] = useState();     //este será el otro usuario
+    const [interlocutor, setInterlocutor] = useState();      
     const [oferta, setOferta] = useState();
     const [solicitudId, setSolicitudId] = useState()
-    //estados del button
     const [nosotros, setNosotros] = useState<any>()
     const [messageRef, setMessageRef] = useState<any>()
     const [conversationRef, setConversationRef] = useState<any>()

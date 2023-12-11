@@ -82,7 +82,7 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
         const messagesCollection = collection(db, 'messages');
         const newMessageRef = await addDoc(messagesCollection, {
           messageId: '',
-          conversationId: conversationId,
+          conversationId: conversationId.id,
           emisor: empresa.email,
           receptor: usuario.email,
           readc1: true,
@@ -91,6 +91,28 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
           content: contenidoMensaje, // Utilizamos el contenido del mensaje pasado como argumento
         });
         await updateDoc(newMessageRef, { messageId: newMessageRef.id });
+        try {
+          const docRef = doc(db, "conversations", conversationId.id);
+         const userDoc = await getDoc(docRef);
+          if (userDoc.exists()) {
+             const datosConversacion = userDoc.data();
+              if (datosConversacion.messagesArray ) {
+                 await updateDoc(docRef, {
+                     ...datosConversacion,
+                     messagesArray: [...datosConversacion.messagesArray, newMessageRef.id],
+                 });
+             } else {
+                  await updateDoc(docRef, {
+                     ...datosConversacion, 
+                     messagesArray: [newMessageRef.id],
+                 }); 
+             }
+         } else {
+             console.error('El documento de la conversacion no parece existir');
+         }
+     } catch (error) {
+         console.error('Error al encontrar la conversacion para añadir el mensaje correspondiente:', error);
+     }
       } catch (error) {
         console.error('Error al crear la conversación en Firestore:', error);
       }
@@ -101,7 +123,6 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
           const docRef = doc(db, "users", usuario.email);
           const userDoc = await getDoc(docRef);
          
-
           if (userDoc.exists()) {
               const datosUsuario = userDoc.data() as User;
  
@@ -141,9 +162,12 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
       await updateDoc(newConversationRef, { conversacion: newConversationRef.id });
 
       if (nuestroId) {
-        addmessageInFirebase(newConversationRef, usuario, nuestroId, content);  
         addConversationToUsuario(newConversationRef, nuestroId);
         addConversationToUsuario(newConversationRef, usuario);
+        setTimeout(function() {
+          addmessageInFirebase(newConversationRef, usuario, nuestroId, content);  
+        }, 200);   
+
       } else {
         console.error('User data is undefined');
       }
