@@ -157,12 +157,16 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
   }
   return (
     <>
-      {/* ... (código anterior) */}
-      <div className="flex flex-col  mx-6  bg-white bg-opacity-5  text-zinc-100 min-h-screen text-center  ">
+             <Navbar />
+
+            <div className="flex flex-col  bg-gradient-to-b from-zinc-900 to-zinc-600">
+                <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
+                    <h2 className="font-bold text-lg text-center mx-auto">Detalles de la solicitud</h2>
+                </div>
+                <div className="flex flex-col p-5 bg-white bg-opacity-10 text-center">      <div className="flex flex-col  mx-6  bg-white bg-opacity-5  text-zinc-100 min-h-screen text-center  ">
         <p className="text-lg pt-12">Está a punto de conectar con el usuario {user?.nombre} {user?.apellidos}</p>
         <div className="mx-96 px-24 mt-6 ">
-          {/* Añadimos el evento onChange para manejar el contenido del textarea */}
-          <textarea
+           <textarea
             className="rounded-lg w-full text-gray-600 h-64 p-6"
             placeholder="Por favor, inserte a continuación el mensaje para comenzar la conversación con el usuario"
             value={content}
@@ -179,7 +183,9 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
             Enviar y conectar
           </button>
         </Link>
-      </div>
+        </div>
+        </div>
+        </div>
     </>
   );
 };
