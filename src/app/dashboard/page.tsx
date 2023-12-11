@@ -61,7 +61,7 @@ export default function Dashboard() {
   return (
     <div className=" ">
 
-      <main className=' bg-gradient-to-b from-zinc-900 to-zinc-600 min-h-screen  '>
+      <main className=' bg-gradient-to-b from-zinc-900 to-zinc-600   '>
         <Navbar />
         {userType == 'empresa' && <HomeEmpr userData={userData} />}
         {userType == 'profesional' &&<HomeTrab userData={userData} /> }

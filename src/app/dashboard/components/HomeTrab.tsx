@@ -49,12 +49,12 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
   }
 
   return (
-    <div className='flex flex-col min-h-screen'>
-      <div className="flex flex-row   bg-gradient-to-b from-zinc-900 to-zinc-600 ">
+    <div className='flex flex-col'>
+      <div className="flex flex-row h-screen  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <div className='flex flex-col flex-1 '>
-          <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
-          <div className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-700 h-full ml-12">
-            <div className="flex flex-col p-4 w-full flex justify-between text-center justify-center px-auto ">
+          <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center ml-12">Saludos, {user?.nombre}</h2>
+          <div className=" w-full flex bg-gradient-to-b from-zinc-100 to-gray-700 h-full ml-12">
+            <div className="flex flex-col p-4 w-full flex  text-center justify-center px-auto ">
               <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5" />
               <div className="flex flex-row mx-auto">
                 <span className="mr-1">{user?.nombre}</span>
@@ -76,32 +76,31 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col flex-1'>
-          <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Qué te has perdido?</h2>
+        <div className='flex flex-col flex-1 text-gray-700'>
+          <h2 className="bg-zinc-800 bg-white text-white bg-opacity-50 font-bold text-lg py-3 text-center mr-12">Qué te has perdido?</h2>
           <div className='flex flex-col  h-full mr-12'>
-            <div className='h-full flex-1 text-center bg-gradient-to-b from-gray-900 to-gray-800'>
-              <p className='font-bold'>Mensajes nuevos</p>
+            <div className='h-full flex-1 text-center bg-gradient-to-b from-zinc-100 to-gray-700'>
+              <p className='font-medium py-8'>Mensajes nuevos</p>
             </div>
-            <div className='h-full flex-1 text-center  bg-gradient-to-b from-gray-900 to-gray-800'>
-              <p className='font-bold'>Publicaciones nuevas de las empresas que sigues</p>
+            <div className='h-full flex-1 text-center  bg-gradient-to-b from-zinc-100 to-gray-700'>
+              <p className='font-medium py-8'>Publicaciones nuevas de las empresas que sigues</p>
             </div>
-            <div className='h-full flex-1 text-center bg-gradient-to-b from-gray-900 to-gray-800'>
-              <p className='font-bold'>Solicitudes</p>
+            <div className='h-full flex-1 text-center bg-gradient-to-b from-zinc-100 to-gray-700'>
+              <p className='font-medium py-8'>Solicitudes</p>
               <button
                 className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs  "
                 onClick={handlemissolicitudes}
               >Mis solicitudes</button>
             </div>
-            <div className='h-full flex-1 text-center bg-gradient-to-b from-gray-900 to-gray-800'>
-              <p className='font-bold'>Solicitudes enviadas</p>
+            <div className='h-full flex-1 text-center bg-gradient-to-b from-zinc-100 to-gray-700'>
+              <p className='font-medium py-8'>Solicitudes enviadas</p>
               <p>Solicitudes leídas</p>
               <p>Solicitudes no leídas</p>
             </div>
           </div>
         </div>
       </div>
-      <div className='bg-gradient-to-b from-gray-900 to-gray-700 h-full'>  asd</div>
-    </div>
+     </div>
 
   );
 };
