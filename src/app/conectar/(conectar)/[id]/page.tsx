@@ -4,8 +4,8 @@ import { db } from '@/app/firebase';
 import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import React, { FC, useEffect, useState } from 'react'
+import { redirect, useRouter } from 'next/navigation';
+ import React, { FC, useEffect, useState } from 'react'
 
 interface ConectarProps {
   params: { id: string }
@@ -29,6 +29,7 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
   const [user, setUser] = useState<any>();
   const [nuestroId, setNuestroId] = useState<User>();
   const [content, setContent] = useState<string>('');
+  const router = useRouter()
 
     //OBTENEMOS DATOS DE NOSOTROS MISMOS COMO nuestroId
 
@@ -178,6 +179,9 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
 
   const startConversation = () => {
       addConversationInFirebase(user, nuestroId)
+      setTimeout(function() {
+          router.push("/chat")
+      }, 500); 
   }
   return (
     <>
@@ -197,8 +201,7 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
             onChange={handleTextareaChange}
           />
         </div>
-        <Link href={'/chat'}>
-          <button
+           <button
             className="mx-auto mt-5 bg-gray-50 text-xs rounded-lg shadow p-4 py-2 text-gray-600"
             onClick={() => {
               startConversation();
@@ -206,8 +209,7 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
           >
             Enviar y conectar
           </button>
-        </Link>
-        </div>
+         </div>
         </div>
         </div>
     </>
