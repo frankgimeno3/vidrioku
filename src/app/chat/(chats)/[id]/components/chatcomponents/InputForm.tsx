@@ -21,28 +21,28 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
   const [inputContent, setInputContent] = useState<any>();
   const [conversationData, setConversationData] = useState<any>();
   const [interlocutorSelected, setInterlocutorSelected] = useState<any>();
-
+ 
   //OBTENEMOS INFO DE LA CONVERSACION ACTUAL
-      
-  
+
+
   useEffect(() => {
-        const fetchDoc = async () => {
-          if (conversationId) {
-            // console.log("conversationId: ", conversationId)
-            const docRef = doc(db, 'conversations', conversationId);
-            const response = await getDoc(docRef);
-            if (response.exists()) {
-              const conversationDataObject = response.data() as Conversation;
-              setConversationData(conversationDataObject);
-              // console.log("conversationDataObject: ", conversationDataObject) - SÍ FUNCIONA CORRECTAMENTE
+    const fetchDoc = async () => {
+      if (conversationId) {
+        // console.log("conversationId: ", conversationId)
+        const docRef = doc(db, 'conversations', conversationId);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const conversationDataObject = response.data() as Conversation;
+          setConversationData(conversationDataObject);
+          // console.log("conversationDataObject: ", conversationDataObject) - SÍ FUNCIONA CORRECTAMENTE
 
-            }
-          } 
-        };
-        fetchDoc();
-      }, [conversationId]);
+        }
+      }
+    };
+    fetchDoc();
+  }, [conversationId]);
 
-    
+
   //DEDUCIMOS DE LA CONVER EL COLAB QUE SOMOS, comparando con el userId que sale de session
 
   useEffect(() => {
@@ -108,14 +108,14 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
     }
   };
 
-  const handleEnviar = async (e: React.FormEvent) => {
+  const handleEnviar = (e: React.FormEvent) => {
     e.preventDefault();
     // console.log("esto ocurre")
-    await addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
-    
-    // Incrementa el valor del estado local para forzar la actualización
-    setForceUpdate((prev) => prev + 1);
-  };
+    addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);   };
+
 
   return (
     <div>
@@ -130,7 +130,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
         ></input>
         <button
           className="text-gray-300 px-2 mx-2 mr-4 text-sm bg-white bg-opacity-10 rounded-lg text-xs"
-          onClick={handleEnviar}  
+          onClick={handleEnviar}
         >
           Enviar
         </button>
