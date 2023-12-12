@@ -33,9 +33,9 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
             const response = await fetch('/api/upload', {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }
+                // headers: {
+                //     "Content-Type": "multipart/form-data",
+                // }
             })
             const data = await response.json()
             console.log(data)

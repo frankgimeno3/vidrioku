@@ -28,10 +28,11 @@ export async function POST(request) {
     const bytes = await image.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    const filePath = path.join(process.cwd(), "public", image.name)
+    const filePath = path.join(process.cwd(), "public", image.name);
     await writeFile(filePath, buffer)
 
     const response = await cloudinary.uploader.upload(filePath, {folder})
+    console.log(response)
 
     return NextResponse.json("imagen subida")
 }
