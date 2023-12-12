@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 
 interface CambiarFotoProps {
-
+    setIsCambiarFotoOpen:any
 }
-const CambiarFoto: FC<CambiarFotoProps> = ({ }) => {
+const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
 
      return (
       <div className='flex flex-row bg-white rounded-lg shadow-xl p-12 z-0 mx-auto my-auto'>
@@ -11,7 +11,7 @@ const CambiarFoto: FC<CambiarFotoProps> = ({ }) => {
           <p className='font-bold text-lg'>Cambiar imagen de perfil</p>
           <p className='font-light text-md'>Haga click en el botón para agregar una imagen</p>
         </div>
-        <div> 
+        <div onClick={()=>{setIsCambiarFotoOpen(false)}}> 
           <svg 
             className="w-6 h-6 text-gray-500 hover:text-gray-400" 
             fill="none" 
