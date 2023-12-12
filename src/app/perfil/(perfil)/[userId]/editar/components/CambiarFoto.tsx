@@ -3,6 +3,8 @@ import React, { FC, useState } from 'react'
 interface CambiarFotoProps {
     setIsCambiarFotoOpen:any
 }
+
+
 const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
     const [file, setFile] = useState<Blob | null>(null);
 

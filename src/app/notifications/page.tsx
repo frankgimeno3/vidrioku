@@ -1,20 +1,84 @@
 "use client"
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
+import { useSession } from 'next-auth/react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+  
+interface User {
+  id: any
+  apellidos: string;
+  edad: number;
+  genero: string;
+  nombre: string;
+  ubi: string;
+  userEmail: string;
+  conversations: any;
+  notifications:any;
+}
 
-// interface NavbarProps {
-//   currentComponent: string;
-//   setCurrentComponent: (component: string) => void;
-// }
-
-// const Navbar: FC<NavbarProps> = ({ currentComponent, setCurrentComponent }) => {
 
 const Notifications: FC = ({ }) => {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [userData, setUserData] = useState('');
+  const [user, setUser] = useState<any>();
+  const [userNotifications, setUserNotifications] = useState<any>()
+  const [arrayNotificacionesUsuario, setArrayNotificacionesUsuario] = useState<any>([]);
 
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signin');
+    },
+  });
+
+    
+  useEffect(() => {
+    if (session?.data?.user?.email) {
+      setUserData(session.data.user.email);
+    } else {
+      setUserData('Usuario');
+    }
+  }, [session?.data?.user?.email]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (userData) {
+        const docRef = doc(db, "users", userData);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const myUserData = response.data() as User;
+          setUser(myUserData);
+        }
+      }
+    };
+    fetchDoc();
+  }, [userData]);
+
+  useEffect(() => {
+    if(user){
+      setUserNotifications(user.notifications)
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log("userNotifications: ", userNotifications)
+    const fetchNotifications = async () => {
+      if (userNotifications && userNotifications.length > 0) {
+        const notificationsData = await Promise.all(
+          userNotifications.map(async (notificationId: any) => {
+            const docRef = doc(db, "notificaciones", notificationId);
+            const response = await getDoc(docRef);
+            return response.exists() ? response.data() : null;
+          })
+        );
+          setArrayNotificacionesUsuario(notificationsData.filter(Boolean));
+      }
+    };
+    fetchNotifications();
+  }, [userNotifications]);
 
 
   return (
