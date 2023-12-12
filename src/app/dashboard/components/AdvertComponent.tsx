@@ -10,7 +10,7 @@ interface AdvertComponentProps {
 const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, bannerRank, bannerUrl}) => {
   return (
     <>
-        <div className='flex flex-row mx-auto px-36 py-12 bg-gray-300 my-2'>
+        <div className='flex flex-row mx-auto px-36 py-12 bg-gray-300 my-2 rounded-lg shadow-lg'>
           <div className='flex flex-col'>
             <Image src={bannerUrl} alt={''} height={250} width={100} />
           <button

@@ -54,16 +54,16 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
       <div className="flex flex-row   bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <div className='flex flex-col flex-1 mb-10' style={{ height: '750px' }}           >
-          <div className=" w-full flex bg-gradient-to-b from-zinc-100 to-zinc-700 h-full ml-12">
+          <div className=" w-full flex bg-gradient-to-b from-zinc-100 to-zinc-700 h-full ">
             <div className="flex flex-col p-12  flex  text-center justify-center mr-6 ml-6 my-36  bg-white text-gray-500
             rounded-lg shadow-xl">
               <div className='flex flex-row'>
                 <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5 rounded-lg shadow-xl" />
                 <div className='flex flex-col my-auto mr-14 ml-5 justify-left text-left'>
-                  <div className="flex flex-row font-medium text-lg ">
-                    <span className="mr-1 ">{user?.nombre}</span>
+                  <p className="flex flex-row flex-wrap font-medium text-lg">
+                    <span className="mr-1">{user?.nombre}</span>
                     <span className="capitalize">{user?.apellidos}</span>
-                  </div>
+                  </p>
                   <div className="flex flex-row">
                     <span className='mr-1'>{user?.edad} </span>
                     <span className="capitalize">({user?.genero})</span>

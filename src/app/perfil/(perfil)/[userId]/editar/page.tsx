@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Navbar from '@/app/components/Navbar';
 import TogglePermiso from './components/TogglePermiso';
 import ToggleVehiculo from './components/ToggleVehiculo';
+import CambiarFoto from './components/CambiarFoto';
 
 interface PerfilprofesionalProps {
   userData: any
@@ -47,7 +48,8 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const [vehiculoActualizado, setVehiculoActualizado] = useState(user?.vehiculo || false)
   const [cartaActualizado, setCartaActualizado] = useState(user?.carta)
 
- 
+  const [isCambiarFotoOpen, setIsCambiarFotoOpen] = useState(false)
+
   const router = useRouter();
 
   const session = useSession({
@@ -160,7 +162,11 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
       <Navbar />
       <form onSubmit={guardarCambiosHandler} className='mx-24'>
         <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500    ">
-          <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5 " />
+          <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto mt-5 " />
+          <button className='my-5 mx-auto p-2 py-3 text-sm border text-gray-500 rounded-lg shadow-lg hover:bg-gray-50 border-gray-100 '
+          onClick={()=>{setIsCambiarFotoOpen(true)}}>
+            Modificar Imagen de perfil
+          </button>
           <div className="flex flex-col mx-96">
             <div className="flex flex-col my-2  ">
               <label htmlFor="nombre" >Nombre: </label>
@@ -229,8 +235,8 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
               <button onClick={niehandler}
-              className='bg-gray-50 shadow rounded my-2 border px-3 py-1 mx-44'>
-                Haz click aquí si tiene NIE en vez de DNI</button>
+              className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
+                Haga click aquí si tiene NIE en vez de DNI</button>
             </div>}
             {!isDNI && <div className="flex flex-col  my-2 ">
               <label htmlFor="NIE" >NIE: </label>
@@ -238,12 +244,12 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
                 type="text"
                 id="NIE"
                 name="NIE"
-                placeholder={user?.NIE || "Inserte aquí la URL de su número de NIE"}
+                placeholder={user?.NIE || "Inserte aquí su número de NIE"}
                 onChange={(e) => setNIEActualizado(e.target.value)}
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
-              <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-2 border px-3 py-1 mx-44'>
-              Haz click aquí si tiene DNI en vez de NIE</button>
+              <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
+              Haga click aquí si tiene DNI en vez de NIE</button>
             </div>}
             <div className="flex flex-col my-2">
               <label htmlFor="tel" >Teléfono </label>
@@ -295,6 +301,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
           </button>
         </div>
       </form>
+      {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} />}
     </>
   )
 }
