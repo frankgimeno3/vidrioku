@@ -157,14 +157,19 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
     }
   };
 
+  const handlemodificarperfil = (event:any) => {
+    event.preventDefault();
+    setIsCambiarFotoOpen(true);
+  }
+
   return (
     <>
       <Navbar />
-      <form onSubmit={guardarCambiosHandler} className='mx-24'>
+      <form onSubmit={guardarCambiosHandler} className='mx-24 relative'>
         <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500    ">
           <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto mt-5 " />
           <button className='my-5 mx-auto p-2 py-3 text-sm border text-gray-500 rounded-lg shadow-lg hover:bg-gray-50 border-gray-100 '
-          onClick={()=>{setIsCambiarFotoOpen(true)}}>
+          onClick={handlemodificarperfil}>
             Modificar Imagen de perfil
           </button>
           <div className="flex flex-col mx-96">
