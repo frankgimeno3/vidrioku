@@ -6,7 +6,7 @@ interface CambiarFotoProps {
 
 
 const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
-    const [file, setFile] = useState<Blob | null>(null);
+    const [file, setFile] = useState<any>(null);
 
     
     const handleSubmit = async (e:any) => {

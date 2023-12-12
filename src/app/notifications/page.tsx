@@ -100,7 +100,8 @@ const Notifications: FC = ({ }) => {
 
             {arrayNotificacionesUsuario.map((notificacion:any) => (
               <Notificacioncomponent 
-                key={notificacion.id}  
+                key={notificacion.id}
+                id={notificacion.id}  
                 tipo={notificacion.tipo} 
                 redireccion={notificacion.redireccion}
                 content={notificacion.content} 
