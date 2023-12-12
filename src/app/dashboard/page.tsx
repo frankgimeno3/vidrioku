@@ -10,6 +10,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import HomeEmpr from './components/HomeEmpr'
 import HomeTrab from './components/HomeTrab';
+import HomeAdmin from './components/HomeAdmin';
 
 
 interface User {
@@ -65,6 +66,7 @@ export default function Dashboard() {
         <Navbar />
         {userType == 'empresa' && <HomeEmpr userData={userData} />}
         {userType == 'profesional' &&<HomeTrab userData={userData} /> }
+        {userType == 'admin' &&<HomeAdmin userData={userData} /> }
         {/* <Footer onPageChange={handlePageChange} /> */}
 
       </main>
