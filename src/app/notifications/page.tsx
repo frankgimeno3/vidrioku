@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import { useSession } from 'next-auth/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import Notificacioncomponent from './components/notificacioncomponent';
   
 interface User {
   id: any
@@ -91,11 +92,7 @@ const Notifications: FC = ({ }) => {
           <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100  rounded-lg my-6 mt-6">
             <h2 className='mt-2 text-md text-center px-8 pt-5'>Tienes <span className='font-bold'>4</span> notificaciones nuevas</h2>
 
-            <div className="  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-6">
-              <h2 className='text-right pr-3 pt-2 text-gray-400 text-sm'>Mensaje</h2>
-              <h2 className='mt-1 text-sm mb-2 mx-5'>La empresa
-                <span className='font-bold'> VIDRIOPERFIL </span>le ha enviado un mensaje </h2>
-            </div>
+            <Notificacioncomponent />
 
             <div className="  mx-6 pb-3 bg-white bg-opacity-10  text-zinc-100  rounded-lg my-6">
               <h2 className='text-right pr-3 pt-2 text-gray-400 text-sm'>Oportunidad</h2>
