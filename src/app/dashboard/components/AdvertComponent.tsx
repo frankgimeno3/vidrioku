@@ -76,10 +76,12 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
             <p><span className='font-medium mr-1'>Nombre: </span> {bannerName}</p>
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
+              onClick={handlemodificarnombre}
             > Cambiar nombre</button>
             <p><span className='font-medium mr-1 mt-12'>Estado: </span> {estado} </p>
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
+              onClick={handlemodificaractivo}
             > Cambiar estado</button>
           </div>
         </div>
