@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
-import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
+import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, getDocs, } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -26,10 +26,38 @@ interface User {
 const HomeAdmin: FC<HomeTrabProps> = ({ userData }) => {
   const router = useRouter();
   const [user, setUser] = useState<User>();
-
+  const [anunciosArray, setAnunciosArray] = useState<any>()
+  const [loading, setLoading] = useState<any>(true)
+  
   const handlemissolicitudes = () => {
     router.push("/missolicitudes")
   }
+
+ 
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+
+      const anunciosCollection = collection(db, 'anuncios');
+      const q = query(anunciosCollection);
+      const querySnapshot = await getDocs(q);
+      const advertsArray: any[] = [];
+      querySnapshot.forEach((doc) => {
+        advertsArray.push(doc.data() as any);
+      });
+
+      setAnunciosArray(advertsArray);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log("anunciosArray: ", anunciosArray)
+  }, [anunciosArray]);
+  
+  
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {
