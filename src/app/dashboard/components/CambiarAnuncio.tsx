@@ -4,11 +4,11 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 interface CambiarAnuncioProps {
     setIsCambiarAnuncioOpen:any;
-    userData:any;
+    nombre: any;
 }
 
 
-const CambiarAnuncio: FC<CambiarAnuncioProps> = ({setIsCambiarAnuncioOpen, userData}) => {
+const CambiarAnuncio: FC<CambiarAnuncioProps> = ({setIsCambiarAnuncioOpen, nombre}) => {
     const [file, setFile] = useState<any>(null);
     const [imageUrl, setImageUrl] = useState<any>()
 
@@ -24,7 +24,7 @@ const CambiarAnuncio: FC<CambiarAnuncioProps> = ({setIsCambiarAnuncioOpen, userD
 
     const handleImageChange = async (url: any) =>{
       try {
-        const docRef = doc(db, "users", userData);
+        const docRef = doc(db, "anuncios", nombre);
         const userDoc = await getDoc(docRef);
     
         if (userDoc.exists()) {
@@ -60,8 +60,8 @@ const CambiarAnuncio: FC<CambiarAnuncioProps> = ({setIsCambiarAnuncioOpen, userD
       <div className='absolute border border-gray-100  inset-0  flex justify-between top-5 inset-x-0 right-0 
        flex-row bg-white rounded-lg shadow-xl p-12 z-0 m-36 mx-72'>
         <div className='flex flex-col justify-center text-center text-gray-500 ml-56 '>
-          <p className='font-bold text-lg ml-12'>Cambiar imagen de perfil</p>
-          <p className='font-light text-md ml-12'>Haga click en el botón para agregar una imagen</p>
+          <p className='font-bold text-lg ml-12'>Cambiar imagen del banner</p>
+          <p className='font-light text-md ml-12'>Haga click en el botón para agregar una desde su ordenador</p>
           <form className='flex flex-col' onSubmit={async(e)=>{
             e.preventDefault()
             const formData = new FormData()
@@ -82,7 +82,7 @@ const CambiarAnuncio: FC<CambiarAnuncioProps> = ({setIsCambiarAnuncioOpen, userD
                     setFile(e.target.files[0]);
                 }
             }} className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'/>
-            <button className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'>Subir archivo seleccionado</button>
+            <button className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'>Confirmar y sustituir</button>
           </form>           
         </div>
         <div onClick={()=>{setIsCambiarAnuncioOpen(false)}} className='flex flex-row  justify-end'> 

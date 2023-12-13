@@ -44,20 +44,23 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
   }
   }, [activo]);
 
-  const handlemodificaranuncio = (event:any) => {
+  const handlemodificaranuncio = (event: any) => {
     event.preventDefault();
     setIsCambiarAnuncioOpen(true);
-  }
-
-  const handlemodificaractivo = (event:any) => {
+    window.scrollTo(0, 0);  
+  };
+  
+  const handlemodificaractivo = (event: any) => {
     event.preventDefault();
     setIsCambiarActivoOpen(true);
-  }
-
-  const handlemodificarnombre = (event:any) => {
+    window.scrollTo(0, 0);  
+  };
+  
+  const handlemodificarnombre = (event: any) => {
     event.preventDefault();
     setIsCambiarNombreOpen(true);
-  }
+    window.scrollTo(0, 0);  
+  };
 
   return (
     <>
@@ -80,7 +83,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
             > Cambiar estado</button>
           </div>
         </div>
-        {isCambiarAnuncioOpen && <CambiarAnuncio setIsCambiarAnuncioOpen={setIsCambiarAnuncioOpen}  userData={userData}/>}
+        {isCambiarAnuncioOpen && <CambiarAnuncio setIsCambiarAnuncioOpen={setIsCambiarAnuncioOpen} nombre={bannerName}/>}
     </>
   )
 }
