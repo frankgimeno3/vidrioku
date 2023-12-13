@@ -3,36 +3,30 @@ import Image from 'next/image'
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 interface CambiarNombreProps {
-    setIsCambiarAnuncioOpen:any;
+  setIsCambiarNombreOpen:any;
     nombre: any;
 }
 
 
-const CambiarNombre: FC<CambiarNombreProps> = ({setIsCambiarAnuncioOpen, nombre}) => {
-    const [file, setFile] = useState<any>(null);
-    const [imageUrl, setImageUrl] = useState<any>()
+const CambiarNombre: FC<CambiarNombreProps> = ({setIsCambiarNombreOpen, nombre}) => {
+     const [newname, setnewname] = useState<any>()
 
     
     const handleSubmit = async (e:any) => {
         e.preventDefault();
-        const formData = new FormData();
-
-        if (file) {
-             formData.append('file', file as Blob);
-         }
+      
     };
 
-    const handleImageChange = async (url: any) =>{
+    const handlenamechange = async (nuevonombre: any) =>{
       try {
         const docRef = doc(db, "anuncios", nombre);
-        const userDoc = await getDoc(docRef);
+        const anuncioDoc = await getDoc(docRef);
     
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
+        if (anuncioDoc.exists()) {
+          const anuncioData = anuncioDoc.data();
     
-          // Elimina campos con valores undefined
           const updatedData = {
-            profilepicture: url,
+            nombre: nuevonombre,
           };
     
           // Filtra campos undefined
@@ -41,7 +35,7 @@ const CambiarNombre: FC<CambiarNombreProps> = ({setIsCambiarAnuncioOpen, nombre}
           );
     
           await setDoc(docRef, {
-            ...userData,
+            ...anuncioData,
             ...filteredData,
           });
         } else {
@@ -53,39 +47,26 @@ const CambiarNombre: FC<CambiarNombreProps> = ({setIsCambiarAnuncioOpen, nombre}
     }
 
     useEffect(()=>{     
-              handleImageChange(imageUrl)
-    }, [imageUrl])
+      handlenamechange(newname)
+    }, [newname])
 
-     return (
-      <div className='absolute border border-gray-100  inset-0  flex justify-between top-5 inset-x-0 right-0 
-       flex-row bg-white rounded-lg shadow-xl p-12 z-0 m-36 mx-72'>
-        <div className='flex flex-col justify-center text-center text-gray-500 ml-56 '>
-          <p className='font-bold text-lg ml-12'>Cambiar imagen del banner</p>
-          <p className='font-light text-md ml-12'>Haga click en el botón para agregar una desde su ordenador</p>
-          <form className='flex flex-col' onSubmit={async(e)=>{
-            e.preventDefault()
-            const formData = new FormData()
-            formData.append('file', file)
- 
-            const response = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData,
-                // headers: {
-                //     "Content-Type": "multipart/form-data",
-                // }
-            })
-            const data = await response.json()
-             setImageUrl(`${data.url}`)
-           }}>
-             <input type='file' onChange={(e)=>{
-                 if (e.target.files) {
-                    setFile(e.target.files[0]);
-                }
-            }} className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'/>
-            <button className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'>Confirmar y sustituir</button>
-          </form>           
-        </div>
-        <div onClick={()=>{setIsCambiarAnuncioOpen(false)}} className='flex flex-row  justify-end'> 
+    return (
+      <div className='absolute border border-gray-100 inset-0 flex justify-between top-5 inset-x-0 right-0 flex-row bg-white rounded-lg shadow-xl p-12 z-0 m-36 mx-72'>
+          <div className='flex flex-col justify-center text-center text-gray-500 ml-56 '>
+              <p className='font-bold text-lg ml-12'>Cambiar nombre del banner</p>
+              <form className='flex flex-col' onSubmit={async (e) => {
+                  e.preventDefault();
+                  handlenamechange(newname);
+              }}>
+                  <input 
+                      type='text' 
+                      onChange={(e) => setnewname(e.target.value)}
+                      className='bg-white hover:bg-gray-50 text-gray-500 p-2 mt-5 rounded-lg shadow-xl border border-gray-50'
+                  />
+                  <button className='bg-white hover:bg-gray-50 text-gray-500 p-2 mt-5 rounded-lg shadow-xl border border-gray-50'>Confirmar y sustituir</button>
+              </form>
+          </div>
+          <div onClick={() => { setIsCambiarNombreOpen(false) }} className='flex flex-row justify-end'>
           <svg 
             className="w-8 h-8 text-gray-500 hover:text-gray-400" 
             fill="none" 

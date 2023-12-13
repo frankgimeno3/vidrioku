@@ -52,12 +52,7 @@ const HomeAdmin: FC<HomeTrabProps> = ({ userData }) => {
 
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log("anunciosArray: ", anunciosArray)
-  }, [anunciosArray]);
-  
-  
+ 18
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {

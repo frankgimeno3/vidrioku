@@ -3,6 +3,7 @@ import Image from 'next/image';
 import CambiarAnuncio from './CambiarAnuncio';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import CambiarNombre from './CambiarNombre';
 
 interface AdvertComponentProps {
     bannerName: any;
@@ -37,7 +38,6 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
   }, [session?.data?.user?.email]);
 
   useEffect(() => {
-    console.log(activo, "activo")
     if(`${activo}` == `true`) {    setEstado("Activo")
     }
     if(`${activo}` == `false`) {    setEstado("Inactivo")
@@ -86,6 +86,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
           </div>
         </div>
         {isCambiarAnuncioOpen && <CambiarAnuncio setIsCambiarAnuncioOpen={setIsCambiarAnuncioOpen} nombre={bannerName}/>}
+        {isCambiarNombreOpen && <CambiarNombre setIsCambiarNombreOpen={setIsCambiarNombreOpen} nombre={bannerName}/>}
     </>
   )
 }
