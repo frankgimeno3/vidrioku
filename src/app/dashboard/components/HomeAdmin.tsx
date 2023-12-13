@@ -90,7 +90,7 @@ const HomeAdmin: FC<HomeTrabProps> = ({ userData }) => {
           <AdvertComponent 
             key={index}
             bannerName={anuncio.nombre} 
-            activo={anuncio.activo} 
+            activo={`${anuncio.activo}`} 
             bannerUrl={anuncio.url }
           />
         ))}

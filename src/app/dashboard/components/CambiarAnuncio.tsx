@@ -83,10 +83,7 @@ const CambiarAnuncio: FC<CambiarAnuncioProps> = ({setIsCambiarAnuncioOpen, userD
                 }
             }} className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'/>
             <button className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'>Subir archivo seleccionado</button>
-          </form>          
-          {/* {imageUrl && <>
-          <Image src={`${imageUrl}`} alt={''} height={400} width={400}/>
-          </>} */}
+          </form>           
         </div>
         <div onClick={()=>{setIsCambiarAnuncioOpen(false)}} className='flex flex-row  justify-end'> 
           <svg 

@@ -19,6 +19,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
   const [isCambiarActivoOpen, setIsCambiarActivoOpen] = useState(false)
   const [isCambiarNombreOpen, setIsCambiarNombreOpen] = useState(false)
   const [userData, setUserData] = useState("");
+  const [estado, setEstado] = useState<any>()
 
   const session = useSession({
     required: true,
@@ -34,6 +35,14 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
       setUserData("Usuario");
     }
   }, [session?.data?.user?.email]);
+
+  useEffect(() => {
+    console.log(activo, "activo")
+    if(`${activo}` == `true`) {    setEstado("Activo")
+    }
+    if(`${activo}` == `false`) {    setEstado("Inactivo")
+  }
+  }, [activo]);
 
   const handlemodificaranuncio = (event:any) => {
     event.preventDefault();
@@ -65,7 +74,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
             > Cambiar nombre</button>
-            <p><span className='font-medium mr-1 mt-12'>Estado: </span> {activo} </p>
+            <p><span className='font-medium mr-1 mt-12'>Estado: </span> {estado} </p>
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
             > Cambiar estado</button>
