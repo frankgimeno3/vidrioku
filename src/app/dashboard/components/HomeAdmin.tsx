@@ -77,6 +77,10 @@ const HomeAdmin: FC<HomeTrabProps> = ({ userData }) => {
     router.push(`/perfil/${userData}`)
   }
 
+  
+  
+
+
   return (
     <div className='flex flex-col'>
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, <span className='font-bold'>Admin</span></h2>
