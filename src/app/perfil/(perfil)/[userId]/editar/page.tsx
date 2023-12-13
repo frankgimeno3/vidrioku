@@ -29,6 +29,7 @@ interface User {
   vehiculo: string;
   carta: string;
   linkedin: string;
+  profilepicture:any;
  }
 const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
   const [user, setUser] = useState<User | undefined>();
@@ -166,7 +167,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
       <Navbar />
       <form onSubmit={guardarCambiosHandler} className='mx-24 relative'>
         <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500    ">
-          <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto mt-5 " />
+          <Image src={user?.profilepicture || "/icons/empty-user-profile.png"} alt="" width={200} height={200} className="mx-auto mt-5 " />
           <button className='my-5 mx-auto p-2 py-3 text-sm border text-gray-500 rounded-lg shadow-lg hover:bg-gray-50 border-gray-100 '
           onClick={handlemodificarperfil}>
             Modificar Imagen de perfil
@@ -305,7 +306,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
           </button>
         </div>
       </form>
-      {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} />}
+      {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userData} />}
     </>
   )
 }

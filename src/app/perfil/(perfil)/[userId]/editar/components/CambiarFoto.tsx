@@ -1,11 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 interface CambiarFotoProps {
-    setIsCambiarFotoOpen:any
+    setIsCambiarFotoOpen:any;
+    userData:any;
 }
 
 
-const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
+const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen, userData}) => {
     const [file, setFile] = useState<any>(null);
     const [imageUrl, setImageUrl] = useState<any>()
 
@@ -18,6 +21,41 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
              formData.append('file', file as Blob);
          }
     };
+
+    const handleImageChange = async (url: any) =>{
+      try {
+        const docRef = doc(db, "users", userData);
+        const userDoc = await getDoc(docRef);
+    
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+    
+          // Elimina campos con valores undefined
+          const updatedData = {
+            profilepicture: url,
+          };
+    
+          // Filtra campos undefined
+          const filteredData = Object.fromEntries(
+            Object.entries(updatedData).filter(([_, value]) => value !== undefined)
+          );
+    
+          await setDoc(docRef, {
+            ...userData,
+            ...filteredData,
+          });
+        } else {
+          console.error('El documento del usuario no existe');
+        }
+      } catch (error) {
+        console.error('Error al crear la solicitud:', error);
+      }
+    }
+
+    useEffect(()=>{     
+              handleImageChange(imageUrl)
+    }, [imageUrl])
+
      return (
       <div className='absolute border border-gray-100  inset-0  flex justify-between top-5 inset-x-0 right-0 
        flex-row bg-white rounded-lg shadow-xl p-12 z-0 m-36 mx-72'>
@@ -37,9 +75,8 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
                 // }
             })
             const data = await response.json()
-             setImageUrl(data.url)
-            console.log("imageUrl: ", imageUrl)
-          }}>
+             setImageUrl(`${data.url}`)
+           }}>
              <input type='file' onChange={(e)=>{
                  if (e.target.files) {
                     setFile(e.target.files[0]);
@@ -47,9 +84,9 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
             }} className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'/>
             <button className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'>Subir archivo seleccionado</button>
           </form>          
-          {imageUrl && <>
+          {/* {imageUrl && <>
           <Image src={`${imageUrl}`} alt={''} height={400} width={400}/>
-          </>}
+          </>} */}
         </div>
         <div onClick={()=>{setIsCambiarFotoOpen(false)}} className='flex flex-row  justify-end'> 
           <svg 
