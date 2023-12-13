@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-
+import Image from 'next/image'
 interface CambiarFotoProps {
     setIsCambiarFotoOpen:any
 }
@@ -7,6 +7,7 @@ interface CambiarFotoProps {
 
 const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
     const [file, setFile] = useState<any>(null);
+    const [imageUrl, setImageUrl] = useState<any>()
 
     
     const handleSubmit = async (e:any) => {
@@ -39,6 +40,7 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
             })
             const data = await response.json()
             console.log(data)
+            setImageUrl(data.url)
           }}>
              <input type='file' onChange={(e)=>{
                  if (e.target.files) {
@@ -47,7 +49,9 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
             }} className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'/>
             <button className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'>Subir archivo seleccionado</button>
           </form>          
-
+          {imageUrl && <>
+          <Image src={imageUrl} alt={''} height={100} width={100}/>
+          </>}
         </div>
         <div onClick={()=>{setIsCambiarFotoOpen(false)}} className='flex flex-row  justify-end'> 
           <svg 

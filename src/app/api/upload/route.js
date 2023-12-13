@@ -1,10 +1,8 @@
-
-
 import { NextResponse } from "next/server";
 import { writeFile } from "fs/promises"
 import path from "path"
 import { v2 as cloudinary } from 'cloudinary';
-           
+            
  
 cloudinary.config({
     cloud_name: process.env.NEXT_PUBLIC_CLOUD_NAME,
@@ -14,10 +12,11 @@ cloudinary.config({
  
 
 export async function POST(request) {
- 
-    
+     
     const data = await request.formData()
-    const image = data.get("image")
+    
+    const image = data.get("file")
+    console.log("image: ", image);
 
     if (!image) {
         return NextResponse.json("no se ha subido ninguna imagen", {
@@ -28,11 +27,19 @@ export async function POST(request) {
     const bytes = await image.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    const filePath = path.join(process.cwd(), "public", image.name);
-    await writeFile(filePath, buffer)
+    // const filePath = path.join(process.cwd(), "public", image.name);
+    // await writeFile(filePath, buffer)
 
-    const response = await cloudinary.uploader.upload(filePath, {folder})
-    console.log(response)
+    const response = await new Promise ((resolve, reject) => {
+        cloudinary.uploader.upload_stream({}, (err, result)=>{
+            if (err) {
+                reject(err)
+            }
+            resolve(result)
+            }).end(buffer)
+    })
 
-    return NextResponse.json("imagen subida")
+    return NextResponse.json({
+        message: "imagen subida",
+    url: response.secure_url});
 }
