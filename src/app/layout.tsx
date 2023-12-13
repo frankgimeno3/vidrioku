@@ -1,11 +1,12 @@
 import './globals.css'
+import { EdgeStoreProvider } from './lib/edgestore';
 import SessionProvider from './SessionProvider';
 
 
 export const metadata = {
   title: 'Vidrioku',
   description: 'Frank Gimeno Portfolio',
-  
+
 }
 
 export default async function RootLayout({
@@ -19,9 +20,11 @@ export default async function RootLayout({
         <link rel="icon" href="/logos/4.png" sizes="any" />
       </head>
       <body className="h-full ">
-      <SessionProvider>
-        {children}
-      </SessionProvider>
+        <SessionProvider>
+          <EdgeStoreProvider>
+            {children}
+          </EdgeStoreProvider>
+        </SessionProvider>
       </body>
     </html>
   )
