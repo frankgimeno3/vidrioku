@@ -3,11 +3,11 @@ import Image from 'next/image';
 
 interface AdvertComponentProps {
     bannerName: any;
-    bannerRank: any;
-    bannerUrl: any;
+     bannerUrl: any;
+     activo: any;
 }
 
-const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, bannerRank, bannerUrl}) => {
+const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bannerUrl}) => {
   return (
     <>
         <div className='flex flex-row mx-auto px-36 py-12 bg-gray-300 my-2 rounded-lg shadow-lg'>
@@ -22,10 +22,10 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, bannerRank, b
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
             > Cambiar nombre</button>
-            <p><span className='font-medium mr-1 mt-12'>Ranking: </span> {bannerRank}</p>
+            <p><span className='font-medium mr-1 mt-12'>Estado: </span> {activo} </p>
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
-            > Cambiar ranking</button>
+            > Cambiar estado</button>
           </div>
         </div>
     </>

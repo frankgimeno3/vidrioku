@@ -80,15 +80,18 @@ const HomeAdmin: FC<HomeTrabProps> = ({ userData }) => {
   return (
     <div className='flex flex-col'>
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, <span className='font-bold'>Admin</span></h2>
-      <div className="flex flex-col   bg-gradient-to-b from-zinc-500 to-zinc-600 py-12">
+      <div className="flex flex-col bg-gradient-to-b from-zinc-500 to-zinc-600 py-12">
         <h2 className='mx-auto text-white text-lg'>Anuncios activos</h2>
-        <AdvertComponent bannerName={"Nombre del banner"} bannerRank={1} bannerUrl={'/inventedlogos/banner.jpg'}/>
-        <AdvertComponent bannerName={"Nombre del banner"} bannerRank={2} bannerUrl={'/inventedlogos/banner.jpg'}/>
-        <AdvertComponent bannerName={"Nombre del banner"} bannerRank={3} bannerUrl={'/inventedlogos/banner.jpg'}/>
-        <AdvertComponent bannerName={"Nombre del banner"} bannerRank={4} bannerUrl={'/inventedlogos/banner.jpg'}/>
+        {anunciosArray && anunciosArray.map((anuncio:any, index:any) => (
+          <AdvertComponent 
+            key={index}
+            bannerName={anuncio.nombre} 
+            activo={anuncio.activo} 
+            bannerUrl={anuncio.url }
+          />
+        ))}
       </div>
     </div>
-
   );
 };
 
