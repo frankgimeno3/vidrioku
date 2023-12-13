@@ -4,6 +4,8 @@ import CambiarAnuncio from './CambiarAnuncio';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import CambiarNombre from './CambiarNombre';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
 interface AdvertComponentProps {
     bannerName: any;
@@ -22,6 +24,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
   const [isCambiarNombreOpen, setIsCambiarNombreOpen] = useState(false)
   const [userData, setUserData] = useState("");
   const [estado, setEstado] = useState<any>()
+  const [isActivo, setIsActivo] = useState<any>()
 
   const session = useSession({
     required: true,
@@ -39,6 +42,10 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
   }, [session?.data?.user?.email]);
 
   useEffect(() => {
+    setIsActivo(activo)
+  }, [activo]);
+
+  useEffect(() => {
     if(`${activo}` == `true`) {    setEstado("Activo")
     }
     if(`${activo}` == `false`) {    setEstado("Inactivo")
@@ -50,18 +57,36 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
     setIsCambiarAnuncioOpen(true);
     window.scrollTo(0, 0);  
   };
-  
-  const handlemodificaractivo = (event: any) => {
-    event.preventDefault();
-    setIsCambiarActivoOpen(true);
-    window.scrollTo(0, 0);  
-  };
-  
+ 
   const handlemodificarnombre = (event: any) => {
     event.preventDefault();
     setIsCambiarNombreOpen(true);
     window.scrollTo(0, 0);  
   };
+
+  const checkisactivo = (isActivo: any)=>{
+    if(`${isActivo}` == `true`) {return false}
+    if(`${isActivo}` == `false`) {return true}
+  }
+
+  const handleCambioEstado = async () => {
+  
+    try {
+      const docRef = doc(db, "anuncios", id);
+      const anuncioDoc = await getDoc(docRef);
+
+      if (anuncioDoc.exists()) {
+        await setDoc(docRef, { activo: checkisactivo(isActivo) }, { merge: true });
+      } else {
+        console.error('El documento del usuario no existe');
+      }
+    } catch (error) {
+      console.error('Error al cambiar el estado:', error);
+    }
+    setTimeout(() => {
+      window.location.reload();
+    }, 500)
+  }
 
   return (
     <>
@@ -82,7 +107,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
             <p><span className='font-medium mr-1 mt-12'>Estado: </span> {estado} </p>
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
-              onClick={handlemodificaractivo}
+              onClick={handleCambioEstado}
             > Cambiar estado</button>
           </div>
         </div>
