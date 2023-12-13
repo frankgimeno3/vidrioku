@@ -87,6 +87,7 @@ const HomeAdmin: FC<HomeTrabProps> = ({ userData }) => {
             bannerName={anuncio.nombre} 
             activo={`${anuncio.activo}`} 
             bannerUrl={anuncio.url }
+            id={anuncio.id}
           />
         ))}
       </div>

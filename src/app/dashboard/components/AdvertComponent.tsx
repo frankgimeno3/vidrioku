@@ -9,12 +9,13 @@ interface AdvertComponentProps {
     bannerName: any;
      bannerUrl: any;
      activo: any;
+     id:any
 }
 
 
 
 
-const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bannerUrl}) => {
+const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bannerUrl, id}) => {
 
   const [isCambiarAnuncioOpen, setIsCambiarAnuncioOpen] = useState(false)
   const [isCambiarActivoOpen, setIsCambiarActivoOpen] = useState(false)
@@ -73,7 +74,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
             > Cambiar banner</button>
           </div>
           <div className='flex flex-col px-12'>
-            <p><span className='font-medium mr-1'>Nombre: </span> {bannerName}</p>
+            <p><span className='font-medium mr-1'>Nombre: </span> {bannerName}</p> 
             <button
               className='bg-white p-2 px-3 rounded-lg shadow-lg text-xs hover:bg-gray-50 border-gray-100 text-gray-500 my-2'
               onClick={handlemodificarnombre}
@@ -86,7 +87,7 @@ const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bann
           </div>
         </div>
         {isCambiarAnuncioOpen && <CambiarAnuncio setIsCambiarAnuncioOpen={setIsCambiarAnuncioOpen} nombre={bannerName}/>}
-        {isCambiarNombreOpen && <CambiarNombre setIsCambiarNombreOpen={setIsCambiarNombreOpen} nombre={bannerName}/>}
+        {isCambiarNombreOpen && <CambiarNombre setIsCambiarNombreOpen={setIsCambiarNombreOpen} id={id}/>}
     </>
   )
 }
