@@ -15,10 +15,8 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
         const formData = new FormData();
 
         if (file) {
-            // Aserción de tipo para asegurarnos de que file es tratado como Blob
-            formData.append('file', file as Blob);
-            // Resto del código para manejar el envío del formulario...
-        }
+             formData.append('file', file as Blob);
+         }
     };
      return (
       <div className='absolute border border-gray-100  inset-0  flex justify-between top-5 inset-x-0 right-0 
@@ -39,8 +37,8 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
                 // }
             })
             const data = await response.json()
-            console.log(data)
-            setImageUrl(data.url)
+             setImageUrl(data.url)
+            console.log("imageUrl: ", imageUrl)
           }}>
              <input type='file' onChange={(e)=>{
                  if (e.target.files) {
@@ -50,7 +48,7 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen}) => {
             <button className='bg-white hover:bg-gray-50 text-gray-500 p-2  mt-5 rounded-lg shadow-xl border border-gray-50'>Subir archivo seleccionado</button>
           </form>          
           {imageUrl && <>
-          <Image src={imageUrl} alt={''} height={100} width={100}/>
+          <Image src={`${imageUrl}`} alt={''} height={400} width={400}/>
           </>}
         </div>
         <div onClick={()=>{setIsCambiarFotoOpen(false)}} className='flex flex-row  justify-end'> 

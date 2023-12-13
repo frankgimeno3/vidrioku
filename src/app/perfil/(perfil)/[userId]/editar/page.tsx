@@ -75,8 +75,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUser(myUserData);
-          console.log(myUserData);
-        }
+         }
       }
     };
 
