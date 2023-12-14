@@ -21,7 +21,7 @@ const Hero: React.FC = ({ }) => {
         muted
       ></video>
       <div className="absolute  w-full flex flex-col justify-center items-center text-center mt-24 pt-24">
-        <div className="bg-cyan-950 bg-opacity-60 backdrop-filter backdrop-blur-lg w-full mt-24 py-10">
+        <div className="bg-blue-500 bg-opacity-50 backdrop-filter backdrop-blur-lg w-full mt-24 py-10">
           <h1 className="text-4xl md:text-6xl text-sky-50 font-bold">
             VIDRIOKU
           </h1>

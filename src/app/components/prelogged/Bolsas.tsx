@@ -39,9 +39,9 @@ const Bolsas: React.FC = ({ }) => {
         </h2>
       </div>
       <div className='flex flex-row justify-center pb-10'>
-        <button className='w-36 bg-white rounded-md shadow mx-5 text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-black'
+        <button className='w-36 bg-white rounded-md shadow-xl mx-5 text-gray-700 px-4 py-2  hover:text-black hover:shadow-xl hover:shadow-blue-900'
           onClick={() => setBolsasShown("ofertas")}>Ver ofertas</button>
-        <button className='w-36 bg-white rounded-md shadow  mx-5 text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-black'
+        <button className='w-36 bg-white rounded-md shadow-xl  mx-5 text-gray-700 px-4 py-2 hover:text-black hover:shadow-xl hover:shadow-blue-900'
           onClick={() => setBolsasShown("candidatos")}>Ver candidatos</button>
       </div>
       <div className=" md:mx-64  ">

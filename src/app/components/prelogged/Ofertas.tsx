@@ -9,13 +9,13 @@ const inter = Inter({ subsets: ['latin'] })
 const Ofertas: React.FC = ({ }) => {
 //  const router = useRouter()
 const [oferta1Height, setOferta1Height] = useState<any>({height: 145})
-const [t1Height, sett1Height] = useState<any>({ paddingTop: '15px' });
+const [t1Height, sett1Height] = useState<any>({ paddingTop: '30px' });
 const [oferta2Height, setOferta2Height] = useState<any>({height: 145})
-const [t2Height, sett2Height] = useState<any>({ paddingTop: '35px' });
+const [t2Height, sett2Height] = useState<any>({ paddingTop: '40x' });
 const [oferta3Height, setOferta3Height] = useState<any>({height: 145})
-const [t3Height, sett3Height] = useState<any>({ paddingTop: '35px' });
+const [t3Height, sett3Height] = useState<any>({ paddingTop: '40px' });
 const [oferta4Height, setOferta4Height] = useState<any>({height: 145})
-const [t4Height, sett4Height] = useState<any>({ paddingTop: '20px' });
+const [t4Height, sett4Height] = useState<any>({ paddingTop: '25px' });
 
 const [is1, setIs1] = useState(false)
  const [is2, setIs2] = useState(false)
@@ -23,45 +23,45 @@ const [is1, setIs1] = useState(false)
  const [is4, setIs4] = useState(false)
  const handleDepTecnico = ()=>{
   // router.push("/bolsaofertas/deptecnico")
-  if(`${is1}` == `true`) {setIs1(false); setOferta1Height({height: 145}); sett1Height({ paddingTop: '15px' })}
+  if(`${is1}` == `true`) {setIs1(false); setOferta1Height({height: 145}); sett1Height({ paddingTop: '25px' })}
   if(`${is1}` == `false`) {setIs1(true); setOferta1Height({height: 180}); sett1Height({ paddingTop: '1px' })}
   setIs2(false); setIs3(false); setIs4(false)
   setOferta2Height({height: 145}); setOferta3Height({height: 145}); setOferta4Height({height: 145})
-  sett2Height({ paddingTop: '35px' }); sett3Height({ paddingTop: '35px' }); sett4Height({ paddingTop: '20px' })
+  sett2Height({ paddingTop: '40px' }); sett3Height({ paddingTop: '40px' }); sett4Height({ paddingTop: '30px' })
  }
  const handleIngenieros
  = ()=>{
   // router.push("/bolsaofertas/ingenieros")
-  if(`${is2}` == `true`) {setIs2(false); setOferta2Height({height: 145}); sett2Height({ paddingTop: '35px' })}
+  if(`${is2}` == `true`) {setIs2(false); setOferta2Height({height: 145}); sett2Height({ paddingTop: '40px' })}
   if(`${is2}` == `false`) {setIs2(true); setOferta2Height({height: 180}); sett2Height({ paddingTop: '5px', marginBottom: '15px'})}
   setIs1(false); setIs3(false); setIs4(false)
   setOferta1Height({height: 145}); setOferta3Height({height: 145}); setOferta4Height({height: 145})
-  sett1Height({ paddingTop: '15px' }); sett3Height({ paddingTop: '35px' }); sett4Height({ paddingTop: '20px' })
+  sett1Height({ paddingTop: '25px' }); sett3Height({ paddingTop: '40px' }); sett4Height({ paddingTop: '30px' })
  }
  const  handleOperarios
   = ()=>{
   // router.push("/bolsaofertas/operarios")
-  if(`${is3}` == `true`) {setIs3(false) ; setOferta3Height({height: 145}); sett3Height({ paddingTop: '35px' })}
+  if(`${is3}` == `true`) {setIs3(false) ; setOferta3Height({height: 145}); sett3Height({ paddingTop: '40px' })}
   if(`${is3}` == `false`) {setIs3(true); setOferta3Height({height: 180}); sett3Height({ paddingTop: '5px', marginBottom: '5px'})}
   setIs1(false); setIs2(false); setIs4(false)
   setOferta1Height({height: 145}); setOferta2Height({height: 145}); setOferta4Height({height: 145})
-  sett1Height({ paddingTop: '15px' }); sett2Height({ paddingTop: '35px' }); sett4Height({ paddingTop: '20px' })
+  sett1Height({ paddingTop: '25px' }); sett2Height({ paddingTop: '40px' }); sett4Height({ paddingTop: '30px' })
  }
  const handleComercialCompras = ()=>{
   // router.push("/bolsaofertas/comercialcompras")
-  if(`${is4}` == `true`) {setIs4(false) ; setOferta4Height({height: 145}); sett4Height({ paddingTop: '20px' })}
+  if(`${is4}` == `true`) {setIs4(false) ; setOferta4Height({height: 145}); sett4Height({ paddingTop: '30px' })}
   if(`${is4}` == `false`) {setIs4(true); setOferta4Height({height: 180}); sett4Height({ paddingTop: '0px' })}
   setIs1(false); setIs2(false); setIs3(false)
   setOferta1Height({height: 145}); setOferta2Height({height: 145}); setOferta3Height({height: 145})
-  sett1Height({ paddingTop: '15px' }); sett2Height({ paddingTop: '35px' }); sett3Height({ paddingTop: '35px' })
+  sett1Height({ paddingTop: '25px' }); sett2Height({ paddingTop: '35px' }); sett3Height({ paddingTop: '35px' })
  }
 
   return (
     <div className='flex flex-col md:flex-row text-center'>
       <div className='flex flex-col flex-1 '>
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96" onClick={handleDepTecnico} >
+        <div className="bg-white rounded-xl shadow-xl p-2 md:p-5 px-10 my-2 mx-5 h-72" onClick={handleDepTecnico} >
 
-          <h3 className="text-2xl mb-2 hover:text-blue-500">
+          <h3 className="text-xl mb-2 hover:text-blue-500">
             Ofertas para departamento técnico
           </h3>
           <p className="mb-2">
@@ -70,8 +70,8 @@ const [is1, setIs1] = useState(false)
           {/* <Image src="/icons/dtecnico.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/> */}
 
         </div>
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  onClick={handleIngenieros}      >
-          <h3 className="text-2xl mb-2 hover:text-blue-500">
+        <div className="bg-white rounded-xl shadow-xl p-2 md:p-5 px-10 my-2 mx-5 h-72"  onClick={handleIngenieros}      >
+          <h3 className="text-xl mb-2 hover:text-blue-500">
           Ofertas para ingenieros
           </h3>
           <p className="mb-2">
@@ -83,8 +83,8 @@ const [is1, setIs1] = useState(false)
       </div>
       <div className='flex flex-col flex-1'>
 
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  onClick={handleOperarios}      >
-          <h3 className="text-2xl mb-2 hover:text-blue-500">
+        <div className="bg-white rounded-xl shadow-xl p-2 md:p-5 px-10 my-2 mx-5 h-72"  onClick={handleOperarios}      >
+          <h3 className="text-xl mb-2 hover:text-blue-500">
             Ofertas para operarios
           </h3>
           <p className="mb-2">
@@ -93,8 +93,8 @@ const [is1, setIs1] = useState(false)
           <Image src="/icons/operarios.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
 
         </div>
-        <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"   onClick={handleComercialCompras}     >
-          <h3 className="text-2xl mb-2 hover:text-blue-500">
+        <div className="bg-white rounded-xl shadow-xl p-2 md:p-5 px-10 my-2 mx-5 h-72"   onClick={handleComercialCompras}     >
+          <h3 className="text-xl mb-2 hover:text-blue-500">
             Ofertas para el departamento comercial y compras
           </h3>
           <p className="mb-2">

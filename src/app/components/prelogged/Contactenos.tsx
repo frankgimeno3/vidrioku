@@ -11,41 +11,41 @@ const Contactenos: React.FC = ({  }) => {
  
   return (
     <>
-    <div className="flex flex-col p-10 bg-white bg-opacity-40 p-4 w-full">
+    <div className="flex flex-col p-10 bg-gray-100 p-4 w-full">
       <div className="mx-auto max-w-6xl">
-        <h1 className="text-4xl mt-2 mb-3 text-center text-white">Sobre Nosotros</h1>
-        <div className="flex grid grid-cols-3 gap-10 p-5 text-black">
+        <h1 className="text-3xl mt-8  text-center text-gray-750 font-medium my-5">Sobre Nosotros</h1>
+        <div className="flex flex-col mx-24 pb-5 text-gray-850 font-light">
           <div
-            className="flex flex-col items-center justify-center shadow-md bg-white rounded-lg"
-            style={{ height: "45vh" }}
+            className="flex border border-gray-100 flex-col items-center justify-center shadow-xl bg-white rounded-xl my-4"
+            style={{ height: "15vh" }}
           >
-            <p className="  text-base text-center px-8 p-2">
-              Facilitamos la conexión entre aquellos que buscan talento y
+            <p className="  text-xl text-center px-8 p-2">
+              <span className='font-medium'>Facilitamos la conexión </span> entre aquellos que buscan talento y
               aquellos que poseen un conocimiento especializado.
             </p>
-            <Image src="/icons/handshake.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
+            {/* <Image src="/icons/handshake.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/> */}
 
           </div>
 
           <div
-            className="flex flex-col items-center justify-center shadow-md bg-white rounded-lg"
-            style={{ height: "45vh" }}
+            className="flex border border-gray-100 flex-col items-center justify-center shadow-xl bg-white rounded-xl my-4"
+            style={{ height: "15vh" }}
           >
-            <p className=" text-base text-center p-8">
-              Ofrecemos un sistema de chat para facilitar el contacto
+            <p className="  text-xl text-center px-8 p-2">
+              Ofrecemos un <span className='font-medium'>sistema de chat</span> para facilitar el contacto
             </p>
-            <Image src="/icons/message.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/>
+            {/* <Image src="/icons/message.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/> */}
 
           </div>
 
           <div
-            className="flex flex-col items-center justify-center shadow-md bg-white rounded-lg"
-            style={{ height: "45vh" }}
+            className="flex border border-gray-100 flex-col items-center justify-center shadow-xl bg-white rounded-xl my-4"
+            style={{ height: "15vh" }}
           >
-            <p className="  text-base text-center p-8">
-             Contamos con un sistema de alertas y notificaciones, para que pueda recibir avisos cuando tengamos algún candidato u oferta que encaje con sus expectativas
+            <p className="  text-xl text-center px-8 p-2">
+             Contamos con un sistema de alertas y notificaciones, para que pueda <span className='font-medium'>recibir avisos</span> cuando tengamos algún candidato u oferta que encaje con sus expectativas
             </p>
-            <Image src="/icons/bell.png" alt="Logo3" width={190} height={190}  className='opacity-60 mx-auto hover:opacity-100'/>
+            {/* <Image src="/icons/bell.png" alt="Logo3" width={190} height={190}  className='opacity-60 mx-auto hover:opacity-100'/> */}
 
           </div>
         </div>

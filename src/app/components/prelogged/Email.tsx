@@ -47,15 +47,15 @@ const Email: React.FC = ({ }) => {
   return (<>
     <form ref={form} onSubmit={sendEmail} className='mt-1 flex flex-col text-white relative '>
       <h2 className="text-5xl text-center  text-white mb-3">Quiere saber más?</h2>
-      <p className=' mx-20 px-24 pb-5 text-sm'>Háganos una consulta rellenando el formulario a continuación:</p>
+      <p className=' mx-20 px-24 pb-5 text-lg'>Háganos una consulta rellenando el formulario a continuación:</p>
       <div className='flex flex-col mx-5 text-xs text-left  px-5 '>
-        <label>Nombre</label>
-        <input type="text" name="from_name" className='mt-1 rounded-lg bg-white bg-opacity-10  p-1 pl-3 placeholder-gray-300'  placeholder='Escriba aquí su nombre'/>
-        <label className='mt-5'>Email</label>
-        <input type="email" name="email" className='mt-1 rounded-lg bg-white bg-opacity-10 p-1 pl-3 placeholder-gray-300'  placeholder='Escriba aquí su email'/>
-        <label className='mt-5'>Mensaje</label>
-        <textarea name="message" className='mt-1 rounded-lg bg-white bg-opacity-10 p-1 h-40 pl-3 placeholder-gray-300' placeholder='Escríbanos su consulta aquí' />
-        <button type="submit" value="Send" className='my-5 py-3 w-40  bg-sky-50  text-xs rounded-lg shadow-white hover:scale-110 hover:bg-white text-gray-700 transition-transform duration-1000'> Send </button>
+        <label className='text-base'>Nombre</label>
+        <input type="text" name="from_name" className='mt-1 rounded-lg bg-white bg-opacity-10  p-1 pl-3 placeholder-gray-100'  placeholder='Escriba aquí su nombre'/>
+        <label className='mt-5 text-base'>Email</label>
+        <input type="email" name="email" className='mt-1 rounded-lg bg-white bg-opacity-10 p-1 pl-3 placeholder-gray-100'  placeholder='Escriba aquí su email'/>
+        <label className='mt-5 text-base'>Mensaje</label>
+        <textarea name="message" className='mt-1 rounded-lg bg-white bg-opacity-10 p-1 h-40 pl-3 placeholder-gray-100' placeholder='Escríbanos su consulta aquí' />
+        <button type="submit" value="Send" className='my-5  py-2 w-20  bg-sky-50  text-base rounded-lg shadow-white  hover:bg-white text-gray-700 hover:scale-110 transition-transform duration-1000'> Enviar </button>
       </div>
     </form>
     {isEmailSent && <div>
