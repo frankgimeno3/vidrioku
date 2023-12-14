@@ -58,8 +58,8 @@ const Candidatos: React.FC = ({ }) => {
 
   return (
     <div className='flex flex-col md:flex-row text-center justify-center font-base text-gray-700 '>
-      <div className='flex flex-row pb-5 '>
-        <div className="w-72 bg-white  hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 mx-5" onClick={handleDepTecnico}
+      <div className='flex flex-col md:flex-row pb-5 '>
+        <div className="w-72 bg-white  hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 md:mx-5 mx-auto" onClick={handleDepTecnico}
           style={candidato1Height}>
 
           <h3 className="text-xl" style={t1Height}>
@@ -71,7 +71,7 @@ const Candidatos: React.FC = ({ }) => {
           {/* <Image src="/icons/dtecnico.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/> */}
 
         </div>
-        <div className="w-72 bg-white hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 mx-5" onClick={handleIngenieros}
+        <div className="w-72 bg-white hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 md:mx-5 mx-auto" onClick={handleIngenieros}
           style={candidato2Height}>
           <h3 className="text-xl " style={t2Height}>
             Ingenieros
@@ -83,9 +83,9 @@ const Candidatos: React.FC = ({ }) => {
 
         </div>
       </div>
-      <div className='flex flex-row '>
+      <div className='flex flex-col md:flex-row '>
 
-        <div className="w-72 bg-white hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 mx-5" onClick={handleOperarios}
+        <div className="w-72 bg-white hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 md:mx-5 mx-auto" onClick={handleOperarios}
           style={candidato3Height}>
           <h3 className="text-xl" style={t3Height}>
             Operarios
@@ -96,7 +96,7 @@ const Candidatos: React.FC = ({ }) => {
           {/* <Image src="/icons/operarios.png" alt="Logo3" width={200} height={200}  className='opacity-60 mx-auto hover:opacity-100'/> */}
 
         </div>
-        <div className="w-72 bg-white hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 mx-5" onClick={handleComercialCompras}
+        <div className="w-72 bg-white hover:text-black hover:bg-gray-100 rounded-xl hover:shadow-xl hover:shadow-blue-900 p-2 md:p-5 px-10 my-2 md:mx-5 mx-auto" onClick={handleComercialCompras}
           style={candidato4Height}>
           <h3 className="text-xl " style={t4Height}> Profesionales expertos en departamento comercial y compras
           </h3>

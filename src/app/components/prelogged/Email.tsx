@@ -46,8 +46,8 @@ const Email: React.FC = ({ }) => {
 
   return (<>
     <form ref={form} onSubmit={sendEmail} className='mt-1 flex flex-col text-white relative '>
-      <h2 className="text-5xl text-center  text-white mb-3">Quiere saber más?</h2>
-      <p className=' mx-20 px-24 pb-5 text-lg'>Háganos una consulta rellenando el formulario a continuación:</p>
+      <h2 className="md:text-5xl text-3xl md:text-center px-10 md:px-0 text-white mb-3">Quiere saber más?</h2>
+      <p className='md:mx-20 md:px-24 px-10 pb-5 md:text-lg text-md'>Háganos una consulta rellenando el formulario a continuación:</p>
       <div className='flex flex-col mx-5 text-xs text-left  px-5 '>
         <label className='text-base'>Nombre</label>
         <input type="text" name="from_name" className='mt-1 rounded-lg bg-white bg-opacity-10  p-1 pl-3 placeholder-gray-100'  placeholder='Escriba aquí su nombre'/>

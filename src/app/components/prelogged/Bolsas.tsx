@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 const Bolsas: React.FC = ({ }) => {
   const [scrollOpacity, setScrollOpacity] = useState(0.5);
-  const [bolsasShown, setBolsasShown] = useState("candidatos")
+  const [bolsasShown, setBolsasShown] = useState("")
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY || window.pageYOffset;
@@ -39,9 +39,9 @@ const Bolsas: React.FC = ({ }) => {
         </h2>
       </div>
       <div className='flex flex-row justify-center pb-10'>
-        <button className='w-36 bg-white rounded-md shadow-xl mx-5 text-gray-700 px-4 py-2  hover:text-black hover:shadow-xl hover:shadow-blue-900'
+        <button className='w-36 bg-white rounded-md shadow-xl mx-2 md:mx-5 text-gray-700 px-4 py-2  hover:text-black hover:shadow-xl hover:shadow-blue-900'
           onClick={() => setBolsasShown("ofertas")}>Ver ofertas</button>
-        <button className='w-36 bg-white rounded-md shadow-xl  mx-5 text-gray-700 px-4 py-2 hover:text-black hover:shadow-xl hover:shadow-blue-900'
+        <button className='w-36 bg-white rounded-md shadow-xl mx-2  md:mx-5 text-gray-700 px-4 py-2 hover:text-black hover:shadow-xl hover:shadow-blue-900'
           onClick={() => setBolsasShown("candidatos")}>Ver candidatos</button>
       </div>
       <div className=" md:mx-64  ">
