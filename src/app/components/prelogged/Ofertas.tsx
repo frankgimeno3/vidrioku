@@ -10,18 +10,18 @@ const Ofertas: React.FC = ({ }) => {
  const router = useRouter()
 
  const handleDepTecnico = ()=>{
-  router.push("/bolsaofertas/deptecnico")
+  // router.push("/bolsaofertas/deptecnico")
  }
  const handleIngenieros
  = ()=>{
-  router.push("/bolsaofertas/ingenieros")
+  // router.push("/bolsaofertas/ingenieros")
  }
  const  handleOperarios
   = ()=>{
-  router.push("/bolsaofertas/operarios")
+  // router.push("/bolsaofertas/operarios")
  }
  const handleComercialCompras = ()=>{
-  router.push("/bolsaofertas/comercialcompras")
+  // router.push("/bolsaofertas/comercialcompras")
  }
 
   return (
