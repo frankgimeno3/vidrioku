@@ -26,7 +26,7 @@ const Ofertas: React.FC = ({ }) => {
 
   return (
     <div className='flex flex-col md:flex-row text-center'>
-      <div className='flex flex-col  '>
+      <div className='flex flex-col flex-1 '>
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96" onClick={handleDepTecnico} >
 
           <h3 className="text-2xl mb-2 hover:text-blue-500">
@@ -49,7 +49,7 @@ const Ofertas: React.FC = ({ }) => {
 
         </div>
       </div>
-      <div className='flex flex-col '>
+      <div className='flex flex-col flex-1'>
 
         <div className="bg-white rounded shadow p-2 md:p-5 px-10 my-2 mx-5 h-96"  onClick={handleOperarios}      >
           <h3 className="text-2xl mb-2 hover:text-blue-500">

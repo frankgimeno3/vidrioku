@@ -7,9 +7,9 @@ import Ofertas from './Ofertas';
 
 const inter = Inter({ subsets: ['latin'] })
 
-const Bolsas: React.FC = ({  }) => {
+const Bolsas: React.FC = ({ }) => {
   const [scrollOpacity, setScrollOpacity] = useState(0.5);
-  const [bolsasShown, setBolsasShown]= useState("candidatos")
+  const [bolsasShown, setBolsasShown] = useState("candidatos")
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY || window.pageYOffset;
@@ -25,32 +25,32 @@ const Bolsas: React.FC = ({  }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
- 
+
   return (
     <div className="w-full    text-center   mt-12">
-    <div className="pb-10  ">
-      <h2 className="text-4xl   mb-3 text-white">
-        Bolsa de empleo técnico{" "}
-      </h2>
+      <div className="pb-10  ">
+        <h2 className="text-4xl   mb-3 text-white">
+          Bolsa de empleo técnico{" "}
+        </h2>
         <h2 className="font-bold text-white text-4xl ">especializada en el sector del vidrio</h2>
-      <h2 className="text-lg text-white mt-2">
-        Haga click en uno de los sectores que aparecen a continuación <br />
-        para acceder a la bolsa de empleo especializada que desee
-      </h2>
+        <h2 className="text-lg text-white mt-2 ">
+          Haga click en uno de los sectores que aparecen a continuación <br />
+          para acceder a la bolsa de empleo especializada que desee
+        </h2>
+      </div>
+      <div className='flex flex-row justify-center pb-10 '>
+        <button className='w-36 bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'
+          onClick={() => setBolsasShown("ofertas")}>Ver ofertas</button>
+        <button className='w-36 bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'
+          onClick={() => setBolsasShown("candidatos")}>Ver candidatos</button>
+      </div>
+      <div className=" md:mx-64  ">
+        {bolsasShown == "candidatos" && <Candidatos />
+        }
+        {bolsasShown == "ofertas" && <Ofertas />
+        }
+      </div>
     </div>
-    <div className='flex flex-row justify-center pb-10'>
-    <button className='bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'
-    onClick={()=>setBolsasShown("ofertas")}>Ver ofertas</button>
-    <button className='bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'
-    onClick={()=>setBolsasShown("candidatos")}>Ver candidatos</button>
-    </div>
-    <div className=" md:mx-24 md:px-24 ">
-    {bolsasShown=="candidatos" &&     <Candidatos/>
-}
-    {bolsasShown=="ofertas" &&     <Ofertas/>
-}
-     </div>
-  </div>
   )
 }
 export default Bolsas
