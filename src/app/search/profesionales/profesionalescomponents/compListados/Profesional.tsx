@@ -10,7 +10,7 @@ const profesional: FC <profesionalProps> = ({trabajador, setRenderProfesional}) 
   return (
     <div className="flex flex-row justify-left items-center p-5 bg-gray-50 hover:bg-gray-200 shadow-lg mb-1 text-gray-600"
     onClick={()=>{setRenderProfesional(trabajador)}}>
-      <Image src={"/icons/empty-user-profile.png"} alt="pepo" height={75} width={75}  />
+      <Image src={trabajador?.profilepicture || "/icons/empty-user-profile.png"} alt="pepo" height={75} width={75}  />
       <div className='justify-left pl-5 w-full'>
         <h2>{trabajador?.nombre} {trabajador?.apellidos}</h2>
         <div className='flex flex-row justify-between w-full'>
