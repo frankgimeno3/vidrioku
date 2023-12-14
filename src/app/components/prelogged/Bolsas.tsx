@@ -38,10 +38,10 @@ const Bolsas: React.FC = ({ }) => {
           para acceder a la bolsa de empleo especializada que desee
         </h2>
       </div>
-      <div className='flex flex-row justify-center pb-10 '>
-        <button className='w-36 bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'
+      <div className='flex flex-row justify-center pb-10'>
+        <button className='w-36 bg-white rounded-md shadow mx-5 text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-black'
           onClick={() => setBolsasShown("ofertas")}>Ver ofertas</button>
-        <button className='w-36 bg-white rounded-md shadow text-basic mx-5 text-gray-500 px-4 py-2 hover:bg-gray-100 hover:text-gray-700'
+        <button className='w-36 bg-white rounded-md shadow  mx-5 text-gray-700 px-4 py-2 hover:bg-gray-200 hover:text-black'
           onClick={() => setBolsasShown("candidatos")}>Ver candidatos</button>
       </div>
       <div className=" md:mx-64  ">

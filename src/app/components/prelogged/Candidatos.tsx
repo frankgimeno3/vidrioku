@@ -9,13 +9,13 @@ const inter = Inter({ subsets: ['latin'] })
 const Candidatos: React.FC = ({ }) => {
 //  const router = useRouter()
 const [candidato1Height, setCandidato1Height] = useState<any>({height: 145})
-const [t1Height, sett1Height] = useState<any>({ paddingTop: '10px' });
+const [t1Height, sett1Height] = useState<any>({ paddingTop: '15px' });
 const [candidato2Height, setCandidato2Height] = useState<any>({height: 145})
-const [t2Height, sett2Height] = useState<any>({ paddingTop: '5px' });
+const [t2Height, sett2Height] = useState<any>({ paddingTop: '35px' });
 const [candidato3Height, setCandidato3Height] = useState<any>({height: 145})
-const [t3Height, sett3Height] = useState<any>({ paddingTop: '5px' });
+const [t3Height, sett3Height] = useState<any>({ paddingTop: '35px' });
 const [candidato4Height, setCandidato4Height] = useState<any>({height: 145})
-const [t4Height, sett4Height] = useState<any>({ paddingTop: '5px' });
+const [t4Height, sett4Height] = useState<any>({ paddingTop: '20px' });
 
 const [is1, setIs1] = useState(false)
  const [is2, setIs2] = useState(false)
@@ -58,7 +58,7 @@ const [is1, setIs1] = useState(false)
  }
 
   return (
-    <div className='flex flex-col md:flex-row text-center justify-center'>
+    <div className='flex flex-col md:flex-row text-center justify-center font-light'>
       <div className='flex flex-col pb-5 '>
         <div className="w-96 bg-white hover:bg-gray-100 rounded shadow  md:p-5 px-10 my-2 mx-5" onClick={handleDepTecnico} 
         style={candidato1Height}>
