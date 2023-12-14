@@ -27,7 +27,7 @@ const Hero: React.FC = ({ }) => {
           </h1>
           <p className="xl:text-2xl text-slate-200 max-w-[45vw] sm:max-w-[60vw] m-auto pt-3 font-light sm:text-xs md:text-xs">
             Conectamos empresas del sector del vidrio con personal técnico especializado. </p>
-          <p className="xl:text-xl text-slate-200 max-w-[45vw] sm:max-w-[50vw] m-auto pt-1 font-light sm:text-xs md:text-xs">Únase a nosotros para encontrar talento o empleo desde hoy mismo.</p>
+          <p className="xl:text-xl text-slate-200 max-w-[45vw] sm:max-w-[50vw] m-auto pt-1 font-medium sm:text-xs md:text-xs">Únase a nosotros para encontrar talento o empleo desde hoy mismo.</p>
         </div>
       </div>
     </div>

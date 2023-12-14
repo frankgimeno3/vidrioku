@@ -13,7 +13,7 @@ const Contactenos: React.FC = ({  }) => {
     <>
     <div className="flex flex-col p-10 bg-gray-100 p-4 w-full">
       <div className="mx-auto max-w-6xl">
-        <h1 className="text-3xl mt-8  text-center text-gray-750 font-medium my-5">Sobre Nosotros</h1>
+        <h1 className="text-3xl mt-8  text-center text-gray-700 font-medium my-5">Sobre Nosotros</h1>
         <div className="flex flex-col mx-24 pb-5 text-gray-850 font-light">
           <div
             className="flex border border-gray-100 flex-col items-center justify-center shadow-xl bg-white rounded-xl my-4"

@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <NavUnlogged />
-      <div className='flex flex-col bg-gradient-to-b from-blue-600 to-blue-700 min-h-screen text-black  '>
+      <div className='flex flex-col bg-gradient-to-b from-blue-500 to-blue-600 min-h-screen text-black  '>
 
         <Hero />
         <Bolsas />
