@@ -130,7 +130,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
      onClick={()=>{router.push(`/chat/${conversationId}`)}}>
      <div>
         <Image
-          src="/icons/empty-user-profile.png"
+          src={interlocutor?.profilepicture || "/icons/empty-user-profile.png"}
           alt="ing1"
           width={100}
           height={100}
