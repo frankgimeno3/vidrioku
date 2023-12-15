@@ -118,7 +118,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col   text-white h-full w-full    text-white md:text-2xl text-lg font-medium'  >
+        <div className='flex flex-col   text-white h-full w-full    text-white md:text-xl text-lg font-medium'  >
           <h2 className="hidden md:block bg-zinc-800 bg-gray-600 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
           <div className='flex flex-col mx-12 h-full pt-4'>
             <p className='text-center md:text-left'> Mensajes</p>
