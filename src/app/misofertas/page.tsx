@@ -80,9 +80,11 @@ const Misofertas: FC = () => {
               <h3 className='font-medium'>{oferta.titulo}</h3>
               <p>{oferta.cargo}</p>
               <div className='flex flex-row justify-center pt-3'>
-                <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Editar oferta</button>
-                <Link href={`/solicitudes`}>
-                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                <Link href={`/misofertas/editar/${oferta.id}`}>
+                  <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Editar oferta</button>
+                </Link>
+                <Link href={`/misofertas`}>
+                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver ofertas</button>
                 </Link>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver perfiles recomendados</button>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Desactivar oferta</button>
@@ -99,8 +101,8 @@ const Misofertas: FC = () => {
               <p>{oferta.cargo}</p>
               <div className='flex flex-row justify-center pt-3'>
                 <button className='shadow px-2 h-8 mr-2 bg-gray-50 text-sm rounded-lg'>Reactivar oferta</button>
-                <Link href={`/solicitudes`}>
-                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver solicitudes</button>
+                <Link href={`/misofertas`}>
+                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver ofertas</button>
                 </Link>
                 <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Eliminar oferta</button>
 
