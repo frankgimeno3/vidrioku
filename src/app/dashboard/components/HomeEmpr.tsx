@@ -26,6 +26,8 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
   const [compStyles1, setCompStyles1] = useState({});
   const [compStyles2, setCompStyles2] = useState({});
   const [ofertascreadas, setOfertasCreadas] = useState<any>()
+  const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
+  const [solicitudesNoContestadas, setSolicitudesNoContestadas] = useState<any>()
 
   useEffect(() => {
     const handleResize = () => {
@@ -67,6 +69,8 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
         if (response.exists()) {
           const myUserData = response.data() as any;
           setOfertasCreadas(myUserData.ofertascreadas.length)
+          setMensajesNoLeidos(myUserData.mensajesnoleidos.length)
+          setSolicitudesNoContestadas(myUserData.solicitudesnocontestadas.length)
           }
       }
     };
@@ -140,7 +144,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             <p className='text-center md:text-left'> Mensajes</p>
             <div className='bg-white rounded-lg shadow shadow-xl mb-3 mt-2 text-center '>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 md:text-lg text-sm px-12 pt-6'> Has recibido x mensajes nuevos</p>
+                <p className='text-center font-light text-gray-500 md:text-lg text-sm px-12 pt-6'> Has recibido {mensajesNoLeidos} mensajes nuevos</p>
                 <button
                   className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/chat") }}
@@ -167,7 +171,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             <p className='pt-4 text-center md:text-left'> Solicitudes</p>
             <div className='bg-white rounded-lg shadow shadow-xl mb-3 mt-2 text-center '>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 md:text-lg text-sm px-12 pt-6'> Has recibido x solicitudes</p>
+                <p className='text-center font-light text-gray-500 md:text-lg text-sm px-12 pt-6'> Has recibido {solicitudesNoContestadas} solicitudes</p>
                 <button
                   className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/solicitudes") }}
