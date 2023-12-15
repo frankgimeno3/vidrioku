@@ -108,7 +108,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
               <div className='flex flex-col flex-1 md:pt-12  px-12'>
                 <button
                   className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-5 text-sm m-1"
-                  onClick={()=>{'/configuracion'}}
+                  onClick={()=>{router.push("/configuracion")}}
                 >Configuración de la cuenta</button>
                 <button
                   className="bg-gray-200 hover:bg-gray-400 shadow-lg border text-gray-700 border-gray-200 rounded px-4 py-2 md:mt-5 mt-2 text-sm m-1"
