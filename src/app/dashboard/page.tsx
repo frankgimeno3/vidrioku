@@ -68,7 +68,7 @@ export default function Dashboard() {
         {userType == 'empresa' && <HomeEmpr userData={userData} />}
         {userType == 'profesional' &&<HomeTrab userData={userData} /> }
         {userType == 'admin' &&<HomeAdmin userData={userData} /> }
-        {/* <Footer onPageChange={handlePageChange} /> */}
+        <Footer  />
 
       </main>
     </div>

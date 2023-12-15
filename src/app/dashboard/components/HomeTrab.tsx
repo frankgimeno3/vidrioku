@@ -53,9 +53,9 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
     <div className='flex flex-col'>
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
       <div className="flex flex-row   bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-        <div className='flex flex-col flex-1 mb-10' style={{ height: '750px' }}           >
-          <div className=" w-full flex bg-gradient-to-b from-zinc-100 to-zinc-700 h-full ">
-            <div className="flex flex-col p-12  flex  text-center justify-center mr-6 ml-6 my-36  bg-white text-gray-500
+        <div className='flex flex-row flex-1 mx-36 py-8' style={{ height: '750px' }}           >
+          <div className=" w-full flex to-zinc-700 h-full">
+            <div className="flex flex-col p-12  flex  text-center justify-center w-full  bg-white text-gray-500
             rounded-lg shadow-xl">
               <div className='flex flex-row'>
                 <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5 rounded-lg shadow-xl" />
@@ -81,9 +81,9 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col flex-1 text-white mb-10' style={{ height: '750px' }}>
+        <div className='flex flex-col flex-2 text-white mb-10' style={{ height: '750px' }}>
           <div className='flex flex-col  h-full'>
-            <div className='h-full flex-1 text-center bg-gradient-to-b from-zinc-800 to-zinc-900'>
+            <div className='h-full flex-1 text-center '>
               <div className='fex flex-col bg-white rounded m-8 mx-48 p-2 py-8 text-gray-900'>
                 <p className='font-medium '>Mensajes nuevos</p>
                 <p>Tienes <span className='font-bold mx-1'>X</span> mensajes nuevos</p>
@@ -95,7 +95,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
               </div>
             </div>
 
-            <div className='h-full flex-1 text-center bg-gradient-to-b from-zinc-800 to-zinc-900'>
+            <div className='h-full flex-1 text-center'>
               <div className='fex flex-col bg-white rounded m-8 mx-48 p-2 py-8 text-gray-900'>
 
                 <p className='font-medium'>Solicitudes enviadas</p>
@@ -106,7 +106,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
                 >Mis solicitudes</button>
               </div>
             </div>
-            <div className='h-full flex-1 text-center bg-gradient-to-b from-zinc-800 to-zinc-900'>
+            <div className='h-full flex-1 text-center '>
               <div className='fex flex-col bg-white rounded m-8 mx-48 p-2 py-8 text-gray-900'>
 
                 <p className='font-medium'>Nuevos contactos</p>
@@ -124,7 +124,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
         </div>
       </div>
     </div>
-
+    
   );
 };
 

@@ -4,15 +4,13 @@ import { useRouter } from 'next/navigation';
 
 
 interface FooterProps {
-  onPageChange: (pageName: string) => void;
-}
+ }
 
-const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
+const Footer: React.FC<FooterProps> = ({   }) => {
   const router = useRouter();
 
   const redirection = (pageName: string) => {
-    onPageChange(pageName)
-    router.push("/");
+     router.push("/dashboard");
   };
 
 
@@ -23,7 +21,7 @@ const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
           <div className="flex-1">
             <h3 className="text-sm text font-semibold">Sobre Nosotros</h3>
             <p className="text-xs mt-2">
-              Somos una agencia de desarrolladores web con sede en Barcelona, comprometidos en ofrecer soluciones de desarrollo de software de alta calidad. Nuestro equipo está formado por expertos en diferentes tecnologías y estamos dedicados a ayudar a nuestros clientes a alcanzar sus objetivos tecnológicos.
+            Bolsa de empleo técnico especializada en el sector del vidrio.
             </p>
             <p className="text-xs">
               Actualmente, formamos parte del grupo PROPORCION3,S.A. medios de comunicación .</p>
