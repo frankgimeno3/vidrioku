@@ -25,6 +25,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
   const [user, setUser] = useState<User>();
   const [compStyles1, setCompStyles1] = useState({});
   const [compStyles2, setCompStyles2] = useState({});
+  const [ofertascreadas, setOfertasCreadas] = useState<any>()
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,6 +53,21 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
           const myUserData = response.data() as User;
           setUser(myUserData);
         }
+      }
+    };
+
+    fetchDoc();
+  }, [userData]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (userData) {
+        const docRef = doc(db, "users", userData);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const myUserData = response.data() as any;
+          setOfertasCreadas(myUserData.ofertascreadas.length)
+          }
       }
     };
 
@@ -134,7 +150,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             <p className='pt-4 text-center md:text-left'> Mis ofertas</p>
             <div className='flex flex-col bg-white rounded-lg shadow shadow-xl mb-3 mt-2 text-center '>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 md:text-lg text-sm px-12 pt-6'> Tienes X ofertas publicadas</p>
+                <p className='text-center font-light text-gray-500 md:text-lg text-sm px-12 pt-6'> Tienes {ofertascreadas} ofertas publicadas</p>
                 <div className='flex flex-row  justify-center  font-light mb-6'>
                   <button
                     className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-sm m-1  "
