@@ -10,20 +10,20 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
 interface EditarOfertaProps {
-  params: { id: string }
+  params: { id: any }
 }
 
 type OfertaObject = {
-  titulo: string,
-  cargo: string,
-  jornada: string,
-  tipoubi: string,
-  ubicacion: string,
-  descripcion: string,
-  experiencia: string,
-  adicional: string,
-  empresa: string,
-  estado: string,
+  titulo: any,
+  cargo: any,
+  jornada: any,
+  tipoubi: any,
+  ubicacion: any,
+  descripcion: any,
+  experiencia: any,
+  adicional: any,
+  empresa: any,
+  estado: any,
   id: any
 };
 
@@ -31,7 +31,24 @@ const EditarOferta: FC<EditarOfertaProps> = ({ params }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(true);
   const [oferta, setOferta] = useState<OfertaObject>();
-  const [presentacion, setPresentacion] =  useState("")
+  const [presentacion, setPresentacion] = useState("")
+
+  const [tituloOferta, setTituloOferta] = useState<any>()
+  const [empresaOferta, setEmpresaOferta] = useState<any>()
+  const [cargoOferta, setCargoOferta] = useState<any>()
+  const [descripcionOferta, setDescripcionOferta] = useState<any>()
+  const [tipoUbiOferta, setTipoUbiOferta] = useState<any>()
+  const [ubicacionOferta, setUbicacionOferta] = useState<any>()
+  const [experienciaOferta, setExperienciaOferta] = useState<any>()
+  const [jornadaOferta, setJornadaOferta] = useState<any>()
+  const [estadoOferta, setEstadoOferta] = useState<any>()
+  const [publicacionOferta, setPublicacionOferta] = useState<any>()
+  const [adicionalOferta, setAdicionalOferta] = useState<any>()
+
+  const [isChecked, setChecked] = useState<any>();
+  const [userId, setUserId] = useState("")
+  const [userImg, setUserImg] = useState<any>()
+
   //primero detectamos el usuario, registramos su id, y de paso bloqueamos la ruta
   const session = useSession({
     required: true,
@@ -39,13 +56,33 @@ const EditarOferta: FC<EditarOfertaProps> = ({ params }) => {
       redirect('/signin');
     },
   });
-  const [userId, setUserId] = useState("")
+
 
   useEffect(() => {
     if (session?.data?.user?.email) {
       setUserId(session.data.user.email);
-    } else { setUserId("Usuario") }
+      } else { setUserId("Usuario") }
   }, [session?.data?.user?.email]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (userId) {
+        const docRef = doc(db, "users", userId);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const myUserData = response.data() as any;
+          setUserImg(`${myUserData.profilepicture}`)
+          }
+      }
+    };
+
+    fetchDoc();
+  }, [userId]);
+ 
+
+  useEffect(() => {
+    if(oferta){     setChecked(oferta.estado)}
+  }, [oferta]);
 
   //luego, mostramos la oferta que conocemos por los params
   useEffect(() => {
@@ -66,110 +103,59 @@ const EditarOferta: FC<EditarOfertaProps> = ({ params }) => {
   }, [params.id]);
 
 
-  // 1-creamos funcion que añade solicitud a empresa
-  const addSolicitudAEmpresa = async (empresaId: string, solicitudId: string) => {
+  const editarOferta = async (
+    ofertaId: any
+  ) => {
     try {
-      const docRef = doc(db, "users", empresaId);
-      const userDoc = await getDoc(docRef);
-      console.log(empresaId)
-
-      if (userDoc.exists()) {
-        const empresaSelected = userDoc.data();
-
-        if (empresaSelected.solicitudes && Array.isArray(empresaSelected.solicitudes)) {
-          await setDoc(docRef, {
-            ...empresaSelected,
-            solicitudes: [...empresaSelected.solicitudes, solicitudId],
-          });
-        } else {
-          await setDoc(docRef, {
-            ...empresaSelected,
-            solicitudes: [solicitudId],
-          });
-        }
-      } else {
-        console.error('No se encontró la empresa');
-      }
-    } catch (error) {
-      console.error('Error al enviar la solicitud a la empresa:', error);
-    }
-  };
-
-  // 2- creamos funcion que vincula al usuario la oferta a la que ha solicitado
-  const addSolicitudAUsuario = async (userId: string, offerId: string) => {
-    try {
-      const docRef = doc(db, "users", userId);
-      const userDoc = await getDoc(docRef);
-
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-
-        if (userData.ofertasSolicitadas && Array.isArray(userData.ofertasSolicitadas)) {
-          await setDoc(docRef, {
-            ...userData,
-            ofertasSolicitadas: [...userData.ofertasSolicitadas, offerId],
-          });
-        } else {
-          await setDoc(docRef, {
-            ...userData,
-            ofertasSolicitadas: [offerId],
-          });
-         }
-      } else {
-        console.error('El documento del usuario no existe');
-      }
-    } catch (error) {
-      console.error('Error al crear la solicitud:', error);
-    }
-  };
-  //  3-creamos funcion que añade solicitud a OFERTA
-
-  const addSolicitudAOferta = async (offerId: string, solicitudId: string) => {
-    try {
-      const docRef = doc(db, "ofertas", offerId);
+      const docRef = doc(db, "users", ofertaId);
       const offerDoc = await getDoc(docRef);
 
       if (offerDoc.exists()) {
         const offerData = offerDoc.data();
 
-        if (offerData.solicitudes && Array.isArray(offerData.solicitudes)) {
-          await setDoc(docRef, {
-            ...offerData,
-            solicitudes: [...offerData.solicitudes, solicitudId],
-          });
-        } else {
-          await setDoc(docRef, {
-            ...offerData,
-            solicitudes: [solicitudId],
-          });
-         }
+        // Elimina campos con valores undefined
+        const updatedData = {
+          id: oferta?.id,
+          titulo: tituloOferta,
+          cargo: cargoOferta,
+          descripcion: descripcionOferta,
+          tipoubi: tipoUbiOferta,
+          ubicacion: ubicacionOferta,
+          experiencia: experienciaOferta,
+          jornada: jornadaOferta,
+          estado: estadoOferta,
+          publicacion: publicacionOferta,
+          adicional: adicionalOferta,
+        };
+
+        // Filtra campos undefined
+        const filteredData = Object.fromEntries(
+          Object.entries(updatedData).filter(([_, value]) => value !== undefined)
+        );
+
+        await setDoc(docRef, {
+          ...offerData,
+          ...filteredData,
+        });
       } else {
-        console.error('La oferta no existe');
+        console.error('El documento de la oferta no existe');
       }
     } catch (error) {
-      console.error('Error al añadir solicitud a oferta:', error);
+      console.error('Error al editar la oferta:', error);
     }
   };
-  //  3-creamos funcion que añade solicitud a firebase, aunandolo todo  
-  const addSolicitudInFirebase = async (userId: string, offerId: string, empresa: string, presentacion:string) => {
-    try {
-      const solicitudesCollection = collection(db, 'solicitudes');
-      const newSolicitudRef = await addDoc(solicitudesCollection, {
-        offerId: offerId,
-        userId: userId,
-        presentacion: presentacion
-      });
-      await updateDoc(newSolicitudRef, { id: newSolicitudRef.id });
 
-      addSolicitudAEmpresa(empresa, newSolicitudRef.id)
-      addSolicitudAUsuario(userId, offerId)
-      addSolicitudAOferta(offerId, newSolicitudRef.id)
-      router.push('/missolicitudes');
-    } catch (error) {
-      console.error('Error al crear la oferta en Firestore:', error);
-    }
+  const eliminarExperiencia = (index: any) => {
+    //gestionar aquí cómo se elimina la experiencia
+  }
+  const añadirExperiencia = () => {
+    //gestionar aquí cómo se elimina la experiencia
+  }
 
-  };
+  const handleToggle = () => {
+    setChecked(!isChecked);
+    setEstadoOferta(!isChecked)
+   };
 
   return (
     <>
@@ -178,53 +164,130 @@ const EditarOferta: FC<EditarOfertaProps> = ({ params }) => {
 
         <div className='flex flex-col   mx-12 bg-white '>
           <div className='bg-white flex flex-row w-full h-screen '>
-            <div className="flex  flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll">
-              <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
-              <h2 className="mt-5 text-xl">{oferta?.titulo}</h2>
-              <div className="flex flex-col text-sm text-gray-500">
-                <p>{oferta?.cargo}</p>
-                <p>{oferta?.empresa}</p>
-                <p>{oferta?.ubicacion}</p>
-              </div>
-              <p className="text-sm mt-5">
-                Descripción de la oferta
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.descripcion}
-              </p>
-              <p className="text-sm mt-5">
-                Requerimientos
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.experiencia}
-              </p>
-              <p className="text-sm mt-5">
-                Tipo de jornada
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.jornada}
-              </p>
-              <p className="text-sm mt-5">
-                Detalles adicionales
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.adicional}
-              </p>
+            <div className="flex  flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8   ">
+              <Image src={userImg || "/inventedlogos/1.png"} alt="pepo" className='shadow-xl ' height={200} width={200} />
+              <h2 className="mt-5 text-xl ">Modifique los campos que desee cambiar, y luego pulse "Editar oferta".</h2>
+              <div className="flex flex-col w-full px-96 m-5 shadow py-5 bg-white font-light ">
+                <div className="flex flex-col my-2 w-full  ">
+                  <label htmlFor="titulo" className='font-medium text-gray-500' >Título de la oferta: </label>
+                  <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    placeholder={oferta?.titulo}
+                    onChange={(e) => setTituloOferta(e.target.value)}
+                    className='w-full text-center bg-gray-50 bg-opacity-10  rounded border border-gray-300  '
+                  />
+                </div>
 
-              <form className='mt-5   w-full'>
-                <h2>Agrega un mensaje personal</h2>
-                <label htmlFor="presentacion"> </label>
-                <textarea
-                placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas" 
-                className='m-5 rounded shadow     w-96 h-56 bg-gray-50'
-                onChange={(e) => setPresentacion(e.target.value)} />
-              </form>
-              <button
-                className="p-2 border shadow-lg rounded-lg text-xs mt-1"
-                onClick={() => oferta && addSolicitudInFirebase(userId, oferta.id, oferta.empresa, presentacion)}>
-                Enviar solicitud
-              </button>
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="cargo" className='font-medium text-gray-500'>Cargo ofrecido: </label>
+                  <input
+                    type="text"
+                    id="cargo"
+                    name="cargo"
+                    placeholder={oferta?.cargo}
+                    onChange={(e) => setCargoOferta(e.target.value)}
+                    className='w-full text-center bg-gray-50 bg-opacity-10  rounded border border-gray-300  '                  />
+                </div>
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="descripcion" className='font-medium text-gray-500'>Descripción: </label>
+                  <input
+                    type="text"
+                    id="descripcion"
+                    name="descripcion"
+                    placeholder={oferta?.descripcion}
+                    onChange={(e) => setDescripcionOferta(e.target.value)}
+                    className='w-full text-center bg-gray-50 bg-opacity-10  rounded border border-gray-300  '                  />
+                </div>
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="tipoubi" className='font-medium text-gray-500'>Tipo de trabajo: </label>
+                  <input
+                    type="text"
+                    id="tipoubi"
+                    name="tipoubi"
+                    placeholder={oferta?.tipoubi}
+                    onChange={(e) => setTipoUbiOferta(e.target.value)}
+                    className='w-full text-center bg-gray-50 bg-opacity-10  rounded border border-gray-300  '                  />
+                </div>
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="ubi" className='font-medium text-gray-500'>Ubicación del empleo: </label>
+                  <input
+                    type="text"
+                    id="ubi"
+                    name="ubi"
+                    placeholder={oferta?.ubicacion}
+                    onChange={(e) => setUbicacionOferta(e.target.value)}
+                    className='w-full text-center bg-gray-50 bg-opacity-10  rounded border border-gray-300  '                  />
+                </div>
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="nombre" >Experiencia requerida: </label>
+                  <div className='mt-2'>
+                    {oferta?.experiencia.map((experiencia: any, index: any) => (
+                      <div className="relative flex flex-row my-2 mx-12 bg-white px-3 py-2 rounded shadow-xl 
+                      border border-gray-100" key={index}>
+                        <div className='flex my-1 flex-row justify-center text-center  w-full'>{experiencia}</div>
+                        <button className='absolute top-2 right-2 px-3 py-1 bg-gray-50 rounded shadow border
+                       border-gray-100 hover:bg-gray-100'
+                          onClick={() => { eliminarExperiencia(index) }}>Eliminar</button>
+                      </div>
+                    ))}
+                    <input
+                      className='rounded border border-gray-200 shadow w-96 my-5 mx-2'
+                    />
+                    <button className='  px-3 py-1 bg-gray-50 rounded shadow border  border-gray-100 hover:bg-gray-100'
+                      onClick={() => { añadirExperiencia() }}>
+                      Añadir experiencia
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="nombre" className='font-medium text-gray-500'>Tipo de jornada: </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder={oferta?.jornada}
+                    onChange={(e) => setJornadaOferta(e.target.value)}
+                    className='w-full text-center bg-gray-50 bg-opacity-10  rounded border border-gray-300  '                  />
+                </div>
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="nombre" className='font-medium text-gray-500'>Estado de la oferta: </label>
+                  <label htmlFor="toggleVehiculo" className="flex items-center cursor-pointer mx-auto my-3">
+                    <span className="ml-2">Inactiva</span>
+                    <input
+                      type="checkbox"
+                      id="toggleVehiculo"
+                      className="hidden"
+                      checked={isChecked}
+                      onChange={handleToggle}
+                    />
+                    <div className={`mx-4 relative w-12 h-6  rounded-full transition-all duration-300 ${isChecked ? 'bg-blue-500' : 'bg-gray-300'}`}>
+                      <div className={`absolute left-0 w-6 h-6 bg-white rounded-full transform ${isChecked ? 'translate-x-full' : 'translate-x-0'} transition-all duration-300`}></div>
+                    </div>
+                    <span className="ml-2">Activa</span>
+                  </label>
+                </div>
+
+                <div className="flex flex-col my-2  ">
+                  <label htmlFor="nombre" className='font-medium text-gray-500'>Información adicional: </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder={oferta?.adicional}
+                    onChange={(e) => setAdicionalOferta(e.target.value)}
+                    className='w-full text-center bg-gray-50 bg-opacity-10  rounded border border-gray-300  '                  />
+                </div>
+                <button
+                  className="p-2 border shadow-lg rounded-lg text-base mt-1 w-36 text-center mx-auto"
+                // onClick={() => oferta && editarOferta()}
+                >
+                  Editar Oferta
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
