@@ -9,6 +9,7 @@ import ChatList from "./components/ChatList"
 import Chatcontent from "./components/Chatcontent"
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import Footer from '../components/Footer';
 
 
 interface User {
@@ -83,6 +84,7 @@ const Mensajes: FC = ({ }) => {
 
         </div>
       </div>
+      <Footer  />
     </>
   );
 };

@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import Footer from '../components/Footer';
 
 type Oferta = {
   titulo: string;
@@ -90,6 +91,8 @@ function page() {
           ))}
       </div>
     </div>
+    <Footer  />
+
   </>
 );
  }

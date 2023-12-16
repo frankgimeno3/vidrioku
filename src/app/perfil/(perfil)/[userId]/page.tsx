@@ -9,6 +9,7 @@ import Perfilempresa from './components/Perfilempresa'
 import Perfilprofesional from './components/Perfilprofesional';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
+import Footer from '@/app/components/Footer';
 
 
 interface User {
@@ -66,6 +67,8 @@ export default function Miperfil() {
         {/* <Footer onPageChange={handlePageChange} /> */}
 
       </main>
+      <Footer  />
+
     </div>
   )
 }

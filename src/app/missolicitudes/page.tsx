@@ -6,6 +6,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 type Solicitud = {
   id: string;
@@ -77,6 +78,8 @@ function misSolicitudes() {
           ))}
         </div>
       </div>
+      <Footer  />
+
     </>
       )
 }

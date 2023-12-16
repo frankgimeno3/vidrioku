@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 
 
@@ -31,6 +32,8 @@ const Configuracion: FC = ({ }) => {
           </div>
         </div>
       </div>
+      <Footer  />
+
     </>
   );
 };

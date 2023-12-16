@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Link from 'next/link';
+import Footer from '../components/Footer';
 
 type Oferta = {
   id: string;
@@ -129,6 +130,7 @@ const Misofertas: FC = () => {
           )}
         </div>
       </div>
+      <Footer  />
 
     </>
   );

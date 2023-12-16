@@ -15,6 +15,7 @@ import Ubicacion from './componentes/Ubicacion';
 import Descripcion from './componentes/Descripcion';
 import Requerimientos from './componentes/Requerimientos';
 import Additional from './componentes/Additional';
+import Footer from '../components/Footer';
 
 
 const Crearoferta: FC = () => {
@@ -165,6 +166,8 @@ const Crearoferta: FC = () => {
           </button>
         </form>
       </div>
+      <Footer  />
+
     </>
   );
 };

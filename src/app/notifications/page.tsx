@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Notificacioncomponent from './components/notificacioncomponent';
+import Footer from '../components/Footer';
 
 interface User {
   id: any
@@ -112,6 +113,8 @@ const Notifications: FC = ({ }) => {
           </div>
         </div>
       </div>
+      <Footer  />
+
     </>
   );
 };

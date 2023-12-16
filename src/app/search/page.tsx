@@ -15,6 +15,7 @@ import { db } from '@/app/firebase';
 import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
 import Searchnav from './components/Searchnav';
+import Footer from '../components/Footer';
 
 interface SearchProps {
 }
@@ -73,6 +74,7 @@ const Search: FC<SearchProps> = ({ }) => {
  
         </div>
       </div>
+      <Footer  />
 
     </>
 

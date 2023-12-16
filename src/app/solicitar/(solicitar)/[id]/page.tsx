@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import Footer from '@/app/components/Footer';
 
 interface SolicitudProps {
   params: { id: string }
@@ -228,6 +229,8 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
           </div>
         </div>
       </div>
+      <Footer  />
+
     </>
   )
     ;

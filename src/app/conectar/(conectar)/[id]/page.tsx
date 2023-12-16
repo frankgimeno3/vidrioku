@@ -1,4 +1,5 @@
 "use client"
+import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
 import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -212,6 +213,8 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
          </div>
         </div>
         </div>
+        <Footer  />
+
     </>
   );
 };
