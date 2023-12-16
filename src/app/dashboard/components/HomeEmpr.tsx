@@ -182,7 +182,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <Banners/>
+        <Banners widthProp={300}/>
 
       </div>
     </div>

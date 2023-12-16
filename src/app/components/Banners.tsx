@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Image from 'next/image'
 
-function Banners() {
-  return (
+interface BannerProps {
+    widthProp: any;  
+}
+
+const Banners: FC<BannerProps> = ({ widthProp }) => {
+
+   return (
          <div className='flex flex-col border border-red-300 overflow-hidden bg-white h-[800px]'>
           <div className='h-1/2'>
             <Image
               src={'/inventedlogos/banner.jpg'}
               alt={''}
-              width={300} // Ajusta este valor según sea necesario
+              width={widthProp} // Ajusta este valor según sea necesario
               height={400}
               objectFit="cover"
             />
@@ -17,7 +22,7 @@ function Banners() {
             <Image
               src={'/inventedlogos/banner.jpg'}
               alt={''}
-              width={300} // Ajusta este valor según sea necesario
+              width={widthProp} // Ajusta este valor según sea necesario
               height={400}
               objectFit="cover"
             />

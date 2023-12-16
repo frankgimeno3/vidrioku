@@ -80,7 +80,7 @@ function misSolicitudes() {
             ))}
           </div>
         </div>
-         <Banners/>
+        <Banners widthProp={225}/>
 
  
       </div>

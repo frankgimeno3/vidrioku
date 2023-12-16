@@ -124,7 +124,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <Banners/>
+        <Banners widthProp={300}/>
       </div>
     </div>
 
