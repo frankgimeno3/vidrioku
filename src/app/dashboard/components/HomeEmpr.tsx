@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { signOut, useSession } from 'next-auth/react';
+import Banners from '@/app/components/Banners';
 
 
 interface HomeEmprProps {
@@ -181,26 +182,8 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <div className='hidden md:block flex flex-col   overflow-hidden bg-white h-[800px]'>
-          <div className='h-1/2'>
-            <Image
-              src={'/inventedlogos/banner.jpg'}
-              alt={''}
-              width={400} // Ajusta este valor según sea necesario
-              height={400}
-              objectFit="cover"
-            />
-          </div>
-          <div className='h-1/2'>
-            <Image
-              src={'/inventedlogos/banner.jpg'}
-              alt={''}
-              width={400} // Ajusta este valor según sea necesario
-              height={400}
-              objectFit="cover"
-            />
-          </div>
-        </div>
+        <Banners/>
+
       </div>
     </div>
 

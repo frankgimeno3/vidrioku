@@ -7,6 +7,7 @@ import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from '
 import { db } from '../../firebase';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import Banners from '@/app/components/Banners';
 
 
 interface HomeTrabProps {
@@ -123,26 +124,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col border border-red-300 overflow-hidden bg-white h-[800px]'>
-          <div className='h-1/2'>
-            <Image
-              src={'/inventedlogos/banner.jpg'}
-              alt={''}
-              width={400} // Ajusta este valor según sea necesario
-              height={400}
-              objectFit="cover"
-            />
-          </div>
-          <div className='h-1/2'>
-            <Image
-              src={'/inventedlogos/banner.jpg'}
-              alt={''}
-              width={400} // Ajusta este valor según sea necesario
-              height={400}
-              objectFit="cover"
-            />
-          </div>
-        </div>
+        <Banners/>
       </div>
     </div>
 

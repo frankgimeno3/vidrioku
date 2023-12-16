@@ -7,12 +7,13 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Banners from '../components/Banners';
 
 type Solicitud = {
   id: string;
   offerId: string;
   userId: string;
-  presentacion:any;
+  presentacion: any;
 };
 
 function misSolicitudes() {
@@ -35,7 +36,7 @@ function misSolicitudes() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);  
+      setLoading(true);
       const solicitudesCollection = collection(db, 'solicitudes');
       const q = query(solicitudesCollection, where('userId', '==', userId));
       const querySnapshot = await getDocs(q);
@@ -46,42 +47,47 @@ function misSolicitudes() {
       });
 
       setMisSolicitudes(solicitudesData);
-      setLoading(false); 
+      setLoading(false);
     };
 
     fetchData();
   }, [userId]);
- 
+
 
   return (
     <>
       <Navbar />
 
-      <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
-        <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
-          <h2 className="   font-bold text-lg   ">Solicitudes enviadas</h2>
-          <button className='bg-white rounded-lg px-3 py-1 text-sm text-gray-500'
-          onClick={()=>router.push("/dashboard")}>Volver al inicio</button>
-        </div>
-        <div className="p-5 bg-white bg-opacity-10 ">       
-                {misSolicitudes.map((solicitud, index) => (
-            <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
-              <h3 className=''><span className='font-medium mr-2'>Id de la oferta: </span>{solicitud.offerId}</h3>
-              <h3 className='mb-2'><span className='font-medium mr-2'>Solicitante: </span>{solicitud.userId}</h3>
-              <p className='font-medium'>Presentación del solicitante:</p>
-              <p>{solicitud.presentacion}</p>
-              <div className='flex flex-row justify-center pt-3'>
-              <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Cancelar solicitud</button>
-              <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver empresa</button>
+      <div className="flex flex-row min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 w-full justify-between">
+        <div className='flex flex-col w-full'>
+          <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
+            <h2 className="   font-bold text-lg   ">Solicitudes enviadas</h2>
+            <button className='bg-white rounded-lg px-3 py-1 text-sm text-gray-500'
+              onClick={() => router.push("/dashboard")}>Volver al inicio</button>
+          </div>
+          <div className="p-5 bg-white bg-opacity-10 ">
+            {misSolicitudes.map((solicitud, index) => (
+              <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
+                <h3 className=''><span className='font-medium mr-2'>Id de la oferta: </span>{solicitud.offerId}</h3>
+                <h3 className='mb-2'><span className='font-medium mr-2'>Solicitante: </span>{solicitud.userId}</h3>
+                <p className='font-medium'>Presentación del solicitante:</p>
+                <p>{solicitud.presentacion}</p>
+                <div className='flex flex-row justify-center pt-3'>
+                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Cancelar solicitud</button>
+                  <button className='shadow px-2 h-8 ml-2 bg-gray-50 text-sm rounded-lg'>Ver empresa</button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+         <Banners/>
+
+ 
       </div>
-      <Footer  />
+      <Footer />
 
     </>
-      )
+  )
 }
 
 misSolicitudes.propTypes = {}
