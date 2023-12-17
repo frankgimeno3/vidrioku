@@ -29,6 +29,12 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
   const router = useRouter();
   const [user, setUser] = useState<User>();
 
+  const [solicitudesEnviadas, setSolicitudesEnviadas] = useState<any>()
+  const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
+  const [solicitudesAceptadas, setSolicitudesAceptadas] = useState<any>()
+
+  
+
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {
@@ -38,6 +44,23 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
           const myUserData = response.data() as User;
           setUser(myUserData);
         }
+      }
+    };
+
+    fetchDoc();
+  }, [userData]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (userData) {
+        const docRef = doc(db, "users", userData);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const myUserData = response.data() as any;
+          setMensajesNoLeidos(myUserData.mensajesnoleidos.length || '0')
+          setSolicitudesEnviadas(myUserData.solicitudes.length)
+          setSolicitudesAceptadas(myUserData.solicitudesAceptadasNoLeidas.length || '0')
+          }
       }
     };
 
@@ -96,28 +119,28 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
           <h2 className="bg-zinc-800 bg-gray-600 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
           <div className='flex flex-col mx-12 h-full pt-12'>
             <p className=''> Mensajes</p>
-            <div className='bg-white rounded-lg shadow shadow-xl my-4 text-center '>
+            <div className='bg-white rounded-lg shadow shadow-xl mb-4 mt-1 text-center '>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 text-lg px-12 pt-6'> Has recibido x mensajes nuevos</p>
+                <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Has recibido {mensajesNoLeidos} mensajes nuevos</p>
                 <button
-                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-base font-light "
+                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/chat") }}
                 >Mis mensajes</button>
               </div>
             </div>
             <p className='pt-8'> Solicitudes</p>
-            <div className='bg-white rounded-lg shadow shadow-xl my-4 text-center '>
+            <div className='bg-white rounded-lg shadow shadow-xl mb-4 mt-1 text-center '>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 text-lg px-12 pt-6'> Has enviado x solicitudes</p>
+                <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Has enviado {solicitudesEnviadas} solicitudes</p>
                 <button
-                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-base font-light "
+                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/missolicitudes") }}
                 >Mis solicitudes</button>
               </div>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 text-lg px-12 pt-6'> X empresas han aceptado tus solicitudes</p>
+                <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> {solicitudesAceptadas} empresas han aceptado tus solicitudes</p>
                 <button
-                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-base font-light "
+                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/chat") }}
                 >Ir al chat</button>
               </div>

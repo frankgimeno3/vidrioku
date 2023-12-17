@@ -55,10 +55,10 @@ function misSolicitudes() {
 
 
   return (
-    <>
+    <div className=' min-h-screen'>
       <Navbar />
 
-      <div className="flex flex-row min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 w-full justify-between">
+      <div className="flex flex-row bg-gradient-to-b from-zinc-900 to-zinc-600 w-full justify-between">
         <div className='flex flex-col w-full'>
           <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
             <h2 className="   font-bold text-lg   ">Solicitudes enviadas</h2>
@@ -86,7 +86,7 @@ function misSolicitudes() {
       </div>
       <Footer />
 
-    </>
+    </div>
   )
 }
 

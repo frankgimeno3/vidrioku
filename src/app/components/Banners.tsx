@@ -8,7 +8,7 @@ interface BannerProps {
 const Banners: FC<BannerProps> = ({ widthProp }) => {
 
    return (
-         <div className='flex flex-col border border-red-300 overflow-hidden bg-white h-[800px]'>
+         <div className='flex flex-col  overflow-hidden bg-white h-[800px]'>
           <div className='h-1/2'>
             <Image
               src={'/inventedlogos/banner.jpg'}
