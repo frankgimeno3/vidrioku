@@ -10,6 +10,7 @@ import Chatcontent from "./components/Chatcontent"
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Footer from '../components/Footer';
+import Banners from '../components/Banners';
 
 
 interface User {
@@ -73,19 +74,25 @@ const Mensajes: FC = ({ }) => {
 
 
   return (
-    <>
+    <div className=' flex flex-col  min-h-screen w-screen '>
       <Navbar />
-      <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-        <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
-        <div className='flex flex-row min-h-screen'>
-          <ChatList user={user || undefined} />
+      <div className='flex flex-row w-full bg-gradient-to-b from-zinc-900 to-zinc-600 justify-between '>
 
-          <Chatcontent  />
+        <div className="flex flex-col w-full">
+          <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center w-full">Mensajes</h2>
+          <div className='flex flex-row min-h-screen w-full'>
+            <ChatList user={user || undefined} />
 
+            <Chatcontent />
+
+          </div>
+        </div>
+        <div>
+          <Banners widthProp={225} />
         </div>
       </div>
-      <Footer  />
-    </>
+      <Footer />
+    </div>
   );
 };
 

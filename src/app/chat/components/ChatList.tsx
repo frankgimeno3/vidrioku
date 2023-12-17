@@ -62,7 +62,7 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
   }, [reorderedArray]);
 
   return (
-    <div className="my-3 flex flex-1 flex-col">
+    <div className="my-3 flex flex-1 flex-col w-full">
       {conversationsArray.length === 0 || (conversationsArray.length === 1 && !conversationsArray[0].trim()) ? (
         <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
       ) : (
