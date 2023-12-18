@@ -15,61 +15,43 @@ interface User {
 }
 
 interface ChatListProps {
-  user: User | undefined;
+  user: any;
 }
 
 const ChatList: FC<ChatListProps> = ({ user }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
   const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
-  const [reorderedArray, setReorderedArray] = useState<any>()
+  const [reorderedArray, setReorderedArray] = useState<any>([]); // Inicializado como un arreglo vacío
 
   useEffect(() => {
     if (user) {
       setConversationsArray(user.conversations);
-      console.log("hay user")
-      } else {
+    } else {
       setConversationsArray([]);
-      console.log("no hay user")
-     }
+    }
   }, [user]);
-  
+
   useEffect(() => {
     if (conversationsArray.length !== 0) {
       conversationsArray.forEach(async (elemento) => {
-        const docRef = doc(db, "conversations", elemento);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const conversationDataObject = response.data();
-          setConversationsObjectArray((prevArray: any) => [...prevArray, conversationDataObject]);
+        if (elemento != '' && elemento != "") {
+          const docRef = doc(db, "conversations", elemento);
+          console.log(elemento)
+          const response = await getDoc(docRef);
+          if (response.exists()) {
+            const conversationDataObject = response.data();
+            setConversationsObjectArray((prevArray: any) => [...prevArray, conversationDataObject]);
+          }
         }
       });
     }
   }, [conversationsArray]);
-
-  useEffect(() => {
-    console.log("conversationsObjectArray: ", conversationsObjectArray);
-  
-    const conversationsObjectArrayReordered = [...conversationsObjectArray].sort((a, b) => {
-      // Assuming lastMessageSent is a timestamp (larger number for newer messages)
-      return b.lastMessageSent - a.lastMessageSent;
-    });
-  
-    setReorderedArray(conversationsObjectArrayReordered);
-  }, [conversationsObjectArray]);
-
-  useEffect(() => {
-    console.log("reorderedArray: ", reorderedArray);
-  }, [reorderedArray]);
-
+ 
   return (
     <div className="my-3 flex flex-1 flex-col w-full">
-      {conversationsArray.length === 0 || (conversationsArray.length === 1 && !conversationsArray[0].trim()) ? (
-        <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
-      ) : (
-        conversationsArray.map((conversation, index) => (
-          <MessageListComponent key={index} conversation={conversation}     />
-        ))
-      )}
+      {conversationsObjectArray.map((elemento: any, index: any) => (
+        <MessageListComponent key={index} conversation={elemento.conversacion} />
+      ))}
     </div>
   );
 };

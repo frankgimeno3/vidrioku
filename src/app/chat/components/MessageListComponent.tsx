@@ -63,6 +63,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
 
     fetchDoc();
   }, [conversation]);
+ 
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -104,11 +105,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   useEffect(() => {
     if (conversationData) { setConversationId(conversationData.conversacion) }
     }, [conversationData]);
-
-   useEffect(() => {
-    console.log("conversationId:", conversationId)
-   }, [conversationId]);
-
+    
 
   useEffect(() => {
     const fetchDoc = async () => {

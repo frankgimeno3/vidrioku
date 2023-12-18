@@ -48,17 +48,17 @@ const Mensajes: FC = ({ }) => {
 
   //obtenemos datos de nuestro usuario
   useEffect(() => {
-    const fetchDoc = async () => {
+     const fetchDoc = async () => {
       if (userData) {
+        console.log("userdata", userData)
         const docRef = doc(db, "users", userData);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUser(myUserData);
-        }
+         }
       }
     };
-
     fetchDoc();
   }, [userData]);
 
@@ -81,14 +81,12 @@ const Mensajes: FC = ({ }) => {
         <div className="flex flex-col w-full">
           <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center w-full">Mensajes</h2>
           <div className='flex flex-row min-h-screen w-full'>
-            <ChatList user={user || undefined} />
-
+            <ChatList user={user} />
             <Chatcontent />
-
           </div>
         </div>
         <div>
-          <Banners widthProp={225} />
+          {/* <Banners widthProp={225} /> */}
         </div>
       </div>
       <Footer />
