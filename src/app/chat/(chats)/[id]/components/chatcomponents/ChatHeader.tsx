@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Image from 'next/image';
 
 interface User {
@@ -14,14 +14,20 @@ interface User {
 
 interface ChatHeaderProps {
   interlocutor: any;
+  interlocutorImg:any;
 }
 
-const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor }) => {
+const ChatHeader: FC<ChatHeaderProps> = ({ interlocutor, interlocutorImg }) => {
+
+  // useEffect(() => {
+  //   alert(interlocutorImg)
+  // }, [interlocutorImg]);
+
   return (
     <div className="flex flex-row items-center pb-2 bg-white bg-opacity-10">
       <div>
         <Image
-          src="/icons/empty-user-profile.png"
+          src={interlocutorImg || "/icons/empty-user-profile.png"}
           alt="ing1"
           width={50}
           height={50}

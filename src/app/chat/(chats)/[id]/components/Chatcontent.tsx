@@ -29,6 +29,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
     const [messagesArray, setMessagesArray] = useState<any>()
     const [userIdRecibido, setUserIdRecibido] = useState<any>()
     const [conversationRecibida, setConversationRecibida] = useState<any>()
+    const [interlocutorImg, setinterlocutorImg] = useState<any>()
 
     useEffect(() => {
       const fetchDoc = async () => {
@@ -44,6 +45,22 @@ const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
   
       fetchDoc();
   }, [conversationChosen]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (conversationChosen) {
+        const docRef = doc(db, "users", conversationData?.colaborador2);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const interlocutorUserData = response.data() as any;
+          console.log("interlocutorUserData: ", interlocutorUserData)
+          setinterlocutorImg(interlocutorUserData.profilepicture);
+        }
+      }
+    };
+
+    fetchDoc();
+}, [conversationChosen]);
 
   useEffect(() => {
     setMessagesArray(conversationData?.messagesArray)
@@ -62,7 +79,7 @@ useEffect(() => {
 
     return (
         <div className='flex flex-col h-full flex-1  '>
-            <ChatHeader interlocutor={conversationData?.colaborador2}/>
+            <ChatHeader interlocutor={conversationData?.colaborador2} interlocutorImg={interlocutorImg}/>
              <ContentRendering interlocutor={conversationData?.colaborador2} userId={userId} messagesArray={messagesArray}/>
              <InputForm userId={userIdRecibido} conversationId={conversationRecibida}/>
         </div>
