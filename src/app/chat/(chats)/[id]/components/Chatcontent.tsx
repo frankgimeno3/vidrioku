@@ -1,11 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
 import InputForm from './chatcomponents/InputForm';
 import ContentRendering from './chatcomponents/ContentRendering';
 import ChatHeader from './chatcomponents/ChatHeader';
 import { db } from '@/app/firebase';
+import { useSession } from 'next-auth/react';
 
 
 interface ChatcontentProps {
@@ -25,12 +26,15 @@ interface ChatcontentProps {
   }
 
 const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
-    const [conversationData, setConversationData] = useState<any>()
+     const [conversationData, setConversationData] = useState<any>()
     const [messagesArray, setMessagesArray] = useState<any>()
     const [userIdRecibido, setUserIdRecibido] = useState<any>()
     const [conversationRecibida, setConversationRecibida] = useState<any>()
     const [interlocutorImg, setinterlocutorImg] = useState<any>()
+    const [interlocutor, setInterlocutor] = useState<any>()
 
+    
+    
     useEffect(() => {
       const fetchDoc = async () => {
         if (conversationChosen) {
@@ -42,25 +46,29 @@ const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
           }
         }
       };
-  
       fetchDoc();
   }, [conversationChosen]);
 
   useEffect(() => {
-    const fetchDoc = async () => {
-      if (conversationChosen) {
-        const docRef = doc(db, "users", conversationData?.colaborador2);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const interlocutorUserData = response.data() as any;
-          console.log("interlocutorUserData: ", interlocutorUserData)
-          setinterlocutorImg(interlocutorUserData.profilepicture);
-        }
-      }
-    };
+    if (conversationData?.colaborador2 == userId){setInterlocutor(conversationData?.colaborador2)}
+    if (conversationData?.colaborador2 != userId){setInterlocutor(conversationData?.colaborador1)}
+  }, [userId && conversationData]);
 
-    fetchDoc();
-}, [conversationChosen]);
+useEffect(() => {
+  const fetchDoc = async () => {
+    if (conversationChosen && interlocutor) {
+      const docRef = doc(db, "users", interlocutor);
+      const response = await getDoc(docRef);
+      if (response.exists()) {
+        const interlocutorUserData = response.data() as any;
+        console.log("interlocutorUserData: ", interlocutorUserData)
+        setinterlocutorImg(interlocutorUserData.profilepicture);
+      }
+    }
+  };
+
+  fetchDoc();
+}, [interlocutor]);
 
   useEffect(() => {
     setMessagesArray(conversationData?.messagesArray)
@@ -79,8 +87,8 @@ useEffect(() => {
 
     return (
         <div className='flex flex-col h-full flex-1  '>
-            <ChatHeader interlocutor={conversationData?.colaborador2} interlocutorImg={interlocutorImg}/>
-             <ContentRendering interlocutor={conversationData?.colaborador2} userId={userId} messagesArray={messagesArray}/>
+            <ChatHeader interlocutor={interlocutor} interlocutorImg={interlocutorImg}/>
+             <ContentRendering interlocutor={interlocutor} userId={userId} messagesArray={messagesArray}/>
              <InputForm userId={userIdRecibido} conversationId={conversationRecibida}/>
         </div>
     );

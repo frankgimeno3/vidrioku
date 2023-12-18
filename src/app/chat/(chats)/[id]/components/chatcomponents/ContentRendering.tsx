@@ -34,7 +34,7 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
         if (response.exists()) {
           const messagesObjectList = response.data() as Mensaje;
           newArray.push(messagesObjectList);
-        }
+         }
       }
 
       setRenderingObjectArray(newArray);

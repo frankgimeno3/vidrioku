@@ -41,7 +41,7 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
             const conversationDataObject = response.data();
             setConversationsObjectArray((prevArray: any) => [...prevArray, conversationDataObject]);
           }
-        }
+        } 
       });
     }
   }, [conversationsArray]);
@@ -49,7 +49,7 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
   return (
     <div className="my-3 flex flex-1 flex-col w-full">
       {conversationsObjectArray.map((elemento: any, index: any) => (
-        <MessageListComponent key={index} conversation={elemento.conversacion} />
+        <MessageListComponent key={index} conversation={elemento.conversacion} user={user} />
       ))}
     </div>
   );
