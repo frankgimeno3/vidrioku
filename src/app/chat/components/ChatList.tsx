@@ -21,8 +21,7 @@ interface ChatListProps {
 const ChatList: FC<ChatListProps> = ({ user }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
   const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
-  const [reorderedArray, setReorderedArray] = useState<any>([]); // Inicializado como un arreglo vacío
-
+ 
   useEffect(() => {
     if (user) {
       setConversationsArray(user.conversations);

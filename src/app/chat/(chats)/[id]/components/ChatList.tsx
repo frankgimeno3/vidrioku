@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import MessageListComponent from './MessageListComponent';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
 interface User {
   id: any;
@@ -13,31 +15,42 @@ interface User {
 }
 
 interface ChatListProps {
-  user: User | undefined;
+  user: any;
  }
 
 const ChatList: FC<ChatListProps> = ({ user }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
-
+  const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
+ 
   useEffect(() => {
     if (user) {
       setConversationsArray(user.conversations);
-     } else {
+    } else {
       setConversationsArray([]);
-     }
+    }
   }, [user]);
+
+  useEffect(() => {
+    if (conversationsArray.length !== 0) {
+      conversationsArray.forEach(async (elemento) => {
+        if (elemento != '' && elemento != "") {
+          const docRef = doc(db, "conversations", elemento);
+          console.log(elemento)
+          const response = await getDoc(docRef);
+          if (response.exists()) {
+            const conversationDataObject = response.data();
+            setConversationsObjectArray((prevArray: any) => [...prevArray, conversationDataObject]);
+          }
+        }
+      });
+    }
+  }, [conversationsArray]);
   
   return (
-    <div className="  flex flex-1 flex-col overflow-scroll"  style={{ height: '740px', overflowX: 'auto' }} > 
-    <div className="my-3 flex  flex-col "> 
-      {conversationsArray.length === 0 ? (
-        <p className="p-5 text-xs text-gray-500">No has recibido ningún mensaje</p>
-      ) : (
-        conversationsArray.map((conversation, index) => (
-          <MessageListComponent key={index} conversation={conversation}     />
-        ))
-      )}
-    </div>
+    <div className="my-3 flex flex-1 flex-col w-full">
+      {conversationsObjectArray.map((elemento: any, index: any) => (
+        <MessageListComponent key={index} conversation={elemento.conversacion} />
+      ))}
     </div>
     );
 };
