@@ -82,7 +82,7 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
               <ChatList user={user}  
               />
     
-              <Chatcontent userId={userId}  conversationChosen={params.id} />
+              <Chatcontent user={user}   conversationChosen={params.id} />
     
             </div>
           </div>

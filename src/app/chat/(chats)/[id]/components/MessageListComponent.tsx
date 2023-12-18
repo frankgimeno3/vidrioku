@@ -6,7 +6,8 @@ import { db } from '@/app/firebase';
  import { useRouter } from 'next/navigation';
 
 interface MessageListComponentProps {
-  conversation: any
+  conversation: any;
+  user:any
 }
 interface User {
   id: any
@@ -39,7 +40,7 @@ interface Mensaje {
 }
 
 
-const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) => {
+const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, user }) => {
   const router = useRouter()
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
@@ -48,6 +49,9 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   const [lastMessage, setLastMessage] = useState<any>()
   const [contenidoUltimo, setContenidoUltimo] = useState<any>()
   const [conversationId, setConversationId] = useState<any>()
+  const [interlocutorId, setInterlocutorId] = useState<any>()
+
+
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversation) {
@@ -67,7 +71,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversationData) {
-        setColab2(conversationData.colaborador2)
+         if(conversationData.colaborador2 == user.id) { setInterlocutorId(conversationData.colaborador1)}
+        if(conversationData.colaborador2 != user.id) { setInterlocutorId(conversationData.colaborador2)}
       }
     };
 
@@ -76,8 +81,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
 
   useEffect(() => {
     const fetchDoc = async () => {
-      if (colab2) {
-        const docRef = doc(db, "users", colab2);
+      if (interlocutorId) {
+        const docRef = doc(db, "users", interlocutorId);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const interlocutorData = response.data() as User;
@@ -87,7 +92,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation }) =
     };
 
     fetchDoc();
-  }, [colab2]);
+  }, [interlocutorId]);
 
   useEffect(() => {
     if (conversationData) {setMessagesArray(conversationData.messagesArray)}

@@ -35,8 +35,7 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
       conversationsArray.forEach(async (elemento) => {
         if (elemento != '' && elemento != "") {
           const docRef = doc(db, "conversations", elemento);
-          console.log(elemento)
-          const response = await getDoc(docRef);
+           const response = await getDoc(docRef);
           if (response.exists()) {
             const conversationDataObject = response.data();
             setConversationsObjectArray((prevArray: any) => [...prevArray, conversationDataObject]);
@@ -49,7 +48,7 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
   return (
     <div className="my-3 flex flex-1 flex-col w-full">
       {conversationsObjectArray.map((elemento: any, index: any) => (
-        <MessageListComponent key={index} conversation={elemento.conversacion} />
+        <MessageListComponent key={index} conversation={elemento.conversacion} user={user} />
       ))}
     </div>
     );

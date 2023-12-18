@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 
 
 interface ChatcontentProps {
-  userId:any
+  user:any
   conversationChosen: any
 }
 
@@ -25,7 +25,7 @@ interface ChatcontentProps {
     messagesArray: any
   }
 
-const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
+const Chatcontent: FC<ChatcontentProps> = ({ user, conversationChosen }) => {
      const [conversationData, setConversationData] = useState<any>()
     const [messagesArray, setMessagesArray] = useState<any>()
     const [userIdRecibido, setUserIdRecibido] = useState<any>()
@@ -50,19 +50,20 @@ const Chatcontent: FC<ChatcontentProps> = ({ userId, conversationChosen }) => {
   }, [conversationChosen]);
 
   useEffect(() => {
-    if (conversationData?.colaborador2 == userId){setInterlocutor(conversationData?.colaborador2)}
-    if (conversationData?.colaborador2 != userId){setInterlocutor(conversationData?.colaborador1)}
-  }, [userId && conversationData]);
+    if(user){
+     if (conversationData?.colaborador2 == user.id){setInterlocutor(conversationData?.colaborador1)}
+    if (conversationData?.colaborador2 != user.id){setInterlocutor(conversationData?.colaborador2)}}
+  }, [user && conversationData]);
 
 useEffect(() => {
   const fetchDoc = async () => {
     if (conversationChosen && interlocutor) {
+      console.log(interlocutor)
       const docRef = doc(db, "users", interlocutor);
       const response = await getDoc(docRef);
       if (response.exists()) {
         const interlocutorUserData = response.data() as any;
-        console.log("interlocutorUserData: ", interlocutorUserData)
-        setinterlocutorImg(interlocutorUserData.profilepicture);
+         setinterlocutorImg(interlocutorUserData.profilepicture);
       }
     }
   };
@@ -75,8 +76,9 @@ useEffect(() => {
 }, [conversationData]);
 
 useEffect(() => {
-  setUserIdRecibido(userId)
-}, [userId]);
+  setUserIdRecibido(user?.id)
+  
+}, [user]);
 
 useEffect(() => {
   if(conversationData){
@@ -88,7 +90,7 @@ useEffect(() => {
     return (
         <div className='flex flex-col h-full flex-1  '>
             <ChatHeader interlocutor={interlocutor} interlocutorImg={interlocutorImg}/>
-             <ContentRendering interlocutor={interlocutor} userId={userId} messagesArray={messagesArray}/>
+             <ContentRendering interlocutor={interlocutor} userId={userIdRecibido} messagesArray={messagesArray}/>
              <InputForm userId={userIdRecibido} conversationId={conversationRecibida}/>
         </div>
     );

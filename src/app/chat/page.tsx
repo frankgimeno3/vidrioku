@@ -50,8 +50,7 @@ const Mensajes: FC = ({ }) => {
   useEffect(() => {
      const fetchDoc = async () => {
       if (userData) {
-        console.log("userdata", userData)
-        const docRef = doc(db, "users", userData);
+         const docRef = doc(db, "users", userData);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;

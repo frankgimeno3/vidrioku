@@ -70,8 +70,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversationData) {
-        console.log("conversationData.colaborador2:", conversationData.colaborador2, "user:", user)
-        if(conversationData.colaborador2 == user.id) { setInterlocutorId(conversationData.colaborador1)}
+         if(conversationData.colaborador2 == user.id) { setInterlocutorId(conversationData.colaborador1)}
         if(conversationData.colaborador2 != user.id) { setInterlocutorId(conversationData.colaborador2)}
       }
     };
