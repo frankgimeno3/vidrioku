@@ -9,6 +9,8 @@ import DetallesSolicitud from './components/DetallesSolicitud';
 import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import Footer from '@/app/components/Footer';
+import Banners from '@/app/components/Banners';
 
 type solicitudProps = {
     id: any;
@@ -39,7 +41,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const [isOfertaClicked, setIsOfertaClicked] = useState(false)
     const [isPerfilClicked, setIsPerfilClicked] = useState(false)
     const [isSolicitudClicked, setIsSolicitudClicked] = useState(false)
-    const [interlocutor, setInterlocutor] = useState();      
+    const [interlocutor, setInterlocutor] = useState();
     const [oferta, setOferta] = useState();
     const [solicitudId, setSolicitudId] = useState()
     const [nosotros, setNosotros] = useState<any>()
@@ -119,15 +121,15 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
         try {
             const docRef = doc(db, "users", usuarioDB);
             const userDoc = await getDoc(docRef);
-             if (userDoc.exists()) {
+            if (userDoc.exists()) {
                 const datosUsuario = userDoc.data() as User;
-                 if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
+                if (datosUsuario.conversations && Array.isArray(datosUsuario.conversations)) {
                     await updateDoc(docRef, {
                         ...datosUsuario,
                         conversations: [...datosUsuario.conversations, conversationId.id],
                     });
                 } else {
-                     await updateDoc(docRef, {
+                    await updateDoc(docRef, {
                         ...datosUsuario,
                         conversations: [conversationId.id],
                     });
@@ -156,37 +158,37 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
             await updateDoc(newMessageRef, { messageId: newMessageRef.id });
             try {
                 const docRef = doc(db, "conversations", conversationId.id);
-               const userDoc = await getDoc(docRef);
+                const userDoc = await getDoc(docRef);
                 if (userDoc.exists()) {
-                   const datosConversacion = userDoc.data();
-                    if (datosConversacion.messagesArray ) {
-                       await updateDoc(docRef, {
-                           ...datosConversacion,
-                           messagesArray: [...datosConversacion.messagesArray, newMessageRef.id],
-                       });
-                   } else {
+                    const datosConversacion = userDoc.data();
+                    if (datosConversacion.messagesArray) {
                         await updateDoc(docRef, {
-                           ...datosConversacion, 
-                           messagesArray: [newMessageRef.id],
-                       }); 
-                   }
-               } else {
-                   console.error('El documento de la conversacion no parece existir');
-               }
-           } catch (error) {
-               console.error('Error al encontrar la conversacion para añadir el mensaje correspondiente:', error);
-           }
-         } catch (error) {
+                            ...datosConversacion,
+                            messagesArray: [...datosConversacion.messagesArray, newMessageRef.id],
+                        });
+                    } else {
+                        await updateDoc(docRef, {
+                            ...datosConversacion,
+                            messagesArray: [newMessageRef.id],
+                        });
+                    }
+                } else {
+                    console.error('El documento de la conversacion no parece existir');
+                }
+            } catch (error) {
+                console.error('Error al encontrar la conversacion para añadir el mensaje correspondiente:', error);
+            }
+        } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
         }
-        
+
     };
 
- 
-   
+
+
     //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
     const addConversationInFirebase = async (usuario: any, empresa: any) => {
-         try {
+        try {
             const conversationsCollection = collection(db, 'conversations');
             const newConversationRef = await addDoc(conversationsCollection, {
                 conversacion: '',
@@ -197,27 +199,27 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
                 lastMessageSent: Timestamp.now(),
                 messagesArray: []
             });
-    
+
             await updateDoc(newConversationRef, { conversacion: newConversationRef.id });
-    
-            setTimeout(function() {
+
+            setTimeout(function () {
                 addConversationToUsuario(newConversationRef, nosotros);
                 addConversationToUsuario(newConversationRef, usuario);
-                setTimeout(function() {
+                setTimeout(function () {
                     addmessageInFirebase(newConversationRef, usuario, nosotros);
-                 }, 200);   
-             }, 200);            
+                }, 200);
+            }, 200);
 
-    
+
             setConversationRef(newConversationRef);
-    
+
         } catch (error) {
             console.error('Error al crear la conversación en Firestore:', error);
         }
     };
- 
 
-    const startConversation = (usuario: any, nosotros:any) => {
+
+    const startConversation = (usuario: any, nosotros: any) => {
         addConversationInFirebase(usuario, nosotros)
     }
 
@@ -225,32 +227,39 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
         <>
             <Navbar />
 
-            <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
-                <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
-                    <h2 className="font-bold text-lg text-center mx-auto">Detalles de la solicitud</h2>
-                </div>
-                <div className="flex flex-col p-5 bg-white bg-opacity-10 text-center">
+            <div className='flex flex-row w-full h-full justify-between bg-white bg-opacity-90'>
+                <div className="flex flex-col bg-gradient-to-b from-zinc-900 to-zinc-600 w-full ">
+                    <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
+                        <h2 className="font-bold text-lg text-center mx-auto">Detalles de la solicitud</h2>
+                    </div>
+                    <div className="flex flex-col p-5 bg-white bg-opacity-10 text-center h-full">
+                        <p className='py-5'>Número de solicitud {params.id}</p>
 
-                    <p className='py-5'>Número de solicitud {params.id}</p>
-
-                    <button className='py-5 bg-gray-50 bg-gray-500  ' onClick={toggleDetallesOferta}>Oferta a la que pertenece</button>
-                    {isOfertaClicked && <DetallesOferta oferta={oferta} />}
-                    <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesPerfil}>Detalles del profesional</button>
-                    {isPerfilClicked && <DetallesPerfil usuario={interlocutor} />}
-                    <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesSolicitud}>Detalles de la solicitud</button>
-                    {isSolicitudClicked && <DetallesSolicitud solicitudId={solicitudId} />}
-                    <Link href={'/chat'}>
+                        <button className='py-5 bg-gray-50 bg-gray-500  ' onClick={toggleDetallesOferta}>Oferta a la que pertenece</button>
+                        {isOfertaClicked && <DetallesOferta oferta={oferta} />}
+                        <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesPerfil}>Detalles del profesional</button>
+                        {isPerfilClicked && <DetallesPerfil usuario={interlocutor} />}
+                        <button className='py-5 bg-gray-50 bg-gray-500 mt-2' onClick={toggleDetallesSolicitud}>Detalles de la solicitud</button>
+                        {isSolicitudClicked && <DetallesSolicitud solicitudId={solicitudId} />}
+                        <Link href={'/chat'}>
+                            <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
+                                onClick={() => { startConversation(interlocutor, nosotros) }}>
+                                Conectar con el profesional</button>
+                        </Link>
+                        <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
+                            Rechazar solicitud</button>
                         <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
-                            onClick={() => { startConversation(interlocutor, nosotros) }}>
-                            Conectar con el profesional</button>
-                    </Link>
-                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'>
-                        Rechazar solicitud</button>
-                    <button className='bg-white px-4 py-2 rounded text-xs text-gray-500 shadow w-56 mx-auto my-2'
-                        onClick={volverSolicitudes}>
-                        Volver a solicitudes</button>
+                            onClick={volverSolicitudes}>
+                            Volver a solicitudes</button>
+                    </div>
                 </div>
+                <div className='h-full bg-white bg-opacity-5'>
+                    <Banners widthProp={250} />
+                </div>
+
             </div>
+            <Footer />
+
         </>
     )
 }
