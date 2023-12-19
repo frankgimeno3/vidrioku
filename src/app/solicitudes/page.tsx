@@ -7,11 +7,12 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer';
+import Banners from '../components/Banners';
 
 type Oferta = {
   titulo: string;
   cargo: string;
-  solicitudes:any;
+  solicitudes: any;
 };
 
 function page() {
@@ -35,10 +36,10 @@ function page() {
   }, [session]);
 
 
-  
+
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); 
+      setLoading(true);
 
       const ofertasCollection = collection(db, 'ofertas');
       const q = query(ofertasCollection, where('empresa', '==', userData));
@@ -50,52 +51,56 @@ function page() {
       });
 
       setMisOfertas(offersData);
-      setLoading(false);  
+      setLoading(false);
     };
 
     fetchData();
   }, [userData]);
 
-  
+
   return (
     <>
-    <Navbar />
+      <Navbar />
+      <div className="flex flex-col bg-gradient-to-b from-zinc-900 to-zinc-600  ">
+        <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
+          <h2 className="font-bold text-lg">Solicitudes nuevas</h2>
+        </div>
+        <div className='flex flex-row w-full h-full justify-between'>
+          <div className="p-5 bg-white bg-opacity-10 w-full ">
+            <h2 className='ml-56'>Ofertas con solicitudes</h2>
+            {misOfertas
+              .filter((oferta) => oferta.solicitudes && oferta.solicitudes.length > 0)
+              .map((oferta, index) => (
+                <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
+                  <h3 className='font-medium'><span className='font-bold text-gray-600 mr-2'>Título de la oferta: </span>{oferta.titulo}</h3>
+                  <p><span className='font-bold text-gray-600 mr-2'>Cargo ofrecido: </span>{oferta.cargo}</p>
+                  <p className='font-bold mt-5'>Solicitudes de la oferta</p>
 
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
-      <div className='flex flex-row justify-between py-3 bg-zinc-800 bg-opacity-50 px-60'>
-        <h2 className="font-bold text-lg">Solicitudes nuevas</h2>
-      </div>
-      <div className="p-5 bg-white bg-opacity-10 ">
-        <h2 className='ml-56'>Ofertas con solicitudes</h2>
-        {misOfertas
-          .filter((oferta) => oferta.solicitudes && oferta.solicitudes.length > 0)  
-          .map((oferta, index) => (
-            <div key={index} className='my-2 bg-white text-gray-800 p-3 mx-56 text-center rounded-lg'>
-              <h3 className='font-medium'><span className='font-bold text-gray-600 mr-2'>Título de la oferta: </span>{oferta.titulo}</h3>
-              <p><span className='font-bold text-gray-600 mr-2'>Cargo ofrecido: </span>{oferta.cargo}</p>
-              <p className='font-bold mt-5'>Solicitudes de la oferta</p>
-
-              <ul>
-              {oferta.solicitudes.map((solicitudId: any, solicitudIndex: any) => (
-                 <li 
-                  className="bg-gray-200 mb-1 p-4 hover:bg-gray-100"
-                  key={solicitudIndex}>
-                    <p><span className='font-medium my-2 mr-2'>Id de la solicitud:</span>{solicitudId}</p>
-                    <Link href={`/solicitudes/${solicitudId}`}>
-                    <button className='bg-white rounded px-4 py-1 mt-2 hover:bg-gray-100 border shadow-lg'>Ver detalles</button>
-                    </Link>
-                  </li>
+                  <ul>
+                    {oferta.solicitudes.map((solicitudId: any, solicitudIndex: any) => (
+                      <li
+                        className="bg-gray-200 mb-1 p-4 hover:bg-gray-100"
+                        key={solicitudIndex}>
+                        <p><span className='font-medium my-2 mr-2'>Id de la solicitud:</span>{solicitudId}</p>
+                        <Link href={`/solicitudes/${solicitudId}`}>
+                          <button className='bg-white rounded px-4 py-1 mt-2 hover:bg-gray-100 border shadow-lg'>Ver detalles</button>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
-            </div>
-          ))}
+          </div>
+          <div className='h-full bg-white bg-opacity-5'>
+            <Banners widthProp={250} />
+          </div>
+        </div>
       </div>
-    </div>
-    <Footer  />
+      <Footer />
 
-  </>
-);
- }
- 
-export default page 
+    </>
+  );
+}
+
+export default page
 
