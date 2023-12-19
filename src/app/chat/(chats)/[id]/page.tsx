@@ -84,8 +84,8 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
           <ChatList user={user} />
 
           <Chatcontent user={user} conversationChosen={params.id} />
-          <div className='h-full bg-white bg-opacity-5'>
-          <Banners widthProp={250} />
+          <div className='h-full bg-white bg-opacity-5 hidden md:block '>
+            <Banners widthProp={200}/>
           </div>
         </div>
       </div>
