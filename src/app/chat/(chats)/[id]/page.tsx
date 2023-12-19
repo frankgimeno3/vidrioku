@@ -7,28 +7,30 @@ import ChatList from './components/ChatList';
 import Chatcontent from './components/Chatcontent';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
+import Banners from '@/app/components/Banners';
+import Footer from '@/app/components/Footer';
 
 interface selectedChatProps {
-    params: { id: string }
+  params: { id: string }
 }
 
 interface User {
-    id: any
-    apellidos: string;
-    edad: number;
-    genero: string;
-    nombre: string;
-    ubi: string;
-    userEmail: string;
-    conversations: any
-  }
+  id: any
+  apellidos: string;
+  edad: number;
+  genero: string;
+  nombre: string;
+  ubi: string;
+  userEmail: string;
+  conversations: any
+}
 
 
 const SelectedChat: FC<selectedChatProps> = ({ params }) => {
-    const [userData, setUserData] = useState('');
-    const [user, setUser] = useState<User>();
-    const [userId, setUserId] = useState()
-    
+  const [userData, setUserData] = useState('');
+  const [user, setUser] = useState<User>();
+  const [userId, setUserId] = useState()
+
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -56,7 +58,7 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
           const myUserData = response.data() as User;
           setUser(myUserData);
         }
-      }       
+      }
 
     };
 
@@ -74,20 +76,22 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
   }, [user]);
 
   return (
-         <>
-          <Navbar />
-          <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-            <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
-            <div className='flex flex-row min-h-screen'>
-              <ChatList user={user}  
-              />
-    
-              <Chatcontent user={user}   conversationChosen={params.id} />
-    
-            </div>
+    <div className='h-screen'>
+      <Navbar />
+      <div className="flex flex-col h-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
+        <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
+        <div className='flex flex-row min-h-screen'>
+          <ChatList user={user} />
+
+          <Chatcontent user={user} conversationChosen={params.id} />
+          <div className='h-full bg-white bg-opacity-5'>
+          <Banners widthProp={250} />
           </div>
-        </>
-      );   
-  }
-  
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
 export default SelectedChat
