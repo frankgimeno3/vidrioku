@@ -71,10 +71,10 @@ const Crearoferta: FC = () => {
     try {
       const docRef = doc(db, "users", userId);
       const userDoc = await getDoc(docRef);
-  
+
       if (userDoc.exists()) {
         const userData = userDoc.data();
-  
+
         if (userData.ofertascreadas && Array.isArray(userData.ofertascreadas)) {
           // Conservar el resto del documento y agregar el nuevo offerId al array existente
           await setDoc(docRef, {
@@ -95,14 +95,14 @@ const Crearoferta: FC = () => {
       console.error('Error al añadir la oferta al autor:', error);
     }
   };
-  
+
   const addOfferInFirebase = async (event: any) => {
     event.preventDefault();
     if (titulo !== '' && cargo !== '' && tipoJornada !== '' && tipoLocalizacion !== '') {
       try {
         const offersCollection = collection(db, 'ofertas');
         const newOfferRef = await addDoc(offersCollection, {
-          id:'',
+          id: '',
           titulo: titulo.trim(),
           cargo: cargo.trim(),
           jornada: tipoJornada.trim(),
@@ -120,7 +120,7 @@ const Crearoferta: FC = () => {
         await updateDoc(newOfferRef, { id: newOfferRef.id });
 
         addOfferToAuthor(userData, newOfferRef.id)
-         router.push('/misofertas');
+        router.push('/misofertas');
       } catch (error) {
         console.error('Error al crear la oferta en Firestore:', error);
       }
@@ -133,48 +133,50 @@ const Crearoferta: FC = () => {
       <Navbar />
       <div className='flex flex-row w-full h-full justify-between bg-white bg-opacity-90'>
 
-      <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center px-80 w-full">
-        <h2 className='py-10'>Crear oferta</h2>
-        <form className='flex flex-col mx-72 text-sm '>
-        <Titulo titulo={titulo} setTitulo={setTitulo} />
-        <Cargo cargo={cargo} setCargo={setCargo} />
-        <Jornada tipoJornada={tipoJornada} setTipoJornada={setTipoJornada} />
-        <Localizacion tipoLocalizacion={tipoLocalizacion} setTipoLocalizacion={setTipoLocalizacion} />
-  
-        {tipoLocalizacion !== 'Trabajo Remoto' && (
-            <Ubicacion ubicacion={ubicacion} setUbicacion={setUbicacion}/>
-          )}
+        <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center  w-full">
+          <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center w-full">Crear oferta</h2>
+          <div className='px-80 mt-12'>
+            <form className='flex flex-col mx-72 text-sm '>
+              <Titulo titulo={titulo} setTitulo={setTitulo} />
+              <Cargo cargo={cargo} setCargo={setCargo} />
+              <Jornada tipoJornada={tipoJornada} setTipoJornada={setTipoJornada} />
+              <Localizacion tipoLocalizacion={tipoLocalizacion} setTipoLocalizacion={setTipoLocalizacion} />
 
-        <Descripcion descripcion={descripcion} setDescripcion={setDescripcion}/>
-        <Requerimientos habilidadRequerida={habilidadRequerida} handleHabilidadRequeridaChange={handleHabilidadRequeridaChange}/>
-          
-          <button onClick={handleInsertarHabilidad} className="bg-white px-3 py-1 rounded-lg mx-44 text-sm m-2 text-gray-500 text-sm mb-2">
-            Insertar requisitos
-          </button>
+              {tipoLocalizacion !== 'Trabajo Remoto' && (
+                <Ubicacion ubicacion={ubicacion} setUbicacion={setUbicacion} />
+              )}
 
-          <ul className="mx-12 mb-2">
-            {habilidades.map((habilidad, index) => (
-              <div className="flex flex-row w-full bg-gray-100 text-gray-700 rounded-lg my-1 shadow-lg " key={index}>
-                <li className="flex-1 my-auto">{habilidad}</li>
-                <div className="shadow">
-                  <button onClick={() => handleEliminarHabilidad(event, index)} className="m-2 px-2 bg-gray-300 rounded-lg py-0.5 shadow-lg">x</button>
-                </div>
-              </div>
-            ))}
-          </ul>
-        <Additional  comentarios={comentarios} setComentarios={setComentarios}  />
+              <Descripcion descripcion={descripcion} setDescripcion={setDescripcion} />
+              <Requerimientos habilidadRequerida={habilidadRequerida} handleHabilidadRequeridaChange={handleHabilidadRequeridaChange} />
 
-          <button onClick={addOfferInFirebase} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
-            Crear oferta
-          </button>
-        </form>
+              <button onClick={handleInsertarHabilidad} className="bg-white px-3 py-1 rounded-lg mx-44 text-sm m-2 text-gray-500 text-sm mb-2">
+                Insertar requisitos
+              </button>
+
+              <ul className="mx-12 mb-2">
+                {habilidades.map((habilidad, index) => (
+                  <div className="flex flex-row w-full bg-gray-100 text-gray-700 rounded-lg my-1 shadow-lg " key={index}>
+                    <li className="flex-1 my-auto">{habilidad}</li>
+                    <div className="shadow">
+                      <button onClick={() => handleEliminarHabilidad(event, index)} className="m-2 px-2 bg-gray-300 rounded-lg py-0.5 shadow-lg">x</button>
+                    </div>
+                  </div>
+                ))}
+              </ul>
+              <Additional comentarios={comentarios} setComentarios={setComentarios} />
+
+              <button onClick={addOfferInFirebase} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
+                Crear oferta
+              </button>
+            </form>
+          </div>
         </div>
 
         <div className='h-full bg-white bg-opacity-5'>
           <Banners widthProp={250} />
         </div>
       </div>
-      <Footer  />
+      <Footer />
 
     </>
   );
