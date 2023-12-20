@@ -16,6 +16,7 @@ import Descripcion from './componentes/Descripcion';
 import Requerimientos from './componentes/Requerimientos';
 import Additional from './componentes/Additional';
 import Footer from '../components/Footer';
+import Banners from '../components/Banners';
 
 
 const Crearoferta: FC = () => {
@@ -130,7 +131,9 @@ const Crearoferta: FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center px-80">
+      <div className='flex flex-row w-full h-full justify-between bg-white bg-opacity-90'>
+
+      <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center px-80 w-full">
         <h2 className='py-10'>Crear oferta</h2>
         <form className='flex flex-col mx-72 text-sm '>
         <Titulo titulo={titulo} setTitulo={setTitulo} />
@@ -165,6 +168,11 @@ const Crearoferta: FC = () => {
             Crear oferta
           </button>
         </form>
+        </div>
+
+        <div className='h-full bg-white bg-opacity-5'>
+          <Banners widthProp={250} />
+        </div>
       </div>
       <Footer  />
 
