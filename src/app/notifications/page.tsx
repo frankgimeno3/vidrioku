@@ -145,6 +145,7 @@ const Notifications: FC = ({ }) => {
                   redireccion={notificacion.redireccion}
                   content={notificacion.content}
                   estado={notificacion.estado}
+                  userData={userData}
                 />
               ))}
 
@@ -160,6 +161,7 @@ const Notifications: FC = ({ }) => {
                   redireccion={notificacion.redireccion}
                   content={notificacion.content}
                   estado={notificacion.estado}
+                  userData={userData}
                 />
               ))}
             </div>
