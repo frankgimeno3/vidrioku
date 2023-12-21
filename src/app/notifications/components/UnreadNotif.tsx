@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react'
 
-interface notigicacioncomponentprops {
+interface UnreadNotifprops {
     idnotificacion: any;
     tipo: any;
     redireccion: any;
@@ -13,7 +13,7 @@ interface notigicacioncomponentprops {
     userData: any;
 }
 
-const notificacioncomponent: FC<notigicacioncomponentprops> = ({ idnotificacion, tipo, redireccion, content, estado, userData }) => {
+const UnreadNotif: FC<UnreadNotifprops> = ({ idnotificacion, tipo, redireccion, content, estado, userData }) => {
     const router = useRouter()
 
     const [userObject, setUserObject] = useState<any>()
@@ -110,4 +110,4 @@ const notificacioncomponent: FC<notigicacioncomponentprops> = ({ idnotificacion,
     )
 }
 
-export default notificacioncomponent
+export default UnreadNotif

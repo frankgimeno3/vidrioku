@@ -6,7 +6,8 @@ import Navbar from '../components/Navbar';
 import { useSession } from 'next-auth/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import Notificacioncomponent from './components/notificacioncomponent';
+import UnreadNotif from './components/UnreadNotif';
+import Readnotif from './components/Readnotif';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 
@@ -138,7 +139,7 @@ const Notifications: FC = ({ }) => {
               <h2 className='mt-2 text-md text-center px-8 py-5'>Tienes <span className='font-bold'>{largoNotifNoLeidas || 0}</span> notificaciones nuevas</h2>
 
               {arrayNotificacionesNoLeidas && arrayNotificacionesNoLeidas.map((notificacion: any, index: number) => (
-                <Notificacioncomponent
+                <UnreadNotif
                   key={index}
                   idnotificacion={notificacion.idnotificacion}
                   tipo={notificacion.tipo}
@@ -154,7 +155,7 @@ const Notifications: FC = ({ }) => {
               <h2 className='mt-2 text-md text-center px-8 py-5'>Notificaciones anteriores</h2>
 
               {arrayNotificacionesLeidas && arrayNotificacionesLeidas.map((notificacion: any, index: number) => (
-                <Notificacioncomponent
+                <Readnotif
                   key={index}
                   idnotificacion={notificacion.idnotificacion}
                   tipo={notificacion.tipo}
