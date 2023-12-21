@@ -101,9 +101,9 @@ const Notifications: FC = ({ }) => {
             <div className="  mx-24  bg-white bg-opacity-5  text-zinc-100  rounded-lg my-6 mt-6">
               <h2 className='mt-2 text-md text-center px-8 pt-5'>Tienes <span className='font-bold'>{arrayNotificacionesUsuario.length}</span> notificaciones nuevas</h2>
 
-              {arrayNotificacionesUsuario.map((notificacion: any) => (
+              {arrayNotificacionesUsuario.map((notificacion: any, index: number) => (
                 <Notificacioncomponent
-                  key={notificacion.id}
+                  key={index}
                   id={notificacion.id}
                   tipo={notificacion.tipo}
                   redireccion={notificacion.redireccion}
@@ -111,7 +111,6 @@ const Notifications: FC = ({ }) => {
                   estado={notificacion.estado}
                 />
               ))}
-
             </div>
           </div>
         </div>
@@ -120,7 +119,7 @@ const Notifications: FC = ({ }) => {
           <Banners widthProp={250} />
         </div>
 
-      </div>      
+      </div>
       <Footer />
 
     </>

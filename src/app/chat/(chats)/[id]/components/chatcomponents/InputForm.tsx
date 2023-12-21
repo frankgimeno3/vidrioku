@@ -102,6 +102,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
       });
       await updateDoc(newMessageRef, { messageId: newMessageRef.id });
       await addMessageToConversation(newMessageRef, conversationId)
+      // await addNotificationToInterlocutor(interlocutor, conversationId)
 
     } catch (error) {
       console.error('Error al crear la conversación en Firestore:', error);

@@ -41,9 +41,13 @@ const notificacioncomponent: FC<notigicacioncomponentprops> = ({ id, tipo, redir
 
 
     const handleredireccion = () => {
-        pasaraunread(id)
-        router.push(redireccion)
+        pasaraunread(id);
+    
+         setTimeout(() => {
+            router.push(redireccion);
+        }, 500);  
     }
+
     return (
         <div onClick={handleredireccion}>
             {estado == "read" && <div className="  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-6">
