@@ -52,15 +52,13 @@ const notificacioncomponent: FC<notigicacioncomponentprops> = ({ idnotificacion,
 
     return (
         <>
-        {<div onClick={handleredireccion}>
-            {estado == "read" && <div className="  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-6">
-            </div>}
-            {estado == "unread" && <div className=" mx-6 pb-3 bg-white bg-opacity-60 hover:bg-opacity-70  text-zinc-100  rounded-lg my-6">
+        <div onClick={handleredireccion}>
+         <div className=" mx-6 pb-3 bg-white bg-opacity-60 hover:bg-opacity-70  text-zinc-100  rounded-lg my-6">
                 <h2 className='text-right pr-3 pt-2 text-zinc-700 text-sm'>{tipo}</h2>
                 <h2 className='mt-1 text-sm mb-2 mx-5'>{content}</h2>
-            </div>}
+            </div>
 
-        </div>}
+        </div>
         </>
     )
 }

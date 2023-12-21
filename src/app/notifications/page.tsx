@@ -30,7 +30,9 @@ const Notifications: FC = ({ }) => {
   const [userUnreadNotifications, setUserUnreadNotifications] = useState<any>()
   const [userReadNotifications, setUserReadNotifications] = useState<any>()
   const [arrayNotificacionesUsuario, setArrayNotificacionesUsuario] = useState<any>([]);
-  const [arrayNotifOrdenado, setArrayNotifOrdenado] = useState<any>()
+  const [arrayNotificacionesNoLeidas, setArrayNotificacionesNoLeidas] = useState<any>()
+  const [arrayNotificacionesLeidas, setArrayNotificacionesLeidas] = useState<any>()
+  const [largoNotifNoLeidas, setlargoNotifNoLeidas] = useState<any>()
 
   const session = useSession({
     required: true,
@@ -72,23 +74,56 @@ const Notifications: FC = ({ }) => {
 
   useEffect(() => {
     const fetchNotifications = async () => {
-      if (userUnreadNotifications) {
+      if (userUnreadNotifications && userUnreadNotifications.length > 0 && userUnreadNotifications[0] != "") {
+        console.log("userUnreadNotifications", userUnreadNotifications)
         userUnreadNotifications.map(async (notificationId: any) => {
           const docRef = doc(db, "notificaciones", notificationId);
           const response = await getDoc(docRef);
           if (response.exists()) {
             const myNotificationData = response.data() as User;
-            // Actualizamos el estado agregando el nuevo elemento al final del array existente
-            setArrayNotificacionesUsuario((prevNotificaciones: any) => [...prevNotificaciones, myNotificationData]);
+            // Asegúrate de que prevNotificaciones sea siempre un array
+            setArrayNotificacionesNoLeidas((prevNotificaciones: any[]) => {
+              // Si prevNotificaciones es undefined o no es un array, inicialízalo como un array vacío
+              if (!Array.isArray(prevNotificaciones)) {
+                prevNotificaciones = [];
+              }
+              return [...prevNotificaciones, myNotificationData];
+            });
           }
         });
       }
     };
     fetchNotifications();
   }, [userUnreadNotifications]);
- 
 
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (userReadNotifications && userReadNotifications.length > 0 && userReadNotifications[0] != "") {
 
+        console.log("userReadNotifications", userReadNotifications);
+        userReadNotifications.map(async (notificationId: any) => {
+          const docRef = doc(db, "notificaciones", notificationId);
+          const response = await getDoc(docRef);
+          if (response.exists()) {
+            const myNotificationData = response.data() as User;
+            // Asegúrate de que prevNotificaciones sea siempre un array
+            setArrayNotificacionesLeidas((prevNotificaciones: any[]) => {
+              // Si prevNotificaciones es undefined o no es un array, inicialízalo como un array vacío
+              if (!Array.isArray(prevNotificaciones)) {
+                prevNotificaciones = [];
+              }
+              return [...prevNotificaciones, myNotificationData];
+            });
+          }
+        });
+      }
+    };
+    fetchNotifications();
+  }, [userReadNotifications]);
+
+  useEffect(() => {
+    setlargoNotifNoLeidas
+  }, [userUnreadNotifications]);
   return (
     <>
       <Navbar />
@@ -97,10 +132,10 @@ const Notifications: FC = ({ }) => {
         <div className="flex flex-col bg-gradient-to-b from-zinc-900 to-zinc-600 w-full ">
           <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Notificaciones</h2>
           <div className='flex flex-col '>
-          <div className="  mx-24  bg-white bg-opacity-5  text-zinc-100  rounded-lg my-6 mt-6">
-              <h2 className='mt-2 text-md text-center px-8 py-5'>Tienes <span className='font-bold'>{arrayNotificacionesUsuario.length}</span> notificaciones nuevas</h2>
+            <div className="  mx-24  bg-white bg-opacity-5  text-zinc-100  rounded-lg my-6 mt-6">
+              <h2 className='mt-2 text-md text-center px-8 py-5'>Tienes <span className='font-bold'>{largoNotifNoLeidas || 0}</span> notificaciones nuevas</h2>
 
-              {userUnreadNotifications && userUnreadNotifications.map((notificacion: any, index: number) => (
+              {arrayNotificacionesNoLeidas && arrayNotificacionesNoLeidas.map((notificacion: any, index: number) => (
                 <Notificacioncomponent
                   key={index}
                   idnotificacion={notificacion.idnotificacion}
@@ -115,7 +150,7 @@ const Notifications: FC = ({ }) => {
             <div className="  mx-24  bg-white bg-opacity-5  text-zinc-100  rounded-lg my-6 mt-6">
               <h2 className='mt-2 text-md text-center px-8 py-5'>Notificaciones anteriores</h2>
 
-              {userReadNotifications && userReadNotifications.map((notificacion: any, index: number) => (
+              {arrayNotificacionesLeidas && arrayNotificacionesLeidas.map((notificacion: any, index: number) => (
                 <Notificacioncomponent
                   key={index}
                   idnotificacion={notificacion.idnotificacion}
@@ -126,7 +161,7 @@ const Notifications: FC = ({ }) => {
                 />
               ))}
             </div>
-           </div>
+          </div>
         </div>
 
         <div className='h-full bg-white bg-opacity-5'>
