@@ -2,26 +2,27 @@ import { db } from '@/app/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 interface notigicacioncomponentprops {
-    id: any;
+    idnotificacion: any;
     tipo: any;
     redireccion: any;
     content: any;
     estado: any;
 }
 
-const notificacioncomponent: FC<notigicacioncomponentprops> = ({ id, tipo, redireccion, content, estado }) => {
+const notificacioncomponent: FC<notigicacioncomponentprops> = ({ idnotificacion, tipo, redireccion, content, estado }) => {
     const router = useRouter()
+ 
 
     const pasaraunread = (identificacion: any) => {
         const fetchDoc = async () => {
-            if (id) {
-                const docRef = doc(db, "notifications", identificacion);
+            if (identificacion) {
+                 const docRef = doc(db, "notificaciones", identificacion);
                 const response = await getDoc(docRef);
                 if (response.exists()) {
-                    const notificationData = response.data() as any;
+                     const notificationData = response.data() as any;
                     const updatedNotificationData = {
                         estado: "read"
                     }
@@ -32,20 +33,21 @@ const notificacioncomponent: FC<notigicacioncomponentprops> = ({ id, tipo, redir
                     await setDoc(docRef, {
                         ...notificationData,
                         ...filteredData,
-                    });
+                    }
+                    );
                 }
-            }
+            } 
         };
         fetchDoc();
     }
 
 
     const handleredireccion = () => {
-        pasaraunread(id);
+        pasaraunread(idnotificacion);
     
          setTimeout(() => {
             router.push(redireccion);
-        }, 500);  
+        }, 300);  
     }
 
     return (

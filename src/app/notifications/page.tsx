@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 
 interface User {
-  id: any
+  idnotificacion: any
   apellidos: string;
   edad: number;
   genero: string;
@@ -104,7 +104,7 @@ const Notifications: FC = ({ }) => {
               {arrayNotificacionesUsuario.map((notificacion: any, index: number) => (
                 <Notificacioncomponent
                   key={index}
-                  id={notificacion.id}
+                  idnotificacion={notificacion.idnotificacion}
                   tipo={notificacion.tipo}
                   redireccion={notificacion.redireccion}
                   content={notificacion.content}

@@ -21,9 +21,9 @@ export default async function RootLayout({
       </head>
       <body className="h-full ">
         <SessionProvider>
-          <EdgeStoreProvider>
+          {/* <EdgeStoreProvider> */}
             {children}
-          </EdgeStoreProvider>
+          {/* </EdgeStoreProvider> */}
         </SessionProvider>
       </body>
     </html>
