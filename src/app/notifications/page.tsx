@@ -122,7 +122,9 @@ const Notifications: FC = ({ }) => {
   }, [userReadNotifications]);
 
   useEffect(() => {
-    setlargoNotifNoLeidas
+    if(userUnreadNotifications){
+      setlargoNotifNoLeidas(userUnreadNotifications.length)
+    }
   }, [userUnreadNotifications]);
   return (
     <>
