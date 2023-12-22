@@ -113,14 +113,14 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId, userObject }) =
     fetchDoc();
 };
    
-  const crearNotificacion =async (interlocutor:any)=>{
+  const crearNotificacion =async (interlocutor:any, conversationId:any)=>{
     try {
        const notificationssCollection = collection(db, 'notificaciones');
        const newNotificationRef = await addDoc(notificationssCollection, {
            idnotificacion: '',
            content: `Has recibido un nuevo mensaje de ${userObject.nombre}`,
            generada: Timestamp.now(),
-           redireccion: '/chat',
+           redireccion: `/chat/${conversationId}`,
            tipo: "Mensaje",
            usuario: interlocutor,
         });
@@ -152,7 +152,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId, userObject }) =
       });
       await updateDoc(newMessageRef, { messageId: newMessageRef.id });
       await addMessageToConversation(newMessageRef, conversationId)
-      await crearNotificacion(interlocutor)
+      await crearNotificacion(interlocutor, conversationId)
 
     } catch (error) {
       console.error('Error al crear la conversación en Firestore:', error);
