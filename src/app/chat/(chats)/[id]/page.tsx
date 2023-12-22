@@ -65,15 +65,7 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
     fetchDoc();
   }, [userData]);
 
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (user) {
-        setUserId(user.id)
-      }
-    };
-
-    fetchDoc();
-  }, [user]);
+ 
 
   return (
     <div className='h-screen'>

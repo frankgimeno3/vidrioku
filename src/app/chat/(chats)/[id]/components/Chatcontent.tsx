@@ -32,7 +32,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ user, conversationChosen }) => {
     const [conversationRecibida, setConversationRecibida] = useState<any>()
     const [interlocutorImg, setinterlocutorImg] = useState<any>()
     const [interlocutor, setInterlocutor] = useState<any>()
-
+    const [userObject, setUserObject] = useState<any>()
     
     
     useEffect(() => {
@@ -77,7 +77,7 @@ useEffect(() => {
 
 useEffect(() => {
   setUserIdRecibido(user?.id)
-  
+  setUserObject(user)
 }, [user]);
 
 useEffect(() => {
@@ -91,7 +91,7 @@ useEffect(() => {
         <div className='flex flex-col h-full flex-1  '>
             <ChatHeader interlocutor={interlocutor} interlocutorImg={interlocutorImg}/>
              <ContentRendering interlocutor={interlocutor} userId={userIdRecibido} messagesArray={messagesArray}/>
-             <InputForm userId={userIdRecibido} conversationId={conversationRecibida}/>
+             <InputForm userId={userIdRecibido} conversationId={conversationRecibida} userObject={userObject}/>
         </div>
     );
 };

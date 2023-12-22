@@ -1,10 +1,11 @@
 import { db } from '@/app/firebase';
-import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
 
 interface InputFormProps {
   userId: any;
   conversationId: any;
+  userObject: any;
 }
 
 interface Conversation {
@@ -17,13 +18,12 @@ interface Conversation {
   messagesArray: any;
 }
 
-const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
+const InputForm: FC<InputFormProps> = ({ userId, conversationId, userObject }) => {
   const [inputContent, setInputContent] = useState<any>();
   const [conversationData, setConversationData] = useState<any>();
   const [interlocutorSelected, setInterlocutorSelected] = useState<any>();
- 
+  const [nosotros, setNosotros] = useState<any>();
   //OBTENEMOS INFO DE LA CONVERSACION ACTUAL
-
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -85,6 +85,56 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
     }
   };
 
+  const addNotificationToUsuario = (notifref: any, interlocutor: any) => {
+    const fetchDoc = async () => {
+        if (interlocutor) {
+            const docRef = doc(db, "users", interlocutor);
+            const response = await getDoc(docRef);
+            if (response.exists()) {
+                const userObjectData = response.data() as any;
+                const updatedUnreadNotifications = userObjectData.unreadnotifications
+                    ? [...userObjectData.unreadnotifications, notifref]
+                    : [notifref];
+
+                const updatedUserData = {
+                    unreadnotifications: updatedUnreadNotifications,
+                }
+                const filteredData = Object.fromEntries(
+                    Object.entries(updatedUserData).filter(([_, value]) => value !== undefined)
+                );
+
+                await setDoc(docRef, {
+                    ...userObjectData,
+                    ...filteredData,
+                });
+            }
+        }
+    };
+    fetchDoc();
+};
+   
+  const crearNotificacion =async (interlocutor:any)=>{
+    try {
+       const notificationssCollection = collection(db, 'notificaciones');
+       const newNotificationRef = await addDoc(notificationssCollection, {
+           idnotificacion: '',
+           content: `Has recibido un nuevo mensaje de ${userObject.nombre}`,
+           generada: Timestamp.now(),
+           redireccion: '/chat',
+           tipo: "Mensaje",
+           usuario: interlocutor,
+        });
+
+       await updateDoc(newNotificationRef, { idnotificacion: newNotificationRef.id });
+
+       setTimeout(function () {
+        addNotificationToUsuario(newNotificationRef.id, interlocutor);
+       }, 200);
+
+   } catch (error) {
+       console.error('Error al crear la conversación en Firestore:', error);
+   }
+};
 
   const addmessageInFirebase = async (conversationId: any, usuario: any, interlocutor: any, content: any) => {
     try {
@@ -102,7 +152,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
       });
       await updateDoc(newMessageRef, { messageId: newMessageRef.id });
       await addMessageToConversation(newMessageRef, conversationId)
-      // await addNotificationToInterlocutor(interlocutor, conversationId)
+      await crearNotificacion(interlocutor)
 
     } catch (error) {
       console.error('Error al crear la conversación en Firestore:', error);
@@ -111,8 +161,7 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId }) => {
 
   const handleEnviar = (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("esto ocurre")
-    addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
+     addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
     setTimeout(() => {
       window.location.reload();
     }, 1000);   };

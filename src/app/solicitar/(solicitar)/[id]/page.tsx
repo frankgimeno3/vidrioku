@@ -211,7 +211,6 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
               <p className="text-sm mt-1">
                 {oferta?.adicional}
               </p>
-
               <form className='mt-5   w-full'>
                 <h2>Agrega un mensaje personal</h2>
                 <label htmlFor="presentacion"> </label>
