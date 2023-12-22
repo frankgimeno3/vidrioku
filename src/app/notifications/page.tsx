@@ -30,8 +30,7 @@ const Notifications: FC = ({ }) => {
   const [user, setUser] = useState<any>();
   const [userUnreadNotifications, setUserUnreadNotifications] = useState<any>()
   const [userReadNotifications, setUserReadNotifications] = useState<any>()
-  const [arrayNotificacionesUsuario, setArrayNotificacionesUsuario] = useState<any>([]);
-  const [arrayNotificacionesNoLeidas, setArrayNotificacionesNoLeidas] = useState<any>()
+   const [arrayNotificacionesNoLeidas, setArrayNotificacionesNoLeidas] = useState<any>()
   const [arrayNotificacionesLeidas, setArrayNotificacionesLeidas] = useState<any>()
   const [largoNotifNoLeidas, setlargoNotifNoLeidas] = useState<any>()
 
@@ -76,24 +75,24 @@ const Notifications: FC = ({ }) => {
   //creamos un array de notif no leidas como objetos, usando los elem del listado en user
   useEffect(() => {
     const fetchNotifications = async () => {
-      if (userUnreadNotifications && userUnreadNotifications.length > 0 && userUnreadNotifications[0] != "") {
+       if (userUnreadNotifications && userUnreadNotifications.length > 0 && userUnreadNotifications[0] != "") {
         userUnreadNotifications.map(async (notificationId: any) => {
+          console.log("notificationId:", notificationId)
           const docRef = doc(db, "notificaciones", notificationId);
           const response = await getDoc(docRef);
           if (response.exists()) {
             const myNotificationData = response.data() as User;
-            // Asegúrate de que prevNotificaciones sea siempre un array
-            setArrayNotificacionesNoLeidas((prevNotificaciones: any[]) => {
-              // Si prevNotificaciones es undefined o no es un array, inicialízalo como un array vacío
-              if (!Array.isArray(prevNotificaciones)) {
-                prevNotificaciones = [];
-              }
-              return [...prevNotificaciones, myNotificationData];
-            });
-          }
-        });
-      }
-    };
+            console.log(myNotificationData) //esto no llega a renderizarse
+                 setArrayNotificacionesNoLeidas((prevNotificaciones: any[]) => {
+                     if (!Array.isArray(prevNotificaciones)) {
+                        prevNotificaciones = [];
+                    }
+                    return [...prevNotificaciones, myNotificationData];
+                });
+            }
+          });
+        }
+     };
     fetchNotifications();
   }, [userUnreadNotifications]);
 
@@ -147,7 +146,7 @@ const Notifications: FC = ({ }) => {
                   estado={notificacion.estado}
                   userData={userData}
                 />
-              ))}
+               ))}
 
             </div>
             <div className="  mx-24  bg-white bg-opacity-5  text-zinc-100  rounded-lg my-6 mt-6">
