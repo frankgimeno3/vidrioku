@@ -73,10 +73,10 @@ const Notifications: FC = ({ }) => {
   }, [user]);
 
 
+  //creamos un array de notif no leidas como objetos, usando los elem del listado en user
   useEffect(() => {
     const fetchNotifications = async () => {
       if (userUnreadNotifications && userUnreadNotifications.length > 0 && userUnreadNotifications[0] != "") {
-        console.log("userUnreadNotifications", userUnreadNotifications)
         userUnreadNotifications.map(async (notificationId: any) => {
           const docRef = doc(db, "notificaciones", notificationId);
           const response = await getDoc(docRef);
@@ -97,11 +97,10 @@ const Notifications: FC = ({ }) => {
     fetchNotifications();
   }, [userUnreadNotifications]);
 
+    //creamos un array de notif sí leidas como objetos, usando los elem del listado en user
   useEffect(() => {
     const fetchNotifications = async () => {
       if (userReadNotifications && userReadNotifications.length > 0 && userReadNotifications[0] != "") {
-
-        console.log("userReadNotifications", userReadNotifications);
         userReadNotifications.map(async (notificationId: any) => {
           const docRef = doc(db, "notificaciones", notificationId);
           const response = await getDoc(docRef);
