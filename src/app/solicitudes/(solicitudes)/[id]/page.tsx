@@ -1,7 +1,7 @@
 "use client"
 import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
-import { Timestamp, addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react'
 import DetallesOferta from './components/DetallesOferta';
 import DetallesPerfil from './components/DetallesPerfil';
@@ -36,6 +36,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const router = useRouter()
 
     const [userData, setUserData] = useState<User>();
+    const [userObject, setUserObject] = useState<any>();
     const [solicitud, setSolicitud] = useState<solicitudProps>();
     const [loading, setLoading] = useState(true);
     const [isOfertaClicked, setIsOfertaClicked] = useState(false)
@@ -45,8 +46,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const [oferta, setOferta] = useState();
     const [solicitudId, setSolicitudId] = useState()
     const [nosotros, setNosotros] = useState<any>()
-    const [messageRef, setMessageRef] = useState<any>()
-    const [conversationRef, setConversationRef] = useState<any>()
+     const [conversationRef, setConversationRef] = useState<any>()
 
     const session = useSession({
         required: true,
@@ -68,6 +68,21 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
         }
     }, [userData]);
 
+    useEffect(() => {
+        const fetchDoc = async () => {
+          if (userData) {
+            const docRef = doc(db, "users", userData.email);
+            const response = await getDoc(docRef);
+            if (response.exists()) {
+              const myUserData = response.data() as User;
+              setUserObject(myUserData);
+              
+            }
+          }
+        };
+    
+        fetchDoc();
+      }, [userData]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -184,8 +199,56 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
 
     };
 
-
-
+    const addNotificationToUsuario = (notifref: any, interlocutor: any) => {
+        const fetchDoc = async () => {
+            if (interlocutor) {
+                const docRef = doc(db, "users", interlocutor);
+                const response = await getDoc(docRef);
+                if (response.exists()) {
+                    const userObjectData = response.data() as any;
+                    const updatedUnreadNotifications = userObjectData.unreadnotifications
+                        ? [...userObjectData.unreadnotifications, notifref]
+                        : [notifref];
+    
+                    const updatedUserData = {
+                        unreadnotifications: updatedUnreadNotifications,
+                    }
+                    const filteredData = Object.fromEntries(
+                        Object.entries(updatedUserData).filter(([_, value]) => value !== undefined)
+                    );
+    
+                    await setDoc(docRef, {
+                        ...userObjectData,
+                        ...filteredData,
+                    });
+                }
+            }
+        };
+        fetchDoc();
+    };
+       
+      const crearNotificacion =async (interlocutor:any, conversationId:any, nosotros: any)=>{
+        try {
+           const notificationssCollection = collection(db, 'notificaciones');
+           const newNotificationRef = await addDoc(notificationssCollection, {
+               idnotificacion: '',
+               content: `Tu solicitud para la empresa ${nosotros} ha sido aceptada. Puedes empezar a chatear.`,
+               generada: Timestamp.now(),
+               redireccion: `/chat/${conversationId}`,
+               tipo: "Mensaje",
+               usuario: interlocutor,
+            });
+    
+           await updateDoc(newNotificationRef, { idnotificacion: newNotificationRef.id });
+    
+           setTimeout(function () {
+            addNotificationToUsuario(newNotificationRef.id, interlocutor);
+           }, 200);
+    
+       } catch (error) {
+           console.error('Error al crear la conversación en Firestore:', error);
+       }
+    };
     //creamos funcion para crear conver para usar + adelante. Llamamos desde aqui a la de crear el mensaje.
     const addConversationInFirebase = async (usuario: any, empresa: any) => {
         try {
@@ -205,6 +268,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
             setTimeout(function () {
                 addConversationToUsuario(newConversationRef, nosotros);
                 addConversationToUsuario(newConversationRef, usuario);
+                crearNotificacion(usuario, newConversationRef.id, userObject.nombre)
                 setTimeout(function () {
                     addmessageInFirebase(newConversationRef, usuario, nosotros);
                 }, 200);

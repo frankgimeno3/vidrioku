@@ -1,7 +1,7 @@
 "use client"
 import { FC, useEffect, useState } from 'react';
 import Navbar from '../../../components/Navbar'
-import { addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import Image from "next/image"
 import Link from 'next/link';
@@ -31,6 +31,7 @@ type OfertaProps = {
 const Solicitud: FC<SolicitudProps> = ({ params }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(true);
+  const [userObject, setUserObject] = useState<any>();
   const [oferta, setOferta] = useState<OfertaProps>();
   const [presentacion, setPresentacion] =  useState("")
   //primero detectamos el usuario, registramos su id, y de paso bloqueamos la ruta
@@ -47,6 +48,21 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       setUserId(session.data.user.email);
     } else { setUserId("Usuario") }
   }, [session?.data?.user?.email]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (userId) {
+        const docRef = doc(db, "users", userId);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const myUserData = response.data() as any;
+          setUserObject(myUserData);
+        }
+      }
+    };
+
+    fetchDoc();
+  }, [userId]);
 
   //luego, mostramos la oferta que conocemos por los params
   useEffect(() => {
@@ -151,8 +167,59 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       console.error('Error al añadir solicitud a oferta:', error);
     }
   };
-  //  3-creamos funcion que añade solicitud a firebase, aunandolo todo  
-  const addSolicitudInFirebase = async (userId: string, offerId: string, empresa: string, presentacion:string) => {
+
+  const addNotificationToUsuario = (notifref: any, notificado: any) => {
+    const fetchDoc = async () => {
+        if (notificado) {
+            const docRef = doc(db, "users", notificado);
+            const response = await getDoc(docRef);
+            if (response.exists()) {
+                const userObjectData = response.data() as any;
+                const updatedUnreadNotifications = userObjectData.unreadnotifications
+                    ? [...userObjectData.unreadnotifications, notifref]
+                    : [notifref];
+
+                const updatedUserData = {
+                    unreadnotifications: updatedUnreadNotifications,
+                }
+                const filteredData = Object.fromEntries(
+                    Object.entries(updatedUserData).filter(([_, value]) => value !== undefined)
+                );
+
+                await setDoc(docRef, {
+                    ...userObjectData,
+                    ...filteredData,
+                });
+            }
+        }
+    };
+    fetchDoc();
+};
+   
+  const crearNotificacion =async (notificado:any, solicitudId:any, solicitante: any)=>{
+    try {
+       const notificationssCollection = collection(db, 'notificaciones');
+       const newNotificationRef = await addDoc(notificationssCollection, {
+           idnotificacion: '',
+           content: `El usuario ${solicitante} ha enviado una nueva solicitud para su oferta.`,
+           generada: Timestamp.now(),
+           redireccion: `/solicitudes/${solicitudId}`,
+           tipo: "Nueva Solicitud",
+           usuario: notificado,
+        });
+
+       await updateDoc(newNotificationRef, { idnotificacion: newNotificationRef.id });
+
+       setTimeout(function () {
+        addNotificationToUsuario(newNotificationRef.id, notificado);
+       }, 200);
+
+   } catch (error) {
+       console.error('Error al crear la conversación en Firestore:', error);
+   }
+};
+
+const addSolicitudInFirebase = async (userId: string, offerId: string, empresa: string, presentacion:string) => {
     try {
       const solicitudesCollection = collection(db, 'solicitudes');
       const newSolicitudRef = await addDoc(solicitudesCollection, {
@@ -165,6 +232,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       addSolicitudAEmpresa(empresa, newSolicitudRef.id)
       addSolicitudAUsuario(userId, offerId)
       addSolicitudAOferta(offerId, newSolicitudRef.id)
+      crearNotificacion(empresa, newSolicitudRef.id, userObject.nombre)
       router.push('/missolicitudes');
     } catch (error) {
       console.error('Error al crear la oferta en Firestore:', error);
