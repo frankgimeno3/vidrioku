@@ -1,14 +1,28 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-const PageListButtons: FC = () => {
+interface PageListButtonsProps {
+  arrayDe7ElementosPorPágina: any;
+}
+// hay que pasarle ya en un array las ofertas en grupos de 7 o - elementos. 
+
+const PageListButtons: FC<PageListButtonsProps> = ({ arrayDe7ElementosPorPágina }) => {
+  const [arrayRecibido, setArrayRecibido] = useState<any[]>([]);
+
+  useEffect(() => {
+    setArrayRecibido(arrayDe7ElementosPorPágina);
+  }, [arrayDe7ElementosPorPágina]);
+
   return (
-    <div className="flex flex-row justify-end items-center   px-2 ">
-      <button className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'>1</button>
-      <button className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'>2</button>
-      <button className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'>3</button>
-      <button className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'>4</button>
-      <button className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'>5</button>
-      <button className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'>6</button>
+    <div className="flex flex-row justify-end items-center px-2">
+      {arrayRecibido.map((elemento, index) => (
+        //hay que hacer que el button redirija a la página /search/ofertas/nº página... a ver cómo lo logramos
+        <button
+          key={index}
+          className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'
+        >
+          {index + 1}
+        </button>
+      ))}
     </div>
   );
 };
