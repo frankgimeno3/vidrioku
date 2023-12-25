@@ -134,7 +134,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                     ))}
                   </ul>
                   <nav className="bg-gray-200 py-2 px-1 text-center ">
-                    <PageListButtons />
+                    <PageListButtons arrayDe7ElementosPorPágina={[]} />
                   </nav>
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
