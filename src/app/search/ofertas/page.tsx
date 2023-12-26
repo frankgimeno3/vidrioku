@@ -41,6 +41,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   const [renderoferta, setrenderoferta] = useState<Oferta | null>(null);
   const [loading, setLoading] = useState(true);
   const [misOfertas, setMisOfertas] = useState<Oferta[]>([]);
+  const [misOfertasFiltered, setMisOfertasFiltered] = useState<any>([]);
   const [userData, setUserData] = useState("")
   const [tipoConsulta, setTipoConsulta] = useState('Ofertas');
 
@@ -89,81 +90,95 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const chunkArray = (array: any, size: any) => {
+      const result = [];
+      for (let i = 0; i < array.length; i += size) {
+        result.push(array.slice(i, i + size));
+      }
+      return result;
+    };
+
+    const groupedOffers = chunkArray(misOfertas, 7);
+    setMisOfertasFiltered(groupedOffers);
+    console.log("misOfertas", misOfertas, "misOfertasFiltered", misOfertasFiltered)
+  }, [misOfertas]);
+
   if (loading) {
     return <p>Cargando ofertas...</p>;
   }
 
   return (
-    <div className='flex flex-col justify-between'>
+    <div className='flex flex-col justify-between h-full'>
       <Navbar />
       <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 h-full'>
-      <div className="flex flex-col  w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-        <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
-        <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100 h-full ">
+        <div className="flex flex-col  w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
+          <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
+          <div className="bg-white bg-opacity-5  text-zinc-100 h-full ">
 
-          <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
+            <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
 
-          <div className="flex flex-col  h-full bg-zinc-800 ">
+            <div className="flex flex-col  h-full bg-zinc-800 ">
 
-            <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
-              <SearchOfertas />
-              <FiltroOfertas />
-            </nav>
-            <div className='flex flex-col   mx-12 bg-white h-full'>
-              <div className='bg-white flex flex-row w-full h-full'>
-                <div className='flex flex-col flex-1 justify-between h-full'>
-                  {/* <Anuncio />
+              <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
+                <SearchOfertas />
+                <FiltroOfertas />
+              </nav>
+              <div className='flex flex-col   mx-12 bg-white h-full'>
+                <div className='bg-white flex flex-row w-full h-full'>
+                  <div className='flex flex-col flex-1 justify-between h-full'>
+                    {/* <Anuncio />
               <Pasarela /> */}
-                  <ul className=' overflow-scroll'>
-                    {misOfertas.map((oferta, index) => (
-                      <div key={index} onClick={() => handleOfertaClick(oferta)}>
-                        <Oferta
-                          id={oferta.id}
-                          titulo={oferta.titulo}
-                          cargo={oferta.cargo}
-                          jornada={oferta.jornada}
-                          tipoubi={oferta.tipoubi}
-                          ubicacion={oferta.ubicacion}
-                          descripcion={oferta.descripcion}
-                          experiencia={oferta.experiencia}
-                          adicional={oferta.adicional}
-                          empresa={oferta.empresa}
-                          estado={oferta.estado}
-                        />
-                      </div>
-                    ))}
-                  </ul>
-                  <nav className="bg-gray-200 py-2 px-1 text-center ">
-                    <PageListButtons arrayDe7ElementosPorPágina={[]} />
-                  </nav>
+                    <ul className='flex flex-col h-full overflow-scroll justify-between'>
+                      {misOfertas.map((oferta, index) => (
+                        <div key={index} onClick={() => handleOfertaClick(oferta)}>
+                          <Oferta
+                            id={oferta.id}
+                            titulo={oferta.titulo}
+                            cargo={oferta.cargo}
+                            jornada={oferta.jornada}
+                            tipoubi={oferta.tipoubi}
+                            ubicacion={oferta.ubicacion}
+                            descripcion={oferta.descripcion}
+                            experiencia={oferta.experiencia}
+                            adicional={oferta.adicional}
+                            empresa={oferta.empresa}
+                            estado={oferta.estado}
+                          />
+                        </div>
+                      ))}
+                      <nav className="bg-gray-200 py-2 px-1 text-center  ">
+                        <PageListButtons arrayDe7ElementosPorPágina={misOfertasFiltered} />
+                      </nav>
+                    </ul>
+                  </div>
+                  <div className='flex-1 h-full bg-gray-100 p-5'>
+                    {renderoferta && (
+                      <Rendercomponent
+                        id={renderoferta.id}
+                        titulo={renderoferta.titulo}
+                        cargo={renderoferta.cargo}
+                        jornada={renderoferta.jornada}
+                        tipoubi={renderoferta.tipoubi}
+                        ubicacion={renderoferta.ubicacion}
+                        descripcion={renderoferta.descripcion}
+                        experiencia={renderoferta.experiencia}
+                        adicional={renderoferta.adicional}
+                        empresa={renderoferta.empresa}
+                        estado={renderoferta.estado}
+                      />
+                    )}
+                  </div>
                 </div>
-                <div className='flex-1 h-full bg-gray-100 p-5'>
-                  {renderoferta && (
-                    <Rendercomponent
-                      id={renderoferta.id}
-                      titulo={renderoferta.titulo}
-                      cargo={renderoferta.cargo}
-                      jornada={renderoferta.jornada}
-                      tipoubi={renderoferta.tipoubi}
-                      ubicacion={renderoferta.ubicacion}
-                      descripcion={renderoferta.descripcion}
-                      experiencia={renderoferta.experiencia}
-                      adicional={renderoferta.adicional}
-                      empresa={renderoferta.empresa}
-                      estado={renderoferta.estado}
-                    />
-                  )}
-                </div>
-              </div>
 
+              </div>
             </div>
+
           </div>
 
+
         </div>
-
-
-      </div>
-      <div className='h-full bg-white bg-opacity-5'>
+        <div className='h-full bg-white bg-opacity-5'>
           <Banners widthProp={250} />
         </div>
 

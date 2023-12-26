@@ -10,6 +10,7 @@ const PageListButtons: FC<PageListButtonsProps> = ({ arrayDe7ElementosPorPágina
 
   useEffect(() => {
     setArrayRecibido(arrayDe7ElementosPorPágina);
+    console.log("arrayDe7ElementosPorPágina", arrayDe7ElementosPorPágina)
   }, [arrayDe7ElementosPorPágina]);
 
   return (
