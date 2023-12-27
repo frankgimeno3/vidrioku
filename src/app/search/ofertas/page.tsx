@@ -111,7 +111,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   return (
     <div className='flex flex-col justify-between h-full'>
       <Navbar />
-      <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 h-full'>
+      <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 h-screen'>
         <div className="flex flex-col  w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
           <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
           <div className="bg-white bg-opacity-5  text-zinc-100 h-full ">
@@ -126,10 +126,8 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
               </nav>
               <div className='flex flex-col   mx-12 bg-white h-full'>
                 <div className='bg-white flex flex-row w-full h-full'>
-                  <div className='flex flex-col flex-1 justify-between h-full'>
-                    {/* <Anuncio />
-              <Pasarela /> */}
-                    <ul className='flex flex-col h-full overflow-scroll justify-between'>
+                  <div className='flex flex-col flex-1 overflow-scroll h-full'>
+                    <ul className='flex flex-col h-full '>
                       {misOfertas.map((oferta, index) => (
                         <div key={index} onClick={() => handleOfertaClick(oferta)}>
                           <Oferta
