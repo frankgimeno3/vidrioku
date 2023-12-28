@@ -19,7 +19,7 @@ const PageListButtons: FC<PageListButtonsProps> = ({ arrayDe7ElementosPorPágina
         //hay que hacer que el button redirija a la página /search/ofertas/nº página... a ver cómo lo logramos
         <button
           key={index}
-          className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100'
+          className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100 hover:shadow-2xl'
         >
           {index + 1}
         </button>
