@@ -44,6 +44,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   const [misOfertasFiltered, setMisOfertasFiltered] = useState<any>([]);
   const [userData, setUserData] = useState("")
   const [tipoConsulta, setTipoConsulta] = useState('Ofertas');
+  const [subArraySeleccionado, setSubArrayseleccionado] = useState(0)
 
 
   const setOfertas = () => {
@@ -101,8 +102,23 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
 
     const groupedOffers = chunkArray(misOfertas, 7);
     setMisOfertasFiltered(groupedOffers);
-    console.log("misOfertas", misOfertas, "misOfertasFiltered", misOfertasFiltered)
-  }, [misOfertas]);
+   }, [misOfertas]); useEffect(() => {
+    const chunkArray = (array: any, size: any) => {
+      const result = [];
+      for (let i = 0; i < array.length; i += size) {
+        result.push(array.slice(i, i + size));
+      }
+      return result;
+    };
+
+    const groupedOffers = chunkArray(misOfertas, 7);
+    setMisOfertasFiltered(groupedOffers);
+   }, [misOfertas]);
+
+   useEffect(() => {
+    console.log("setSubArrayseleccionado", subArraySeleccionado)
+ }, [subArraySeleccionado]);
+ 
 
   if (loading) {
     return <p>Cargando ofertas...</p>;
@@ -146,7 +162,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                         </div>
                       ))}
                       <nav className="bg-gray-200 py-2 px-1 text-center  ">
-                        <PageListButtons arrayDe7ElementosPorPágina={misOfertasFiltered} />
+                        <PageListButtons arrayDe7ElementosPorPágina={[misOfertasFiltered, "2", "3"]} setSubArrayseleccionado={setSubArrayseleccionado} />
                       </nav>
                     </ul>
                   </div>
