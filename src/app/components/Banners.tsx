@@ -17,8 +17,7 @@ const Banners: FC<BannerProps> = ({ widthProp }) => {
               alt={''}
               width={widthProp} // Ajusta este valor según sea necesario
               height={400}
-              objectFit="cover"
-            />
+              style={{objectFit:"cover"}}            />
           </div>
           </Link>
           <Link href={'https://www.google.com/'}>
@@ -28,8 +27,7 @@ const Banners: FC<BannerProps> = ({ widthProp }) => {
               alt={''}
               width={widthProp} // Ajusta este valor según sea necesario
               height={400}
-              objectFit="cover"
-            />
+              style={{objectFit:"cover"}}            />
           </div>
           </Link>
         </div>

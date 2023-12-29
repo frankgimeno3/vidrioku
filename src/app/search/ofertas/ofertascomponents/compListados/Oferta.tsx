@@ -37,7 +37,7 @@ const Oferta: FC <OfertaProps>= ({id, titulo, cargo, jornada, tipoubi, ubicacion
   
   return (
     <div className="flex flex-row justify-left items-center p-5 bg-gray-50 hover:bg-gray-100 shadow-lg mb-1 text-gray-600">
-      <Image src={userImage || "/icons/empty-user-profile.png"} alt="profilepicture" height={75} width={75}  />
+      <Image src={userImage || "/icons/empty-user-profile.png"} alt="profilepicture" height={75} width={75}  className='objectFit:"cover"' />
        <div className='justify-left pl-5 w-full'>
        <h2>{titulo}</h2>
         <div className='flex flex-row justify-between w-full'>

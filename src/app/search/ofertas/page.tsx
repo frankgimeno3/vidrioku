@@ -45,6 +45,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   const [userData, setUserData] = useState("")
   const [tipoConsulta, setTipoConsulta] = useState('Ofertas');
   const [subArraySeleccionado, setSubArrayseleccionado] = useState(0)
+  const [arrayMostrado, setArrayMostrado] = useState<any>(0)
 
 
   const setOfertas = () => {
@@ -102,22 +103,15 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
 
     const groupedOffers = chunkArray(misOfertas, 7);
     setMisOfertasFiltered(groupedOffers);
-   }, [misOfertas]); useEffect(() => {
-    const chunkArray = (array: any, size: any) => {
-      const result = [];
-      for (let i = 0; i < array.length; i += size) {
-        result.push(array.slice(i, i + size));
-      }
-      return result;
-    };
-
-    const groupedOffers = chunkArray(misOfertas, 7);
-    setMisOfertasFiltered(groupedOffers);
-   }, [misOfertas]);
+   }, [misOfertas]); 
+  
+   useEffect(() => {
+    setArrayMostrado(misOfertasFiltered[subArraySeleccionado])
+}, [misOfertasFiltered]);
 
    useEffect(() => {
-    console.log("setSubArrayseleccionado", subArraySeleccionado)
- }, [subArraySeleccionado]);
+    console.log("subArraySeleccionado: ", subArraySeleccionado )
+}, [subArraySeleccionado]);
  
 
   if (loading) {
@@ -144,7 +138,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                 <div className='bg-white flex flex-row w-full h-full'>
                   <div className='flex flex-col flex-1 overflow-scroll h-full'>
                     <ul className='flex flex-col h-full '>
-                      {misOfertas.map((oferta, index) => (
+                      {misOfertas?.map((oferta:any, index:any) => (
                         <div key={index} onClick={() => handleOfertaClick(oferta)}>
                           <Oferta
                             id={oferta.id}
