@@ -101,17 +101,18 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
       return result;
     };
 
-    const groupedOffers = chunkArray(misOfertas, 7);
+    const groupedOffers = chunkArray(misOfertas, 1);
     setMisOfertasFiltered(groupedOffers);
    }, [misOfertas]); 
   
    useEffect(() => {
     setArrayMostrado(misOfertasFiltered[subArraySeleccionado])
-}, [misOfertasFiltered]);
+    console.log(arrayMostrado)
+}, [subArraySeleccionado]);
 
    useEffect(() => {
-    console.log("subArraySeleccionado: ", subArraySeleccionado )
-}, [subArraySeleccionado]);
+    // console.log("subArraySeleccionado: ", subArraySeleccionado, ", misOfertasFiltered: ",  misOfertasFiltered, ", arrayMostrado: ", arrayMostrado, arrayMostrado.length   )
+}, [arrayMostrado]);
  
 
   if (loading) {
@@ -138,7 +139,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                 <div className='bg-white flex flex-row w-full h-full'>
                   <div className='flex flex-col flex-1 overflow-scroll h-full'>
                     <ul className='flex flex-col h-full '>
-                      {misOfertas?.map((oferta:any, index:any) => (
+                      {arrayMostrado?.map((oferta:any, index:any) => (
                         <div key={index} onClick={() => handleOfertaClick(oferta)}>
                           <Oferta
                             id={oferta.id}
@@ -156,7 +157,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                         </div>
                       ))}
                       <nav className="bg-gray-200 py-2 px-1 text-center  ">
-                        <PageListButtons arrayDe7ElementosPorPágina={[misOfertasFiltered, "2", "3"]} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
+                        <PageListButtons arrayDe7ElementosPorPágina={misOfertasFiltered} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
                       </nav>
                     </ul>
                   </div>
