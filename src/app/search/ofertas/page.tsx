@@ -162,7 +162,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                         </div>
                       ))}
                       <nav className="bg-gray-200 py-2 px-1 text-center  ">
-                        <PageListButtons arrayDe7ElementosPorPágina={[misOfertasFiltered, "2", "3"]} setSubArrayseleccionado={setSubArrayseleccionado} />
+                        <PageListButtons arrayDe7ElementosPorPágina={[misOfertasFiltered, "2", "3"]} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
                       </nav>
                     </ul>
                   </div>
