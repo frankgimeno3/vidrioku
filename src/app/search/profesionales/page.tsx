@@ -127,7 +127,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
                     ))}
                   </ul>
                   <nav className="bg-gray-200 py-2 px-1 text-center ">
-                    <PageListButtons />
+                  <PageListButtons arrayDe7ElementosPorPágina={misOfertasFiltered} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
                   </nav>
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
