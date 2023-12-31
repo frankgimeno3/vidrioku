@@ -42,6 +42,10 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const [trabajadoresArray, setTrabajadoresArray] = useState<User[]>([]);
   const [trabajadoresArrayFiltrado, setTrabajadoresArrayFiltrado] = useState<User[]>([]);
 
+   const [misOfertas, setMisOfertas] = useState<any>([]);
+  const [misOfertasFiltered, setMisOfertasFiltered] = useState<any>([]);
+   const [subArraySeleccionado, setSubArrayseleccionado] = useState(0)
+  const [arrayMostrado, setArrayMostrado] = useState<any>(0)
 
   const session = useSession({
     required: true,
