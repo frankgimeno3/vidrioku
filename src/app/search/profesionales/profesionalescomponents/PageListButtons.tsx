@@ -1,18 +1,18 @@
 import { FC, useEffect, useState } from 'react';
 
 interface PageListButtonsProps {
-  arrayDe7ElementosPorPágina: any;
+  arrayDe7ElementosPorPagina: any;
   subArraySeleccionado:any;
   setSubArrayseleccionado:any;
 }
 // hay que pasarle ya en un array las ofertas en grupos de 7 o - elementos. 
 
-const PageListButtons: FC<PageListButtonsProps> = ({ arrayDe7ElementosPorPágina, subArraySeleccionado,  setSubArrayseleccionado }) => {
+const PageListButtons: FC<PageListButtonsProps> = ({ arrayDe7ElementosPorPagina, subArraySeleccionado,  setSubArrayseleccionado }) => {
   const [arrayRecibido, setArrayRecibido] = useState<any[]>([]);
 
   useEffect(() => {
-    setArrayRecibido(arrayDe7ElementosPorPágina);
-  }, [arrayDe7ElementosPorPágina]);
+    setArrayRecibido(arrayDe7ElementosPorPagina);
+  }, [arrayDe7ElementosPorPagina]);
 
 
   return (

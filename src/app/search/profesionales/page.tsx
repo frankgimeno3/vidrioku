@@ -42,8 +42,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const [trabajadoresArray, setTrabajadoresArray] = useState<User[]>([]);
   const [trabajadoresArrayFiltrado, setTrabajadoresArrayFiltrado] = useState<User[]>([]);
 
-   const [misOfertas, setMisOfertas] = useState<any>([]);
-  const [misOfertasFiltered, setMisOfertasFiltered] = useState<any>([]);
+   const [arrayDe7ElementosPorPagina, setArrayDe7ElementosPorPagina] = useState<any>([]);
    const [subArraySeleccionado, setSubArrayseleccionado] = useState(0)
   const [arrayMostrado, setArrayMostrado] = useState<any>(0)
 
@@ -61,8 +60,6 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   }, [session?.data?.user?.email]);
 
 
-
-
   const setOfertas = () => {
     setTipoConsulta('Ofertas');
   };
@@ -70,8 +67,6 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const setTrabajadores = () => {
     setTipoConsulta('Trabajadores');
   };
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,6 +92,25 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
     const filteredArray = trabajadoresArray.filter((trabajador) => trabajador.userType === 'profesional');
     setTrabajadoresArrayFiltrado(filteredArray);
   }, [trabajadoresArray]);
+
+  useEffect(() => {
+    const chunkArray = (array: any, size: any) => {
+      const result = [];
+      for (let i = 0; i < array.length; i += size) {
+        result.push(array.slice(i, i + size));
+      }
+      return result;
+    };
+
+    const groupedOffers = chunkArray(trabajadoresArrayFiltrado, 1);
+    setArrayDe7ElementosPorPagina(groupedOffers);
+   }, [trabajadoresArrayFiltrado]); 
+  
+   useEffect(() => {
+    setArrayMostrado(arrayDe7ElementosPorPagina[subArraySeleccionado])
+    console.log(arrayMostrado)
+}, [subArraySeleccionado]);
+
 
   if (loading) {
     return <p>Cargando profesionales...</p>;
@@ -131,7 +145,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
                     ))}
                   </ul>
                   <nav className="bg-gray-200 py-2 px-1 text-center ">
-                  <PageListButtons arrayDe7ElementosPorPágina={misOfertasFiltered} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
+                  <PageListButtons arrayDe7ElementosPorPagina={arrayDe7ElementosPorPagina} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
                   </nav>
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
