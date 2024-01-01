@@ -17,6 +17,7 @@ import Profesional from './profesionalescomponents/compListados/Profesional';
 import Rendercomponent from './profesionalescomponents/compListados/rendercomponent/Rendercomponent'
 import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
+import ListadoBotones from './profesionalescomponents/ListadoBotones';
 interface ProfesionalesProps {
 }
 
@@ -38,12 +39,12 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<any>()
 
-  const [renderProfesional, setRenderProfesional] = useState()
-  const [trabajadoresArray, setTrabajadoresArray] = useState<User[]>([]);
-  const [trabajadoresArrayFiltrado, setTrabajadoresArrayFiltrado] = useState<User[]>([]);
+  const [renderProfesional, setRenderProfesional] = useState<any>()
+  const [trabajadoresArray, setTrabajadoresArray] = useState<any>([]);
+  const [trabajadoresArrayFiltrado, setTrabajadoresArrayFiltrado] = useState<any>([]);
 
-   const [arrayDe7ElementosPorPagina, setArrayDe7ElementosPorPagina] = useState<any>([]);
-   const [subArraySeleccionado, setSubArrayseleccionado] = useState(0)
+  const [arrayDe7ElementosPorPagina, setArrayDe7ElementosPorPagina] = useState<any[]>([]);
+  const [subArraySeleccionado, setSubArrayseleccionado] = useState<number>(0);
   const [arrayMostrado, setArrayMostrado] = useState<any>(0)
 
   const session = useSession({
@@ -88,8 +89,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   }, []);
 
   useEffect(() => {
-    // Filter trabajadoresArray and set the result to trabajadoresArrayFiltrado
-    const filteredArray = trabajadoresArray.filter((trabajador) => trabajador.userType === 'profesional');
+    const filteredArray = trabajadoresArray.filter((trabajador: any) => trabajador.userType === 'profesional');
     setTrabajadoresArrayFiltrado(filteredArray);
   }, [trabajadoresArray]);
 
@@ -104,12 +104,12 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
 
     const groupedOffers = chunkArray(trabajadoresArrayFiltrado, 1);
     setArrayDe7ElementosPorPagina(groupedOffers);
-   }, [trabajadoresArrayFiltrado]); 
-  
-   useEffect(() => {
+  }, [trabajadoresArrayFiltrado]);
+
+  useEffect(() => {
     setArrayMostrado(arrayDe7ElementosPorPagina[subArraySeleccionado])
     console.log(arrayMostrado)
-}, [subArraySeleccionado]);
+  }, [subArraySeleccionado]);
 
 
   if (loading) {
@@ -121,50 +121,51 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
       <Navbar />
       <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 h-full'>
 
-      <div className="flex flex-col  w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-        <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
-        <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100 h-full ">
+        <div className="flex flex-col  w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
+          <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
+          <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100 h-full ">
 
-          <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
+            <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
 
-          <div className="flex flex-col  h-full bg-zinc-800 ">
+            <div className="flex flex-col  h-full bg-zinc-800 ">
 
-            <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
-              <FiltroProfesionales />
-              <SearchProfesionales />
-            </nav>
-            <div className='flex flex-col   mx-12 bg-white '>
-              <div className='bg-white flex flex-row w-full h-full'>
-                <div className='flex flex-col flex-1 justify-between h-full'>
+              <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
+                <FiltroProfesionales />
+                <SearchProfesionales />
+              </nav>
+              <div className='flex flex-col   mx-12 bg-white '>
+                <div className='bg-white flex flex-row w-full h-full'>
+                  <div className='flex flex-col flex-1 justify-between h-full'>
 
-                  <ul className='max-h-full overflow-scroll'>
-                    {trabajadoresArrayFiltrado.map((trabajador, index) => (
-                      <div key={index}>
-                        <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
-                      </div>
-                    ))}
-                  </ul>
-                  <nav className="bg-gray-200 py-2 px-1 text-center ">
-                  <PageListButtons arrayDe7ElementosPorPagina={arrayDe7ElementosPorPagina} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
-                  </nav>
-                </div>
-                <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <Rendercomponent renderProfesional={renderProfesional} />
+                    <ul className='max-h-full overflow-scroll'>
+                      {trabajadoresArrayFiltrado.map((trabajador: any, index: any) => (
+                        <div key={index}>
+                          <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
+                        </div>
+                      ))}
+                    </ul>
+                    <nav className="bg-gray-200 py-2 px-1 text-center ">
+                      <ListadoBotones arrayDe7ElementosPorPagina={arrayDe7ElementosPorPagina} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
+                        {/* el PRIMERO siempre lo cuenta como malo. YO HARIA DE NUEVO EL COMPONENTE. Con otro nombre.*/}
+                    </nav>
+                  </div>
+                  <div className='flex-1 h-full bg-gray-100 p-5'>
+                    <Rendercomponent renderProfesional={renderProfesional} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className='h-full bg-white bg-opacity-5'>
+        <div className='h-full bg-white bg-opacity-5'>
           <Banners widthProp={250} />
         </div>
 
       </div>
       <Footer />
 
-    </div> 
-     );
+    </div>
+  );
 };
 
 export default Profesionales

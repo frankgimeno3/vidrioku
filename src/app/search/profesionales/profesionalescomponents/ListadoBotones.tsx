@@ -1,37 +1,33 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-interface PageListButtonsProps {
-  arrayDe7ElementosPorPagina: any;
-  subArraySeleccionado:any;
-  setSubArrayseleccionado:any;
+interface ListadoBotonesProps { 
+  subArraySeleccionado: number;
+  arrayDe7ElementosPorPagina: any[]; 
+  setSubArrayseleccionado: React.Dispatch<React.SetStateAction<number>>;
 }
-// hay que pasarle ya en un array las ofertas en grupos de 7 o - elementos. 
 
-const PageListButtons: FC<PageListButtonsProps> = ({ arrayDe7ElementosPorPagina, subArraySeleccionado,  setSubArrayseleccionado }) => {
+const ListadoBotones: FC<ListadoBotonesProps> = ({ subArraySeleccionado, arrayDe7ElementosPorPagina,  setSubArrayseleccionado }) => {
   const [arrayRecibido, setArrayRecibido] = useState<any[]>([]);
 
   useEffect(() => {
     setArrayRecibido(arrayDe7ElementosPorPagina);
   }, [arrayDe7ElementosPorPagina]);
 
-
   return (
     <div className="flex flex-row justify-end items-center px-2">
       {arrayRecibido.map((elemento, index) => (
-        // Envuelve cada par de botones en un fragmento con una key única
         <div key={index}>
-          {index == subArraySeleccionado && (
+          {index === subArraySeleccionado ? (
             <button
               className='px-3 py-1 rounded-lg shadow-2xl text-gray-600 mx-2 bg-gray-100'
-              onClick={()=>setSubArrayseleccionado(index)}
+              onClick={() => setSubArrayseleccionado(index)}
             >
               {index + 1}
             </button>
-          )}
-          {index != subArraySeleccionado && (
+          ) : (
             <button
               className='px-3 py-1 rounded-lg shadow-xl text-gray-600 bg-white mx-2 hover:bg-gray-100 hover:shadow-2xl'
-              onClick={()=>setSubArrayseleccionado(index)}
+              onClick={() => setSubArrayseleccionado(index)}
             >
               {index + 1}
             </button>
@@ -42,4 +38,4 @@ const PageListButtons: FC<PageListButtonsProps> = ({ arrayDe7ElementosPorPagina,
   );
 };
 
-export default PageListButtons;
+export default ListadoBotones;
