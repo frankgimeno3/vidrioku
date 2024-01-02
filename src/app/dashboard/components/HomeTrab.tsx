@@ -33,7 +33,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesAceptadas, setSolicitudesAceptadas] = useState<any>()
 
-  
+
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -60,7 +60,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
           setMensajesNoLeidos(myUserData.mensajesnoleidos.length || '0')
           setSolicitudesEnviadas(myUserData.solicitudes.length)
           setSolicitudesAceptadas(myUserData.solicitudesAceptadasNoLeidas.length || '0')
-          }
+        }
       }
     };
 
@@ -77,7 +77,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
       signOut()
     }, 1000);
   };
-  
+
   return (
     <div className='flex flex-col'>
       <div className="flex flex-row w-full justify-between  bg-gradient-to-b from-zinc-900 to-zinc-600 " style={{ height: '800px' }} >
@@ -105,11 +105,11 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
               <div className='flex flex-col flex-1 pt-12 px-12'>
                 <button
                   className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-5 text-sm m-1"
-                  onClick={()=>{'/configuracion'}}
+                  onClick={() => { '/configuracion' }}
                 >Configuración de la cuenta</button>
                 <button
                   className="bg-gray-200 hover:bg-gray-400 shadow-lg border text-gray-700 border-gray-200 rounded px-4 py-2 mt-5 text-sm m-1"
-                  onClick={()=>{handleCerrarSesion()}}
+                  onClick={() => { handleCerrarSesion() }}
                 >Cerrar Sesión</button>
               </div>
             </div>
@@ -121,7 +121,15 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
             <p className=''> Mensajes</p>
             <div className='bg-white rounded-lg shadow shadow-xl mb-4 mt-1 text-center '>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Has recibido {mensajesNoLeidos} mensajes nuevos</p>
+                {mensajesNoLeidos != 1 && mensajesNoLeidos != 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Ha recibido {mensajesNoLeidos} mensajes nuevos</p>
+                }
+                {mensajesNoLeidos == 1 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Ha recibido {mensajesNoLeidos} mensaje nuevo</p>
+                }
+                {mensajesNoLeidos == 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> No tiene mensajes por leer</p>
+                }
                 <button
                   className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/chat") }}
@@ -131,14 +139,30 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
             <p className='pt-8'> Solicitudes</p>
             <div className='bg-white rounded-lg shadow shadow-xl mb-4 mt-1 text-center '>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Has enviado {solicitudesEnviadas} solicitudes</p>
+                {solicitudesEnviadas != 1 && solicitudesEnviadas != 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Ha enviado {solicitudesEnviadas} solicitudes</p>
+                }
+                {solicitudesEnviadas == 1 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> Ha enviado {solicitudesEnviadas} solicitud</p>
+                }
+                {solicitudesEnviadas == 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> No ha enviado ninguna solicitud</p>
+                }
                 <button
                   className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/missolicitudes") }}
                 >Mis solicitudes</button>
               </div>
               <div className='shadow shadow-lg border border-gray-100 border-sm m-6  rounded-lg'>
-                <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> {solicitudesAceptadas} empresas han aceptado tus solicitudes</p>
+                {solicitudesAceptadas != 1 && solicitudesAceptadas != 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> {solicitudesAceptadas} empresas han aceptado sus solicitudes</p>
+                }
+                {solicitudesAceptadas == 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> No hay nuevas solicitudes aceptadas</p>
+                }
+                {solicitudesAceptadas == 1 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 pt-6'> {solicitudesAceptadas} empresa ha aceptado su solicitud</p>
+                }
                 <button
                   className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/chat") }}
@@ -147,7 +171,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
             </div>
           </div>
         </div>
-        <Banners widthProp={300}/>
+        <Banners widthProp={300} />
       </div>
     </div>
 
