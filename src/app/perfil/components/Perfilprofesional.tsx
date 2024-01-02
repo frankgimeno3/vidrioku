@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
-import { db } from '../../../../firebase';
+import { db } from '../../firebase';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
