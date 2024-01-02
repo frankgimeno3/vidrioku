@@ -1,1 +1,0 @@
-<h1>Aquí te tiene que decir... has seleccionado TAL, perfiles seleccionados, botón para seguir al listado o tirar atrás a modificar</h1>
