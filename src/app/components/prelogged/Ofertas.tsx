@@ -11,11 +11,11 @@ const Ofertas: React.FC = ({ }) => {
   const [oferta1Height, setOferta1Height] = useState<any>({ height: 145 })
   const [t1Height, sett1Height] = useState<any>({ paddingTop: '30px' });
   const [oferta2Height, setOferta2Height] = useState<any>({ height: 145 })
-  const [t2Height, sett2Height] = useState<any>({ paddingTop: '40x' });
+  const [t2Height, sett2Height] = useState<any>({ paddingTop: '35px' });
   const [oferta3Height, setOferta3Height] = useState<any>({ height: 145 })
-  const [t3Height, sett3Height] = useState<any>({ paddingTop: '40px' });
+  const [t3Height, sett3Height] = useState<any>({ paddingTop: '35px' });
   const [oferta4Height, setOferta4Height] = useState<any>({ height: 145 })
-  const [t4Height, sett4Height] = useState<any>({ paddingTop: '25px' });
+  const [t4Height, sett4Height] = useState<any>({ paddingTop: '10px' });
 
   const [is1, setIs1] = useState(false)
   const [is2, setIs2] = useState(false)
@@ -24,7 +24,7 @@ const Ofertas: React.FC = ({ }) => {
   const handleDepTecnico = () => {
     // router.push("/bolsaofertas/deptecnico")
     if (`${is1}` == `true`) { setIs1(false); setOferta1Height({ height: 145 }); sett1Height({ paddingTop: '25px' }) }
-    if (`${is1}` == `false`) { setIs1(true); setOferta1Height({ height: 180 }); sett1Height({ paddingTop: '1px' }) }
+    if (`${is1}` == `false`) { setIs1(true); setOferta1Height({ height: 220 }); sett1Height({ paddingTop: '1px' }) }
     setIs2(false); setIs3(false); setIs4(false)
     setOferta2Height({ height: 145 }); setOferta3Height({ height: 145 }); setOferta4Height({ height: 145 })
     sett2Height({ paddingTop: '40px' }); sett3Height({ paddingTop: '40px' }); sett4Height({ paddingTop: '30px' })
@@ -33,7 +33,7 @@ const Ofertas: React.FC = ({ }) => {
     = () => {
       // router.push("/bolsaofertas/ingenieros")
       if (`${is2}` == `true`) { setIs2(false); setOferta2Height({ height: 145 }); sett2Height({ paddingTop: '40px' }) }
-      if (`${is2}` == `false`) { setIs2(true); setOferta2Height({ height: 180 }); sett2Height({ paddingTop: '5px', marginBottom: '15px' }) }
+      if (`${is2}` == `false`) { setIs2(true); setOferta2Height({ height: 220 }); sett2Height({ paddingTop: '5px', marginBottom: '15px' }) }
       setIs1(false); setIs3(false); setIs4(false)
       setOferta1Height({ height: 145 }); setOferta3Height({ height: 145 }); setOferta4Height({ height: 145 })
       sett1Height({ paddingTop: '25px' }); sett3Height({ paddingTop: '40px' }); sett4Height({ paddingTop: '30px' })
@@ -42,7 +42,7 @@ const Ofertas: React.FC = ({ }) => {
     = () => {
       // router.push("/bolsaofertas/operarios")
       if (`${is3}` == `true`) { setIs3(false); setOferta3Height({ height: 145 }); sett3Height({ paddingTop: '40px' }) }
-      if (`${is3}` == `false`) { setIs3(true); setOferta3Height({ height: 180 }); sett3Height({ paddingTop: '5px', marginBottom: '5px' }) }
+      if (`${is3}` == `false`) { setIs3(true); setOferta3Height({ height: 220 }); sett3Height({ paddingTop: '5px', marginBottom: '5px' }) }
       setIs1(false); setIs2(false); setIs4(false)
       setOferta1Height({ height: 145 }); setOferta2Height({ height: 145 }); setOferta4Height({ height: 145 })
       sett1Height({ paddingTop: '25px' }); sett2Height({ paddingTop: '40px' }); sett4Height({ paddingTop: '30px' })
@@ -50,7 +50,7 @@ const Ofertas: React.FC = ({ }) => {
   const handleComercialCompras = () => {
     // router.push("/bolsaofertas/comercialcompras")
     if (`${is4}` == `true`) { setIs4(false); setOferta4Height({ height: 145 }); sett4Height({ paddingTop: '30px' }) }
-    if (`${is4}` == `false`) { setIs4(true); setOferta4Height({ height: 180 }); sett4Height({ paddingTop: '0px' }) }
+    if (`${is4}` == `false`) { setIs4(true); setOferta4Height({ height: 220 }); sett4Height({ paddingTop: '0px' }) }
     setIs1(false); setIs2(false); setIs3(false)
     setOferta1Height({ height: 145 }); setOferta2Height({ height: 145 }); setOferta3Height({ height: 145 })
     sett1Height({ paddingTop: '25px' }); sett2Height({ paddingTop: '35px' }); sett3Height({ paddingTop: '35px' })
