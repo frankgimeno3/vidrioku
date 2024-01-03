@@ -69,7 +69,7 @@ const Navbar: FC = ({ }) => {
   };
 
   const handlePerfilClick = () => {
-    router.push(`/perfil/${userData}`)
+    router.push(`/perfil`)
     setIsMenuOpen(false)
   };
 

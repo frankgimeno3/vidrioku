@@ -3,11 +3,11 @@ import Image
   from 'next/image'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
- import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface MessageListComponentProps {
   conversation: any;
-  user:any
+  user: any
 }
 interface User {
   id: any
@@ -50,12 +50,14 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   const [contenidoUltimo, setContenidoUltimo] = useState<any>()
   const [conversationId, setConversationId] = useState<any>()
   const [interlocutorId, setInterlocutorId] = useState<any>()
+  const [isMessageSeen, setIsMessageSeen] = useState<any>()
+  const [background, setBackground] = useState('white');
 
 
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversation) {
-         const docRef = doc(db, "conversations", conversation);
+        const docRef = doc(db, "conversations", conversation);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const conversationDataObject = response.data();
@@ -63,21 +65,36 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
         }
       }
     };
-
     fetchDoc();
   }, [conversation]);
- 
+
 
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversationData) {
-         if(conversationData.colaborador2 == user.id) { setInterlocutorId(conversationData.colaborador1)}
-        if(conversationData.colaborador2 != user.id) { setInterlocutorId(conversationData.colaborador2)}
+        if (conversationData.colaborador2 == user.id) {
+          setInterlocutorId(conversationData.colaborador1)
+          if (conversationData.lastMessageSeenc2 == false) { setIsMessageSeen(false) }
+          else{setIsMessageSeen(true)}
+        }
+        if (conversationData.colaborador2 != user.id) {
+          setInterlocutorId(conversationData.colaborador2)
+          if (conversationData.lastMessageSeenc1 == false) { setIsMessageSeen(false) }
+          else{setIsMessageSeen(true)}
+        }
       }
     };
 
     fetchDoc();
   }, [conversationData]);
+
+  useEffect(() => {
+     if (isMessageSeen) {
+      setBackground('bg-sky-500 bg-opacity-50 hover:bg-opacity-60'); 
+    } else {
+      setBackground('bg-white bg-opacity-10 hover:bg-opacity-20');  
+    }
+  }, [isMessageSeen]);
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -90,12 +107,11 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
         }
       }
     };
-
     fetchDoc();
   }, [interlocutorId]);
 
   useEffect(() => {
-    if (conversationData) {setMessagesArray(conversationData.messagesArray)}
+    if (conversationData) { setMessagesArray(conversationData.messagesArray) }
   }, [conversationData]);
 
   useEffect(() => {
@@ -103,13 +119,12 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
       const ultimo = conversationData.messagesArray[conversationData.messagesArray.length - 1];
       setLastMessage(ultimo)
     }
-
   }, [messagesArray]);
 
   useEffect(() => {
     if (conversationData) { setConversationId(conversationData.conversacion) }
-    }, [conversationData]);
-    
+  }, [conversationData]);
+
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -125,28 +140,29 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
 
     fetchDoc();
   }, [lastMessage]);
-  return ( 
-    <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" 
-    onClick={()=>{router.push(`/chat/${conversationId}`)}}>
-    <div>
-       <Image
-         src={interlocutor?.profilepicture || "/icons/empty-user-profile.png"}
-         alt="ing1"
-         width={100}
-         height={100}
-         className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
-       />
-     </div>
+  return (
+    <div
+      className={`flex flex-row mx-6 pb-3 ${background}   text-zinc-100 rounded-lg my-1`}
+        onClick={() => { router.push(`/chat/${conversationId}`) }}>
+      <div>
+        <Image
+          src={interlocutor?.profilepicture || "/icons/empty-user-profile.png"}
+          alt="ing1"
+          width={100}
+          height={100}
+          className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
+        />
+      </div>
 
-     <div className='flex flex-col px-3 flex-3  w-full ml-5'>
-       <h2 className='text-right  pt-2 text-gray-400 text-sm'>{interlocutor?.nombre} {interlocutor?.apellidos}</h2>
+      <div className='flex flex-col px-3 flex-3  w-full ml-5'>
+        <h2 className='text-right  pt-2 text-gray-400 text-sm'>{interlocutor?.nombre} {interlocutor?.apellidos}</h2>
 
-       <div className='flex flex-col'></div>
-       <p className='font font-medium mt-4'>Último mensaje de la conversación:</p>
-       <p className='mt-1 text-sm mx-10'>''{contenidoUltimo?.content}''</p>
-     </div>
-   </div>
-  
+        <div className='flex flex-col'></div>
+        <p className='font font-medium mt-4'>Último mensaje de la conversación:</p>
+        <p className='mt-1 text-sm mx-10'>''{contenidoUltimo?.content}''</p>
+      </div>
+    </div>
+
   )
 }
 

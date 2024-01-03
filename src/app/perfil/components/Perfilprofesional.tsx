@@ -18,6 +18,12 @@ interface User {
   nombre: string;
   ubi: string;
   userEmail: string;
+  tel: any;
+  linkedin: any;
+  DNI: any;
+  permiso: any;
+  vehiculo: any;
+  carta:any;
 }
 
 const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
@@ -82,36 +88,48 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
             </div>
             <div className="flex flex-row mx-auto">
               <p className='mr-5'>DNI o NIE: </p>
-              <span>INSERTAR AQUÍ</span>
+              <span>{user?.DNI}</span>
             </div>
             <div className="flex flex-row mx-auto">
               <p className='mr-5'>Teléfono </p>
-              <span>INSERTAR AQUÍ</span>
+              <span>{user?.tel}</span>
             </div>
             <div className="flex flex-row mx-auto">
               <p className='mr-5'>Linkedin </p>
-              <span>INSERTAR AQUÍ</span>
+              <span>{user?.linkedin}</span>
             </div>
- 
+
             <div className="flex flex-row mx-auto">
               <p className='mr-5'>Permiso de conducción? </p>
-              <span>INSERTAR AQUÍ</span>
+              {user?.permiso == true &&
+                <span>Sí</span>
+              }
+              {user?.permiso == false &&
+                <span>No</span>
+              }
             </div>
             <div className="flex flex-row mx-auto">
               <p className='mr-5'>Vehículo propio? </p>
-              <span>INSERTAR AQUÍ</span>
+              {user?.vehiculo == true &&
+                <span>Sí</span>
+              }
+              {user?.vehiculo == false &&
+                <span>No</span>
+              }
             </div>
           </div>
-          <div className="flex flex-col mx-auto bg-white rounded text-gray-500 mx-10 p-4 text-center">
-            <p className='mr-5'>Carta de presentación </p>
-            <span>INSERTAR AQUÍ</span>
-          </div>
+          {user?.carta &&
+            <div className="flex flex-col mx-auto bg-white rounded text-gray-500 mx-10 p-4 text-center">
+              <p className='mr-5'>Carta de presentación </p>
+              <span>{user?.carta}</span>
+            </div>
+          }
           <div className='mx-auto py-5'>
-          <Link href={`/perfil/${userData}/editar`}>
-            <button
-              className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
-            >Editar información de mi perfil de profesional</button>
-          </Link>
+            <Link href={`/perfil/${userData}/editar`}>
+              <button
+                className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
+              >Editar información de mi perfil de profesional</button>
+            </Link>
           </div>
         </div>
         <div className='mx-auto mt-5 text-center flex-1 '>
@@ -137,13 +155,11 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
                 <p>Descripción</p>
               </div>
             </div>
-            
 
             <div className='flex flex-row bg-white justify-left rounded-md text-gray-500 my-2 '>
               <div className='w-100 h-100 px-5'>
                 <Image src={'/logos/1.png'} alt={''} width={100} height={100} className='pt-3 pb-2' />
                 <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8 mb-3'>Editar </button>
-
               </div>
               <div className='flex flex-col text-left p-5 text-sm'>
                 <h2>Cargo</h2>
@@ -160,7 +176,7 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
               <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs'>Añadir</button>
             </div>
             <div className='flex flex-row bg-white justify-left rounded-md text-gray-500 my-2 items-center px-10 my-2'>
-            <div className='flex flex-col text-left p-5 text-sm'>
+              <div className='flex flex-col text-left p-5 text-sm'>
                 <h2>Concepto</h2>
                 <p>Descripción: </p>
                 <p>Desde, Año - Hasta, Año</p>
@@ -169,7 +185,7 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
               <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8'>Editar </button>
             </div>
             <div className='flex flex-row bg-white justify-left rounded-md text-gray-500 my-2 items-center px-10 my-2'>
-            <div className='flex flex-col text-left p-5 text-sm'>
+              <div className='flex flex-col text-left p-5 text-sm'>
                 <h2>Concepto</h2>
                 <p>Descripción: </p>
                 <p>Desde, Año - Hasta, Año</p>
@@ -177,7 +193,7 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
               </div>
               <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8'>Editar </button>
             </div>
-            
+
           </div>
           <div className='flex flex-col my-5 items-center'>
             <div className='flex flex-row'>
@@ -185,20 +201,20 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
               <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs'>Añadir</button>
             </div>
             <div className='flex flex-row bg-white justify-left rounded-md text-gray-500 my-2 items-center px-10 my-2'>
-            <div className='flex flex-col text-left p-5 text-sm'>
+              <div className='flex flex-col text-left p-5 text-sm'>
                 <h2>Idioma</h2>
                 <p>Nivel: </p>
               </div>
               <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8'>Editar </button>
             </div>
             <div className='flex flex-row bg-white justify-left rounded-md text-gray-500 my-2 items-center px-10 my-2'>
-            <div className='flex flex-col text-left p-5 text-sm'>
+              <div className='flex flex-col text-left p-5 text-sm'>
                 <h2>Idioma</h2>
                 <p>Nivel: </p>
               </div>
               <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8'>Editar </button>
             </div>
-            
+
           </div>
           <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mb-5'>Descargar Currículum en PDF</button>
 
