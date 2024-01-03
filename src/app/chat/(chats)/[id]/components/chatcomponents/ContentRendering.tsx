@@ -1,6 +1,6 @@
 import { db } from '@/app/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 
 interface ContentRenderingProps {
   interlocutor: any;
@@ -56,6 +56,14 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
     setFilteredArray(sortedArray);
   }, [renderingObjectArray]);
  
+  const scrollContainerRef = useRef<HTMLDivElement>(null);  // Referencia para el contenedor de scroll
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      // Ajusta la posición de scroll al final del contenedor
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    }
+  }, [filteredArray]);
 
   const usertype = (message: any) => {
     return message.emisor === interlocutor ? 'mr-24' : 'ml-24';
@@ -71,10 +79,10 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
 
   return (
     <div className="flex h-96 flex-row mx-6 pb-3 bg-white bg-opacity-10 text-zinc-100 rounded-lg my-1 mt-4"
-    style={{ height: '600px' }} >
-      <div className="flex h-full flex-col  mx-6 pb-3  text-zinc-100 rounded-lg my-1 pt-5 w-full overflow-scroll"
-          style={{   overflowX: 'auto' }}
-          >
+         style={{ height: '600px' }} >
+      <div className="flex h-full flex-col mx-6 pb-3 text-zinc-100 rounded-lg my-1 pt-5 w-full overflow-scroll"
+           style={{ overflowX: 'auto' }}
+           ref={scrollContainerRef}>  {/* Ref al contenedor de scroll */}
         {filteredArray.map((message) => (
           <div key={message.messageId} className='my-2' >
             {message.emisor !== interlocutor && <p className='text-xs text-gray-100 text-right mr-5'>Usted</p>}
@@ -85,7 +93,7 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
         ))}
       </div>
     </div>
-  ); 
+  );
 };
 
 export default ContentRendering;
