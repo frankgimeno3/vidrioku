@@ -48,7 +48,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   const [contenidoUltimo, setContenidoUltimo] = useState<any>()
   const [conversationId, setConversationId] = useState<any>()
   const [interlocutorId, setInterlocutorId] = useState<any>()
-  const [isMessageSeen, setIsMessageSeen] = useState<any>()
+  const [isMessageSeen, setIsMessageSeen] = useState<any>(true)
   const [background, setBackground] = useState('white');
 
   const router = useRouter()

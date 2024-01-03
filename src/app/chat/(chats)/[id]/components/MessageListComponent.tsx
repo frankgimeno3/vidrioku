@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import Image
   from 'next/image'
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
 
@@ -44,13 +44,13 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   const router = useRouter()
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
-  const [colab2, setColab2] = useState()
   const [messagesArray, setMessagesArray] = useState<any>()
   const [lastMessage, setLastMessage] = useState<any>()
   const [contenidoUltimo, setContenidoUltimo] = useState<any>()
   const [conversationId, setConversationId] = useState<any>()
   const [interlocutorId, setInterlocutorId] = useState<any>()
-  const [isMessageSeen, setIsMessageSeen] = useState<any>()
+  const [quienSomos, setQuienSomos] = useState<any>()
+  const [isMessageSeen, setIsMessageSeen] = useState<any>(true)
   const [background, setBackground] = useState('white');
 
 
@@ -74,13 +74,15 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
       if (conversationData) {
         if (conversationData.colaborador2 == user.id) {
           setInterlocutorId(conversationData.colaborador1)
+          setQuienSomos('colaborador2')
           if (conversationData.lastMessageSeenc2 == false) { setIsMessageSeen(false) }
-          else{setIsMessageSeen(true)}
+          else { setIsMessageSeen(true) }
         }
         if (conversationData.colaborador2 != user.id) {
           setInterlocutorId(conversationData.colaborador2)
+          setQuienSomos('colaborador1')
           if (conversationData.lastMessageSeenc1 == false) { setIsMessageSeen(false) }
-          else{setIsMessageSeen(true)}
+          else { setIsMessageSeen(true) }
         }
       }
     };
@@ -89,10 +91,10 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   }, [conversationData]);
 
   useEffect(() => {
-     if (isMessageSeen) {
-      setBackground('bg-sky-500 bg-opacity-50 hover:bg-opacity-60'); 
+    if (isMessageSeen) {
+      setBackground('bg-white bg-opacity-10 hover:bg-opacity-20');
     } else {
-      setBackground('bg-white bg-opacity-10 hover:bg-opacity-20');  
+      setBackground('bg-sky-500 bg-opacity-50 hover:bg-opacity-60');
     }
   }, [isMessageSeen]);
 
@@ -140,10 +142,64 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
 
     fetchDoc();
   }, [lastMessage]);
+
+
+  const changeReadState = async (lastMessageSeenC1: any, lastMessageSeenc2: any, quienSomos: any) => {
+    try {
+      const docRef = doc(db, "conversations", conversationId);
+      const userDoc = await getDoc(docRef);
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+
+
+        if (quienSomos == 'colaborador1') {
+          const updatedData = {
+            lastMessageSeenC1: true
+          };
+
+          const filteredData = Object.fromEntries(
+            Object.entries(updatedData).filter(([_, value]) => value !== undefined)
+          );
+
+          await setDoc(docRef, {
+            ...userData,
+            ...filteredData,
+          });
+        }
+        if (quienSomos == 'colaborador2') {
+          const updatedData = {
+            lastMessageSeenc2: true
+          };
+
+          const filteredData = Object.fromEntries(
+            Object.entries(updatedData).filter(([_, value]) => value !== undefined)
+          );
+
+          await setDoc(docRef, {
+            ...userData,
+            ...filteredData,
+          });
+        }
+      } else {
+        console.error('El documento de la conversación');
+      }
+    } catch (error) {
+      console.error('Error al crear marcar mensaje como leído:', error);
+    }
+  };
+
+
+  const clickOnChat = () => {
+    router.push(`/chat/${conversationId}`)
+    changeReadState(conversationData.lastMessageSeenC1, conversationData.lastMessageSeenc2, quienSomos)
+  }
+
+
   return (
     <div
       className={`flex flex-row mx-6 pb-3 ${background}   text-zinc-100 rounded-lg my-1`}
-        onClick={() => { router.push(`/chat/${conversationId}`) }}>
+      onClick={clickOnChat}>
       <div>
         <Image
           src={interlocutor?.profilepicture || "/icons/empty-user-profile.png"}

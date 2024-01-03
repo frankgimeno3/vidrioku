@@ -124,8 +124,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
       if (userDoc.exists()) {
         const userData = userDoc.data();
   
-        // Elimina campos con valores undefined
-        const updatedData = {
+         const updatedData = {
           apellidos: apellidos,
           edad: edad,
           genero: genero,
@@ -140,8 +139,7 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
           linkedin: linkedin,
         };
   
-        // Filtra campos undefined
-        const filteredData = Object.fromEntries(
+         const filteredData = Object.fromEntries(
           Object.entries(updatedData).filter(([_, value]) => value !== undefined)
         );
   

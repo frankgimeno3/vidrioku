@@ -87,54 +87,54 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId, userObject }) =
 
   const addNotificationToUsuario = (notifref: any, interlocutor: any) => {
     const fetchDoc = async () => {
-        if (interlocutor) {
-            const docRef = doc(db, "users", interlocutor);
-            const response = await getDoc(docRef);
-            if (response.exists()) {
-                const userObjectData = response.data() as any;
-                const updatedUnreadNotifications = userObjectData.unreadnotifications
-                    ? [...userObjectData.unreadnotifications, notifref]
-                    : [notifref];
+      if (interlocutor) {
+        const docRef = doc(db, "users", interlocutor);
+        const response = await getDoc(docRef);
+        if (response.exists()) {
+          const userObjectData = response.data() as any;
+          const updatedUnreadNotifications = userObjectData.unreadnotifications
+            ? [...userObjectData.unreadnotifications, notifref]
+            : [notifref];
 
-                const updatedUserData = {
-                    unreadnotifications: updatedUnreadNotifications,
-                }
-                const filteredData = Object.fromEntries(
-                    Object.entries(updatedUserData).filter(([_, value]) => value !== undefined)
-                );
+          const updatedUserData = {
+            unreadnotifications: updatedUnreadNotifications,
+          }
+          const filteredData = Object.fromEntries(
+            Object.entries(updatedUserData).filter(([_, value]) => value !== undefined)
+          );
 
-                await setDoc(docRef, {
-                    ...userObjectData,
-                    ...filteredData,
-                });
-            }
+          await setDoc(docRef, {
+            ...userObjectData,
+            ...filteredData,
+          });
         }
+      }
     };
     fetchDoc();
-};
-   
-  const crearNotificacion =async (interlocutor:any, conversationId:any)=>{
+  };
+
+  const crearNotificacion = async (interlocutor: any, conversationId: any) => {
     try {
-       const notificationssCollection = collection(db, 'notificaciones');
-       const newNotificationRef = await addDoc(notificationssCollection, {
-           idnotificacion: '',
-           content: `Has recibido un nuevo mensaje de ${userObject.nombre}`,
-           generada: Timestamp.now(),
-           redireccion: `/chat/${conversationId}`,
-           tipo: "Mensaje",
-           usuario: interlocutor,
-        });
+      const notificationssCollection = collection(db, 'notificaciones');
+      const newNotificationRef = await addDoc(notificationssCollection, {
+        idnotificacion: '',
+        content: `Has recibido un nuevo mensaje de ${userObject.nombre}`,
+        generada: Timestamp.now(),
+        redireccion: `/chat/${conversationId}`,
+        tipo: "Mensaje",
+        usuario: interlocutor,
+      });
 
-       await updateDoc(newNotificationRef, { idnotificacion: newNotificationRef.id });
+      await updateDoc(newNotificationRef, { idnotificacion: newNotificationRef.id });
 
-       setTimeout(function () {
+      setTimeout(function () {
         addNotificationToUsuario(newNotificationRef.id, interlocutor);
-       }, 200);
+      }, 200);
 
-   } catch (error) {
-       console.error('Error al crear la conversación en Firestore:', error);
-   }
-};
+    } catch (error) {
+      console.error('Error al crear la conversación en Firestore:', error);
+    }
+  };
 
   const addmessageInFirebase = async (conversationId: any, usuario: any, interlocutor: any, content: any) => {
     try {
@@ -161,10 +161,11 @@ const InputForm: FC<InputFormProps> = ({ userId, conversationId, userObject }) =
 
   const handleEnviar = (e: React.FormEvent) => {
     e.preventDefault();
-     addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
+    addmessageInFirebase(conversationId, userId, interlocutorSelected, inputContent);
     setTimeout(() => {
       window.location.reload();
-    }, 1000);   };
+    }, 1000);
+  };
 
 
   return (
