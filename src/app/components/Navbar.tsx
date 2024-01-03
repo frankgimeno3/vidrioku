@@ -11,6 +11,7 @@ const Navbar: FC = ({ }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [userData, setUserData] = useState('');
   const [userObject, setUserObject] = useState<any>();
+  const [userType, setUserType] = useState('');
   const [userUnreadNotifications, setUserUnreadNotifications] = useState<any>();
 
   const session = useSession({
@@ -46,7 +47,9 @@ const Navbar: FC = ({ }) => {
     if (userObject) { setUserUnreadNotifications(userObject.unreadnotifications) }
   }, [userObject]);
 
-
+  useEffect(() => {
+    if (userObject) { setUserType(userObject.userType) }
+  }, [userObject]);
 
   const redirectHome = () => {
     setIsMenuOpen(false)
@@ -75,6 +78,11 @@ const Navbar: FC = ({ }) => {
 
   const handleMensajesClick = () => {
     router.push("/chat")
+    setIsMenuOpen(false)
+  };
+
+  const handleSolicitudesClick = () => {
+    router.push("/misSolicitudes")
     setIsMenuOpen(false)
   };
 
@@ -145,9 +153,14 @@ const Navbar: FC = ({ }) => {
           <button className='py-2  bg-zinc-700 hover:bg-zinc-500' onClick={handleMensajesClick}>
             Mensajes
           </button>
-          <button className='py-2  bg-zinc-700 hover:bg-zinc-500' onClick={handleOfertasClick}>
-            Mis Ofertas
-          </button>
+          {userType == "profesional" &&
+            <button className='py-2  bg-zinc-700 hover:bg-zinc-500' onClick={handleSolicitudesClick}>
+              Mis Solicitudes
+            </button>}
+            {userType == "empresa" &&
+            <button className='py-2  bg-zinc-700 hover:bg-zinc-500' onClick={handleOfertasClick}>
+              Mis Ofertas
+            </button>}
           <button className='py-2  bg-zinc-700 hover:bg-zinc-500' onClick={handleConfiguracionClick} >
             Configuración
           </button>
