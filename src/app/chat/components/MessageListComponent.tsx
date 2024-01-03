@@ -48,6 +48,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   const [contenidoUltimo, setContenidoUltimo] = useState<any>()
   const [conversationId, setConversationId] = useState<any>()
   const [interlocutorId, setInterlocutorId] = useState<any>()
+  const [isMessageSeen, setIsMessageSeen] = useState<any>()
+  const [background, setBackground] = useState('white');
 
   const router = useRouter()
 
@@ -70,13 +72,29 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   useEffect(() => {
     const fetchDoc = async () => {
       if (conversationData) {
-         if(conversationData.colaborador2 == user.id) { setInterlocutorId(conversationData.colaborador1)}
-        if(conversationData.colaborador2 != user.id) { setInterlocutorId(conversationData.colaborador2)}
+        if (conversationData.colaborador2 == user.id) {
+          setInterlocutorId(conversationData.colaborador1)
+          if (conversationData.lastMessageSeenc2 == false) { setIsMessageSeen(false) }
+          else{setIsMessageSeen(true)}
+        }
+        if (conversationData.colaborador2 != user.id) {
+          setInterlocutorId(conversationData.colaborador2)
+          if (conversationData.lastMessageSeenc1 == false) { setIsMessageSeen(false) }
+          else{setIsMessageSeen(true)}
+        }
       }
     };
 
     fetchDoc();
   }, [conversationData]);
+
+  useEffect(() => {
+     if (isMessageSeen) {
+      setBackground('bg-sky-500 bg-opacity-50 hover:bg-opacity-60'); 
+    } else {
+      setBackground('bg-white bg-opacity-10 hover:bg-opacity-20');  
+    }
+  }, [isMessageSeen]);
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -126,8 +144,9 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   }, [lastMessage]);
 
   return (
-     <div className="flex  flex-row  mx-6 pb-3 bg-white bg-opacity-10 hover:bg-opacity-20 text-zinc-100  rounded-lg my-1" 
-     onClick={()=>{router.push(`/chat/${conversationId}`)}}>
+    <div
+      className={`flex flex-row mx-6 pb-3 ${background}   text-zinc-100 rounded-lg my-1`}
+        onClick={() => { router.push(`/chat/${conversationId}`) }}>
      <div>
         <Image
           src={interlocutor?.profilepicture || "/icons/empty-user-profile.png"}
