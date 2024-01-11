@@ -13,20 +13,20 @@ const Banners: FC<BannerProps> = ({ widthProp }) => {
           <Link href={'https://www.google.com/'}>
           <div className='h-1/2'>
             <Image
-              src={'/inventedlogos/banner.jpg'}
+              src={'/inventedlogos/banner2.jpg'}
               alt={''}
               width={widthProp} // Ajusta este valor según sea necesario
-              height={400}
+              height={0}
               style={{objectFit:"cover"}}            />
           </div>
           </Link>
           <Link href={'https://www.google.com/'}>
           <div className='h-1/2'>
             <Image
-              src={'/inventedlogos/banner.jpg'}
+              src={'/inventedlogos/banner2.jpg'}
               alt={''}
               width={widthProp} // Ajusta este valor según sea necesario
-              height={400}
+              height={0}
               style={{objectFit:"cover"}}            />
           </div>
           </Link>

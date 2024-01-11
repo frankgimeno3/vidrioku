@@ -196,6 +196,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   const clickOnChat = () => {
     router.push(`/chat/${conversationId}`)
     changeReadState(conversationData.lastMessageSeenC1, conversationData.lastMessageSeenc2, quienSomos)
+    // quitarDeArrayDeMensajesNoLeidos()
+    // quitarDeNotificacionesUnread()
   }
 
 
