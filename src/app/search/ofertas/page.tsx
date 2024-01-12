@@ -45,7 +45,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   const [userData, setUserData] = useState("")
   const [tipoConsulta, setTipoConsulta] = useState('Ofertas');
   const [subArraySeleccionado, setSubArrayseleccionado] = useState(0)
-  const [arrayMostrado, setArrayMostrado] = useState<any>(0)
+  const [arrayMostrado, setArrayMostrado] = useState<any>(null);
 
 
   const setOfertas = () => {
@@ -106,17 +106,17 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
    }, [misOfertas]); 
   
    useEffect(() => {
-    setArrayMostrado(misOfertasFiltered[subArraySeleccionado])
-    console.log(arrayMostrado)
-}, [subArraySeleccionado]);
+    setArrayMostrado(misOfertasFiltered[subArraySeleccionado]);
+  }, [subArraySeleccionado]);
 
-   useEffect(() => {
-    // console.log("subArraySeleccionado: ", subArraySeleccionado, ", misOfertasFiltered: ",  misOfertasFiltered, ", arrayMostrado: ", arrayMostrado, arrayMostrado.length   )
-}, [arrayMostrado]);
- 
-
-  if (loading) {
-    return <p>Cargando ofertas...</p>;
+  useEffect(() => {
+    if (misOfertasFiltered.length > 0) {
+      setArrayMostrado(misOfertasFiltered[subArraySeleccionado]);
+    }
+  }, [misOfertasFiltered, subArraySeleccionado]);
+   
+  if (!arrayMostrado) {
+    return <p className='m-8'>Cargando ofertas...</p>;
   }
 
   return (
