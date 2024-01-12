@@ -16,9 +16,10 @@ interface User {
 
 interface ChatListProps {
   user: any;
+  paramsId:any;
  }
 
-const ChatList: FC<ChatListProps> = ({ user }) => {
+const ChatList: FC<ChatListProps> = ({ user, paramsId }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
   const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
  
@@ -48,7 +49,7 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
   return (
     <div className="my-3 flex flex-1 flex-col w-full">
       {conversationsObjectArray.map((elemento: any, index: any) => (
-        <MessageListComponent key={index} conversation={elemento.conversacion} user={user} />
+        <MessageListComponent key={index} conversation={elemento.conversacion} user={user} paramsId={paramsId}/>
       ))}
     </div>
     );

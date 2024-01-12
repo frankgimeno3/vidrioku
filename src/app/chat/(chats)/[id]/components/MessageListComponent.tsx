@@ -7,7 +7,8 @@ import { useRouter } from 'next/navigation';
 
 interface MessageListComponentProps {
   conversation: any;
-  user: any
+  user: any;
+  paramsId:any;
 }
 interface User {
   id: any
@@ -30,7 +31,7 @@ interface Conversation {
 }
 interface Mensaje {
   content: any;
-  conversacion: any;
+  conversationId: any;
   emisor: any;
   messageId: any;
   readc1: any;
@@ -40,7 +41,7 @@ interface Mensaje {
 }
 
 
-const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, user }) => {
+const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, user, paramsId }) => {
   const router = useRouter()
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
@@ -51,8 +52,9 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   const [interlocutorId, setInterlocutorId] = useState<any>()
   const [quienSomos, setQuienSomos] = useState<any>()
   const [isMessageSeen, setIsMessageSeen] = useState<any>(true)
-  const [background, setBackground] = useState('white');
-
+  const [messageCode, setMessageCode] = useState<any>()
+  const [backgroundCode, setBackgroundCode] = useState('white');
+  
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -91,12 +93,16 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   }, [conversationData]);
 
   useEffect(() => {
-    if (isMessageSeen) {
-      setBackground('bg-white bg-opacity-10 hover:bg-opacity-20');
+    if(paramsId==messageCode){
+      setBackgroundCode('bg-blue-800 bg-opacity-10 hover:bg-opacity-20')
     } else {
-      setBackground('bg-sky-500 bg-opacity-50 hover:bg-opacity-60');
-    }
-  }, [isMessageSeen]);
+      if (isMessageSeen) {
+      setBackgroundCode('bg-white bg-opacity-10 hover:bg-opacity-20');
+    } else {
+      setBackgroundCode('bg-sky-500 bg-opacity-50 hover:bg-opacity-60');
+    }}
+    
+  }, [isMessageSeen, paramsId, messageCode]);
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -136,6 +142,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
         if (response.exists()) {
           const MensajeData = response.data() as Mensaje;
           setContenidoUltimo(MensajeData);
+          console.log("messagedata:", MensajeData)
+          setMessageCode( MensajeData.conversationId)
         }
       }
     };
@@ -200,7 +208,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
 
   return (
     <div
-      className={`flex flex-row mx-6 pb-3 ${background}   text-zinc-100 rounded-lg my-1`}
+      className={`flex flex-row mx-6 pb-3 ${backgroundCode}   text-zinc-100 rounded-lg my-1`}
       onClick={clickOnChat}>
       <div>
         <Image

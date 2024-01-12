@@ -30,6 +30,7 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
   const [userData, setUserData] = useState('');
   const [user, setUser] = useState<User>();
   const [userId, setUserId] = useState()
+  const [paramsId, setParamsId] = useState<any>()
 
   const session = useSession({
     required: true,
@@ -47,6 +48,10 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
       setUserData('Usuario');
     }
   }, [session?.data?.user?.email]);
+
+  useEffect(() => {
+    setParamsId(params.id)
+  }, [params]);
 
   //obtenemos datos de nuestro usuario
   useEffect(() => {
@@ -73,7 +78,7 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
       <div className="flex flex-col h-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
         <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
         <div className='flex flex-row min-h-screen'>
-          <ChatList user={user} />
+          <ChatList user={user} paramsId={paramsId} />
 
           <Chatcontent user={user} conversationChosen={params.id} />
           <div className='h-full bg-white bg-opacity-5 hidden md:block '>
