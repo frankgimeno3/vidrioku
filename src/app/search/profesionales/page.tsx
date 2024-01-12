@@ -117,44 +117,45 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   }
 
   return (
-    <div className='flex flex-col justify-between'>
+    <div className='flex flex-col justify-between h-full'>
       <Navbar />
-      <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 h-full'>
-
+      <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 h-screen'>
         <div className="flex flex-col  w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
           <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
-          <div className="  mx-6  bg-white bg-opacity-5  text-zinc-100 h-full ">
+          <div className="bg-white bg-opacity-5  text-zinc-100 h-full ">
 
             <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
-
             <div className="flex flex-col  h-full bg-zinc-800 ">
 
               <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
                 <FiltroProfesionales />
                 <SearchProfesionales />
               </nav>
-              <div className='flex flex-col   mx-12 bg-white '>
+              <div className='flex flex-col   mx-12 bg-white h-full'>
                 <div className='bg-white flex flex-row w-full h-full'>
-                  <div className='flex flex-col flex-1 justify-between h-full'>
-
-                    <ul className='max-h-full overflow-scroll'>
+                  <div className='flex flex-col flex-1 overflow-scroll h-full'>
+                    <ul className='flex flex-col h-full '>
                       {trabajadoresArrayFiltrado.map((trabajador: any, index: any) => (
                         <div key={index}>
                           <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
                         </div>
                       ))}
+                      <nav className="bg-gray-200 py-2 px-1 text-center  ">
+                        <ListadoBotones arrayDe7ElementosPorPagina={arrayDe7ElementosPorPagina} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
+                      </nav>
                     </ul>
-                    <nav className="bg-gray-200 py-2 px-1 text-center ">
-                      <ListadoBotones arrayDe7ElementosPorPagina={arrayDe7ElementosPorPagina} subArraySeleccionado={subArraySeleccionado} setSubArrayseleccionado={setSubArrayseleccionado} />
-                    </nav>
                   </div>
                   <div className='flex-1 h-full bg-gray-100 p-5'>
                     <Rendercomponent renderProfesional={renderProfesional} />
                   </div>
                 </div>
+
               </div>
             </div>
+
           </div>
+
+
         </div>
         <div className='h-full bg-white bg-opacity-5'>
           <Banners widthProp={250} />
