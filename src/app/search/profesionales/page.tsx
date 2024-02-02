@@ -46,6 +46,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const [arrayDe7ElementosPorPagina, setArrayDe7ElementosPorPagina] = useState<any[]>([]);
   const [subArraySeleccionado, setSubArrayseleccionado] = useState<number>(0);
   const [arrayMostrado, setArrayMostrado] = useState<any>(0)
+  const [renderprofesional, setrenderprofesional] = useState<any>()
 
   const session = useSession({
     required: true,
@@ -60,6 +61,9 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
     } else { setUserData("Usuario") }
   }, [session?.data?.user?.email]);
 
+  const handleProfesionalClick = (trabajador: any) => {
+    setrenderprofesional(trabajador);
+  }
 
   const setOfertas = () => {
     setTipoConsulta('Ofertas');
@@ -136,8 +140,8 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
                   <div className='flex flex-col flex-1 overflow-scroll h-full'>
                     <ul className='flex flex-col h-full '>
                       {trabajadoresArrayFiltrado.map((trabajador: any, index: any) => (
-                        <div key={index}>
-                          <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
+                        <div key={index} onClick={() => handleProfesionalClick(trabajador)}>
+                        <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
                         </div>
                       ))}
                       <nav className="bg-gray-200 py-2 px-1 text-center  ">

@@ -36,7 +36,8 @@ export default function ForgotPassword() {
         loop
         muted
       ></video>
-      <div className='relative'>    <NavUnlogged />
+      <div className='relative'>    
+      <NavUnlogged />
 
       <div className=" md:mx-56 md:px-56">
 

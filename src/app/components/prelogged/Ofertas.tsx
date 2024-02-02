@@ -49,11 +49,11 @@ const Ofertas: React.FC = ({ }) => {
     }
   const handleComercialCompras = () => {
     // router.push("/bolsaofertas/comercialcompras")
-    if (`${is4}` == `true`) { setIs4(false); setOferta4Height({ height: 145 }); sett4Height({ paddingTop: '30px' }) }
+    if (`${is4}` == `true`) { setIs4(false); setOferta4Height({ height: 145 }); sett4Height({ paddingTop: '10px' }) }
     if (`${is4}` == `false`) { setIs4(true); setOferta4Height({ height: 220 }); sett4Height({ paddingTop: '0px' }) }
     setIs1(false); setIs2(false); setIs3(false)
     setOferta1Height({ height: 145 }); setOferta2Height({ height: 145 }); setOferta3Height({ height: 145 })
-    sett1Height({ paddingTop: '25px' }); sett2Height({ paddingTop: '35px' }); sett3Height({ paddingTop: '35px' })
+    sett1Height({ paddingTop: '25px' }); sett2Height({ paddingTop: '35px' }); sett3Height({ paddingTop: '45px' })
   }
 
   return (
