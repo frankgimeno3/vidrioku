@@ -107,11 +107,9 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
   return (
     <div className='flex flex-col h-full bg-gray-400 bg-gray-700'>
       <div className="flex flex-col md:flex-row w-full justify-between  md:bg-gradient-to-b md:from-zinc-900 md:to-zinc-600 " style={compStyles1} >
-        <div className='flex flex-row h-full  ' style={compStyles2}          >
+        <div className='flex flex-row h-full  ' style={compStyles2} >
           <div className=" w-full flex  h-full ">
             <div className="flex flex-col   flex  text-center justify-center w-full  bg-white text-gray-500  ">
-
-
               <div className='bg-gradient-to-b from-cyan-600 to-zinc-700  h-full px-12 flex flex-col md:pt-24 pt-6 md:pb-12 pb-6 flex-1'>
                 <div className='flex flex-col'>
                   <div className="relative w-44 h-44 overflow-hidden rounded-full mx-auto my-5 shadow-xl">
@@ -171,7 +169,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
                   <p className='text-center font-light text-gray-500 text-base px-12 '> No tiene mensajes por leer</p>
                 }
                 <button
-                  className="bg-white hover:bg-gray-500 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                  className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/chat") }}
                 >Mis mensajes</button>
              </div>

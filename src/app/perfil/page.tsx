@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 
 import Navbar from '../components/Navbar'
-import Perfilempresa from './components/Perfilempresa'
-import Perfilprofesional from './components/Perfilprofesional';
+import Perfilempresa from './components/empresa/Perfilempresa'
+import Perfilprofesional from './components/profesional/Perfilprofesional';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Footer from '@/app/components/Footer';

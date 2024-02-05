@@ -82,7 +82,7 @@ const Navbar: FC = ({ }) => {
   };
 
   const handleSolicitudesClick = () => {
-    router.push("/misSolicitudes")
+    router.push("/missolicitudes")
     setIsMenuOpen(false)
   };
 

@@ -113,7 +113,7 @@ const Configuracion: FC = ({ }) => {
           </div>
         </div>
       </div>
-         <ConfigurationRender renderElement={renderElement}/>         
+         <ConfigurationRender renderElement={renderElement} setRenderElement={setRenderElement}/>         
         </div>
       </div>
       <Footer />
