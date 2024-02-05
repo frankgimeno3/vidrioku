@@ -22,7 +22,7 @@ function cambioEmail() {
         <div className="w-full max-w-md">
     
           <form className="px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-            <h1 className="text-2xl mb-6 text-center">Cambiar Email</h1>
+            <h1 className="text-2xl mb-1 text-center">Cambiar Email</h1>
             <p className="text-sm mb-12">Introduzca sus datos para resetear el email</p>
 
             <div className="mb-4">
@@ -30,10 +30,10 @@ function cambioEmail() {
                 Email Actual
               </label>
               <input
-                className="appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                className="text-sm bg-transparent appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
                 id="currentEmail"
                 type="password"
-                placeholder="Contraseña Actual"
+                placeholder="Email Actual"
                 value={currentEmail}
                 onChange={(e) => setCurrentEmail(e.target.value)}
                 required
@@ -45,7 +45,7 @@ function cambioEmail() {
                 Nuevo Email
               </label>
               <input
-                className="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="text-sm bg-transparent appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                 id="newEmail"
                 type="text"
                 placeholder="Nuevo Email"
@@ -60,7 +60,7 @@ function cambioEmail() {
                 Confirmar Email
               </label>
               <input
-                className="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="text-sm bg-transparent appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                 id="confirmEmail"
                 type="text"
                 placeholder="Confirmar Email"

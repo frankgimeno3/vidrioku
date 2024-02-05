@@ -21,9 +21,9 @@ function CambioContra() {
                 <p className="text-sm mb-24">Recibirá un correo electrónico a su dirección de email</p>
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
-                        Correo electrónico
+                       Introduzca su correo electrónico
                     </label>
-                    <div className="mt-2">
+                    <div className="my-2">
                         <input
                             id="email"
                             name="email"
