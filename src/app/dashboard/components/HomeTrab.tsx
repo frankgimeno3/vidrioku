@@ -77,6 +77,9 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
       signOut()
     }, 1000);
   };
+  const handleConfiguracion = async () => {
+    router.push("/configuracion")
+  };
 
   return (
     <div className="flex flex-row w-full justify-between  bg-gradient-to-b from-zinc-900 to-zinc-600 " style={{ height: '800px' }} >
@@ -114,7 +117,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
           <div className='flex flex-col flex-1 pt-12 px-12'>
             <button
               className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-5 text-sm m-1"
-              onClick={() => { '/configuracion' }}
+              onClick={() => { handleConfiguracion()}}
             >Configuración de la cuenta</button>
             <button
               className="bg-gray-200 hover:bg-gray-400 shadow-lg border text-gray-700 border-gray-200 rounded px-4 py-2 mt-5 text-sm m-1"
