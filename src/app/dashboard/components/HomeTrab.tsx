@@ -106,7 +106,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
                 <span className="mr-1">{user?.nombre}</span>
                 <span className="capitalize">{user?.apellidos}</span>
               </p>
-              <span  className='text-sm'>{user?.ubi}</span>
+              <span className='text-sm'>{user?.ubi}</span>
               <span className='italic text-sm'>{userData}</span>
             </div>
             <button
@@ -117,7 +117,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
           <div className='flex flex-col flex-1 pt-12 px-12'>
             <button
               className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-5 text-sm m-1"
-              onClick={() => { handleConfiguracion()}}
+              onClick={() => { handleConfiguracion() }}
             >Configuración de la cuenta</button>
             <button
               className="bg-gray-200 hover:bg-gray-400 shadow-lg border text-gray-700 border-gray-200 rounded px-4 py-2 mt-5 text-sm m-1"

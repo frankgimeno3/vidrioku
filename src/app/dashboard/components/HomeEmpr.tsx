@@ -80,7 +80,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
     };
 
     fetchDoc();
-  }, [userData]); 
+  }, [userData]);
 
   const perfilhandler = () => {
     router.push("/perfil")
@@ -114,7 +114,21 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
 
               <div className='bg-gradient-to-b from-cyan-600 to-zinc-700  h-full px-12 flex flex-col md:pt-24 pt-6 md:pb-12 pb-6 flex-1'>
                 <div className='flex flex-col'>
-                  <Image src={user?.profilepicture || "/icons/empresas.png"} alt="" width={200} height={200} className="rounded-full mx-auto md:my-5 my-1 shadow-xl" />
+                  <div className="relative w-44 h-44 overflow-hidden rounded-full mx-auto my-5 shadow-xl">
+                    <img
+                      src={user?.profilepicture || "/icons/empty-user-profile.png"}
+                      alt=""
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        width: '100%',
+                        height: '100%',
+                        transform: 'translate(-50%, -50%)',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
                   <div className='flex flex-col md:my-auto justify-left text-center text-white'>
                     <p className="flex flex-row flex-wrap font-medium text-lg mx-auto">
                       <span className="mr-1">{user?.nombre}</span>
@@ -144,70 +158,63 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
         </div>
         <div className='flex flex-col   text-white h-full w-full    text-white md:text-xl text-lg font-base shadow'  >
           <h2 className="hidden md:block bg-zinc-800 bg-gray-600 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
-          <div className='flex flex-col md:mx-12 h-full md:pt-2'>
-            <p className='hidden md:block text-center md:text-left'> Mensajes</p>
-            <div className='md:bg-white md:rounded-lg   md:shadow-xl md:mb-3 md:mt-2 text-center '>
-              <div className='md:bg-white   md:shadow-lg md:border md:border-gray-100 border-sm mx-6 md:m-6  rounded md:rounded-lg my-2'>
-                {mensajesNoLeidos != 1 && mensajesNoLeidos != 0 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> Ha recibido {mensajesNoLeidos} mensajes nuevos</p>
+          <div className='flex flex-col px-20 py-24	center h-full bg-gray-50    text-center '>
+          <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-semibold'>  Mensajes</p>
+                 {mensajesNoLeidos != 1 && mensajesNoLeidos != 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {mensajesNoLeidos} mensajes nuevos</p>
                 }
                 {mensajesNoLeidos == 1 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> Ha recibido {mensajesNoLeidos} mensaje nuevo</p>
+                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {mensajesNoLeidos} mensaje nuevo</p>
                 }
                 {mensajesNoLeidos == 0 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> No tiene mensajes por leer</p>
+                  <p className='text-center font-light text-gray-500 text-base px-12 '> No tiene mensajes por leer</p>
                 }
                 <button
-                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-2 md:mb-6 mt-2 text-sm font-light w-36"
+                  className="bg-white hover:bg-gray-500 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                   onClick={() => { router.push("/chat") }}
                 >Mis mensajes</button>
-              </div>
-            </div>
-            <p className=' hidden md:block  pt-2 text-center md:text-left'> Mis ofertas</p>
-            <div className='flex flex-col md:bg-white md:rounded-lg   md:shadow-xl md:mb-3 md:mt-2 text-center '>
-              <div className='  md:bg-white md:shadow-lg md:border md:border-gray-100 border-sm mx-6 md:m-6  rounded md:rounded-lg my-2'>
+             </div>
+             <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Mis ofertas</p>
+            
                 {ofertascreadas != 1 && ofertascreadas != 0 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> Tiene {ofertascreadas} ofertas publicadas</p>
+                  <p className='text-center font-light text-gray-500 text-base px-12'> Tiene {ofertascreadas} ofertas publicadas</p>
                 }
                 {ofertascreadas == 1 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> Tiene {ofertascreadas} oferta publicada</p>
+                  <p className='text-center font-light text-gray-500 text-base px-12'> Tiene {ofertascreadas} oferta publicada</p>
                 }
                 {ofertascreadas == 0 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> No ha publicado ninguna oferta</p>
+                  <p className='text-center font-light text-gray-500 text-base px-12'> No ha publicado ninguna oferta</p>
                 }
-                <div className='flex flex-row  justify-center  font-light mb-2 md:mb-6'>
-                  <button
-                    className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-sm m-1  w-36 "
-                    onClick={crearofertahandler}
+                   <button
+              className=" mx-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+              onClick={crearofertahandler}
                   >Crear oferta de empleo</button>
                   <button
-                    className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-sm m-1 w-36"
-                    onClick={misofertashandler}
+              className=" mx-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+              onClick={misofertashandler}
                   >Mis Ofertas</button>
                 </div>
-              </div>
-
-            </div>
-            <p className=' hidden md:block pt-2 text-center md:text-left'> Solicitudes</p>
-            <div className='md:bg-white md:rounded-lg   md:shadow-xl md:mb-3 md:mt-2 text-center '>
-              <div className='md:bg-white   md:shadow-lg md:border md:border-gray-100 border-sm mx-6 md:m-6  rounded md:rounded-lg my-2'>
-                {solicitudesNoContestadas != 1 && solicitudesNoContestadas != 0 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> Ha recibido {solicitudesNoContestadas} solicitudes</p>
+ 
+                <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Solicitudes</p>
+                 {solicitudesNoContestadas != 1 && solicitudesNoContestadas != 0 &&
+                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {solicitudesNoContestadas} solicitudes</p>
                 }
                 {solicitudesNoContestadas == 1 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> Ha recibido {solicitudesNoContestadas} solicitud</p>
+                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {solicitudesNoContestadas} solicitud</p>
                 }
                 {solicitudesNoContestadas == 0 &&
-                  <p className='text-center font-light text-white md:text-gray-500 md:text-lg text-sm px-12 pt-2 md:pt-6'> No tiene solicitudes nuevas</p>
+                  <p className='text-center font-light text-gray-500 text-base px-12 '> No tiene solicitudes nuevas</p>
                 }
                 <button
-                  className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-2 md:mb-6 mt-2 text-sm font-light w-36 "
-                  onClick={() => { router.push("/solicitudes") }}
+              className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+              onClick={() => { router.push("/solicitudes") }}
                 >Mis solicitudes</button>
               </div>
 
-            </div>
-          </div>
+           </div>
         </div>
         <Banners widthProp={300} />
 
