@@ -126,7 +126,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
           </div>
         </div>
       </div>
-      <div className='flex flex-col   h-full w-full   text-lg shadow shadow-sm'  >
+      <div className='flex flex-col h-full w-full text-lg shadow shadow-sm'  >
         <h2 className="bg-zinc-800 bg-gray-600 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
         <div className='flex flex-col px-20 py-24	center h-full bg-gray-50    text-center '>
           <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
