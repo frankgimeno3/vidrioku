@@ -60,12 +60,11 @@ export default function Miperfil() {
   return (
     <div className="">
 
-      <main className='h-screen bg-zinc-500 '>
         <Navbar />
-         {userType == 'empresa' && <Perfilempresa userData={userData} />}
+      <main className='bg-zinc-500 '>
+        {userType == 'empresa' && <Perfilempresa userData={userData} />}
         {userType == 'profesional' && <Perfilprofesional userData={userData} />}
         {/* <Footer onPageChange={handlePageChange} /> */}
-
       </main>
       <Footer  />
 
