@@ -10,8 +10,8 @@ interface profesionalCardProps {
 const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
 
   return (
-    <div className="  flex flex-col flex-1  justify-between bg-gradient-to-b from-slate-900 to-slate-600">
-      <div className="flex flex-col p-4  flex justify-between text-center justify-center px-auto bg-white mx-10 my-5
+    <div className="  flex flex-col flex-1    bg-gradient-to-b from-slate-900 to-slate-600 py-24">
+      <div className="flex flex-col p-4  flex justify-between text-center justify-center px-auto bg-white mx-10 
           rounded text-gray-500 ">
         <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5" />
         <div className="flex flex-row mx-auto">
@@ -45,22 +45,20 @@ const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
         </div>
 
         <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Permiso de conducción? </p>
           {user?.permiso == true &&
-            <span>Sí</span>
-          }
-          {user?.permiso == false &&
-            <span>No</span>
-          }
+            <>
+              <p className='mr-5'>Permiso de conducción? </p>
+              <span>Sí</span>
+            </>}
+
         </div>
         <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Vehículo propio? </p>
           {user?.vehiculo == true &&
-            <span>Sí</span>
-          }
-          {user?.vehiculo == false &&
-            <span>No</span>
-          }
+            <>
+              <p className='mr-5'>Vehículo propio? </p>
+              <span>Sí</span>
+            </>}
+
         </div>
       </div>
       {user?.carta &&
@@ -72,7 +70,7 @@ const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
       <div className='mx-auto py-5'>
         <Link href={`/perfil/${userData}/editar`}>
           <button
-            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs m-1"
+            className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs  "
           >Editar información de mi perfil de profesional</button>
         </Link>
       </div>
