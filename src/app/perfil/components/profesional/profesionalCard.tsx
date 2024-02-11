@@ -10,60 +10,65 @@ interface profesionalCardProps {
 const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
 
   return (
-    <div className="  flex flex-col flex-1    bg-gradient-to-b from-slate-900 to-slate-600 py-24">
-      <div className="flex flex-col p-4  flex justify-between text-center justify-center px-auto bg-white mx-10 
-          rounded text-gray-500 ">
+    <div className=" flex flex-col flex-1 px-auto bg-white text-gray-500 bg-gradient-to-b from-slate-900 to-slate-600 py-12">
+      <div className="flex flex-col  flex  justify-center  mx-10  ">
         <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5" />
-        <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Nombre y apellidos: </p>
-          <span className="mr-1">{user?.nombre}</span>
-          <span className="capitalize">{user?.apellidos}</span>
+        <div className='flex flex-row'>
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Nombre y apellidos: </p>
+            <div className='flex flex-row '>
+              <span className="mr-1">{user?.nombre}</span>
+              <span className="capitalize">{user?.apellidos}</span>
+            </div>
+          </div>
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Año de nacimiento: </p>
+            <span className='mr-1 '>{user?.edad} </span>
+          </div>
         </div>
-        <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Año de nacimiento: </p>
-          <span className='mr-1'>{user?.edad} </span>
+        <div className='flex flex-row'>
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Género: </p>
+            <span className="capitalize ">{user?.genero}</span>
+          </div>
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Residencia actual: </p>
+            <span className=' '>{user?.ubi}</span>
+          </div>
         </div>
-        <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Género: </p>
-          <span className="capitalize">{user?.genero}</span>
-        </div>
-        <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Residencia actual: </p>
-          <span>{user?.ubi}</span>
-        </div>
-        <div className="flex flex-row mx-auto">
-          <p className='mr-5'>DNI o NIE: </p>
-          <span>{user?.DNI}</span>
-        </div>
-        <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Teléfono </p>
-          <span>{user?.tel}</span>
-        </div>
-        <div className="flex flex-row mx-auto">
-          <p className='mr-5'>Linkedin </p>
-          <span>{user?.linkedin}</span>
-        </div>
-
-        <div className="flex flex-row mx-auto">
-          {user?.permiso == true &&
-            <>
-              <p className='mr-5'>Permiso de conducción? </p>
-              <span>Sí</span>
-            </>}
-
-        </div>
-        <div className="flex flex-row mx-auto">
-          {user?.vehiculo == true &&
-            <>
-              <p className='mr-5'>Vehículo propio? </p>
-              <span>Sí</span>
-            </>}
-
-        </div>
+        {user?.DNI && user?.DNI != '' &&
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>DNI o NIE: </p>
+            <span>{user?.DNI}</span>
+          </div>
+        }
+        {user?.tel && user?.tel != '' &&
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Teléfono </p>
+            <span>{user?.tel}</span>
+          </div>
+        }
+        {user?.linkedin && user?.linkedin != '' &&
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Linkedin </p>
+            <span>{user?.linkedin}</span>
+          </div>
+        }
+        {user?.permiso == true &&
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Permiso de conducción? </p>
+            <span>Sí</span>
+          </div>
+        }
+        {user?.vehiculo == true &&
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+            <p className='mr-5 text-gray-400 text-xs'>Vehículo propio? </p>
+            <span>Sí</span>
+          </div>}
       </div>
       {user?.carta &&
         <div className="flex flex-col mx-auto bg-white rounded text-gray-500 mx-10 p-4 text-center">
-          <p className='mr-5'>Carta de presentación </p>
+          <p className='mr-5 text-gray-400 text-xs'>Carta de presentación </p>
           <span>{user?.carta}</span>
         </div>
       }
@@ -74,7 +79,8 @@ const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
           >Editar información de mi perfil de profesional</button>
         </Link>
       </div>
-    </div>)
+    </div>
+  )
 }
 
 export default profesionalCard
