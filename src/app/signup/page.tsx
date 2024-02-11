@@ -15,6 +15,9 @@ import Correo from './signupComponents/Correo';
 import EmpresasContent from './signupComponents/EmpresasContent';
 import ProfesionalesContent from './signupComponents/ProfesionalesContent';
 
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -31,7 +34,12 @@ export default function Signup() {
   const [ubi, setUbi] = useState("");
   const [actividad, setActividad] = useState("");
   const [cifEmpresa, setCifEmpresa] = useState("");
+  const { data: session, status } = useSession()
 
+  if (status === "authenticated") {
+    redirect('/dashboard');
+  }
+  
   useEffect(() => {
     setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
   }, []);

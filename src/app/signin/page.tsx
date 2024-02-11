@@ -4,13 +4,21 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import NavUnlogged from '../components/prelogged/NavUnlogged'
 import Image from 'next/image';
-
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+  
 
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [videoUrl, setVideoUrl] = useState("");
 
+  const { data: session, status } = useSession()
+
+  if (status === "authenticated") {
+    redirect('/dashboard');
+  }
+  
   useEffect(() => {
     setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
   }, []);

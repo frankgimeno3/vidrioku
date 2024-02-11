@@ -5,6 +5,8 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import NavUnlogged from '../components/prelogged/NavUnlogged'
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 
 export default function ForgotPassword() {
@@ -14,6 +16,14 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [videoUrl, setVideoUrl] = useState("");
   const [buttonPushed, setButtonPushed] = useState(false)
+
+  const { data: session, status } = useSession()
+
+  if (status === "authenticated") {
+    redirect('/dashboard');
+  }
+
+  
   useEffect(() => {
     setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
   }, []);
