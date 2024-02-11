@@ -7,6 +7,10 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import ProfesionalCard from './profesionalCard';
 import RightElems from './rightElems';
+import AnadirRecorrido from './anadir/anadirRecorrido'
+import AnadirEstudios from './anadir/anadirEstudios'
+import AnadirIdiomas from './anadir/anadirIdiomas'
+
 
 interface PerfilprofesionalProps {
   userData: any
@@ -28,6 +32,10 @@ interface User {
 }
 
 const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
+  const [isRecorridoSelected, setIsRecorridoSelected] = useState(false)
+  const [isEstudiosSelected, setIsEstudiosSelected] = useState(false)
+  const [isIdiomasSelected, setIsIdiomasSelected] = useState(false)
+
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -63,13 +71,33 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
   }, [userData]);
 
   return (
-    <div className="flex flex-col  bg-gradient-to-b from-zinc-900 to-zinc-600  "  >
-      <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre}</h2>
-      <div className='flex flex-row  '>
-        <ProfesionalCard user={user} userData={userData} />
-        <RightElems user={user} userData={userData}/>
+    <>
+      <div className="flex flex-col  bg-gradient-to-b from-zinc-900 to-zinc-600  "  >
+        <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre}</h2>
+        <div className='flex flex-row  '>
+          <ProfesionalCard user={user} userData={userData} />
+          <RightElems user={user} userData={userData} 
+              setIsRecorridoSelected={setIsRecorridoSelected}
+              setIsEstudiosSelected={setIsEstudiosSelected} 
+              setIsIdiomasSelected={setIsIdiomasSelected}/>
+        </div>
       </div>
-    </div>
+      {isRecorridoSelected && 
+        <div className="absolute inset-0 flex items-center justify-center">
+          <AnadirRecorrido setIsRecorridoSelected={setIsRecorridoSelected}/>
+        </div>
+      }
+      {isEstudiosSelected && 
+        <div className="absolute inset-0 flex items-center justify-center">
+          <AnadirEstudios setIsEstudiosSelected={setIsEstudiosSelected}/>
+        </div>
+      }
+      {isIdiomasSelected && 
+        <div className="absolute inset-0 flex items-center justify-center">
+          <AnadirIdiomas setIsIdiomasSelected={setIsIdiomasSelected}/>
+        </div>
+      }
+    </>
   );
 };
 
