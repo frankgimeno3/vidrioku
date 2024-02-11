@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 
 import Navbar from '../../../components/Navbar'
-import Perfilempresa from '../../components/empresa/Perfilempresa'
-import Perfilprofesional from '../../components/profesional/Perfilprofesional';
+import Perfilempresa from '../components/empresa/Perfilempresa'
+import Perfilprofesional from '../components/profesional/Perfilprofesional';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import Footer from '@/app/components/Footer';
@@ -37,7 +37,7 @@ export default function Miperfil() {
       setUserData('Usuario');
     }
   }, [session?.data?.user?.email]);
-  
+
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {
@@ -53,21 +53,18 @@ export default function Miperfil() {
 
     fetchDoc();
   }, [userData]);
-  
 
 
- 
+
+
   return (
     <div className="">
-
-      <main className='h-screen bg-zinc-500 '>
+      <main className='bg-zinc-500 h-full'>
         <Navbar />
-         {userType == 'empresa' && <Perfilempresa userData={userData} />}
+        {userType == 'empresa' && <Perfilempresa userData={userData} />}
         {userType == 'profesional' && <Perfilprofesional userData={userData} />}
-        {/* <Footer onPageChange={handlePageChange} /> */}
-
       </main>
-      <Footer  />
+      <Footer />
 
     </div>
   )

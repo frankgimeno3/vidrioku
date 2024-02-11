@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
-import { db } from '../../../firebase';
+import { db } from '../../../../firebase';
 import { useSession } from 'next-auth/react';
 
 
@@ -59,7 +59,7 @@ const Perfilempresa: FC<PerfilempresaProps> = ({   }) => {
   }
 
   return (
-    <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600">
+    <div className="flex flex-col bg-gradient-to-b from-zinc-900 to-zinc-600">
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre} S.A.</h2>
  
           <div className=" w-full flex justify-between bg-gradient-to-b from-slate-900 to-slate-600">

@@ -28,7 +28,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData }) => {
   }
 
   return (
-    <div className='max-h-screen mx-auto mt-5 text-center flex-1 overflow-y-auto overflow-x-hidden h-full py-8'>
+    <div className='mx-auto text-center flex-1 py-8   '>
       <h2 className='font-bold py-8'>Currículum vitae</h2>
       <div className='flex flex-col my-5 items-center '>
         <div className='flex flex-row'>

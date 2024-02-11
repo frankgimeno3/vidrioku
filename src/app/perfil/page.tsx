@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 
 import Navbar from '../components/Navbar'
-import Perfilempresa from './components/empresa/Perfilempresa'
-import Perfilprofesional from './components/profesional/Perfilprofesional';
+import Perfilempresa from './(perfil)/components/empresa/Perfilempresa'
+import Perfilprofesional from './(perfil)/components/profesional/Perfilprofesional';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Footer from '@/app/components/Footer';
@@ -56,7 +56,9 @@ export default function Miperfil() {
   
 
 
- 
+
+  //OJO, ESTE NO ES EL PERFIL QUE SE MUESTRA!
+  
   return (
     <div className="">
 
@@ -64,8 +66,7 @@ export default function Miperfil() {
       <main className='bg-zinc-500 '>
         {userType == 'empresa' && <Perfilempresa userData={userData} />}
         {userType == 'profesional' && <Perfilprofesional userData={userData} />}
-        {/* <Footer onPageChange={handlePageChange} /> */}
-      </main>
+       </main>
       <Footer  />
 
     </div>

@@ -10,7 +10,7 @@ interface profesionalCardProps {
 const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
 
   return (
-    <div className=" flex flex-col flex-1 px-auto bg-white text-gray-500 bg-gradient-to-b from-slate-900 to-slate-600 py-12">
+    <div className="flex flex-col flex-1 px-auto bg-white text-gray-500 bg-gradient-to-b from-slate-900 to-slate-600 py-12   ">
       <div className="flex flex-col  flex  justify-center  mx-10  ">
         <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5" />
         <div className='flex flex-row'>
