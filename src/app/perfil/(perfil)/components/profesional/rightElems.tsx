@@ -14,17 +14,17 @@ const rightElems: FC<rightElemsProps> = ({ user, userData }) => {
   const [isEstudiosShown, setIsStudiosShown] = useState(false)
   const [isIdiomasShown, setIsIdiomasShown] = useState(false)
 
-  const recorridoHandler = ()=>{
-    if (isRecorridoShown == true) {setIsRecorridoShown(false)}
-    else if (isRecorridoShown == false) {setIsRecorridoShown(true)}
+  const recorridoHandler = () => {
+    if (isRecorridoShown == true) { setIsRecorridoShown(false) }
+    else if (isRecorridoShown == false) { setIsRecorridoShown(true) }
   }
-  const estudiosHandler = ()=>{
-    if (isEstudiosShown == true) {setIsStudiosShown(false)}
-    else if (isEstudiosShown == false) {setIsStudiosShown(true)}
+  const estudiosHandler = () => {
+    if (isEstudiosShown == true) { setIsStudiosShown(false) }
+    else if (isEstudiosShown == false) { setIsStudiosShown(true) }
   }
-  const idiomasHandler = ()=>{
-    if (isIdiomasShown == true) {setIsIdiomasShown(false)}
-    else if (isIdiomasShown == false) {setIsIdiomasShown(true)}
+  const idiomasHandler = () => {
+    if (isIdiomasShown == true) { setIsIdiomasShown(false) }
+    else if (isIdiomasShown == false) { setIsIdiomasShown(true) }
   }
 
   return (
@@ -34,10 +34,18 @@ const rightElems: FC<rightElemsProps> = ({ user, userData }) => {
         <div className='flex flex-row'>
           <h3 className='mr-5'>Recorrido laboral</h3>
           <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs'>Añadir</button>
-          <svg className='w-5 h-5 text-gray-100 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
-                    onClick={()=>recorridoHandler()}>
-            <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
-          </svg>
+          {isRecorridoShown == false &&
+            <svg className='w-5 h-5 text-gray-100 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
+              onClick={() => recorridoHandler()}>
+              <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
+            </svg>
+          }
+          {isRecorridoShown == true &&
+            <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
+              onClick={() => recorridoHandler()}>
+              <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
+            </svg>
+          }
         </div>
         {isRecorridoShown &&
           <>
@@ -78,10 +86,19 @@ const rightElems: FC<rightElemsProps> = ({ user, userData }) => {
         <div className='flex flex-row'>
           <h3 className='mr-5'>Estudios, títulos, certificados y reconocimientos</h3>
           <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs'>Añadir</button>
-          <svg className='w-5 h-5 text-gray-100 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
-            onClick={()=>estudiosHandler()}>
-            <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
-          </svg>
+          {isEstudiosShown == false &&
+
+            <svg className='w-5 h-5 text-gray-100 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
+              onClick={() => estudiosHandler()}>
+              <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
+            </svg>
+          }
+          {isEstudiosShown == true &&
+            <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
+              onClick={() => estudiosHandler()}>
+              <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
+            </svg>
+          }
         </div>
         {isEstudiosShown &&
           <>
@@ -109,10 +126,20 @@ const rightElems: FC<rightElemsProps> = ({ user, userData }) => {
         <div className='flex flex-row'>
           <h3 className='mr-5'>Idiomas</h3>
           <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs'>Añadir</button>
-          <svg className='w-5 h-5 text-gray-100 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
-          onClick={()=>idiomasHandler()}>
-            <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
-          </svg>
+          {isIdiomasShown == false &&
+
+            <svg className='w-5 h-5 text-gray-100 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
+              onClick={() => idiomasHandler()}>
+              <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
+            </svg>
+          }
+          {isIdiomasShown == true &&
+
+            <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'
+              onClick={() => idiomasHandler()}>
+              <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
+            </svg>
+          }
         </div>
         {isIdiomasShown &&
           <>

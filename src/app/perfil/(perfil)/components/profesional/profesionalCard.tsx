@@ -67,9 +67,12 @@ const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
           </div>}
       </div>
       {user?.carta &&
-        <div className="flex flex-col mx-auto bg-white rounded text-gray-500 mx-10 p-4 text-center">
-          <p className='mr-5 text-gray-400 text-xs'>Carta de presentación </p>
-          <span>{user?.carta}</span>
+        <div className="flex flex-col  flex  justify-center  mx-10  ">
+          <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
+
+            <p className='mr-5 text-gray-400 text-xs'>Carta de presentación </p>
+            <span>{user?.carta}</span>
+          </div>
         </div>
       }
       <div className='mx-auto py-5'>
