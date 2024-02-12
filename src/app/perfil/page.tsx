@@ -46,8 +46,7 @@ export default function Miperfil() {
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUserType(myUserData.userType);
-          console.log(myUserData)
-        }
+         }
       }
     };
 

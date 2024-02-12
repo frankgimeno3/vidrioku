@@ -85,7 +85,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
     <div className="flex flex-row w-full justify-between  bg-gradient-to-b from-zinc-900 to-zinc-600 " style={{ height: '800px' }} >
       <div className='flex flex-row h-full w-full flex shadow shadow-sm ' style={{ height: '800px', width: '500px' }}           >
         <div className="flex flex-col   flex  text-center justify-center w-full  bg-white text-gray-500  ">
-          <div className='bg-gradient-to-b from-cyan-600 to-zinc-700 h-full px-12 flex flex-col py-12 flex-1'>
+          <div className='bg-gradient-to-b from-cyan-950 to-zinc-700 h-full px-12 flex flex-col py-12 flex-1'>
             <div className="relative w-44 h-44 overflow-hidden rounded-full mx-auto my-5 shadow-xl">
               <img
                 src={user?.profilepicture || "/icons/empty-user-profile.png"}

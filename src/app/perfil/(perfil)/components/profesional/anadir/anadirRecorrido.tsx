@@ -15,7 +15,7 @@ const anadirRecorrido: FC<anadirRecorridoProps> = ({ setIsRecorridoSelected }) =
                 </svg>
             </div>
             <div className='px-20'>
-                <p className='text-xl font-medium pb-5'>Añadir recorrido laboral</p>
+                <p className='text-xl font-medium pb-5'>Añadir experiencia laboral</p>
                 <form className='flex flex-col px-5'>
                     <label> Cargo</label>
                     <input className='bg-white p-2 px-4 mt-1 mb-5 rounded-lg border border-gray-100 shadow placeholder-gray-300'
