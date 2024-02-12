@@ -14,7 +14,7 @@ const AnadirEstudios: FC<AnadirEstudiosProps> = ({ setIsEstudiosSelected, userDa
     const [nuevoDesde, setNuevoDesde] = useState('');
     const [nuevoHasta, setNuevoHasta] = useState('');
     const [nuevaEntidad, setNuevaEntidad] = useState('');
-    
+
     const [userDataReceived, setUserDataReceived] = useState('');
 
     useEffect(() => {
@@ -39,11 +39,11 @@ const AnadirEstudios: FC<AnadirEstudiosProps> = ({ setIsEstudiosSelected, userDa
         try {
             const userRef = doc(db, "users", userDataReceived);
             const userDoc = await getDoc(userRef);
-    
+
             if (userDoc.exists()) {
                 const userData = userDoc.data();
-                const estudiosArray = userData.estudios || []; // Si no hay estudios aún, inicializa el array como vacío
-    
+                const estudiosArray = userData.estudios || [];
+
                 const nuevoEstudio = {
                     concepto: nuevoConcepto,
                     descripcion: nuevaDescripcion,
@@ -51,13 +51,16 @@ const AnadirEstudios: FC<AnadirEstudiosProps> = ({ setIsEstudiosSelected, userDa
                     hasta: nuevoHasta,
                     entidadEmisora: nuevaEntidad,
                 };
-    
-                estudiosArray.push(nuevoEstudio); // Agregar el nuevo estudio al array
-    
-                await setDoc(userRef, { ...userData, estudios: estudiosArray }); // Actualizar el documento del usuario con el nuevo array de estudios
+
+                estudiosArray.push(nuevoEstudio);
+
+                await setDoc(userRef, { ...userData, estudios: estudiosArray });
             } else {
                 console.error('El documento del usuario no existe');
             }
+            setTimeout(() => {
+                window.location.reload();
+            }, 1300);
         } catch (error) {
             console.error('Error al crear la solicitud:', error);
         }
@@ -95,7 +98,9 @@ const AnadirEstudios: FC<AnadirEstudiosProps> = ({ setIsEstudiosSelected, userDa
                         <input className='bg-white p-2 px-4 mt-1 mb-5 rounded-lg border border-gray-100 shadow placeholder-gray-300'
                             placeholder='UPC - Universitat Politecnica Catalunya' value={nuevaEntidad} onChange={(e) => setNuevaEntidad(e.target.value)} />
 
-                        <button type="submit" className='bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md shadow text-gray-500 text-xs'>Añadir</button>
+                        <button type="submit" className='bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md shadow text-gray-500 text-xs'>
+                            Añadir
+                        </button>
                     </form>
                 </div>
             </div>
