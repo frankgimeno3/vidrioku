@@ -2,9 +2,10 @@ import React, { FC, useEffect } from 'react'
 
 interface anadirIdiomasProps {
     setIsIdiomasSelected: any;
+    userData:string;
 }
 
-const anadirIdiomas: FC<anadirIdiomasProps> = ({ setIsIdiomasSelected }) => {
+const anadirIdiomas: FC<anadirIdiomasProps> = ({ setIsIdiomasSelected, userData}) => {
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {

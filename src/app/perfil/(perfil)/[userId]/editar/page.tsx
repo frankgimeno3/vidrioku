@@ -21,7 +21,6 @@ interface User {
   genero: string;
   nombre: string;
   ubi: string;
-  // userEmail: string;
   DNI: string;
   NIE: string;
   tel: string;
@@ -86,9 +85,6 @@ const editarPerfil: FC<PerfilprofesionalProps> = ({ }) => {
 
   const guardarCambiosHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Guardar cambios lógica aquí
-
-    // Redirigir a `perfil/${userData}`
     router.push(`/perfil/${userData}`);
   };
 

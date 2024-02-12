@@ -2,9 +2,10 @@ import React, { FC, useEffect } from 'react'
 
 interface anadirRecorridoProps {
     setIsRecorridoSelected: any;
+    userData:string;
 }
 
-const anadirRecorrido: FC<anadirRecorridoProps> = ({ setIsRecorridoSelected }) => {
+const anadirRecorrido: FC<anadirRecorridoProps> = ({ setIsRecorridoSelected, userData }) => {
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             if (event.key === "Escape") {

@@ -85,17 +85,17 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
       </div>
       {isRecorridoSelected && 
         <div className="absolute inset-0 flex items-center justify-center">
-          <AnadirRecorrido setIsRecorridoSelected={setIsRecorridoSelected}/>
+          <AnadirRecorrido setIsRecorridoSelected={setIsRecorridoSelected} userData={userData}/>
         </div>
       }
       {isEstudiosSelected && 
         <div className="absolute inset-0 flex items-center justify-center">
-          <AnadirEstudios setIsEstudiosSelected={setIsEstudiosSelected}/>
+          <AnadirEstudios setIsEstudiosSelected={setIsEstudiosSelected} userData={userData}/>
         </div>
       }
       {isIdiomasSelected && 
         <div className="absolute inset-0 flex items-center justify-center">
-          <AnadirIdiomas setIsIdiomasSelected={setIsIdiomasSelected}/>
+          <AnadirIdiomas setIsIdiomasSelected={setIsIdiomasSelected} userData={userData}/>
         </div>
       }
     </>
