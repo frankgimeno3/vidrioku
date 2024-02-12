@@ -69,9 +69,11 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
     fetchDoc();
   }, [userData]);
 
+ 
+
   return (
     <>
-      <div className="flex flex-col  bg-gradient-to-b from-zinc-900 to-zinc-600  "  >
+      <div className="flex flex-col  bg-gradient-to-b from-zinc-900 to-zinc-600"   >
         <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre}</h2>
         <div className='flex flex-row  '>
           <ProfesionalCard user={user} userData={userData} />

@@ -1,10 +1,23 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 interface anadirIdiomasProps {
     setIsIdiomasSelected: any;
 }
 
 const anadirIdiomas: FC<anadirIdiomasProps> = ({ setIsIdiomasSelected }) => {
+
+    useEffect(() => {
+        const handleKeyPress = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsIdiomasSelected(false);
+            }
+        };
+        document.addEventListener("keydown", handleKeyPress);
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        };
+    }, [setIsIdiomasSelected]);
+    
    return (
     <div className='flex flex-col bg-white text-gray-500 px-5  mx-auto mt-36 pb-16 border border-gray-50 shadow-xl rounded-md'>
     <div className="flex justify-end py-6 pr-2 ">

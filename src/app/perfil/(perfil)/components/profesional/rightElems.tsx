@@ -74,7 +74,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
 
           {isRecorridoShown && (
             <div className='w-full'>
-              {user.recorridoLaboral?
+              {user?.recorridoLaboral?
                 user.recorridoLaboral.map((recorrido: any, index: number) => (
                   <RecorridoCard
                     key={index}
@@ -126,7 +126,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
           </div>
           {isEstudiosShown && (
             <div className='w-full'>
-              {user.estudios ?
+              {user?.estudios ?
                 user.estudios.map((estudio: any, index: any) => (
                   <EstudiosCard
                     key={index}
@@ -175,7 +175,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
           </div>
           {isIdiomasShown ? (
             <div className='w-full'>
-              {user.idiomas ? (
+              {user?.idiomas ? (
                 user.idiomas.map((idioma: any, index: any) => (
                   <IdiomasCard
                     key={index}
