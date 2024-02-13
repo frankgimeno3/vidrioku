@@ -35,15 +35,16 @@ const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEditarEstudiosSelected, 
         };
     }, [setIsEditarEstudiosSelected]);
 
-    const añadirEstudios = async (e: React.FormEvent) => {
+    const editarIdioma = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const userRef = doc(db, "users", userDataReceived);
             const userDoc = await getDoc(userRef);
 
             if (userDoc.exists()) {
-                const userData = userDoc.data();
-                const estudiosArray = userData.estudios || [];
+                const receivedUserData = userDoc.data();
+                const estudiosArray = receivedUserData.estudios || [];
+                const index = estudiosArray.findIndex((estudios: any) => estudios.id === estudioElegido);
 
                 const nuevoEstudio = {
                     concepto: nuevoConcepto,
@@ -53,9 +54,12 @@ const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEditarEstudiosSelected, 
                     entidadEmisora: nuevaEntidad,
                 };
 
-                estudiosArray.push(nuevoEstudio);
-
-                await setDoc(userRef, { ...userData, estudios: estudiosArray });
+                if (index !== -1) {
+                    estudiosArray[index] = nuevoEstudio;
+                    await setDoc(userRef, { ...receivedUserData, estudios: estudiosArray });
+                } else {
+                    console.error('El idioma especificado no se encontró en el array de idiomas');
+                }
             } else {
                 console.error('El documento del usuario no existe');
             }
@@ -63,7 +67,7 @@ const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEditarEstudiosSelected, 
                 window.location.reload();
             }, 300);
         } catch (error) {
-            console.error('Error al crear la solicitud:', error);
+            console.error('Error al editar el idioma:', error);
         }
     };
 
@@ -82,7 +86,7 @@ const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEditarEstudiosSelected, 
                 </div>
                 <div className='px-20'>
                     <p className='text-xl font-medium pb-5'>Añadir estudios, títulos, certificados o reconocimientos</p>
-                    <form className='flex flex-col px-5' onSubmit={(e) => { e.preventDefault(); añadirEstudios(e); }}>
+                    <form className='flex flex-col px-5' onSubmit={(e) => { e.preventDefault(); editarIdioma(e); }}>
                         <label> Concepto</label>
                         <input className='bg-white p-2 px-4 mt-1 mb-5 rounded-lg border border-gray-100 shadow placeholder-gray-300'
                             placeholder='Grado superior en electromecánica' value={nuevoConcepto} onChange={(e) => setNuevoConcepto(e.target.value)} />

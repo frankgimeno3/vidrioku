@@ -92,7 +92,11 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
             setIsRecorridoSelected={setIsRecorridoSelected}
             setIsEstudiosSelected={setIsEstudiosSelected}
             setIsIdiomasSelected={setIsIdiomasSelected}
+            setIsEditarRecorridoSelected={setIsEditarRecorridoSelected}   
+            setIsEditarEstudiosSelected={setIsEditarEstudiosSelected}   
             setIsEditarIdiomasSelected={setIsEditarIdiomasSelected}   
+            setExperienciaElegida={setExperienciaElegida}    
+            setEstudioElegido={setEstudioElegido}    
             setIdiomaElegido={setIdiomaElegido}    
           />
         </div>

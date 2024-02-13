@@ -30,7 +30,8 @@ const editarIdiomas: FC<editarIdiomasProps> = ({ setIsEditarIdiomasSelected, use
         };
     }, [setIsEditarIdiomasSelected]);
 
-    const editarIdioma = async () => {
+    const editarIdioma = async (e: React.FormEvent) => {
+        e.preventDefault();
         try {
             const userRef = doc(db, "users", userDataReceived);
             const userDoc = await getDoc(userRef);
@@ -71,7 +72,7 @@ const editarIdiomas: FC<editarIdiomasProps> = ({ setIsEditarIdiomasSelected, use
             </div>
                 <div className='px-20'>
                     <p className='text-xl font-medium pb-5'>Editar idioma</p>
-                    <form className='flex flex-col px-5' onSubmit={(e) => { e.preventDefault(); editarIdioma(); }}>
+                    <form className='flex flex-col px-5' onSubmit={(e) => { e.preventDefault(); editarIdioma(e); }}>
                         <label> Nuevo nivel para {idiomaElegido}</label>
                         <input className='bg-white p-2 px-4 mt-1 mb-5 rounded-lg border border-gray-100 shadow placeholder-gray-300'
                             placeholder='C1 - Avanzado' value={nuevoNivel} onChange={(e) => setNuevoNivel(e.target.value)} />

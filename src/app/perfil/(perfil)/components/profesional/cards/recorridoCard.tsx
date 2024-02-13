@@ -1,7 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
 interface recorridoCardProps {
+    RecorridoId:any;
     Cargo: any;
     Empresa: any;
     Desde: any;
@@ -9,18 +12,51 @@ interface recorridoCardProps {
     Lugar: any;
     Descripcion: any;
     userData:string;
-
+    setIsEditarRecorridoSelected: any;
+    setExperienciaElegida: any;
 }
 
 
-const recorridoCard: FC<recorridoCardProps> = ({ Cargo, Empresa, Desde, Hasta, Lugar, Descripcion, userData }) => {
-    const handleEditar = ()=>{
+const recorridoCard: FC<recorridoCardProps> = ({ RecorridoId, Cargo, Empresa, Desde, Hasta, Lugar, Descripcion, userData, setIsEditarRecorridoSelected, setExperienciaElegida }) => {
+    const [userDataReceived, setUserDataReceived] = useState('');
 
+    useEffect(() => {
+        setUserDataReceived(userData);
+    }, [userData]);
+
+    const handleEditar = () => {
+        setIsEditarRecorridoSelected(true)
+        setExperienciaElegida(RecorridoId)
     }
 
-    const handleEliminar = ()=>{
+    const handleEliminar = async () => {
+        try {
+            const userRef = doc(db, "users", userDataReceived);
+            const userDoc = await getDoc(userRef);
 
+            if (userDoc.exists()) {
+                const receivedUserData = userDoc.data();
+                const experienciasArray = receivedUserData.recorridoLaboral || [];
+
+                const index = experienciasArray.findIndex((experiencia: any) => experiencia.id === RecorridoId);
+
+                if (index !== -1) {
+                    experienciasArray.splice(index, 1);  
+                    await setDoc(userRef, { ...receivedUserData, recorridoLaboral: experienciasArray });
+                } else {
+                    console.error('La experiencia que busca no se encontró en el array de experiencias');
+                }
+            } else {
+                console.error('El documento del usuario no existe');
+            }
+            setTimeout(() => {
+                window.location.reload();
+            }, 300);
+        } catch (error) {
+            console.error('Error al editar el recorrido:', error);
+        }
     }
+
 
     return (
         <div className='flex flex-col bg-white rounded-lg shadow py-1 my-2 text-gray-400 text-sm'>

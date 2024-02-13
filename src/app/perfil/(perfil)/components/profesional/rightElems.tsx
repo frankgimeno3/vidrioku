@@ -5,17 +5,24 @@ import EstudiosCard from './cards/estudiosCard';
 import IdiomasCard from './cards/idiomaCard';
 
 interface rightElemsProps {
-  user: any;
-  userData: any;
-  setIsRecorridoSelected: any;
-  setIsEstudiosSelected: any;
-  setIsIdiomasSelected: any;
-  setIsEditarIdiomasSelected: any;
-  setIdiomaElegido: any;
+  user:any;
+  userData:any;
+  setIsRecorridoSelected:any;
+  setIsEstudiosSelected:any;
+  setIsIdiomasSelected:any;
+  setIsEditarRecorridoSelected:any;
+  setIsEditarEstudiosSelected:any;
+  setIsEditarIdiomasSelected:any;
+  setExperienciaElegida:any;
+  setEstudioElegido:any;
+  setIdiomaElegido:any;
 }
 
 
-const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelected, setIsEstudiosSelected, setIsIdiomasSelected, setIsEditarIdiomasSelected, setIdiomaElegido }) => {
+const rightElems: FC<rightElemsProps> = ({ user, userData,
+  setIsRecorridoSelected, setIsEstudiosSelected, setIsIdiomasSelected,
+  setIsEditarRecorridoSelected, setIsEditarEstudiosSelected, setIsEditarIdiomasSelected,
+  setExperienciaElegida, setEstudioElegido, setIdiomaElegido }) => {
 
   const [isRecorridoShown, setIsRecorridoShown] = useState(true)
   const [isEstudiosShown, setIsStudiosShown] = useState(true)
@@ -80,6 +87,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
                 user.recorridoLaboral.map((recorrido: any, index: number) => (
                   <RecorridoCard
                     key={index}
+                    RecorridoId ={recorrido.id}
                     Cargo={recorrido?.cargo}
                     Empresa={recorrido?.empresa}
                     Desde={recorrido?.desde}
@@ -87,6 +95,8 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
                     Lugar={recorrido?.lugar}
                     Descripcion={recorrido?.descripcion}
                     userData={userData}
+                    setIsEditarRecorridoSelected={setIsEditarRecorridoSelected}
+                    setExperienciaElegida={setExperienciaElegida}
                   />
                 ))
                 :
@@ -133,12 +143,15 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
                 user.estudios.map((estudio: any, index: any) => (
                   <EstudiosCard
                     key={index}
+                    EstudioId={estudio.id}
                     Concepto={estudio.concepto}
                     Descripcion={estudio.descripcion}
                     Desde={estudio.desde}
                     Hasta={estudio.hasta}
                     Entidad={estudio.entidadEmisora}
                     userData={userData}
+                    setIsEditarEstudiosSelected={setIsEditarEstudiosSelected}
+                    setEstudioElegido={setEstudioElegido}
                   />
                 ))
                 :

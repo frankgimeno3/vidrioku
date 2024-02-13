@@ -1,25 +1,61 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
 interface estudiosCardProps {
+    EstudioId:any;
     Concepto: any;
     Descripcion: any;
     Desde: any;
     Hasta: any;
     Entidad: any;
     userData:string;
-
+    setIsEditarEstudiosSelected: any;
+    setEstudioElegido: any;
 }
 
 
-const estudiosCard: FC<estudiosCardProps> = ({ Concepto, Descripcion, Desde, Hasta, Entidad, userData}) => {
-    const handleEditar = ()=>{
+const estudiosCard: FC<estudiosCardProps> = ({ EstudioId, Concepto, Descripcion, Desde, Hasta, Entidad, userData, setIsEditarEstudiosSelected, setEstudioElegido}) => {
+    const [userDataReceived, setUserDataReceived] = useState('');
 
+    useEffect(() => {
+        setUserDataReceived(userData);
+    }, [userData]);
+
+    const handleEditar = () => {
+        setIsEditarEstudiosSelected(true)
+        setEstudioElegido(EstudioId)
     }
 
-    const handleEliminar = ()=>{
+    const handleEliminar = async () => {
+        try {
+            const userRef = doc(db, "users", userDataReceived);
+            const userDoc = await getDoc(userRef);
 
+            if (userDoc.exists()) {
+                const receivedUserData = userDoc.data();
+                const estudiosArray = receivedUserData.estudios || [];
+
+                const index = estudiosArray.findIndex((estudio: any) => estudio.id === EstudioId);
+
+                if (index !== -1) {
+                    estudiosArray.splice(index, 1);  
+                    await setDoc(userRef, { ...receivedUserData, estudios: estudiosArray });
+                } else {
+                    console.error('El idioma especificado no se encontró en el array de idiomas');
+                }
+            } else {
+                console.error('El documento del usuario no existe');
+            }
+            setTimeout(() => {
+                window.location.reload();
+            }, 300);
+        } catch (error) {
+            console.error('Error al editar el idioma:', error);
+        }
     }
+
 
     return (
         <div className='flex flex-col bg-white rounded-lg shadow     my-2 text-gray-400 text-sm'>

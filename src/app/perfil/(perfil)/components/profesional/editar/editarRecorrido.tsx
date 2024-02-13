@@ -44,6 +44,7 @@ const editarRecorrido: FC<editarRecorridoProps> = ({ setIsEditarRecorridoSelecte
             if (userDoc.exists()) {
                 const receivedUserData = userDoc.data();
                 const experienciasArray = receivedUserData.recorridoLaboral || [];
+                const index = experienciasArray.findIndex((experiencia: any) => experiencia.id === experienciaElegida);
 
                 const nuevaExperiencia = {
                     cargo: nuevoCargo,
@@ -54,7 +55,7 @@ const editarRecorrido: FC<editarRecorridoProps> = ({ setIsEditarRecorridoSelecte
                     descripcion: nuevaDescripcion,
                 };
 
-                experienciasArray.push(nuevaExperiencia);
+                experienciasArray[index] = nuevaExperiencia;
 
                 await setDoc(userRef, { ...receivedUserData, recorridoLaboral: experienciasArray });
             } else {
