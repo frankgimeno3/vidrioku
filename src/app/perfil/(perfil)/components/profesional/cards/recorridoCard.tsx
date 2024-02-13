@@ -8,19 +8,29 @@ interface recorridoCardProps {
     Hasta: any;
     Lugar: any;
     Descripcion: any;
+    userData:string;
+
 }
 
 
-const recorridoCard: FC<recorridoCardProps> = ({ Cargo, Empresa, Desde, Hasta, Lugar, Descripcion }) => {
+const recorridoCard: FC<recorridoCardProps> = ({ Cargo, Empresa, Desde, Hasta, Lugar, Descripcion, userData }) => {
+    const handleEditar = ()=>{
 
+    }
+
+    const handleEliminar = ()=>{
+
+    }
 
     return (
         <div className='flex flex-col bg-white rounded-lg shadow py-1 my-2 text-gray-400 text-sm'>
             <div className='flex  flex-row justify-between content-end	 mx-5 my-3'>
                 <p className='font-bold pt-2 '>{Cargo} <span className='font-light'> en </span> {Empresa} <span className='font-light'>, ({Lugar})</span></p>
                 <div>
-                    <button className='bg-gray-50 hover:bg-gray-100 px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8 mx-3'>Editar </button>
-                    <button className='bg-gray-50 hover:bg-gray-100 px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8   '>Eliminar </button>
+                    <button className='bg-gray-50 hover:bg-gray-100 px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8 mx-3'
+                onClick={()=>{handleEditar()}}>Editar </button>
+                    <button className='bg-gray-50 hover:bg-gray-100 px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8'
+                onClick={()=>{handleEliminar()}}>Eliminar </button>
                 </div>
             </div>
             <div className='flex flex-col  mx-3 mb-3 '>

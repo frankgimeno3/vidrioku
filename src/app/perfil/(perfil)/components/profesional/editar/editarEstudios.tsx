@@ -3,11 +3,12 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
 
 interface EditarEstudiosProps {
-    setIsEstudiosSelected: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsEditarEstudiosSelected: React.Dispatch<React.SetStateAction<boolean>>;
     userData: string;
+    estudioElegido: string;
 }
 
-const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEstudiosSelected, userData }) => {
+const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEditarEstudiosSelected, userData, estudioElegido }) => {
 
     const [nuevoConcepto, setNuevoConcepto] = useState('');
     const [nuevaDescripcion, setNuevaDescripcion] = useState('');
@@ -25,14 +26,14 @@ const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEstudiosSelected, userDa
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
-                setIsEstudiosSelected(false);
+                setIsEditarEstudiosSelected(false);
             }
         };
         document.addEventListener("keydown", handleKeyPress);
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
         };
-    }, [setIsEstudiosSelected]);
+    }, [setIsEditarEstudiosSelected]);
 
     const añadirEstudios = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -69,12 +70,12 @@ const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEstudiosSelected, userDa
     return (
         <>
             <div className='w-screen bg-black bg-opacity-70' style={{ height: '2500px' }}
-                onClick={() => { setIsEstudiosSelected(false) }}>
+                onClick={() => { setIsEditarEstudiosSelected(false) }}>
             </div>
             <div className='flex flex-col bg-white text-gray-500 px-5  mx-auto mt-36 pb-16 border border-gray-50 shadow-xl rounded-md' style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                 <div className="flex justify-end py-6 pr-2 ">
                     <svg className="h-8 w-8 cursor-pointer text-gray-300 hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => { setIsEstudiosSelected(false) }}
+                        onClick={() => { setIsEditarEstudiosSelected(false) }}
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>

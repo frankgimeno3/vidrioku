@@ -7,9 +7,14 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import ProfesionalCard from './profesionalCard';
 import RightElems from './rightElems';
+
 import AnadirRecorrido from './anadir/anadirRecorrido'
 import AnadirEstudios from './anadir/anadirEstudios'
 import AnadirIdiomas from './anadir/anadirIdiomas'
+
+import EditarRecorrido from './editar/editarRecorrido'
+import EditarEstudios from './editar/editarEstudios'
+import EditarIdiomas from './editar/editarIdiomas'
 
 
 interface PerfilprofesionalProps {
@@ -35,6 +40,12 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [isRecorridoSelected, setIsRecorridoSelected] = useState(false)
   const [isEstudiosSelected, setIsEstudiosSelected] = useState(false)
   const [isIdiomasSelected, setIsIdiomasSelected] = useState(false)
+  const [isEditarRecorridoSelected, setIsEditarRecorridoSelected] = useState(false)
+  const [isEditarEstudiosSelected, setIsEditarEstudiosSelected] = useState(false)
+  const [isEditarIdiomasSelected, setIsEditarIdiomasSelected] = useState(false)
+  const [experienciaElegida, setExperienciaElegida] = useState('')
+  const [estudioElegido, setEstudioElegido] = useState('')
+  const [idiomaElegido, setIdiomaElegido] = useState('')
 
   const session = useSession({
     required: true,
@@ -62,14 +73,12 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUser(myUserData);
-         }
+        }
       }
     };
 
     fetchDoc();
   }, [userData]);
-
- 
 
   return (
     <>
@@ -77,25 +86,45 @@ const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
         <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre}</h2>
         <div className='flex flex-row  '>
           <ProfesionalCard user={user} userData={userData} />
-          <RightElems user={user} userData={userData} 
-              setIsRecorridoSelected={setIsRecorridoSelected}
-              setIsEstudiosSelected={setIsEstudiosSelected} 
-              setIsIdiomasSelected={setIsIdiomasSelected}/>
+          <RightElems 
+            user={user} 
+            userData={userData}
+            setIsRecorridoSelected={setIsRecorridoSelected}
+            setIsEstudiosSelected={setIsEstudiosSelected}
+            setIsIdiomasSelected={setIsIdiomasSelected}
+            setIsEditarIdiomasSelected={setIsEditarIdiomasSelected}   
+            setIdiomaElegido={setIdiomaElegido}    
+          />
         </div>
       </div>
-      {isRecorridoSelected && 
+      {isRecorridoSelected &&
         <div className="absolute inset-0 flex items-center justify-center">
-          <AnadirRecorrido setIsRecorridoSelected={setIsRecorridoSelected} userData={userData}/>
+          <AnadirRecorrido setIsRecorridoSelected={setIsRecorridoSelected} userData={userData} />
         </div>
       }
-      {isEstudiosSelected && 
+      {isEstudiosSelected &&
         <div className="absolute inset-0 flex items-center justify-center">
-          <AnadirEstudios setIsEstudiosSelected={setIsEstudiosSelected} userData={userData}/>
+          <AnadirEstudios setIsEstudiosSelected={setIsEstudiosSelected} userData={userData} />
         </div>
       }
-      {isIdiomasSelected && 
+      {isIdiomasSelected &&
         <div className="absolute inset-0 flex items-center justify-center">
-          <AnadirIdiomas setIsIdiomasSelected={setIsIdiomasSelected} userData={userData}/>
+          <AnadirIdiomas setIsIdiomasSelected={setIsIdiomasSelected} userData={userData} />
+        </div>
+      }
+      {isEditarRecorridoSelected &&
+        <div className="absolute inset-0 flex items-center justify-center">
+          <EditarRecorrido setIsEditarRecorridoSelected={setIsEditarRecorridoSelected} userData={userData} experienciaElegida={experienciaElegida} />
+        </div>
+      }
+      {isEditarEstudiosSelected &&
+        <div className="absolute inset-0 flex items-center justify-center">
+          <EditarEstudios setIsEditarEstudiosSelected={setIsEditarEstudiosSelected} userData={userData} estudioElegido={estudioElegido} />
+        </div>
+      }
+      {isEditarIdiomasSelected &&
+        <div className="absolute inset-0 flex items-center justify-center">
+          <EditarIdiomas setIsEditarIdiomasSelected={setIsEditarIdiomasSelected} userData={userData} idiomaElegido={idiomaElegido} />
         </div>
       }
     </>

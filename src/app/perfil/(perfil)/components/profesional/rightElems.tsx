@@ -10,10 +10,12 @@ interface rightElemsProps {
   setIsRecorridoSelected: any;
   setIsEstudiosSelected: any;
   setIsIdiomasSelected: any;
+  setIsEditarIdiomasSelected: any;
+  setIdiomaElegido: any;
 }
 
 
-const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelected, setIsEstudiosSelected, setIsIdiomasSelected }) => {
+const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelected, setIsEstudiosSelected, setIsIdiomasSelected, setIsEditarIdiomasSelected, setIdiomaElegido }) => {
 
   const [isRecorridoShown, setIsRecorridoShown] = useState(true)
   const [isEstudiosShown, setIsStudiosShown] = useState(true)
@@ -74,7 +76,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
 
           {isRecorridoShown && (
             <div className='w-full'>
-              {user?.recorridoLaboral?
+              {user?.recorridoLaboral ?
                 user.recorridoLaboral.map((recorrido: any, index: number) => (
                   <RecorridoCard
                     key={index}
@@ -84,6 +86,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
                     Hasta={recorrido?.hasta}
                     Lugar={recorrido?.lugar}
                     Descripcion={recorrido?.descripcion}
+                    userData={userData}
                   />
                 ))
                 :
@@ -135,6 +138,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
                     Desde={estudio.desde}
                     Hasta={estudio.hasta}
                     Entidad={estudio.entidadEmisora}
+                    userData={userData}
                   />
                 ))
                 :
@@ -181,6 +185,9 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
                     key={index}
                     Idioma={idioma?.idioma}
                     Nivel={idioma?.nivel}
+                    setIsEditarIdiomasSelected={setIsEditarIdiomasSelected}
+                    setIdiomaElegido={setIdiomaElegido}
+                    userData={userData}
                   />
                 ))
               ) : (
