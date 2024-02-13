@@ -61,7 +61,7 @@ const EditarEstudios: FC<EditarEstudiosProps> = ({ setIsEditarEstudiosSelected, 
             }
             setTimeout(() => {
                 window.location.reload();
-            }, 1300);
+            }, 300);
         } catch (error) {
             console.error('Error al crear la solicitud:', error);
         }

@@ -62,7 +62,7 @@ const editarRecorrido: FC<editarRecorridoProps> = ({ setIsEditarRecorridoSelecte
             }
             setTimeout(() => {
                 window.location.reload();
-            }, 1300);
+            }, 300);
         } catch (error) {
             console.error('Error al crear la solicitud:', error);
         }

@@ -30,6 +30,16 @@ const anadirIdiomas: FC<anadirIdiomasProps> = ({ setIsIdiomasSelected, userData 
         };
     }, [setIsIdiomasSelected]);
 
+    const generarCodigoAleatorio = (): string => {
+        const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let codigo = '';
+        for (let i = 0; i < 24; i++) {
+            codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+        }
+        return codigo;
+    };
+    
+    
     const añadirIdioma = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -41,6 +51,7 @@ const anadirIdiomas: FC<anadirIdiomasProps> = ({ setIsIdiomasSelected, userData 
                 const idiomasArray = receivedUserData.idiomas || [];
 
                 const nuevoIdioma = {
+                    id: generarCodigoAleatorio(),
                     idioma: idiomaAñadido,
                     nivel: nuevoNivel,
                 };

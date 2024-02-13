@@ -34,6 +34,15 @@ const anadirRecorrido: FC<anadirRecorridoProps> = ({ setIsRecorridoSelected, use
         };
     }, [setIsRecorridoSelected]);
 
+    const generarCodigoAleatorio = (): string => {
+        const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let codigo = '';
+        for (let i = 0; i < 24; i++) {
+            codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+        }
+        return codigo;
+    };
+    
     const añadirExperiencia = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -45,6 +54,7 @@ const anadirRecorrido: FC<anadirRecorridoProps> = ({ setIsRecorridoSelected, use
                 const experienciasArray = receivedUserData.recorridoLaboral || [];
 
                 const nuevaExperiencia = {
+                    id: generarCodigoAleatorio(),
                     cargo: nuevoCargo,
                     empresa: nuevaEmpresa,
                     desde: nuevoDesde,
@@ -61,7 +71,7 @@ const anadirRecorrido: FC<anadirRecorridoProps> = ({ setIsRecorridoSelected, use
             }
             setTimeout(() => {
                 window.location.reload();
-            }, 1300);
+            }, 300);
         } catch (error) {
             console.error('Error al crear la solicitud:', error);
         }

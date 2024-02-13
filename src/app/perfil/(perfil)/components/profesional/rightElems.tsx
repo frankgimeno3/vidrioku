@@ -184,6 +184,7 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, setIsRecorridoSelecte
                   <IdiomasCard
                     key={index}
                     Idioma={idioma?.idioma}
+                    IdiomaId={idioma?.id}
                     Nivel={idioma?.nivel}
                     setIsEditarIdiomasSelected={setIsEditarIdiomasSelected}
                     setIdiomaElegido={setIdiomaElegido}

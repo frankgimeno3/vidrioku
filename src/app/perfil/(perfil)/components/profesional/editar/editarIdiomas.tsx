@@ -38,15 +38,10 @@ const editarIdiomas: FC<editarIdiomasProps> = ({ setIsEditarIdiomasSelected, use
             if (userDoc.exists()) {
                 const receivedUserData = userDoc.data();
                 const idiomasArray = receivedUserData.idiomas || [];
-
-                // Buscar el índice del idioma que coincide con el nombre proporcionado
-                const index = idiomasArray.findIndex((idioma: any) => idioma.idioma === idiomaElegido);
+                const index = idiomasArray.findIndex((idioma: any) => idioma.id === idiomaElegido);
 
                 if (index !== -1) {
-                    // Actualizar el nivel del idioma en el array
                     idiomasArray[index].nivel = nuevoNivel;
-
-                    // Actualizar el documento en Firestore
                     await setDoc(userRef, { ...receivedUserData, idiomas: idiomasArray });
                 } else {
                     console.error('El idioma especificado no se encontró en el array de idiomas');

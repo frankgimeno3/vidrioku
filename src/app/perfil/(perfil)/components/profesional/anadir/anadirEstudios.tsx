@@ -34,6 +34,15 @@ const AnadirEstudios: FC<AnadirEstudiosProps> = ({ setIsEstudiosSelected, userDa
         };
     }, [setIsEstudiosSelected]);
 
+    const generarCodigoAleatorio = (): string => {
+        const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let codigo = '';
+        for (let i = 0; i < 24; i++) {
+            codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+        }
+        return codigo;
+    };
+
     const añadirEstudios = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -45,6 +54,7 @@ const AnadirEstudios: FC<AnadirEstudiosProps> = ({ setIsEstudiosSelected, userDa
                 const estudiosArray = userData.estudios || [];
 
                 const nuevoEstudio = {
+                    id: generarCodigoAleatorio(),
                     concepto: nuevoConcepto,
                     descripcion: nuevaDescripcion,
                     desde: nuevoDesde,
@@ -60,7 +70,7 @@ const AnadirEstudios: FC<AnadirEstudiosProps> = ({ setIsEstudiosSelected, userDa
             }
             setTimeout(() => {
                 window.location.reload();
-            }, 1300);
+            }, 300);
         } catch (error) {
             console.error('Error al crear la solicitud:', error);
         }

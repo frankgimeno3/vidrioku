@@ -5,6 +5,7 @@ import { db } from '@/app/firebase';
 
 interface idiomaCardProps {
     Idioma: any;
+    IdiomaId:any;
     Nivel: any;
     setIsEditarIdiomasSelected: any;
     setIdiomaElegido: any;
@@ -12,7 +13,7 @@ interface idiomaCardProps {
 }
 
 
-const idiomaCard: FC<idiomaCardProps> = ({ Idioma, Nivel, setIsEditarIdiomasSelected, setIdiomaElegido, userData }) => {
+const idiomaCard: FC<idiomaCardProps> = ({ Idioma, IdiomaId, Nivel, setIsEditarIdiomasSelected, setIdiomaElegido, userData }) => {
     const [userDataReceived, setUserDataReceived] = useState('');
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const idiomaCard: FC<idiomaCardProps> = ({ Idioma, Nivel, setIsEditarIdiomasSele
 
     const handleEditar = () => {
         setIsEditarIdiomasSelected(true)
-        setIdiomaElegido(Idioma)
+        setIdiomaElegido(IdiomaId)
     }
 
     const handleEliminar = async () => {
@@ -33,10 +34,10 @@ const idiomaCard: FC<idiomaCardProps> = ({ Idioma, Nivel, setIsEditarIdiomasSele
                 const receivedUserData = userDoc.data();
                 const idiomasArray = receivedUserData.idiomas || [];
 
-                const index = idiomasArray.findIndex((idioma: any) => idioma.idioma === Idioma);
+                const index = idiomasArray.findIndex((idioma: any) => idioma.id === IdiomaId);
 
                 if (index !== -1) {
-                    idiomasArray.splice(index, 1); // Remove the element at the found index
+                    idiomasArray.splice(index, 1);  
                     await setDoc(userRef, { ...receivedUserData, idiomas: idiomasArray });
                 } else {
                     console.error('El idioma especificado no se encontró en el array de idiomas');
