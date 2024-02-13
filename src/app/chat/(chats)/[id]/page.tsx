@@ -53,7 +53,6 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
     setParamsId(params.id)
   }, [params]);
 
-  //obtenemos datos de nuestro usuario
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {
@@ -70,7 +69,7 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
     fetchDoc();
   }, [userData]);
 
- 
+
 
   return (
     <div className='h-screen'>
@@ -79,10 +78,9 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
         <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
         <div className='flex flex-row min-h-screen'>
           <ChatList user={user} paramsId={paramsId} />
-
           <Chatcontent user={user} conversationChosen={params.id} />
           <div className='h-full bg-white bg-opacity-5 hidden md:block '>
-            <Banners widthProp={200}/>
+            <Banners widthProp={200} />
           </div>
         </div>
       </div>

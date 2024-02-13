@@ -48,14 +48,14 @@ const Mensajes: FC = ({ }) => {
 
   //obtenemos datos de nuestro usuario
   useEffect(() => {
-     const fetchDoc = async () => {
+    const fetchDoc = async () => {
       if (userData) {
-         const docRef = doc(db, "users", userData);
+        const docRef = doc(db, "users", userData);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUser(myUserData);
-         }
+        }
       }
     };
     fetchDoc();
@@ -76,11 +76,11 @@ const Mensajes: FC = ({ }) => {
     <div className=' h-screen '>
       <Navbar />
       <div className="flex flex-col h-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-      <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
+        <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
         <div className='flex flex-row min-h-screen'>
-            <ChatList user={user} />
-            <Chatcontent />
-            <div className='h-full bg-white bg-opacity-5'>
+          <ChatList user={user} />
+          <Chatcontent />
+          <div className='h-full bg-white bg-opacity-5'>
             <Banners widthProp={250} />
           </div>
         </div>
