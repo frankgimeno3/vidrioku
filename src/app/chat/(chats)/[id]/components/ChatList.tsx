@@ -22,7 +22,8 @@ interface ChatListProps {
 const ChatList: FC<ChatListProps> = ({ user, paramsId }) => {
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
   const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
- 
+  const [noMessages, setNoMessages] = useState(true)
+
   useEffect(() => {
     if (user) {
       setConversationsArray(user.conversations);
@@ -43,11 +44,18 @@ const ChatList: FC<ChatListProps> = ({ user, paramsId }) => {
           }
         }
       });
-    }
-  }, [conversationsArray]);
+      setNoMessages(false)
+    } else {
+      setNoMessages(true)
+    }  }, [conversationsArray]);
   
   return (
     <div className="my-3 flex flex-1 flex-col w-full">
+            {noMessages &&
+        <div className='flex flex-row mx-6 pb-3  text-zinc-100 rounded-lg my-1'>
+             <p className='font font-medium mt-4 px-3 flex-3  w-full ml-5'>No se encontraron mensajes</p>
+         </div>
+      }
       {conversationsObjectArray.map((elemento: any, index: any) => (
         <MessageListComponent key={index} conversation={elemento.conversacion} user={user} paramsId={paramsId}/>
       ))}
