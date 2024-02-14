@@ -43,9 +43,9 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Call the function initially to set the style based on the current screen size
+    handleResize();  
 
-    return () => window.removeEventListener('resize', handleResize); // Cleanup the event listener
+    return () => window.removeEventListener('resize', handleResize);  
   }, []);
 
   useEffect(() => {
@@ -156,63 +156,71 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
         </div>
         <div className='flex flex-col   text-white h-full w-full    text-white md:text-xl text-lg font-base shadow'  >
           <h2 className="hidden md:block bg-zinc-800 bg-gray-600 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
-          <div className='flex flex-col px-20 py-24	center h-full bg-gray-50    text-center '>
-          <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-semibold'>  Mensajes</p>
-                 {mensajesNoLeidos != 1 && mensajesNoLeidos != 0 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {mensajesNoLeidos} mensajes nuevos</p>
-                }
-                {mensajesNoLeidos == 1 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {mensajesNoLeidos} mensaje nuevo</p>
-                }
-                {mensajesNoLeidos == 0 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12 '> No tiene mensajes por leer</p>
-                }
-                <button
-                  className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
-                  onClick={() => { router.push("/chat") }}
-                >Mis mensajes</button>
-             </div>
-             <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Mis ofertas</p>
-            
-                {ofertascreadas != 1 && ofertascreadas != 0 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12'> Tiene {ofertascreadas} ofertas publicadas</p>
-                }
-                {ofertascreadas == 1 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12'> Tiene {ofertascreadas} oferta publicada</p>
-                }
-                {ofertascreadas == 0 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12'> No ha publicado ninguna oferta</p>
-                }
-                   <button
-              className=" mx-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
-              onClick={crearofertahandler}
-                  >Crear oferta de empleo</button>
-                  <button
-              className=" mx-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
-              onClick={misofertashandler}
-                  >Mis Ofertas</button>
-                </div>
- 
-                <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Solicitudes</p>
-                 {solicitudesNoContestadas != 1 && solicitudesNoContestadas != 0 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {solicitudesNoContestadas} solicitudes</p>
-                }
-                {solicitudesNoContestadas == 1 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {solicitudesNoContestadas} solicitud</p>
-                }
-                {solicitudesNoContestadas == 0 &&
-                  <p className='text-center font-light text-gray-500 text-base px-12 '> No tiene solicitudes nuevas</p>
-                }
-                <button
-              className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
-              onClick={() => { router.push("/solicitudes") }}
-                >Mis solicitudes</button>
-              </div>
+          <div className='flex flex-col px-20 py-12	center h-full bg-gray-50    text-center '>
+            <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+              <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-semibold'>  Mensajes</p>
+              {mensajesNoLeidos != 1 && mensajesNoLeidos != 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {mensajesNoLeidos} mensajes nuevos</p>
+              }
+              {mensajesNoLeidos == 1 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {mensajesNoLeidos} mensaje nuevo</p>
+              }
+              {mensajesNoLeidos == 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> No tiene mensajes por leer</p>
+              }
+              <button
+                className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                onClick={() => { router.push("/chat") }}
+              >Mis mensajes</button>
+            </div>
+            <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+              <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Mis ofertas</p>
 
-           </div>
+              {ofertascreadas != 1 && ofertascreadas != 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12'> Tiene {ofertascreadas} ofertas publicadas</p>
+              }
+              {ofertascreadas == 1 &&
+                <p className='text-center font-light text-gray-500 text-base px-12'> Tiene {ofertascreadas} oferta publicada</p>
+              }
+              {ofertascreadas == 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12'> No ha publicado ninguna oferta</p>
+              }
+              <button
+                className=" mx-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                onClick={crearofertahandler}
+              >Crear oferta de empleo</button>
+              <button
+                className=" mx-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                onClick={misofertashandler}
+              >Mis Ofertas</button>
+            </div>
+
+            <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+              <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Solicitudes</p>
+              {solicitudesNoContestadas != 1 && solicitudesNoContestadas != 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {solicitudesNoContestadas} solicitudes</p>
+              }
+              {solicitudesNoContestadas == 1 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> Ha recibido {solicitudesNoContestadas} solicitud</p>
+              }
+              {solicitudesNoContestadas == 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> No tiene solicitudes nuevas</p>
+              }
+              <button
+                className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                onClick={() => { router.push("/solicitudes") }}
+              >Mis solicitudes</button>
+            </div>
+            <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+              <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones</p>
+               
+              <button
+                className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                onClick={() => { router.push("/publicar") }}
+              >Publicar contenido</button>
+            </div>
+
+          </div>
         </div>
         <Banners widthProp={300} />
 
