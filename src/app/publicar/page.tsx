@@ -6,8 +6,9 @@ import React, { FC, useEffect, useState } from 'react'
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { redirect } from 'next/navigation';
-import { doc, getDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import router from 'next/router';
 
 
 interface PublicarProps {
@@ -15,6 +16,8 @@ interface PublicarProps {
 
 const Publicar: FC<PublicarProps> = ({ }) => {
     const [userData, setUserData] = useState('');
+    const [titulo, setTitulo] = useState('');
+    const [contenido, setContenido] = useState('');
 
     const session = useSession({
         required: true,
@@ -33,65 +36,81 @@ const Publicar: FC<PublicarProps> = ({ }) => {
     }, [session?.data?.user?.email]);
 
 
-const addPublicationToAuthor = ()=>{
-    
-}
+    const addPublicationToAuthor = async (userId: string, publicationId: string) => {
+        try {
+            const docRef = doc(db, "users", userId);
+            const userDoc = await getDoc(docRef);
 
-    const crearPublicacion = async (event: any) => {
-        event.preventDefault();
-        if (titulo !== '' && cargo !== '' && tipoJornada !== '' && tipoLocalizacion !== '') {
-          try {
-            const offersCollection = collection(db, 'ofertas');
-            const newOfferRef = await addDoc(offersCollection, {
-              id: '',
-              titulo: titulo.trim(),
-              cargo: cargo.trim(),
-              jornada: tipoJornada.trim(),
-              tipoubi: tipoLocalizacion.trim(),
-              ubicacion: ubicacion.trim(),
-              descripcion: descripcion.trim(),
-              experiencia: habilidades,
-              adicional: comentarios.trim(),
-              empresa: userData,
-              solcitantes: [],
-              publicacion: Timestamp.now(),
-              estado: "activa",
-    
-            });
-            await updateDoc(newOfferRef, { id: newOfferRef.id });
-    
-            addOfferToAuthor(userData, newOfferRef.id)
-            router.push('/misofertas');
-          } catch (error) {
-            console.error('Error al crear la oferta en Firestore:', error);
-          }
-        } else {
-          console.log("Campos vacíos");
+            if (userDoc.exists()) {
+                const userDataReceived = userDoc.data();
+
+                if (userDataReceived.publicaciones && Array.isArray(userDataReceived.publicaciones)) {
+                    await setDoc(docRef, {
+                        ...userDataReceived,
+                        publicaciones: [...userDataReceived.publicaciones, publicationId],
+                    });
+                } else {
+                    await setDoc(docRef, {
+                        ...userDataReceived,
+                        publicaciones: [publicationId],
+                    });
+                }
+            } else {
+                console.error('El documento del usuario no existe');
+            }
+        } catch (error) {
+            console.error('Error al añadir la oferta al autor:', error);
         }
-      };
+    };
 
+
+    const crearPublicacion = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (titulo.trim() !== '' && contenido.trim() !== '') {
+            try {
+                const publicacionesCollection = collection(db, 'publicaciones');
+                const newPublicationRef = await addDoc(publicacionesCollection, {
+                    id: '',
+                    titulo: titulo.trim(),
+                    contenido: contenido.trim(),
+                });
+                await updateDoc(newPublicationRef, { id: newPublicationRef.id });
+
+                addPublicationToAuthor(userData, newPublicationRef.id)
+                router.push('/dashboard');
+            } catch (error) {
+                console.error('Error al crear la oferta en Firestore:', error);
+            }
+        } else {
+            console.log("Campos vacíos");
+        }
+    };
 
     return (
         <>
             <Navbar />
             <div className='flex flex-col bg-white w-full  text-gray-500   text-center'>
                 <h2 className="hidden md:block bg-zinc-800 text-gray-50 font-bold text-lg py-3  ">Publicar contenido</h2>
-                <form className='flex flex-col mt-5 justify-center w-full px-96 text-left'>
+                <form onSubmit={crearPublicacion} className='flex flex-col mt-5 justify-center w-full px-96 text-left'>
                     <label htmlFor="titular" className='pl-1'>Titular:</label>
-                    <input className='rounded-md bg-transparent mb-5 border border-gray-100'
+                    <input
+                        value={titulo}
+                        onChange={(e) => setTitulo(e.target.value)}
+                        className='rounded-md bg-transparent mb-5 border border-gray-100'
                         placeholder="Añada aquí un titular" />
                     <label htmlFor="titular" className='pl-1'>Contenido:</label>
                     <textarea
+                        value={contenido}
+                        onChange={(e) => setContenido(e.target.value)}
                         placeholder="Añada aquí el contenido a publicar"
                         className='mb-5 rounded shadow mx-auto w-full bg-transparent border border-gray-100'></textarea>
-                    <button className="p-2 border shadow-lg rounded-lg text-xs   w-36 mx-auto mt-3 mb-24">
+                    <button type="submit" className="p-2 border shadow-lg rounded-lg text-xs   w-36 mx-auto mt-3 mb-24">
                         Publicar contenido
                     </button>
                 </form>
             </div>
             <Footer />
         </>
-    )
-        ;
+    );
 }
-export default Publicar;    
+export default Publicar;
