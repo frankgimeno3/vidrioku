@@ -5,11 +5,10 @@ import { signOut, useSession } from 'next-auth/react';
 import React, { FC, useEffect, useState } from 'react'
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import router from 'next/router';
-
+ 
 
 interface PublicarProps {
 }
@@ -18,6 +17,7 @@ const Publicar: FC<PublicarProps> = ({ }) => {
     const [userData, setUserData] = useState('');
     const [titulo, setTitulo] = useState('');
     const [contenido, setContenido] = useState('');
+    const router = useRouter()
 
     const session = useSession({
         required: true,
@@ -91,7 +91,7 @@ const Publicar: FC<PublicarProps> = ({ }) => {
             <Navbar />
             <div className='flex flex-col bg-white w-full  text-gray-500   text-center'>
                 <h2 className="hidden md:block bg-zinc-800 text-gray-50 font-bold text-lg py-3  ">Publicar contenido</h2>
-                <form onSubmit={crearPublicacion} className='flex flex-col mt-5 justify-center w-full px-96 text-left'>
+                <form onSubmit={crearPublicacion} className='flex flex-col my-12 mt-18  justify-center w-full px-96 text-left'>
                     <label htmlFor="titular" className='pl-1'>Titular:</label>
                     <input
                         value={titulo}
@@ -103,8 +103,8 @@ const Publicar: FC<PublicarProps> = ({ }) => {
                         value={contenido}
                         onChange={(e) => setContenido(e.target.value)}
                         placeholder="Añada aquí el contenido a publicar"
-                        className='mb-5 rounded shadow mx-auto w-full bg-transparent border border-gray-100'></textarea>
-                    <button type="submit" className="p-2 border shadow-lg rounded-lg text-xs   w-36 mx-auto mt-3 mb-24">
+                        className='mb-5 rounded shadow mx-auto w-full bg-transparent border border-gray-100 h-36'></textarea>
+                    <button type="submit" className="p-2 border shadow-lg rounded-lg text-xs   w-36 mx-auto mt-3 mb-24 bg-white hover:bg-gray-50">
                         Publicar contenido
                     </button>
                 </form>

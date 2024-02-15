@@ -106,7 +106,7 @@ const Navbar: FC = ({ }) => {
   return (
     <>
 
-      <div className="bg-gray-100 shadow-lg p-4 flex justify-between py-2 px-6">
+      <div className="bg-white shadow-lg p-4 flex justify-between py-2 px-6">
         <div className="flex items-center " onClick={redirectHome}>
           <Image src="/logos/3.png" alt="Logo3" width={50} height={50} className='' />
         </div>

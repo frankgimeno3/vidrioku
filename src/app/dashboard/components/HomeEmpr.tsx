@@ -43,9 +43,9 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize();  
+    handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);  
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -213,7 +213,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
             </div>
             <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
               <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones</p>
-               
+
               <button
                 className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
                 onClick={() => { router.push("/publicar") }}

@@ -128,7 +128,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
       </div>
       <div className='flex flex-col h-full w-full text-lg shadow shadow-sm'  >
         <h2 className="bg-zinc-800 bg-gray-600 font-bold text-lg py-3 text-center">Saludos, {user?.nombre}</h2>
-        <div className='flex flex-col px-20 py-24	center h-full bg-gray-50    text-center '>
+        <div className='flex flex-col px-20 py-12	center h-full bg-gray-50    text-center '>
           <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
             <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-semibold'> Mensajes</p>
             {mensajesNoLeidos != 1 && mensajesNoLeidos != 0 &&
@@ -177,6 +177,14 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
               className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
               onClick={() => { router.push("/chat") }}
             >Ir al chat</button>
+          </div>
+          <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones</p>
+
+            <button
+              className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+              onClick={() => { router.push("/publicar") }}
+            >Publicar contenido</button>
           </div>
         </div>
       </div>

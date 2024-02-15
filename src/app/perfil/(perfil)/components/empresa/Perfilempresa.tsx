@@ -53,11 +53,7 @@ const Perfilempresa: FC<PerfilempresaProps> = ({   }) => {
 
     fetchDoc();
   }, [userData]);
-
-  const crearofertahandler = ()=>{
-    router.push("/crearoferta")
-  }
-
+ 
   return (
     <div className="flex flex-col bg-gradient-to-b from-zinc-900 to-zinc-600">
       <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">  {user?.nombre} S.A.</h2>
