@@ -10,9 +10,9 @@ interface profesionalCardProps {
 const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
 
   return (
-    <div className="bg-gradient-to-b from-cyan-950 to-zinc-700  flex flex-col flex-1 px-auto  text-gray-500 py-12   ">
-      <div className="flex flex-col  flex  justify-center  mx-10  ">
-        <h2 className='text-white py-2'>Datos generales</h2>
+      <div className="bg-gradient-to-b from-cyan-950 to-zinc-700  flex flex-col flex-1 px-auto  text-gray-500 py-12   ">
+        <div className="flex flex-col  flex  justify-center  mx-10  ">
+          <h2 className='text-white py-2'>Datos generales</h2>
         <Image src="/icons/empty-user-profile.png" alt="" width={200} height={200} className="mx-auto my-5" />
         <div className='flex flex-row w-full mx-1'>
           <div className="flex-1 flex flex-col bg-white w-full p-3 my-1 mr-1 rounded-lg shadow-xl">
