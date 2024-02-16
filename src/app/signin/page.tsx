@@ -24,6 +24,11 @@ export default function Signin() {
   }, []);
 
   const router = useRouter();
+
+  const handleSignup = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push('/signup');
+  }
   return (
     <div className='relative'>
       <video
@@ -109,13 +114,13 @@ export default function Signin() {
                 </div>
               </div>
 
+            </form>
               <p className="mt-10 text-center text-sm text-gray-400">
                 No tiene cuenta en Vidrioku? {' '}
-                <button onClick={() => router.push('/signup')} className="font-semibold leading-6 text-blue-400 hover:text-blue-300">
+                <button onClick={(e) => handleSignup(e)} className="font-semibold leading-6 text-blue-400 hover:text-blue-300">
                   Crear una cuenta
                 </button>
               </p>
-            </form>
           </div>
         </div>
       </div>

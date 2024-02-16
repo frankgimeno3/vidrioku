@@ -17,6 +17,7 @@ import ProfesionalesContent from './signupComponents/ProfesionalesContent';
 
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import Region from './signupComponents/Region';
 
 
 export default function Signup() {
@@ -32,13 +33,14 @@ export default function Signup() {
   const [edad, setEdad] = useState("");
   const [genero, setGenero] = useState("");
   const [ubi, setUbi] = useState("");
+  const [region, setRegion] = useState("");
   const [actividad, setActividad] = useState("");
   const [cifEmpresa, setCifEmpresa] = useState("");
   const { data: session, status } = useSession()
 
   if (status === "authenticated") {
     redirect('/dashboard');
-  }
+  }  
   
   useEffect(() => {
     setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
@@ -48,6 +50,9 @@ export default function Signup() {
 
   const handleUserTypeChange = (e: any) => {
     setUserType(e.target.value);
+  };
+  const handleRegionChange = (e: any) => {
+    setRegion(e.target.value);
   };
 
   const addUserInFirebase = async () => {
@@ -84,12 +89,12 @@ export default function Signup() {
   };
 
   const signup = () => {
-    createUserWithEmailAndPassword(auth, email, password); //esto ocurre en firebase-authentication
-    addUserInFirebase(); // esto ocurre en firestre
+    createUserWithEmailAndPassword(auth, email, password); 
+    addUserInFirebase();  
     setIsAccepted(true);
     setTimeout(() => {
       router.push("/signin");
-    }, 3500); // 2500 milisegundos = 2.5 segundos
+    }, 3500); 
   };
 
   return (
@@ -128,6 +133,8 @@ export default function Signup() {
                   <Correo setEmail={setEmail} />
                   <Tipo userType={userType} handleUserTypeChange={handleUserTypeChange} />
                   <Contras setPassword={setPassword} setPasswordAgain={setPasswordAgain} />
+                  <Region region={region} handleRegionChange={handleRegionChange} />
+
                   {userType === "profesional" && <ProfesionalesContent setNombre={setNombre} setApellidos={setApellidos}
                     setEdad={setEdad} setGenero={setGenero} setUbi={setUbi} />}
                   {userType === "empresa" && <EmpresasContent setNombre={setNombre} setActividad={setActividad} setCifEmpresa={setCifEmpresa} />}
