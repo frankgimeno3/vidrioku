@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 
 import EmpresaCard from "./empresaCard"
 import OfertasActivas from './cards/OfertasActivas';
+import RightElems from './rightElems';
 
 interface PerfilempresaProps {
   userData: any
@@ -67,10 +68,8 @@ const Perfilempresa: FC<PerfilempresaProps> = ({ }) => {
       <div className="flex flex-row w-full  justify-between bg-gradient-to-b from-slate-900 to-slate-600">
         <EmpresaCard user={user} userData={userData} />
 
-        <div className='flex flex-col flex-1 mx-auto mt-5'>
-          <OfertasActivas     Idioma={"Idioma"} IdiomaId={"IdiomaId"} Nivel={"Nivel"}     setIsEditarIdiomasSelected={setIsEditarIdiomasSelected} setIdiomaElegido={setIdiomaElegido}  userData={userData}/>
-
-        </div>
+        <RightElems Idioma={"Idioma"} IdiomaId={"IdiomaId"} Nivel={"Nivel"} setIsEditarIdiomasSelected={setIsEditarIdiomasSelected} setIdiomaElegido={setIdiomaElegido} userData={userData} user={undefined} setIsRecorridoSelected={undefined} setIsEstudiosSelected={undefined} setIsIdiomasSelected={undefined} setIsEditarRecorridoSelected={undefined} setIsEditarEstudiosSelected={undefined} setExperienciaElegida={undefined} setEstudioElegido={undefined}/>
+        
       </div>
 
     </div>
