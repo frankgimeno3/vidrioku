@@ -53,7 +53,6 @@ const Perfilempresa: FC<PerfilempresaProps> = ({ }) => {
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUser(myUserData);
-          console.log(myUserData)
         }
       }
     };
@@ -68,7 +67,7 @@ const Perfilempresa: FC<PerfilempresaProps> = ({ }) => {
       <div className="flex flex-row w-full  justify-between bg-gradient-to-b from-slate-900 to-slate-600">
         <EmpresaCard user={user} userData={userData} />
 
-        <RightElems Idioma={"Idioma"} IdiomaId={"IdiomaId"} Nivel={"Nivel"} setIsEditarIdiomasSelected={setIsEditarIdiomasSelected} setIdiomaElegido={setIdiomaElegido} userData={userData} user={undefined} setIsRecorridoSelected={undefined} setIsEstudiosSelected={undefined} setIsIdiomasSelected={undefined} setIsEditarRecorridoSelected={undefined} setIsEditarEstudiosSelected={undefined} setExperienciaElegida={undefined} setEstudioElegido={undefined}/>
+        <RightElems   userData={userData} user={user}/>
         
       </div>
 

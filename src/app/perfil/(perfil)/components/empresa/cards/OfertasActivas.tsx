@@ -1,68 +1,99 @@
 import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
+import { useRouter } from 'next/navigation';
 
 interface OfertasActivasProps {
-    Idioma: any;
-    IdiomaId:any;
-    Nivel: any;
-    setIsEditarIdiomasSelected: any;
-    setIdiomaElegido: any;
-    userData: string;
+    OfertaId: any;
+    Estado: any;
+    Cargo: any;
+    Titulo: any;
+    Jornada: string;
+    userData: any;
 }
 
 
-const OfertasActivas: FC<OfertasActivasProps> = ({ Idioma, IdiomaId, Nivel, setIsEditarIdiomasSelected, setIdiomaElegido, userData }) => {
+const OfertasActivas: FC<OfertasActivasProps> = ({ OfertaId, Estado, Cargo, Titulo, Jornada, userData }) => {
     const [userDataReceived, setUserDataReceived] = useState('');
+    const router = useRouter()
 
     useEffect(() => {
         setUserDataReceived(userData);
     }, [userData]);
 
-    const handleEditar = () => {
-        setIsEditarIdiomasSelected(true)
-        setIdiomaElegido(IdiomaId)
+    const handleMostrar = () => {
+        router.push(`/misofertas/editar/${OfertaId}`)
     }
 
-    const handleEliminar = async () => {
+    const eliminarDeUsuario = async () => {
         try {
             const userRef = doc(db, "users", userDataReceived);
             const userDoc = await getDoc(userRef);
 
             if (userDoc.exists()) {
                 const receivedUserData = userDoc.data();
-                const idiomasArray = receivedUserData.idiomas || [];
+                const ofertasArray = receivedUserData.ofertasCreadas || [];
 
-                const index = idiomasArray.findIndex((idioma: any) => idioma.id === IdiomaId);
+                const index = ofertasArray.findIndex((oferta: any) => oferta === OfertaId);
 
                 if (index !== -1) {
-                    idiomasArray.splice(index, 1);  
-                    await setDoc(userRef, { ...receivedUserData, idiomas: idiomasArray });
+                    ofertasArray.splice(index, 1);
+                    await setDoc(userRef, { ...receivedUserData, ofertascreadas: ofertasArray });
                 } else {
-                    console.error('El idioma especificado no se encontró en el array de idiomas');
+                    console.error('La oferta especificada no se encontró en el array de ofertas');
                 }
             } else {
                 console.error('El documento del usuario no existe');
             }
-            setTimeout(() => {
-                window.location.reload();
-            }, 300);
         } catch (error) {
-            console.error('Error al editar el idioma:', error);
+            console.error('Error al eliminar oferta:', error);
         }
     }
 
+    const eliminarDeOfertas = async () => {
+        try {
+            const ofertaRef = doc(db, "ofertas", OfertaId);
+            const ofertaDoc = await getDoc(ofertaRef);
+
+            if (ofertaDoc.exists()) {
+                await deleteDoc(ofertaRef);
+                console.log('Oferta eliminada con éxito');
+            } else {
+                console.error('La oferta especificada no existe');
+            }
+        } catch (error) {
+            console.error('Error al eliminar oferta:', error);
+        }
+    }
+
+    const handleEliminar = async () => {
+        eliminarDeUsuario()
+        eliminarDeOfertas()
+        setTimeout(() => {
+            window.location.reload();
+        }, 300);
+    }
+
     return (
-        <div className='flex flex-row justify-between bg-white rounded-lg shadow py-auto items-center content-center px-5 py-2 my-2 text-gray-400 text-sm'>
-            <p className='font-bold'>{Idioma} <span className='font-light'>({Nivel})</span></p>
-            <div className='flex  flex-row justify-between '>
-                <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8 mx-3'
-                    onClick={() => { handleEditar() }}>Editar </button>
-                <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8'
-                    onClick={() => { handleEliminar() }}>Eliminar </button>
-            </div>
-        </div>
+        <>
+            {
+                Estado == 'activa' &&
+                <div className='flex flex-row justify-between bg-white rounded-lg shadow py-auto items-center content-center px-5 py-2 my-2 text-gray-400 text-sm'>
+                    <div className='flex flex-col p-1'>
+                        <p className='font-bold'>{Titulo} </p>
+                        <p className='font-bold text-gray-500 '> Cargo: <span className='font-light'>{Cargo}</span></p>
+                        <p className='font-bold text-gray-500 '> Jornada: <span className='font-light'>{Jornada}</span></p>
+                    </div>
+                    <div className='flex  flex-row justify-between '>
+                        <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8 mx-3'
+                            onClick={() => { handleMostrar() }}>Mostrar </button>
+                        <button className='bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs h-8'
+                            onClick={() => { handleEliminar() }}>Eliminar </button>
+                    </div>
+                </div>
+            }
+        </>
     )
 }
 
