@@ -46,7 +46,6 @@ export default function EditarPerfil() {
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUserType(myUserData.userType);
-          console.log(myUserData)
         }
       }
     };

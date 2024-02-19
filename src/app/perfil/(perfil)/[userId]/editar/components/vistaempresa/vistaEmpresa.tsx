@@ -40,7 +40,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
   const [nombreActualizado, setNombreActualizado] = useState("");
   const [anoCreacionActualizado, setAnoCreacionActualizado] = useState("");
   const [empleadosActualizado, setEmpleadosActualizado] = useState("");
-  const [actividadActualizado, setActividadActualizado] = useState("");
+  const [actividadActualizado, setActividadActualizado] = useState([""]);
   const [ubiActualizado, setUbiActualizado] = useState("");
   const [webActualizado, setWebActualizado] = useState("");
   const [emailActualizado, setEmailActualizado] = useState("");
@@ -65,6 +65,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
       setUserDataReceived("Usuario");
     }
   }, [session?.data?.user?.email]);
+ 
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -79,7 +80,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
     };
 
     fetchDoc();
-  }, [userData]);
+  }, [userDataReceived]);
 
   const guardarCambiosHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +96,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
     ubi: string,
     tel: string,
     email: string,
-    actividad: string,
+    actividad: any,
     descripcion: string,
     empleados: any,
     web: string,
@@ -113,7 +114,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
           anoCreacion: anoCreacion !== "" ? anoCreacion : userData.anoCreacion,
           ubi: ubi !== "" ? ubi : userData.ubi,
           empleados: empleados !== "" ? empleados : userData.empleados,
-          actividad: actividad !== "" ? actividad : userData.actividad,
+          actividad: actividad.length !== 0 ? actividad : userData.actividad,          
           descripcion: descripcion !== "" ? descripcion : userData.descripcion,
           web: web !== "" ? web : userData.web,
           tel: tel !== "" ? tel : userData.tel,
@@ -138,8 +139,8 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
 
   return (
     <>
-      <form onSubmit={guardarCambiosHandler} className='mx-24 relative'>
-        <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500    ">
+      <form onSubmit={guardarCambiosHandler} className='mx-24 relative   '>
+        <div className="flex flex-col p-8 justify-between text-center justify-center px-auto bg-gray-50 shadow-sm border border-gray-50 mx-10   text-gray-500    ">
           {fase == 1 &&
             <Fase1
               handleModificarPerfil={handleModificarPerfil}
@@ -169,10 +170,12 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
         </div>
 
         {fase == 3 &&
-          <div className="mx-auto py-5 text-center">
-            <button type="submit" className="bg-blue-500 text-white px-4 my-2 rounded text-center">
+          <div className="bg gray-50 mx-auto py-5 text-center">
+            <button type="submit"
+            className='py-2 px-4 my-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl'>
               Guardar Cambios
             </button>
+            
           </div>}
       </form >
       {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userData} />
