@@ -65,7 +65,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
       setUserDataReceived("Usuario");
     }
   }, [session?.data?.user?.email]);
- 
+
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -105,23 +105,23 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
     try {
       const docRef = doc(db, "users", userId);
       const userDoc = await getDoc(docRef);
-  
+
       if (userDoc.exists()) {
         const userData = userDoc.data() as User;
-  
+
         const newData: Partial<User> = {
           nombre: nombre !== "" ? nombre : userData.nombre,
           anoCreacion: anoCreacion !== "" ? anoCreacion : userData.anoCreacion,
           ubi: ubi !== "" ? ubi : userData.ubi,
           empleados: empleados !== "" ? empleados : userData.empleados,
-          actividad: actividad.length !== 0 ? actividad : userData.actividad,          
+          actividad: actividad.length !== 0 ? actividad : userData.actividad,
           descripcion: descripcion !== "" ? descripcion : userData.descripcion,
           web: web !== "" ? web : userData.web,
           tel: tel !== "" ? tel : userData.tel,
           linkedin: linkedin !== "" ? linkedin : userData.linkedin,
           email: email !== "" ? email : userData.email,
         };
-  
+
         await setDoc(docRef, { ...userData, ...newData });
       } else {
         console.error('El documento del usuario no existe');
@@ -130,7 +130,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
       console.error('Error al crear la solicitud:', error);
     }
   };
-  
+
 
   const handleModificarPerfil = (event: any) => {
     event.preventDefault();
@@ -170,18 +170,19 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
         </div>
 
         {fase == 3 &&
-          <div className="bg gray-50 mx-auto py-5 text-center">
-            <button type="submit"
-            className='py-2 px-4 my-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl'>
-              Guardar Cambios
-            </button>
-            
-          </div>}
-      </form >
+          <div className="flex flex-col pb-12  justify-between text-center justify-center bg-gray-50 shadow-sm mx-10   text-gray-500    ">
+
+              <button type="submit"
+                className='py-2 px-4 mb-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl w-36 mx-auto'>
+                Guardar Cambios
+              </button>
+
+            </div>}
+          </form >
       {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userData} />
-      }
-    </>
-  )
+        }
+      </>
+      )
 }
 
-export default VistaEmpresa
+      export default VistaEmpresa

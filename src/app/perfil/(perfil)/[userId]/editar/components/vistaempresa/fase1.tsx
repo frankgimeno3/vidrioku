@@ -25,7 +25,7 @@ const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, se
     return (
         <div className='flex flex-col'>
             <p className='font-bold text-gray-400 text-2xl'>Modificar información de usuario</p>
-            <p className='text-gray-500 text-lg'>Datos generales <span className='font-bold text-gray-e00 text-lg'>1/3</span></p>
+            <p className='text-gray-500 text-lg'>Datos generales <span className='font-bold text-gray-e00 text-lg'>(Parte 1/3)</span></p>
             <Image src={receivedUser?.profilepicture || "/icons/empty-user-profile.png"} alt="" width={200} height={200} className="mx-auto mt-5 " />
             <button className='my-5 mx-auto p-2 py-3 text-sm border text-gray-500 rounded-lg shadow-lg hover:bg-gray-50 border-gray-100 '
                 onClick={() => { handleModificarPerfil }}>
