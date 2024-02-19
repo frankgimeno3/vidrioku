@@ -3,13 +3,13 @@ import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
-
 import Navbar from '../components/Navbar'
-import Perfilempresa from './(perfil)/components/empresa/Perfilempresa'
-import Perfilprofesional from './(perfil)/components/profesional/Perfilprofesional';
+import Perfilempresa from './components/empresa/Perfilempresa'
+import Perfilprofesional from './components/profesional/Perfilprofesional';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+
 import Footer from '@/app/components/Footer';
+import { db } from '../firebase';
 
 
 interface User {
@@ -37,7 +37,7 @@ export default function Miperfil() {
       setUserData('Usuario');
     }
   }, [session?.data?.user?.email]);
-  
+
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {
@@ -46,27 +46,25 @@ export default function Miperfil() {
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUserType(myUserData.userType);
-         }
+          console.log(myUserData)
+        }
       }
     };
 
     fetchDoc();
   }, [userData]);
-  
 
 
 
-  //OJO, ESTE NO ES EL PERFIL QUE SE MUESTRA!
-  
+
   return (
     <div className="">
-
+      <main className='bg-zinc-500 h-full'>
         <Navbar />
-      <main className='bg-zinc-500 '>
         {userType == 'empresa' && <Perfilempresa userData={userData} />}
         {userType == 'profesional' && <Perfilprofesional userData={userData} />}
-       </main>
-      <Footer  />
+      </main>
+      <Footer />
 
     </div>
   )

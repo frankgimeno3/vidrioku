@@ -77,7 +77,7 @@ const profesionalCard: FC<profesionalCardProps> = ({ user, userData }) => {
         </div>
       }
       <div className='mx-auto py-5'>
-        <Link href={`/perfil/${userData}/editar`}>
+        <Link href={`/perfil/editar/${userData}`}>
           <button
             className="bg-white shadow border text-gray-500 border-gray-200 rounded px-4 py-2 text-xs  "
           >Editar información de mi perfil de profesional</button>

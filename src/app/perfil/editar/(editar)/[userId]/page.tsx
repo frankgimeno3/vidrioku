@@ -4,11 +4,11 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 
-import Navbar from '../../../components/Navbar'
-import Perfilempresa from '../components/empresa/Perfilempresa'
-import Perfilprofesional from '../components/profesional/Perfilprofesional';
+import Navbar from '../../../../components/Navbar'
+import VistaEmpresa from '../../components/vistaempresa/vistaEmpresa'
+import VistaProfesional from '../../components/vistaprofesional/vistaProfesional';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../../firebase';
+import { db } from '../../../../firebase';
 import Footer from '@/app/components/Footer';
 
 
@@ -19,7 +19,7 @@ interface User {
 }
 
 
-export default function Miperfil() {
+export default function EditarPerfil() {
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -46,7 +46,6 @@ export default function Miperfil() {
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUserType(myUserData.userType);
-          console.log(myUserData)
         }
       }
     };
@@ -61,8 +60,8 @@ export default function Miperfil() {
     <div className="">
       <main className='bg-zinc-500 h-full'>
         <Navbar />
-        {userType == 'empresa' && <Perfilempresa userData={userData} />}
-        {userType == 'profesional' && <Perfilprofesional userData={userData} />}
+        {userType == 'empresa' && <VistaEmpresa userData={userData} />}
+        {userType == 'profesional' && <VistaProfesional userData={userData} />}
       </main>
       <Footer />
 
@@ -70,4 +69,4 @@ export default function Miperfil() {
   )
 }
 
-Miperfil.requireAuth = true
+EditarPerfil.requireAuth = true
