@@ -54,10 +54,10 @@ const empresaCard: FC<empresaCardProps> = ({ userData, user }) => {
         </div>
         <div className="flex flex-col bg-white w-full p-3 m-1 rounded-lg shadow-xl">
           <p className='mr-5 text-gray-400 text-xs'>Descripción </p>
-          {user?.actividad != undefined &&
-            < span className='mr-1 '>{user?.actividad} </span>
+          {user?.descripcion != undefined &&
+            < span className='mr-1 '>{user?.descripcion} </span>
           }
-          {user?.actividad == undefined &&
+          {user?.descripcion == undefined &&
             < span className='mr-1 '>Datos no introducidos</span>
           }
         </div>

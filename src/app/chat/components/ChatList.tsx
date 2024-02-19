@@ -33,8 +33,8 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
 
   useEffect(() => {
     console.log("conv array: ", conversationsArray)
-    if (conversationsArray.length !== 0) {
-      conversationsArray.forEach(async (elemento) => {
+    if (conversationsArray?.length !== 0) {
+      conversationsArray?.forEach(async (elemento) => {
         if (elemento != '' && elemento != "") {
           const docRef = doc(db, "conversations", elemento);
           console.log(elemento)

@@ -30,13 +30,11 @@ const CambiarFoto: FC<CambiarFotoProps> = ({setIsCambiarFotoOpen, userData}) => 
         if (userDoc.exists()) {
           const userData = userDoc.data();
     
-          // Elimina campos con valores undefined
-          const updatedData = {
+           const updatedData = {
             profilepicture: url,
           };
     
-          // Filtra campos undefined
-          const filteredData = Object.fromEntries(
+           const filteredData = Object.fromEntries(
             Object.entries(updatedData).filter(([_, value]) => value !== undefined)
           );
     

@@ -40,15 +40,17 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, }) => {
 
   useEffect(() => {
     const fetchOfertas = async () => {
-      if (ofertasArrayReceived.length === 0) return;
+      if (ofertasArrayReceived?.length === 0) return;
 
       const nuevasOfertas: any = [];
-      for (const elementoOferta of ofertasArrayReceived) {
-        const docRef = doc(db, "ofertas", elementoOferta);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myOfferObject = response.data();
-          nuevasOfertas.push(myOfferObject);
+      if (ofertasArrayReceived != undefined && ofertasArrayReceived.length != 0) {
+        for (const elementoOferta of ofertasArrayReceived) {
+          const docRef = doc(db, "ofertas", elementoOferta);
+          const response = await getDoc(docRef);
+          if (response.exists()) {
+            const myOfferObject = response.data();
+            nuevasOfertas.push(myOfferObject);
+          }
         }
       }
       setOfertasDelUsuario(nuevasOfertas);
@@ -59,19 +61,21 @@ const rightElems: FC<rightElemsProps> = ({ user, userData, }) => {
 
   useEffect(() => {
     const fetchPublicaciones = async () => {
-      if (publicacionesArrayReceived.length === 0) return;
+      if (publicacionesArrayReceived?.length === 0) return;
 
       const nuevasPublicaciones: any = [];
-      for (const elementoPublicacion of publicacionesArrayReceived) {
-        const docRef = doc(db, "publicaciones", elementoPublicacion);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myPublicationObject = response.data();
-          nuevasPublicaciones.push(myPublicationObject);
+      if (ofertasArrayReceived != undefined && ofertasArrayReceived.length != 0) {
+        for (const elementoPublicacion of publicacionesArrayReceived) {
+          const docRef = doc(db, "publicaciones", elementoPublicacion);
+          const response = await getDoc(docRef);
+          if (response.exists()) {
+            const myPublicationObject = response.data();
+            nuevasPublicaciones.push(myPublicationObject);
+          }
         }
       }
       setPublicacionesDelUsuario(nuevasPublicaciones);
- 
+
     };
 
     fetchPublicaciones();

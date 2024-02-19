@@ -71,9 +71,9 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
         if (response.exists()) {
           const myUserData = response.data() as any;
           setUserDataObject(myUserData)
-          setOfertasCreadas(myUserData.ofertascreadas.length)
-          setMensajesNoLeidos(myUserData.mensajesnoleidos.length)
-          setSolicitudesNoContestadas(myUserData.solicitudesnocontestadas.length)
+          setOfertasCreadas(myUserData.ofertascreadas?.length)
+          setMensajesNoLeidos(myUserData.mensajesnoleidos?.length)
+          setSolicitudesNoContestadas(myUserData.solicitudesnocontestadas?.length)
           console.log("mensajesNoLeidos: ", mensajesNoLeidos)
         }
       }

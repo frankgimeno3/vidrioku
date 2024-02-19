@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 
 import Navbar from '../../../../components/Navbar'
-import VistaEmpresa from './components/vistaEmpresa'
-import VistaProfesional from './components/vistaProfesional';
+import VistaEmpresa from './components/vistaempresa/vistaEmpresa'
+import VistaProfesional from './components/vistaprofesional/vistaProfesional';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../../firebase';
 import Footer from '@/app/components/Footer';

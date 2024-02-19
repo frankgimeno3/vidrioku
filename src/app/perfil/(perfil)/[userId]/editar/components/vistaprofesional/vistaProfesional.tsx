@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Navbar from '@/app/components/Navbar';
 import TogglePermiso from './TogglePermiso';
 import ToggleVehiculo from './ToggleVehiculo';
-import CambiarFoto from './CambiarFoto';
+import CambiarFoto from '../CambiarFoto';
 
 interface PerfilprofesionalProps {
   userData: any
