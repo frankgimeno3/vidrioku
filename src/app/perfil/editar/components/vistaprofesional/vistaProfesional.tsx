@@ -6,9 +6,7 @@ import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image';
-import Navbar from '@/app/components/Navbar';
-import TogglePermiso from './TogglePermiso';
-import ToggleVehiculo from './ToggleVehiculo';
+
 import CambiarFoto from '../CambiarFoto';
 
 interface PerfilprofesionalProps {
@@ -32,8 +30,8 @@ interface User {
  }
 const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [user, setUser] = useState<User | undefined>();
-  const [userData, setUserData] = useState("");
-  const [isDNI, setIsDNI] = useState(true);
+  const [userDataReceived, setUserDataReceived] = useState("");
+  const [fase, setFase] = useState(1)
 
   const [nombreActualizado, setNombreActualizado] = useState(user?.nombre)
   const [apellidosActualizado, setApellidosActualizado] = useState(user?.apellidos)
@@ -61,41 +59,36 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
 
   useEffect(() => {
     if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
+      setUserDataReceived(session.data.user.email);
     } else {
-      setUserData("Usuario");
+      setUserDataReceived("Usuario");
     }
   }, [session?.data?.user?.email]);
 
+
   useEffect(() => {
     const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
+      if (userDataReceived) {
+        const docRef = doc(db, "users", userDataReceived);
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
           setUser(myUserData);
-         }
+        }
       }
     };
 
     fetchDoc();
-  }, [userData]);
+  }, [userDataReceived]);
+
 
 
   const guardarCambiosHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/perfil/${userData}`);
+    router.push(`/perfil/${userDataReceived}`);
   };
 
-  const niehandler = (event: any) => {
-    event.preventDefault();
-    setIsDNI(false)
-  }
-  const DNIhandler = (event: any) => {
-    event.preventDefault();
-    setIsDNI(true)
-  }
+
 
 
   const editarPerfil = async (
@@ -223,32 +216,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
-            {isDNI && <div className="flex flex-col my-2 ">
-              <label htmlFor="DNI" >DNI: </label>
-              <input type="text"
-                id="DNI"
-                name="DNI"
-                placeholder={user?.DNI  || "Inserte aquí la URL de su número de DNI"}
-                onChange={(e) => setDNIActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-              <button onClick={niehandler}
-              className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
-                Haga click aquí si tiene NIE en vez de DNI</button>
-            </div>}
-            {!isDNI && <div className="flex flex-col  my-2 ">
-              <label htmlFor="NIE" >NIE: </label>
-              <input
-                type="text"
-                id="NIE"
-                name="NIE"
-                placeholder={user?.NIE || "Inserte aquí su número de NIE"}
-                onChange={(e) => setNIEActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-              <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
-              Haga click aquí si tiene DNI en vez de NIE</button>
-            </div>}
+            
             <div className="flex flex-col my-2">
               <label htmlFor="tel" >Teléfono </label>
               <input
@@ -271,16 +239,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
                 className='w-full text-center bg-gray-50 shadow rounded'
               />
             </div>
-            <div className="flex flex-col my-2">
-              <label htmlFor="permiso" >Permiso de conducción? </label>
-              <TogglePermiso setPermiso={setPermisoActualizado} permisoActualizado={permisoActualizado} />
 
-            </div>
-            {permisoActualizado  && <div className="flex flex-col my-2">
-              <label htmlFor="vehiculo" >Vehículo propio? </label>
-              <ToggleVehiculo setVehiculo={setVehiculoActualizado} vehiculoActualizado={vehiculoActualizado}/>
-         
-            </div>}
           </div>
         </div>
         <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500 ">
@@ -291,7 +250,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
           ></textarea>
         </div>
         <div className="mx-auto py-5 text-center">
-          <button type="submit" onClick={()=> editarPerfil(userData, apellidosActualizado, edadActualizado, generoActualizado,
+          <button type="submit" onClick={()=> editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
           nombreActualizado,  ubiActualizado,  DNIActualizado, NIEActualizado, telActualizado, permisoActualizado, 
           vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
             Guardar Cambios
@@ -299,7 +258,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
           </button>
         </div>
       </form>
-      {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userData} />}
+      {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userDataReceived} />}
     </>
   )
 }

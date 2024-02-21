@@ -59,7 +59,7 @@ const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, se
             <div className="flex flex-row mx-60">
 
             <div className="flex flex-col m-2 w-full ">
-                    <label htmlFor="ubi" >Ubicacion: </label>
+                    <label htmlFor="ubi" >Ubicación principal: </label>
                     <input
                         type="text"
                         id="ubi"
