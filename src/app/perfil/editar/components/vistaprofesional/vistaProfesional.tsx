@@ -159,96 +159,14 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
             Modificar Imagen de perfil
           </button>
           <div className="flex flex-col mx-96">
-            <div className="flex flex-col my-2  ">
-              <label htmlFor="nombre" >Nombre: </label>
-              <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                placeholder={user?.nombre}
-                onChange={(e) => setNombreActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-            </div>
-            <div className="flex flex-col my-2">
-              <label htmlFor="apellidos" >Apellidos: </label>
-              <input
-                type="text"
-                id="apellidos"
-                name="apellidos"
-                placeholder={user?.apellidos}
-                onChange={(e) => setApellidosActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-
-              />
-            </div>
-            <div className="flex flex-col my-2">
-              <label htmlFor="edad" >Año de nacimiento: </label>
-              <input
-                type="number"
-                id="edad"
-                name="edad"
-                placeholder={user?.edad?.toString() ?? ''}
-                onChange={(e) => setEdadActualizado(parseInt(e.target.value) || undefined)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-
-              />
-            </div>
-            <div className="flex flex-col my-2">
-              <label htmlFor="genero" >Género: </label>
-              <input
-                type="text"
-                id="genero"
-                name="genero"
-                placeholder={user?.genero}
-                onChange={(e) => setGeneroActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-            </div>
-            <div className="flex flex-col  my-2">
-              <label htmlFor="ubi" >Residencia actual: </label>
-              <input
-                type="text"
-                id="ubi"
-                name="ubi"
-                placeholder={user?.ubi}
-                onChange={(e) => setUbiActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-            </div>
+              
             
-            <div className="flex flex-col my-2">
-              <label htmlFor="tel" >Teléfono </label>
-              <input
-                type="text"
-                id="tel"
-                name="tel"
-                placeholder={user?.tel || "Inserte aquí la URL de su número de teléfono" }
-                onChange={(e) => setTelActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-            </div>
-            <div className="flex flex-col my-2">
-              <label htmlFor="linkedin"  >Linkedin </label>
-              <input
-                type="text"
-                id="linkedin"
-                name="linkedin"
-                placeholder="Inserte aquí la URL de su perfil de Linkedin"
-                onChange={(e) => setLinkedinActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-            </div>
+            
+            
 
           </div>
         </div>
-        <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500 ">
-          <label htmlFor="carta" >Carta de presentación </label>
-          <textarea placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas" 
-          className='m-5 rounded shadow mx-96 bg-gray-50'
-          onChange={(e) => setCartaActualizado(e.target.value)}
-          ></textarea>
-        </div>
+
         <div className="mx-auto py-5 text-center">
           <button type="submit" onClick={()=> editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
           nombreActualizado,  ubiActualizado,  DNIActualizado, NIEActualizado, telActualizado, permisoActualizado, 

@@ -10,16 +10,16 @@ interface fase1Props {
     setGeneroActualizado: any;
     setEdadActualizado: any;
     setUbiActualizado: any;
-    setDNIActualizado:any;
-    setNIEActualizado:any;
-    setPermisoActualizado:any;
-    setVehiculoActualizado:any;
-    permisoActualizado:any;
-    vehiculoActualizado:any;
+    setDNIActualizado: any;
+    setNIEActualizado: any;
+    setPermisoActualizado: any;
+    setVehiculoActualizado: any;
+    permisoActualizado: any;
+    vehiculoActualizado: any;
     user: any;
     setFase: any;
 }
-const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, setApellidosActualizado, setGeneroActualizado, setEdadActualizado, setUbiActualizado, 
+const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, setApellidosActualizado, setGeneroActualizado, setEdadActualizado, setUbiActualizado,
     setDNIActualizado, setNIEActualizado, user, setFase, setPermisoActualizado, setVehiculoActualizado, permisoActualizado, vehiculoActualizado }) => {
 
     const [receivedUser, setReceivedUser] = useState<any>()
@@ -36,11 +36,11 @@ const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, se
     const niehandler = (event: any) => {
         event.preventDefault();
         setIsDNI(false)
-      }
-      const DNIhandler = (event: any) => {
+    }
+    const DNIhandler = (event: any) => {
         event.preventDefault();
         setIsDNI(true)
-      }
+    }
 
     return (
         <div className='flex flex-col'>
@@ -74,16 +74,18 @@ const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, se
                         className='w-full text-center bg-transparent shadow rounded border border-gray-100 placeholder-gray-400'
                     />
                 </div>
-                <div className="flex flex-col m-2 w-full  ">
-                    <label htmlFor="edad" >Genero: </label>
-                    <input
-                        type="text"
+                <div className="flex flex-col m-2 w-full">
+                    <label htmlFor="genero">Género: </label>
+                    <select
                         id="genero"
                         name="genero"
-                        placeholder={receivedUser?.edad}
                         onChange={(e) => setGeneroActualizado(e.target.value)}
                         className='w-full text-center bg-transparent shadow rounded border border-gray-100 placeholder-gray-400'
-                    />
+                    >
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                        <option value="Otro">Otro</option>
+                    </select>
                 </div>
             </div>
             <div className="flex flex-row mx-60">
@@ -112,41 +114,41 @@ const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, se
                     />
                 </div>
                 {isDNI && <div className="flex flex-col my-2 ">
-              <label htmlFor="DNI" >DNI: </label>
-              <input type="text"
-                id="DNI"
-                name="DNI"
-                placeholder={user?.DNI  || "Inserte aquí la URL de su número de DNI"}
-                onChange={(e) => setDNIActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-              <button onClick={niehandler}
-              className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
-                Haga click aquí si tiene NIE en vez de DNI</button>
-            </div>}
-            {!isDNI && <div className="flex flex-col  my-2 ">
-              <label htmlFor="NIE" >NIE: </label>
-              <input
-                type="text"
-                id="NIE"
-                name="NIE"
-                placeholder={user?.NIE || "Inserte aquí su número de NIE"}
-                onChange={(e) => setNIEActualizado(e.target.value)}
-                className='w-full text-center bg-gray-50 shadow rounded'
-              />
-              <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
-              Haga click aquí si tiene DNI en vez de NIE</button>
-            </div>}
-            <div className="flex flex-col my-2">
-              <label htmlFor="permiso" >Permiso de conducción? </label>
-              <TogglePermiso setPermiso={setPermisoActualizado} permisoActualizado={permisoActualizado} />
+                    <label htmlFor="DNI" >DNI: </label>
+                    <input type="text"
+                        id="DNI"
+                        name="DNI"
+                        placeholder={user?.DNI || "Inserte aquí la URL de su número de DNI"}
+                        onChange={(e) => setDNIActualizado(e.target.value)}
+                        className='w-full text-center bg-gray-50 shadow rounded'
+                    />
+                    <button onClick={niehandler}
+                        className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
+                        Haga click aquí si tiene NIE en vez de DNI</button>
+                </div>}
+                {!isDNI && <div className="flex flex-col  my-2 ">
+                    <label htmlFor="NIE" >NIE: </label>
+                    <input
+                        type="text"
+                        id="NIE"
+                        name="NIE"
+                        placeholder={user?.NIE || "Inserte aquí su número de NIE"}
+                        onChange={(e) => setNIEActualizado(e.target.value)}
+                        className='w-full text-center bg-gray-50 shadow rounded'
+                    />
+                    <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
+                        Haga click aquí si tiene DNI en vez de NIE</button>
+                </div>}
+                <div className="flex flex-col my-2">
+                    <label htmlFor="permiso" >Permiso de conducción? </label>
+                    <TogglePermiso setPermiso={setPermisoActualizado} permisoActualizado={permisoActualizado} />
 
-            </div>
-            {permisoActualizado  && <div className="flex flex-col my-2">
-              <label htmlFor="vehiculo" >Vehículo propio? </label>
-              <ToggleVehiculo setVehiculo={setVehiculoActualizado} vehiculoActualizado={vehiculoActualizado}/>
-         
-            </div>}
+                </div>
+                {permisoActualizado && <div className="flex flex-col my-2">
+                    <label htmlFor="vehiculo" >Vehículo propio? </label>
+                    <ToggleVehiculo setVehiculo={setVehiculoActualizado} vehiculoActualizado={vehiculoActualizado} />
+
+                </div>}
             </div>
             <div>
                 <button
