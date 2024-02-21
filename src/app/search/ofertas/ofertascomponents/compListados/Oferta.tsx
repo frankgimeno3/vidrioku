@@ -4,7 +4,7 @@ import { collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 
 interface OfertaProps {
-  id:any,
+  id: any,
   titulo: string,
   cargo: string,
   jornada: string,
@@ -14,11 +14,11 @@ interface OfertaProps {
   experiencia: string,
   adicional: string,
   empresa: string,
-  // publicacion: Timestamp,
-   estado: string,
+  estado: string,
 }
-const Oferta: FC <OfertaProps>= ({id, titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia, adicional, empresa, estado}) => {
-  const [userImage, setUserImage] = useState<any>()
+
+const Oferta: FC<OfertaProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia, adicional, empresa, estado }) => {
+  const [userImage, setUserImage] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -27,29 +27,44 @@ const Oferta: FC <OfertaProps>= ({id, titulo, cargo, jornada, tipoubi, ubicacion
         const response = await getDoc(docRef);
         if (response.exists()) {
           const empresaData = response.data() as any;
-          setUserImage(`${empresaData.profilepicture}`);
+          setUserImage(empresaData.profilepicture);
         }
       }
     };
 
     fetchDoc();
   }, [empresa]);
-  
+
   return (
     <div className="flex flex-row justify-left items-center p-5 bg-gray-50 hover:bg-gray-100 shadow-lg mb-1 text-gray-600">
-      <Image src={userImage || "/icons/empty-user-profile.png"} alt="profilepicture" height={75} width={75}  className='objectFit:"cover"' />
-       <div className='justify-left pl-5 w-full'>
-       <h2>{titulo}</h2>
-        <div className='flex flex-row justify-between w-full'>
-          <div className='flex flex-col text-sm text-gray-500'>
+      {userImage ? (
+        <Image
+          src={userImage}
+          alt="profilepicture"
+          height={75}
+          width={75}
+          className="objectFit:cover"
+        />
+      ) : (
+        <Image
+          src="/icons/empty-user-profile.png"
+          alt="profilepicture"
+          height={75}
+          width={75}
+          className="objectFit:cover"
+        />
+      )}
+      <div className="justify-left pl-5 w-full">
+        <h2>{titulo}</h2>
+        <div className="flex flex-row justify-between w-full">
+          <div className="flex flex-col text-sm text-gray-500">
             <p>{empresa}</p>
             <p>{ubicacion}</p>
           </div>
-          <div className='flex flex-row'>
-            <button> {cargo}</button>
+          <div className="flex flex-row">
+            <button>{cargo}</button>
           </div>
         </div>
-
       </div>
     </div>
   );

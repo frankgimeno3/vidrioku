@@ -1,13 +1,12 @@
 "use client"
 
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import SearchOfertas from './ofertascomponents/searchOfertas'
 import FiltroOfertas from './ofertascomponents/filtroOfertas'
 import PageListButtons from './ofertascomponents/compListados/PageListButtons';
-import Anuncio from './ofertascomponents/compListados/Anuncio';
-import Pasarela from './ofertascomponents/compListados/Pasarela';
+// import Anuncio from './ofertascomponents/compListados/Anuncio';
+// import Pasarela from './ofertascomponents/compListados/Pasarela';
 import Oferta from './ofertascomponents/compListados/Oferta';
 import Rendercomponent from './ofertascomponents/compListados/rendercomponent/Rendercomponent';
 import { Timestamp, collection, getDocs, query, where } from 'firebase/firestore';
@@ -75,8 +74,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Indicar que se está cargando
-
+      setLoading(true); 
       const ofertasCollection = collection(db, 'ofertas');
       const q = query(ofertasCollection);
       const querySnapshot = await getDocs(q);
@@ -86,7 +84,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
       });
 
       setMisOfertas(offersData);
-      setLoading(false); // Indicar que la carga ha finalizado
+      setLoading(false);  
     };
 
     fetchData();
