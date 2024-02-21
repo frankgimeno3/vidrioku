@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image';
 
+import Fase1 from './fase1'
+import Fase2 from './fase2'
+
 import CambiarFoto from '../CambiarFoto';
 
 interface PerfilprofesionalProps {
@@ -26,8 +29,9 @@ interface User {
   vehiculo: string;
   carta: string;
   linkedin: string;
-  profilepicture:any;
- }
+  profilepicture: any;
+  email: string;
+}
 const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [user, setUser] = useState<User | undefined>();
   const [userDataReceived, setUserDataReceived] = useState("");
@@ -38,6 +42,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [edadActualizado, setEdadActualizado] = useState(user?.edad)
   const [generoActualizado, setGeneroActualizado] = useState(user?.genero)
   const [ubiActualizado, setUbiActualizado] = useState(user?.ubi)
+  const [emailActualizado, setEmailActualizado] = useState(user?.email)
   const [DNIActualizado, setDNIActualizado] = useState(user?.DNI)
   const [NIEActualizado, setNIEActualizado] = useState(user?.NIE)
   const [telActualizado, setTelActualizado] = useState(user?.tel)
@@ -82,13 +87,10 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
   }, [userDataReceived]);
 
 
-
   const guardarCambiosHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     router.push(`/perfil/${userDataReceived}`);
   };
-
-
 
 
   const editarPerfil = async (
@@ -109,11 +111,11 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
     try {
       const docRef = doc(db, "users", userId);
       const userDoc = await getDoc(docRef);
-  
+
       if (userDoc.exists()) {
         const userData = userDoc.data();
-  
-         const updatedData = {
+
+        const updatedData = {
           apellidos: apellidos,
           edad: edad,
           genero: genero,
@@ -127,11 +129,11 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
           carta: carta,
           linkedin: linkedin,
         };
-  
-         const filteredData = Object.fromEntries(
+
+        const filteredData = Object.fromEntries(
           Object.entries(updatedData).filter(([_, value]) => value !== undefined)
         );
-  
+
         await setDoc(docRef, {
           ...userData,
           ...filteredData,
@@ -144,38 +146,52 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
     }
   };
 
-  const handlemodificarperfil = (event:any) => {
+  const handlemodificarperfil = (event: any) => {
     event.preventDefault();
     setIsCambiarFotoOpen(true);
   }
 
   return (
     <>
-      <form onSubmit={guardarCambiosHandler} className='mx-24 relative'>
-        <div className="flex flex-col p-4 justify-between text-center justify-center px-auto bg-white mx-10 my-5 rounded text-gray-500    ">
-          <Image src={user?.profilepicture || "/icons/empty-user-profile.png"} alt="" width={200} height={200} className="mx-auto mt-5 " />
-          <button className='my-5 mx-auto p-2 py-3 text-sm border text-gray-500 rounded-lg shadow-lg hover:bg-gray-50 border-gray-100 '
-          onClick={handlemodificarperfil}>
-            Modificar Imagen de perfil
-          </button>
-          <div className="flex flex-col mx-96">
-              
-            
-            
-            
+      <form onSubmit={guardarCambiosHandler} className='mx-24 relative   '>
+        <div className="flex flex-col p-8 justify-between text-center justify-center px-auto bg-gray-50 shadow-sm border border-gray-50 mx-10   text-gray-500    ">
+          {fase == 1 &&
+            <Fase1
+              handleModificarPerfil={handlemodificarperfil}
+              setNombreActualizado={setNombreActualizado}
+              setApellidosActualizado={setApellidosActualizado}
+              setGeneroActualizado={setGeneroActualizado}
+              setEdadActualizado={setEdadActualizado}
+              setUbiActualizado={setUbiActualizado}
+              setDNIActualizado={setDNIActualizado}
+              setNIEActualizado={setNIEActualizado}
+              setPermisoActualizado={setPermisoActualizado}
+              setVehiculoActualizado={setVehiculoActualizado}
+              permisoActualizado={permisoActualizado}
+              vehiculoActualizado={vehiculoActualizado}
+              user={user}
+              setFase={setFase}
+            />
+          }
+          {fase == 2 &&
 
-          </div>
+            <Fase2
+              user={user}
+              setTelActualizado={setTelActualizado}
+              setLinkedinActualizado={setLinkedinActualizado}
+              setEmailActualizado={setEmailActualizado}
+              setCartaActualizado={setCartaActualizado}
+              setFase={setFase}
+            />
+          }
         </div>
+      </form >
 
-        <div className="mx-auto py-5 text-center">
-          <button type="submit" onClick={()=> editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
-          nombreActualizado,  ubiActualizado,  DNIActualizado, NIEActualizado, telActualizado, permisoActualizado, 
-          vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
+      {/* <button type="submit" onClick={() => editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
+            nombreActualizado, ubiActualizado, DNIActualizado, NIEActualizado, telActualizado, permisoActualizado,
+            vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
             Guardar Cambios
- 
-          </button>
-        </div>
-      </form>
+          </button> */}
       {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userDataReceived} />}
     </>
   )
