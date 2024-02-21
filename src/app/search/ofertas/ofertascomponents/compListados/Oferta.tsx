@@ -47,7 +47,7 @@ const Oferta: FC<OfertaProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacio
         />
       ) : (
         <Image
-          src="/icons/empty-user-profile.png"
+          src="/icons/empresas.png"
           alt="profilepicture"
           height={75}
           width={75}
