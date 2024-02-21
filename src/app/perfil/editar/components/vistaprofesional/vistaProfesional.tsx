@@ -9,6 +9,7 @@ import Image from 'next/image';
 
 import Fase1 from './fase1'
 import Fase2 from './fase2'
+import Fase3base from './fase3/fase3base'
 
 import CambiarFoto from '../CambiarFoto';
 
@@ -175,15 +176,22 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
           }
           {fase == 2 &&
 
-            <Fase2
-              user={user}
-              setTelActualizado={setTelActualizado}
-              setLinkedinActualizado={setLinkedinActualizado}
-              setEmailActualizado={setEmailActualizado}
-              setCartaActualizado={setCartaActualizado}
-              setFase={setFase}
-            />
-          }
+<Fase2
+  user={user}
+  setTelActualizado={setTelActualizado}
+  setLinkedinActualizado={setLinkedinActualizado}
+  setEmailActualizado={setEmailActualizado}
+  setCartaActualizado={setCartaActualizado}
+  setFase={setFase}
+/>
+}
+{fase == 3 &&
+
+<Fase3base
+  user={user}
+  setFase={setFase}
+/>
+}
         </div>
       </form >
 
