@@ -186,20 +186,25 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
 />
 }
 {fase == 3 &&
-
 <Fase3base
   user={user}
   setFase={setFase}
 />
 }
+{fase == 4 &&
+<div>
+  
+</div>
+}
         </div>
       </form >
 
-      {/* <button type="submit" onClick={() => editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
+      { fase == 4 &&
+        <button type="submit" onClick={() => editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
             nombreActualizado, ubiActualizado, DNIActualizado, NIEActualizado, telActualizado, permisoActualizado,
             vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
             Guardar Cambios
-          </button> */}
+          </button>}
       {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userDataReceived} />}
     </>
   )
