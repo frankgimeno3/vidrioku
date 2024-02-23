@@ -65,7 +65,7 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
         }
     }
 
-    
+
     const updateDepartamentos = async (departamentos: Array<string>) => {
         try {
             const docRef = doc(db, "users", receivedUser.id);
@@ -145,14 +145,18 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                         {isComercialShown == true &&
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'comercial')}>
-                                    <p  className='text-blue-900 pl-5'> Más información</p>
+                                    <p className='text-blue-900 pl-5'> Más información</p>
 
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
-                                <div className='bg-white p-5'>
-                                    <p>Info de comercial o compras</p>
+                                <div className='bg-white p-5 flex flex-col'>
+                                    <p className='text-black'>Posiciones relacionadas con:</p>
+                                    <p className='pl-2'>· Gestor o coordinador de proyectos</p>
+                                    <p className='pl-2'>· Ventas internacionales y/o exportación</p>
+                                    <p className='pl-2'>· Comercial técnico</p>
+                                    <p className='pl-2'>· Departamentos de compras, gestiones de aprovisionamientos</p>
                                 </div>
                             </>
                         }
@@ -173,13 +177,18 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                         {isTecnicoShown == true &&
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'tecnico')}>
-                                    <p  className='text-blue-900 pl-5'> Más información</p>
+                                    <p className='text-blue-900 pl-5'> Más información</p>
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                    <p>Info de oficina técnica</p>
+                                    <p className='text-black'>Posiciones relacionadas con:</p>
+                                    <p className='pl-2'>· Consultoría o dirección técnica</p>
+                                    <p className='pl-2'>· Arquitectura técnica</p>
+                                    <p className='pl-2'>· Análisis o creación de documentación de proyectos técnicos</p>
+                                    <p className='pl-2'>· Mejora contínua</p>
+                                    <p className='pl-2'>· Ingeniería de la edificación, civil, de minas, electromecánica, industrial, técnica-mecánica u otras</p>
                                 </div>
                             </>
                         }
@@ -200,15 +209,22 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                         {isOperarioShown == true &&
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'operario')}>
-                                    <p  className='text-blue-900 pl-5'> Más información</p>
+                                    <p className='text-blue-900 pl-5'> Más información</p>
 
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                    <p>Info de operario</p>
-                                </div>
+                                <div className='bg-white p-5'>
+                                    <p className='text-black'>Posiciones relacionadas con:</p>
+                                    <p className='pl-2'>· Carpintería de aluminio y/o chapa</p>
+                                    <p className='pl-2'>· Serigrafía</p>
+                                    <p className='pl-2'>· Corte, biselado, fresado y/o tratamiento químico de vidrio plano</p>
+                                    <p className='pl-2'>· Mecanizado</p>
+                                    <p className='pl-2'>· Manipulación industrial de vidrio plano y/o curvo</p>
+                                    <p className='pl-2'>· Otras tareas como operario de fábrica</p>
+                                </div>                                </div>
                             </>
                         }
                     </div>
@@ -230,15 +246,20 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                         {isMantenimientoShown == true &&
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'mantenimiento')}>
-                                    <p  className='text-blue-900 pl-5'> Más información</p>
+                                    <p className='text-blue-900 pl-5'> Más información</p>
 
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                    <p>Info de técnicos de mantenimiento y prevención de riesgos</p>
-                                </div>
+                                <div className='bg-white p-5'>
+                                    <p className='text-black'>Posiciones relacionadas con:</p>
+                                    <p className='pl-2'>· Técnico eléctrico y/o mecánico</p>
+                                    <p className='pl-2'>· Revisión y mantenimiento preventivo de equipos</p>
+                                    <p className='pl-2'>· Reparación y resolución de incidencias</p>
+                                    <p className='pl-2'>· Experiencia con soldadura y/o electricidad</p>
+                                </div>                                </div>
                             </>
                         }
                     </div>
@@ -258,15 +279,20 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                         {isCalidadShown == true &&
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'calidad')}>
-                                    <p  className='text-blue-900 pl-5'> Más información</p>
+                                    <p className='text-blue-900 pl-5'> Más información</p>
 
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                    <p>Info de dep calidad</p>
-                                </div>
+                                <div className='bg-white p-5'>
+                                    <p className='text-black'>Posiciones relacionadas con:</p>
+                                    <p className='pl-2'>· Técnico en control de calidad</p>
+                                    <p className='pl-2'>· Grados superiores relacionados con química o control de calidad</p>
+                                    <p className='pl-2'>· Análisis de stock y/o aprovisionamientos, muestreo</p>
+                                    <p className='pl-2'>· Creación de informes de calidad, documentación</p>
+                                </div>                                </div>
                             </>
                         }
                     </div>
@@ -286,22 +312,27 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                         {isLogisticaShown == true &&
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'logistica')}>
-                                    <p  className='text-blue-900 pl-5'> Más información</p>
+                                    <p className='text-blue-900 pl-5'> Más información</p>
 
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                    <p>Info de logística</p>
-                                </div>
+                                <div className='bg-white p-5'>
+                                    <p className='text-black'>Posiciones relacionadas con:</p>
+                                    <p className='pl-2'>· Instalación de vidrios y/o ventanas</p>
+                                    <p className='pl-2'>· Transportista de vidrios y/o ventanas fuera de fábrica </p>
+                                    <p className='pl-2'>· Profesionales de almacén o manipulación interna de vidrios y/o otros bienes</p>
+                                    <p className='pl-2'>· Control de stock y expediciones</p>
+                                 </div>                                </div>
                             </>
                         }
                     </div>
                 </div>
             </div>
 
-            <button type="submit" onClick={()=>{handleNextPart()}} className='w-56 mx-auto py-2 px-4 my-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl'
+            <button type="submit" onClick={() => { handleNextPart() }} className='w-56 mx-auto py-2 px-4 my-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl'
             >
                 Seguir para añadir detalles
             </button>

@@ -23,47 +23,18 @@ interface User {
 
 const Parte2: FC<parte2Props> = ({ user, setParte }) => {
     const [receivedUser, setReceivedUser] = useState<any>();
-    const [showInfo, setShowInfo] = useState<{ [key: string]: boolean }>({
-        comercial: false,
-        tecnico: false,
-        operario: false,
-        mantenimiento: false,
-        calidad: false,
-        logistica: false,
-    });
     const [departamentosUpdated, setDepartamentosUpdated] = useState<Array<string>>([]);
 
     useEffect(() => {
         setReceivedUser(user);
-        // Initialize departamentosUpdated with user's current departments
         if (user && user.departamentos) {
             setDepartamentosUpdated(user.departamentos);
         }
     }, [user]);
 
-    const updateDepartamentos = async (departamentos: Array<string>) => {
-        try {
-            const docRef = doc(db, "users", receivedUser.id);
-            const userDoc = await getDoc(docRef);
-
-            if (userDoc.exists()) {
-                const userData = userDoc.data() as User;
-
-                const newData: Partial<User> = {
-                    departamentos: departamentos.length !== 0 ? departamentos : userData.departamentos,
-                };
-
-                await updateDoc(docRef, { ...userData, ...newData });
-            } else {
-                console.error('El documento del usuario no existe');
-            }
-        } catch (error) {
-            console.error('Error al crear la solicitud:', error);
-        }
-    };
+  
 
     const handleNextPart = () => {
-        updateDepartamentos(departamentosUpdated);
         setParte(2);
     };
 
@@ -145,4 +116,6 @@ const Parte2: FC<parte2Props> = ({ user, setParte }) => {
     );
 };
 
-export default Parte1;
+export default Parte2;
+
+

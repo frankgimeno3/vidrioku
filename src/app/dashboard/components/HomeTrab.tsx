@@ -68,7 +68,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
   }, [userData]);
 
   const miPerfilHandler = () => {
-    router.push(`/perfil/${userData}`)
+    router.push(`/perfil`)
   }
 
   const handleCerrarSesion = async () => {
