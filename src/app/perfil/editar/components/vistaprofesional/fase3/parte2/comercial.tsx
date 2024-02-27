@@ -44,6 +44,44 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
     console.log("user recibido desde comercial", user)
   }, [user]);
 
+  useEffect(() => {
+    if (receivedUser) {
+      let detallesPosicionesRecibido = receivedUser.posicionesMap.detallePosicionesArray;
+      if (receivedUser.posicionesMap.arrayPosiciones.includes('ventasInternacionalesExport')) {
+        setVentasInternacionalesExport(true);
+        let ventasInternacionalesExportDetails = detallesPosicionesRecibido.find((obj: { posicion: string; }) => obj.posicion === 'ventasInternacionalesExport');
+        if (ventasInternacionalesExportDetails) {
+          setEstudiosVentasInternacionalesExport(ventasInternacionalesExportDetails.estudios);
+          setDetallesVentasInternacionalesExport(ventasInternacionalesExportDetails.detalles);
+        }
+      }
+      if (receivedUser.posicionesMap.arrayPosiciones.includes('comercialTecnico')) {
+        setComercialTecnico(true);
+        let comercialTecnicoDetails = detallesPosicionesRecibido.find((obj: { posicion: string; }) => obj.posicion === 'comercialTecnico');
+        if (comercialTecnicoDetails) {
+          setEstudiosComercialTecnico(comercialTecnicoDetails.estudios);
+          setExperienciaComercialTecnico(comercialTecnicoDetails.detalles);
+        }
+      }
+      if (receivedUser.posicionesMap.arrayPosiciones.includes('coordinadorProyectos')) {
+        setCoordinadorProyectos(true);
+        let coordinadorProyectosDetails = detallesPosicionesRecibido.find((obj: { posicion: string; }) => obj.posicion === 'coordinadorProyectos');
+        if (coordinadorProyectosDetails) {
+          setEstudiosCoordinadorProyectos(coordinadorProyectosDetails.estudios);
+          setExperienciaCoordinadorProyectos(coordinadorProyectosDetails.detalles);
+        }
+      }
+      if (receivedUser.posicionesMap.arrayPosiciones.includes('gestorProyectos')) {
+        setGestorProyectos(true);
+        let gestorProyectosDetails = detallesPosicionesRecibido.find((obj: { posicion: string; }) => obj.posicion === 'gestorProyectos');
+        if (gestorProyectosDetails) {
+          setEstudiosGestorProyectos(gestorProyectosDetails.estudios);
+          setExperienciaGestorProyectos(gestorProyectosDetails.detalles);
+        }
+      }
+    }
+  }, [receivedUser]);
+
   const handleExperienceToggle = (estado: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     setter(!estado);
   }
@@ -129,7 +167,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
             }
           }
         }
-        
+
         const newData: Partial<User> = {
           posicionesMap: {
             ...userData.posicionesMap,
@@ -161,7 +199,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
         <div className='flex flex-col p-2'>
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" onChange={() => handleExperienceToggle(ventasInternacionalesExport, setVentasInternacionalesExport)} />
+              <input type="checkbox" checked={ventasInternacionalesExport} onChange={() => handleExperienceToggle(ventasInternacionalesExport, setVentasInternacionalesExport)} />
               <p className='ml-2'>Ventas internacionales y exportación</p>
             </label>
             {ventasInternacionalesExport &&
@@ -182,7 +220,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
           </div>
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" onChange={() => handleExperienceToggle(comercialTecnico, setComercialTecnico)} />
+              <input type="checkbox" checked={comercialTecnico} onChange={() => handleExperienceToggle(comercialTecnico, setComercialTecnico)} />
               <p className='ml-2'>Comercial Técnico</p>
             </label>
             {comercialTecnico &&
@@ -203,7 +241,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
           </div>
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" onChange={() => handleExperienceToggle(coordinadorProyectos, setCoordinadorProyectos)} />
+              <input type="checkbox" checked={coordinadorProyectos} onChange={() => handleExperienceToggle(coordinadorProyectos, setCoordinadorProyectos)} />
               <p className='ml-2'>Coordinador de proyectos</p>
             </label>
             {coordinadorProyectos &&
@@ -225,7 +263,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
 
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" onChange={() => handleExperienceToggle(gestorProyectos, setGestorProyectos)} />
+              <input type="checkbox" checked={gestorProyectos} onChange={() => handleExperienceToggle(gestorProyectos, setGestorProyectos)} />
               <p className='ml-2'>Gestor de proyectos</p>
             </label>
             {gestorProyectos &&
