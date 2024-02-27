@@ -6,7 +6,7 @@ interface parte1Props {
     user: any;
     setParte: any;
     departamentosUpdated: any;
-setDepartamentosUpdated: any;
+    setDepartamentosUpdated: any;
 }
 
 interface User {
@@ -28,6 +28,7 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
     const [opcionActual, setOpcionActual] = useState('')
 
     const [isComercialShown, setIsComercialShown] = useState(false);
+    const [isComprasShown, setIsComprasShown] = useState(false);
     const [isTecnicoShown, setIsTecnicoShown] = useState(false);
     const [isOperarioShown, setIsOperarioShown] = useState(false);
     const [isMantenimientoShown, setIsMantenimientoShown] = useState(false);
@@ -35,6 +36,7 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
     const [isLogisticaShown, setIsLogisticaShown] = useState(false);
 
     const [isComercialSelected, setIsComercialSelected] = useState(false);
+    const [isComprasSelected, setIsComprasSelected] = useState(false);
     const [isTecnicoSelected, setIsTecnicoSelected] = useState(false);
     const [isOperarioSelected, setIsOperarioSelected] = useState(false);
     const [isMantenimientoSelected, setIsMantenimientoSelected] = useState(false);
@@ -56,6 +58,9 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
             switch (departamento) {
                 case 'comercial':
                     setIsComercialSelected(true);
+                    break;
+                case 'compras':
+                    setIsComprasSelected(true);
                     break;
                 case 'tecnico':
                     setIsTecnicoSelected(true);
@@ -92,6 +97,9 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
 
         if (option === 'comercial') {
             setIsComercialSelected(!isChecked);
+        }
+        else if (option === 'compras') {
+            setIsComprasSelected(!isChecked);
         } else if (option === 'tecnico') {
             setIsTecnicoSelected(!isChecked);
         } else if (option === 'operario') {
@@ -141,6 +149,10 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
             if (isComercialShown == true) { setIsComercialShown(false) }
             if (isComercialShown == false) { setIsComercialShown(true) }
         }
+        if (option == 'compras') {
+            if (isComprasShown == true) { setIsComprasShown(false) }
+            if (isComprasShown == false) { setIsComprasShown(true) }
+        }
         if (option === 'tecnico') {
             if (isTecnicoShown === true) { setIsTecnicoShown(false); }
             if (isTecnicoShown === false) { setIsTecnicoShown(true); }
@@ -172,7 +184,7 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
                 <div className='flex flex-col px-12 pt-8 pb-3 flex-1'>
                     <div className='flex flex-row items-center'>
                         <input type="checkbox" id='comercial' value='comercial' onChange={() => selectElement('comercial')} checked={isComercialSelected} />
-                        <label htmlFor='comercial' className='pl-1'>Departamento comercial o compras</label><br />
+                        <label htmlFor='comercial' className='pl-1'>Departamento comercial</label><br />
                     </div>
                     <div className='pb-2'>
                         {isComercialShown == false &&
@@ -197,7 +209,37 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
                                     <p className='pl-2'>· Gestor o coordinador de proyectos</p>
                                     <p className='pl-2'>· Ventas internacionales y/o exportación</p>
                                     <p className='pl-2'>· Comercial técnico</p>
-                                    <p className='pl-2'>· Departamentos de compras, gestiones de aprovisionamientos</p>
+                                </div>
+                            </>
+                        }
+                    </div>
+                    <div className='flex flex-row items-center'>
+                        <input type="checkbox" id='compras' value='compras' onChange={() => selectElement('compras')} checked={isComprasSelected} />
+                        <label htmlFor='compras' className='pl-1'>Departamentos de compras o aprovisionamiento</label><br />
+                    </div>
+                    <div className='pb-2'>
+                        {isComprasShown == false &&
+                            <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'compras')} >
+                                <p className='text-blue-700 pl-5'> Más información</p>
+                                <svg className='w-5 h-5 text-gray-400 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
+                                    <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
+                                </svg>
+                            </button>
+                        }
+                        {isComprasShown == true &&
+                            <>
+                                <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'compras')}>
+                                    <p className='text-blue-900 pl-5'> Más información</p>
+
+                                    <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
+                                        <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
+                                    </svg>
+                                </button>
+                                <div className='bg-white p-5 flex flex-col'>
+                                    <p className='text-black'>Posiciones relacionadas con:</p>
+                                    <p className='pl-2'>· Compra de maquinaria industrial</p>
+                                    <p className='pl-2'>· Compra de suministros para fabricación y/o manipulado de vidrio</p>
+                                    <p className='pl-2'>· Otras experiencias en compras</p>
                                 </div>
                             </>
                         }
@@ -269,8 +311,8 @@ const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepa
                             </>
                         }
                     </div>
-                    </div>
-                    <div className='flex flex-col px-12 pt-8 pb-3 flex-1'>
+                </div>
+                <div className='flex flex-col px-12 pt-8 pb-3 flex-1'>
 
                     <div className='flex flex-row items-center'>
                         <input type="checkbox" id='mantenimiento' value='mantenimiento' onChange={() => selectElement('mantenimiento')} checked={isMantenimientoSelected} />

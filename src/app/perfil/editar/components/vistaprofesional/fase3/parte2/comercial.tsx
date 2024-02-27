@@ -36,6 +36,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
 
   const [arrayPosicionesComerciales, setArrayPosicionesComerciales] = useState<string[]>([]);
   const [detallePosicionesComerciales, setDetallePosicionesComerciales] = useState<ExperienciaItem[]>([]);
+  const [arrayPosicionesEliminar, setArrayPosicionesEliminar] = useState<string[]>([])
 
   const [receivedUser, setReceivedUser] = useState<any>();
 
@@ -82,8 +83,20 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
     }
   }, [receivedUser]);
 
-  const handleExperienceToggle = (estado: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
-    setter(!estado);
+  const handleExperienceToggle = (estado: boolean, estadoToString: string, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
+    let arrayPrevioPosicionesEliminar = []
+    if (estado) {
+      arrayPrevioPosicionesEliminar.push(estadoToString);
+      setter(!estado);
+    } else {
+      const index = arrayPosicionesEliminar.indexOf(estadoToString);
+      if (index !== -1) {
+        arrayPosicionesEliminar.splice(index, 1);
+      }
+      setter(!estado);
+    }
+    setArrayPosicionesEliminar(arrayPrevioPosicionesEliminar)
+    console.log("arrayPrevioPosicionesEliminar: ", arrayPrevioPosicionesEliminar)
   }
 
   useEffect(() => {
@@ -136,54 +149,70 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
 
 
   const ActualizarPosicionesComerciales = async () => {
+    console.log("arrayPosicionesComerciales: ", arrayPosicionesComerciales, 
+    "detallePosicionesComerciales: ", detallePosicionesComerciales)
+
     try {
-      const docRef = doc(db, "users", receivedUser.id);
-      const userDoc = await getDoc(docRef);
+        const docRef = doc(db, "users", receivedUser.id);
+        const userDoc = await getDoc(docRef);
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data() as User;
+        if (userDoc.exists()) {
+            const userData = userDoc.data() as User;
 
-        let arrayPosicionesToUpdate = userData.posicionesMap?.arrayPosiciones || [];
-        let detallePosicionesToUpdate = userData.posicionesMap?.detallePosicionesArray || [];
+            let arrayPosicionesToUpdate = userData.posicionesMap?.arrayPosiciones || [];
+            let detallePosicionesToUpdate = userData.posicionesMap?.detallePosicionesArray || [];
 
-        if (arrayPosicionesComerciales.length !== 0) {
-          for (const item of arrayPosicionesComerciales) {
-            const index = arrayPosicionesToUpdate.findIndex((existingItem: string) => existingItem === item);
-            if (index !== -1) {
-              arrayPosicionesToUpdate[index] = item;
-            } else {
-              arrayPosicionesToUpdate.push(item);
+            if (arrayPosicionesEliminar.length !== 0) {
+              console.log("arrayPosicionesEliminar antes de borrarlo", arrayPosicionesEliminar )
+                for (const item of arrayPosicionesToUpdate) {
+                    if (arrayPosicionesEliminar.includes(item)) {
+                        const index = arrayPosicionesToUpdate.indexOf(item);
+                        if (index !== -1) {
+                            arrayPosicionesToUpdate.splice(index, 1);
+                        }
+                        detallePosicionesToUpdate = detallePosicionesToUpdate.filter((obj: { posicion: any; }) => obj.posicion !== item);
+                    }
+                }
             }
-          }
-        }
 
-        if (detallePosicionesComerciales.length !== 0) {
-          for (const newItem of detallePosicionesComerciales) {
-            const index = detallePosicionesToUpdate.findIndex((existingItem: { posicion: string; }) => existingItem.posicion === newItem.posicion);
-            if (index !== -1) {
-              detallePosicionesToUpdate[index] = newItem;
-            } else {
-              detallePosicionesToUpdate.push(newItem);
+            if (arrayPosicionesComerciales.length !== 0) {
+                for (const item of arrayPosicionesComerciales) {
+                    const index = arrayPosicionesToUpdate.findIndex((existingItem: string) => existingItem === item);
+                    if (index !== -1) {
+                        arrayPosicionesToUpdate[index] = item;
+                    } else {
+                        arrayPosicionesToUpdate.push(item);
+                    }
+                }
             }
-          }
+
+            if (detallePosicionesComerciales.length !== 0) {
+                for (const newItem of detallePosicionesComerciales) {
+                    const index = detallePosicionesToUpdate.findIndex((existingItem: { posicion: string; }) => existingItem.posicion === newItem.posicion);
+                    if (index !== -1) {
+                        detallePosicionesToUpdate[index] = newItem;
+                    } else {
+                        detallePosicionesToUpdate.push(newItem);
+                    }
+                }
+            }
+
+            const newData: Partial<User> = {
+                posicionesMap: {
+                    ...userData.posicionesMap,
+                    arrayPosiciones: arrayPosicionesToUpdate,
+                    detallePosicionesArray: detallePosicionesToUpdate
+                }
+            };
+
+            await updateDoc(docRef, newData);
+        } else {
+            console.error('El documento del usuario no existe');
         }
-
-        const newData: Partial<User> = {
-          posicionesMap: {
-            ...userData.posicionesMap,
-            arrayPosiciones: arrayPosicionesToUpdate,
-            detallePosicionesArray: detallePosicionesToUpdate
-          }
-        };
-
-        await updateDoc(docRef, newData);
-      } else {
-        console.error('El documento del usuario no existe');
-      }
     } catch (error) {
-      console.error('Error al crear la solicitud:', error);
+        console.error('Error al crear la solicitud:', error);
     }
-  };
+};
 
   const handleGuardarYseguir = () => {
     ActualizarPosicionesComerciales()
@@ -199,7 +228,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
         <div className='flex flex-col p-2'>
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" checked={ventasInternacionalesExport} onChange={() => handleExperienceToggle(ventasInternacionalesExport, setVentasInternacionalesExport)} />
+              <input type="checkbox" checked={ventasInternacionalesExport} onChange={() => handleExperienceToggle(ventasInternacionalesExport, 'ventasInternacionalesExport', setVentasInternacionalesExport)} />
               <p className='ml-2'>Ventas internacionales y exportación</p>
             </label>
             {ventasInternacionalesExport &&
@@ -220,7 +249,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
           </div>
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" checked={comercialTecnico} onChange={() => handleExperienceToggle(comercialTecnico, setComercialTecnico)} />
+              <input type="checkbox" checked={comercialTecnico} onChange={() => handleExperienceToggle(comercialTecnico, 'comercialTecnico', setComercialTecnico)} />
               <p className='ml-2'>Comercial Técnico</p>
             </label>
             {comercialTecnico &&
@@ -241,7 +270,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
           </div>
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" checked={coordinadorProyectos} onChange={() => handleExperienceToggle(coordinadorProyectos, setCoordinadorProyectos)} />
+              <input type="checkbox" checked={coordinadorProyectos} onChange={() => handleExperienceToggle(coordinadorProyectos, 'coordinadorProyectos', setCoordinadorProyectos)} />
               <p className='ml-2'>Coordinador de proyectos</p>
             </label>
             {coordinadorProyectos &&
@@ -263,7 +292,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
 
           <div className='py-1 pl-5'>
             <label className='flex flex-row items-center'  >
-              <input type="checkbox" checked={gestorProyectos} onChange={() => handleExperienceToggle(gestorProyectos, setGestorProyectos)} />
+              <input type="checkbox" checked={gestorProyectos} onChange={() => handleExperienceToggle(gestorProyectos, 'gestorProyectos', setGestorProyectos)} />
               <p className='ml-2'>Gestor de proyectos</p>
             </label>
             {gestorProyectos &&

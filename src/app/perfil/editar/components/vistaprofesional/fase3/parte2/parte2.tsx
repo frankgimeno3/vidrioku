@@ -8,6 +8,7 @@ import Operario from './operario'
 import Calidad from './calidad'
 import Logistica from './logistica'
 import ComponenteFinal from './componenteFinal'
+import Compras from './Compras';
 
 
 interface parte2Props {
@@ -72,8 +73,12 @@ const Parte2: FC<parte2Props> = ({ user, setParte, departamentosUpdated }) => {
 
     return (
         <div className='flex flex-col'>
-            {componenteAmostrar === 'comercial' &&
+                  <p className='pt-8 text-lg font-bold'> {componenteAmostrar}</p>
+                  {componenteAmostrar === 'comercial' &&
                 <Comercial user={receivedUser} cambioComponenteMostrar={cambioComponenteMostrar} />
+            }
+                       {componenteAmostrar === 'compras' &&
+                <Compras user={receivedUser} cambioComponenteMostrar={cambioComponenteMostrar} />
             }
             {componenteAmostrar === 'tecnico' &&
                 <Tecnico user={receivedUser} cambioComponenteMostrar={cambioComponenteMostrar} />
