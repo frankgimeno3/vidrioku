@@ -5,6 +5,8 @@ import React, { FC, useEffect, useState } from 'react';
 interface parte1Props {
     user: any;
     setParte: any;
+    departamentosUpdated: any;
+setDepartamentosUpdated: any;
 }
 
 interface User {
@@ -21,7 +23,7 @@ interface User {
     departamentos: Array<string>;
 }
 
-const Parte1: FC<parte1Props> = ({ user, setParte }) => {
+const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepartamentosUpdated }) => {
     const [receivedUser, setReceivedUser] = useState<any>();
     const [opcionActual, setOpcionActual] = useState('')
 
@@ -39,7 +41,6 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
     const [isCalidadSelected, setIsCalidadSelected] = useState(false);
     const [isLogisticaSelected, setIsLogisticaSelected] = useState(false);
 
-    const [departamentosUpdated, setDepartamentosUpdated] = useState<Array<string>>([]);
 
     useEffect(() => {
         setReceivedUser(user);
@@ -51,19 +52,58 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
     }, [user]);
 
     useEffect(() => {
-        console.log("departamentosUpdated:", departamentosUpdated)
+        departamentosUpdated.forEach((departamento: any) => {
+            switch (departamento) {
+                case 'comercial':
+                    setIsComercialSelected(true);
+                    break;
+                case 'tecnico':
+                    setIsTecnicoSelected(true);
+                    break;
+                case 'operario':
+                    setIsOperarioSelected(true);
+                    break;
+                case 'mantenimiento':
+                    setIsMantenimientoSelected(true);
+                    break;
+                case 'calidad':
+                    setIsCalidadSelected(true);
+                    break;
+                case 'logistica':
+                    setIsLogisticaSelected(true);
+                    break;
+                default:
+                    break;
+            }
+        });
     }, [departamentosUpdated]);
 
 
     const selectElement = (option: string) => {
         const isChecked = departamentosUpdated.includes(option);
+        let updatedDepartamentos: Array<string>;
+
         if (isChecked) {
-            const updatedDepartamentos = departamentosUpdated.filter(dep => dep !== option);
-            setDepartamentosUpdated(updatedDepartamentos);
+            updatedDepartamentos = departamentosUpdated.filter((dep: string) => dep !== option);
         } else {
-            setDepartamentosUpdated([...departamentosUpdated, option]);
+            updatedDepartamentos = [...departamentosUpdated, option];
         }
-    }
+        setDepartamentosUpdated(updatedDepartamentos);
+
+        if (option === 'comercial') {
+            setIsComercialSelected(!isChecked);
+        } else if (option === 'tecnico') {
+            setIsTecnicoSelected(!isChecked);
+        } else if (option === 'operario') {
+            setIsOperarioSelected(!isChecked);
+        } else if (option === 'mantenimiento') {
+            setIsMantenimientoSelected(!isChecked);
+        } else if (option === 'calidad') {
+            setIsCalidadSelected(!isChecked);
+        } else if (option === 'logistica') {
+            setIsLogisticaSelected(!isChecked);
+        }
+    };
 
 
     const updateDepartamentos = async (departamentos: Array<string>) => {
@@ -75,8 +115,9 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                 const userData = userDoc.data() as User;
 
                 const newData: Partial<User> = {
-                    departamentos: departamentos.length !== 0 ? departamentos : userData.departamentos,
+                    departamentos: departamentos.length !== 0 ? departamentosUpdated : userData.departamentos,
                 };
+                console.log("departamentosUpdated: ", departamentosUpdated, "dep lemngth: ", departamentos.length)
 
                 await updateDoc(docRef, { ...userData, ...newData });
             } else {
@@ -130,8 +171,8 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
             <div className='text-left flex flex-row px-12  pb-3'>
                 <div className='flex flex-col px-12 pt-8 pb-3 flex-1'>
                     <div className='flex flex-row items-center'>
-                        <input type="checkbox" id="comercial" onChange={() => selectElement('comercial')} />
-                        <label htmlFor="comercial" className='pl-1'>Departamento comercial o compras</label><br />
+                        <input type="checkbox" id='comercial' value='comercial' onChange={() => selectElement('comercial')} checked={isComercialSelected} />
+                        <label htmlFor='comercial' className='pl-1'>Departamento comercial o compras</label><br />
                     </div>
                     <div className='pb-2'>
                         {isComercialShown == false &&
@@ -162,8 +203,8 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                         }
                     </div>
                     <div className='flex flex-row items-center'>
-                        <input type="checkbox" id="tecnico" onChange={() => selectElement('tecnico')} />
-                        <label htmlFor="tecnico" className='pl-1'>Departamento técnico o de ingeniería</label><br />
+                        <input type="checkbox" id='tecnico' value='tecnico' onChange={() => selectElement('tecnico')} checked={isTecnicoSelected} />
+                        <label htmlFor='tecnico' className='pl-1'>Departamento técnico o de ingeniería</label><br />
                     </div>
                     <div className='pb-2'>
                         {isTecnicoShown == false &&
@@ -193,9 +234,9 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                             </>
                         }
                     </div>
-                    <div className='flex flex-row  '>
-                        <input type="checkbox" id="operario" onChange={() => selectElement('operario')} className='mt-1' />
-                        <label htmlFor="operario" className='pl-1'>Operario en fabricación o instalación en el sector del vidrio y/o las ventanas</label><br />
+                    <div className='flex flex-row items-center'>
+                        <input type="checkbox" id='operario' value='operario' onChange={() => selectElement('operario')} checked={isOperarioSelected} className='mt-1' />
+                        <label htmlFor='operario' className='pl-1'>Operario en fabricación o instalación en el sector del vidrio y/o las ventanas</label><br />
                     </div>
                     <div className='pb-2'>
                         {isOperarioShown == false &&
@@ -210,29 +251,30 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'operario')}>
                                     <p className='text-blue-900 pl-5'> Más información</p>
-
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                <div className='bg-white p-5'>
-                                    <p className='text-black'>Posiciones relacionadas con:</p>
-                                    <p className='pl-2'>· Carpintería de aluminio y/o chapa</p>
-                                    <p className='pl-2'>· Serigrafía</p>
-                                    <p className='pl-2'>· Corte, biselado, fresado y/o tratamiento químico de vidrio plano</p>
-                                    <p className='pl-2'>· Mecanizado</p>
-                                    <p className='pl-2'>· Manipulación industrial de vidrio plano y/o curvo</p>
-                                    <p className='pl-2'>· Otras tareas como operario de fábrica</p>
-                                </div>                                </div>
+                                    <div className='bg-white p-5'>
+                                        <p className='text-black'>Posiciones relacionadas con:</p>
+                                        <p className='pl-2'>· Carpintería de aluminio y/o chapa</p>
+                                        <p className='pl-2'>· Serigrafía</p>
+                                        <p className='pl-2'>· Corte, biselado, fresado y/o tratamiento químico de vidrio plano</p>
+                                        <p className='pl-2'>· Mecanizado</p>
+                                        <p className='pl-2'>· Manipulación industrial de vidrio plano y/o curvo</p>
+                                        <p className='pl-2'>· Otras tareas como operario de fábrica</p>
+                                    </div>
+                                </div>
                             </>
                         }
                     </div>
-                </div>
-                <div className='flex flex-col px-12 pt-8 pb-3 flex-1'>
+                    </div>
+                    <div className='flex flex-col px-12 pt-8 pb-3 flex-1'>
+
                     <div className='flex flex-row items-center'>
-                        <input type="checkbox" id="mantenimiento" onChange={() => selectElement('mantenimiento')} />
-                        <label htmlFor="mantenimiento" className='pl-1'>Técnico de mantenimiento y/o prevención</label><br />
+                        <input type="checkbox" id='mantenimiento' value='mantenimiento' onChange={() => selectElement('mantenimiento')} checked={isMantenimientoSelected} />
+                        <label htmlFor='mantenimiento' className='pl-1'>Técnico de mantenimiento y/o prevención</label><br />
                     </div>
                     <div className='pb-2'>
                         {isMantenimientoShown == false &&
@@ -247,25 +289,26 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'mantenimiento')}>
                                     <p className='text-blue-900 pl-5'> Más información</p>
-
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                <div className='bg-white p-5'>
-                                    <p className='text-black'>Posiciones relacionadas con:</p>
-                                    <p className='pl-2'>· Técnico eléctrico y/o mecánico</p>
-                                    <p className='pl-2'>· Revisión y mantenimiento preventivo de equipos</p>
-                                    <p className='pl-2'>· Reparación y resolución de incidencias</p>
-                                    <p className='pl-2'>· Experiencia con soldadura y/o electricidad</p>
-                                </div>                                </div>
+                                    <div className='bg-white p-5'>
+                                        <p className='text-black'>Posiciones relacionadas con:</p>
+                                        <p className='pl-2'>· Técnico eléctrico y/o mecánico</p>
+                                        <p className='pl-2'>· Revisión y mantenimiento preventivo de equipos</p>
+                                        <p className='pl-2'>· Reparación y resolución de incidencias</p>
+                                        <p className='pl-2'>· Experiencia con soldadura y/o electricidad</p>
+                                    </div>
+                                </div>
                             </>
                         }
                     </div>
+
                     <div className='flex flex-row items-center'>
-                        <input type="checkbox" id="calidad" onChange={() => selectElement('calidad')} />
-                        <label htmlFor="calidad" className='pl-1'>Técnico de calidad</label><br />
+                        <input type="checkbox" id='calidad' value='calidad' onChange={() => selectElement('calidad')} checked={isCalidadSelected} />
+                        <label htmlFor='calidad' className='pl-1'>Técnico de calidad</label><br />
                     </div>
                     <div className='pb-2'>
                         {isCalidadShown == false &&
@@ -280,25 +323,26 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'calidad')}>
                                     <p className='text-blue-900 pl-5'> Más información</p>
-
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                <div className='bg-white p-5'>
-                                    <p className='text-black'>Posiciones relacionadas con:</p>
-                                    <p className='pl-2'>· Técnico en control de calidad</p>
-                                    <p className='pl-2'>· Grados superiores relacionados con química o control de calidad</p>
-                                    <p className='pl-2'>· Análisis de stock y/o aprovisionamientos, muestreo</p>
-                                    <p className='pl-2'>· Creación de informes de calidad, documentación</p>
-                                </div>                                </div>
+                                    <div className='bg-white p-5'>
+                                        <p className='text-black'>Posiciones relacionadas con:</p>
+                                        <p className='pl-2'>· Técnico en control de calidad</p>
+                                        <p className='pl-2'>· Grados superiores relacionados con química o control de calidad</p>
+                                        <p className='pl-2'>· Análisis de stock y/o aprovisionamientos, muestreo</p>
+                                        <p className='pl-2'>· Creación de informes de calidad, documentación</p>
+                                    </div>
+                                </div>
                             </>
                         }
                     </div>
+
                     <div className='flex flex-row items-center'>
-                        <input type="checkbox" id="logistica" onChange={() => selectElement('logistica')} />
-                        <label htmlFor="logistica" className='pl-1'>Profesional de la logística</label><br />
+                        <input type="checkbox" id='logistica' value='logistica' onChange={() => selectElement('logistica')} checked={isLogisticaSelected} />
+                        <label htmlFor='logistica' className='pl-1'>Profesional de la logística</label><br />
                     </div>
                     <div className='pb-2'>
                         {isLogisticaShown == false &&
@@ -313,31 +357,32 @@ const Parte1: FC<parte1Props> = ({ user, setParte }) => {
                             <>
                                 <button className='flex flex-row items-center my-1' onClick={(event) => toggleInfo(event, 'logistica')}>
                                     <p className='text-blue-900 pl-5'> Más información</p>
-
                                     <svg className='w-5 h-5 text-gray-500 ml-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                         <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                                     </svg>
                                 </button>
                                 <div className='bg-white p-5'>
-                                <div className='bg-white p-5'>
-                                    <p className='text-black'>Posiciones relacionadas con:</p>
-                                    <p className='pl-2'>· Instalación de vidrios y/o ventanas</p>
-                                    <p className='pl-2'>· Transportista de vidrios y/o ventanas fuera de fábrica </p>
-                                    <p className='pl-2'>· Profesionales de almacén o manipulación interna de vidrios y/o otros bienes</p>
-                                    <p className='pl-2'>· Control de stock y expediciones</p>
-                                 </div>                                </div>
+                                    <div className='bg-white p-5'>
+                                        <p className='text-black'>Posiciones relacionadas con:</p>
+                                        <p className='pl-2'>· Instalación de vidrios y/o ventanas</p>
+                                        <p className='pl-2'>· Transportista de vidrios y/o ventanas fuera de fábrica </p>
+                                        <p className='pl-2'>· Profesionales de almacén o manipulación interna de vidrios y/o otros bienes</p>
+                                        <p className='pl-2'>· Control de stock y expediciones</p>
+                                    </div>
+                                </div>
                             </>
                         }
                     </div>
+
                 </div>
             </div>
 
-            <button type="submit" onClick={() => { handleNextPart() }} className='w-56 mx-auto py-2 px-4 my-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl'
-            >
+            <button type="submit" onClick={() => { handleNextPart() }} className='w-56 mx-auto py-2 px-4 my-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl'>
                 Seguir para añadir detalles
             </button>
         </div>
     );
+
 };
 
 export default Parte1;

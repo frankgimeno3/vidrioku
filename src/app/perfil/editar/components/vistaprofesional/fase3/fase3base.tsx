@@ -11,6 +11,7 @@ const fase3: FC<fase3Props> = ({  user, setFase,  }) => {
 
         const [receivedUser, setReceivedUser] = useState<any>()
         const [parte, setParte] = useState<number>(1)
+        const [departamentosUpdated, setDepartamentosUpdated] = useState<Array<string>>([]);
 
  
 
@@ -24,12 +25,12 @@ const fase3: FC<fase3Props> = ({  user, setFase,  }) => {
             <p className='text-gray-500 text-lg'>Perfil Profesional <span className='font-bold text-gray-e00 text-lg'>(Parte 3/3)</span></p>
             {
                 parte == 1  && 
-                <Parte1 user={receivedUser} setParte={setParte}/>
+                <Parte1 user={receivedUser} setParte={setParte} departamentosUpdated={departamentosUpdated} setDepartamentosUpdated={setDepartamentosUpdated}/>
              }
 
 {
                 parte == 2  && 
-                <Parte1 user={receivedUser} setParte={setParte}/>
+                <Parte2 user={receivedUser} setParte={setParte} departamentosUpdated={departamentosUpdated}/>
              }
         </div>
     )

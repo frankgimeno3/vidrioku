@@ -176,35 +176,35 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
           }
           {fase == 2 &&
 
-<Fase2
-  user={user}
-  setTelActualizado={setTelActualizado}
-  setLinkedinActualizado={setLinkedinActualizado}
-  setEmailActualizado={setEmailActualizado}
-  setCartaActualizado={setCartaActualizado}
-  setFase={setFase}
-/>
-}
-{fase == 3 &&
-<Fase3base
-  user={user}
-  setFase={setFase}
-/>
-}
-{fase == 4 &&
-<div>
-  
-</div>
-}
+            <Fase2
+              user={user}
+              setTelActualizado={setTelActualizado}
+              setLinkedinActualizado={setLinkedinActualizado}
+              setEmailActualizado={setEmailActualizado}
+              setCartaActualizado={setCartaActualizado}
+              setFase={setFase}
+            />
+          }
+          {fase == 3 &&
+            <Fase3base
+              user={user}
+              setFase={setFase}
+            />
+          }
+          {fase == 4 &&
+            <div>
+
+            </div>
+          }
         </div>
       </form >
 
-      { fase == 4 &&
+      {fase == 4 &&
         <button type="submit" onClick={() => editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
-            nombreActualizado, ubiActualizado, DNIActualizado, NIEActualizado, telActualizado, permisoActualizado,
-            vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
-            Guardar Cambios
-          </button>}
+          nombreActualizado, ubiActualizado, DNIActualizado, NIEActualizado, telActualizado, permisoActualizado,
+          vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
+          Guardar Cambios
+        </button>}
       {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userDataReceived} />}
     </>
   )
