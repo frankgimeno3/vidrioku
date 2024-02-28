@@ -73,8 +73,7 @@ const Parte2: FC<parte2Props> = ({ user, setParte, departamentosUpdated }) => {
 
     return (
         <div className='flex flex-col'>
-                  <p className='pt-8 text-lg font-bold'> {componenteAmostrar}</p>
-                  {componenteAmostrar === 'comercial' &&
+                   {componenteAmostrar === 'comercial' &&
                 <Comercial user={receivedUser} cambioComponenteMostrar={cambioComponenteMostrar} />
             }
                        {componenteAmostrar === 'compras' &&
@@ -95,7 +94,7 @@ const Parte2: FC<parte2Props> = ({ user, setParte, departamentosUpdated }) => {
             {componenteAmostrar === 'logistica' &&
                 <Logistica user={receivedUser} cambioComponenteMostrar={cambioComponenteMostrar} />
             }
-            {componenteAmostrar === 'componenteFinal' &&
+            {componenteAmostrar === 'ComponenteFinal' &&
                 <ComponenteFinal user={receivedUser} />
             }
 
