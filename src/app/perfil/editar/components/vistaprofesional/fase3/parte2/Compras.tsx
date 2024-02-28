@@ -31,13 +31,6 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
   const [estudiosOtrasCompras, setEstudiosOtrasCompras] = useState('');
   const [detallesOtrasCompras, setDetallesOtrasCompras] = useState('');
 
-  const [experienciaComercial, setExperienciaComercial] = useState<ExperienciaItem[]>([]);
-  const [experienciaCompras, setExperienciaCompras] = useState<ExperienciaItem[]>([]);
-
-  const [estudiosRelacionados, setEstudiosRelacionados] = useState('');
-  const [detallesExperiencia, setDetallesExperiencia] = useState('');
-
-
   const [arrayPosicionesCompras, setArrayPosicionesCompras] = useState<string[]>([]);
   const [detallePosicionesCompras, setDetallePosicionesCompras] = useState<ExperienciaItem[]>([]);
   const [arrayPosicionesEliminar, setArrayPosicionesEliminar] = useState<string[]>([])
@@ -47,8 +40,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
 
   useEffect(() => {
     setReceivedUser(user);
-    console.log("user recibido desde comercial", user)
-  }, [user]);
+   }, [user]);
 
 
   useEffect(() => {
@@ -95,8 +87,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
       setter(!estado);
     }
     setArrayPosicionesEliminar(arrayPrevioPosicionesEliminar)
-    console.log("arrayPrevioPosicionesEliminar: ", arrayPrevioPosicionesEliminar)
-  }
+   }
 
   useEffect(() => {
     const actualizarPosicionesCompras = () => {
@@ -138,9 +129,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
   );
 
 
-  const ActualizarPosicionesCompras = async () => {
-    console.log("arrayPosicionesCompras: ", arrayPosicionesCompras,
-      "detallePosicionesCompras: ", detallePosicionesCompras)
+  const ActualizarPosicionesCompras = async () => { 
 
     try {
       const docRef = doc(db, "users", receivedUser.id);
@@ -153,8 +142,7 @@ const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
         let detallePosicionesToUpdate = userData.posicionesMap?.detallePosicionesArray || [];
 
         if (arrayPosicionesEliminar.length !== 0) {
-          console.log("arrayPosicionesEliminar antes de borrarlo", arrayPosicionesEliminar)
-          for (const item of arrayPosicionesToUpdate) {
+           for (const item of arrayPosicionesToUpdate) {
             if (arrayPosicionesEliminar.includes(item)) {
               const index = arrayPosicionesToUpdate.indexOf(item);
               if (index !== -1) {
