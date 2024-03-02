@@ -10,7 +10,6 @@ import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
 import Searchnav from '../components/Searchnav';
 
-import FiltroProfesionales from "./profesionalescomponents/filtroProfesionales"
 import SearchProfesionales from "./profesionalescomponents/searchProfesionales"
 import PageListButtons from './profesionalescomponents/compListados/PageListButtons';
 import Profesional from './profesionalescomponents/compListados/Profesional';
@@ -131,8 +130,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
             <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
             <div className="flex flex-col  h-full bg-zinc-800 ">
 
-              <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
-                <FiltroProfesionales />
+              <nav className="bg-gray-200 py-2 px-1  mx-12">
                 <SearchProfesionales />
               </nav>
               <div className='flex flex-col   mx-12 bg-white h-full'>

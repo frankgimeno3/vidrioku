@@ -13,7 +13,7 @@ import CambiarFoto from '../CambiarFoto';
 import Fase1 from './fase1'
 import Fase2 from './fase2'
 import Fase3 from './fase3'
-
+ 
 
 interface vistaEmpresaProps {
   userData: any
@@ -86,7 +86,7 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
     e.preventDefault();
     const userId = userData;
     await editarPerfil(userId, nombreActualizado, anoCreacionActualizado, ubiActualizado, telActualizado, emailActualizado, actividadActualizado, descripcionActualizado, empleadosActualizado, webActualizado, linkedinActualizado);
-    router.push(`/perfil/${userData}`);
+    router.push(`/perfil`);
   };
 
   const editarPerfil = async (
@@ -171,13 +171,11 @@ const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
 
         {fase == 3 &&
           <div className="flex flex-col pb-12  justify-between text-center justify-center bg-gray-50 shadow-sm mx-10   text-gray-500    ">
-
-              <button type="submit"
+               <button type="submit"
                 className='py-2 px-4 mb-8 bg-white hover:bg-gray-50 text-gray-500 text-sm rounded-lg shadow-xl w-36 mx-auto'>
                 Guardar Cambios
               </button>
-
-            </div>}
+             </div>}
           </form >
       {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userData} />
         }
