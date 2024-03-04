@@ -1,21 +1,31 @@
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import FiltrosAplicados from './FiltrosAplicados';
 import SeleccionFiltros from './SeleccionFiltros';
 
 
-const FiltrosComponent: FC = ({ }) => {
+interface FiltrosComponentFiltrosProps {
+    setArrayFiltros: any;
+    arrayFiltros: any
+}
 
-    const [arrayFiltros, setArrayFiltros] = useState(['a', 'b', 'c'])
+
+const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, arrayFiltros }) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
+    useEffect(() => {
+        setFiltrosRecibidos(arrayFiltros)
+    }, [arrayFiltros])
+
 
     return (
         <div className="    ml-2 mr-7 my-3  p-2">
-            <p>Añadir filtro</p>
+            <p>Añadir filtros</p>
 
-            <SeleccionFiltros setArrayFiltros={setArrayFiltros}/>
+            <SeleccionFiltros setArrayFiltros={setArrayFiltros} arrayFiltros={arrayFiltros} />
 
-            <FiltrosAplicados arrayFiltros={arrayFiltros} />
+            <p className='mt-3'>Filtros Aplicados</p>
+            <FiltrosAplicados arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} />
 
         </div>
     );

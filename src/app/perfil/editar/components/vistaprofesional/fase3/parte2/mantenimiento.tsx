@@ -219,7 +219,7 @@ const Mantenimiento: FC<MantenimientoProps> = ({ user, cambioComponenteMostrar }
   return (
     <div>
       <div>
-        <p className='pt-8 text-lg font-bold'> Departamento de Compras</p>
+        <p className='pt-8 text-lg font-bold'> Departamento de mantenimiento y prevención</p>
         <p>Haga click en una de las siguientes opciones si ha trabajado en dicha posición, o tiene estudios relacionados con dicho departamento</p>
         <div className='flex flex-col p-2'>
           <div className='py-1 pl-5'>
