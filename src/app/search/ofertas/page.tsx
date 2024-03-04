@@ -3,8 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import SearchOfertas from './ofertascomponents/searchOfertas'
-import FiltroOfertas from './ofertascomponents/filtroOfertas'
-import PageListButtons from './ofertascomponents/compListados/PageListButtons';
+ import PageListButtons from './ofertascomponents/compListados/PageListButtons';
 // import Anuncio from './ofertascomponents/compListados/Anuncio';
 // import Pasarela from './ofertascomponents/compListados/Pasarela';
 import Oferta from './ofertascomponents/compListados/Oferta';
@@ -46,7 +45,15 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   const [subArraySeleccionado, setSubArrayseleccionado] = useState(0)
   const [arrayMostrado, setArrayMostrado] = useState<any>(null);
 
+  const [arrayFiltros, setArrayFiltros] = useState<[]>([])
+  const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
 
+
+  useEffect(() => {
+    setFiltrosRecibidos(arrayFiltros)
+  }, [arrayFiltros])
+
+  
   const setOfertas = () => {
     setTipoConsulta('Ofertas');
   };
@@ -129,9 +136,8 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
 
             <div className="flex flex-col  h-full bg-zinc-800 ">
 
-              <nav className="bg-gray-200 py-2 px-1 text-center mx-12">
-                <SearchOfertas />
-                <FiltroOfertas />
+            <nav className="bg-gray-200 py-2 px-1  mx-12">
+                <SearchOfertas arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
               </nav>
               <div className='flex flex-col   mx-12 bg-white h-full'>
                 <div className='bg-white flex flex-row w-full h-full'>
