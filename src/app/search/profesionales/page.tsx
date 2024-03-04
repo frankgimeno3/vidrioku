@@ -47,7 +47,13 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
   const [arrayMostrado, setArrayMostrado] = useState<any>(0)
   const [renderprofesional, setrenderprofesional] = useState<any>()
 
-  const [arrayFiltros, setArrayFiltros] = useState<string[]>([])
+  const [arrayFiltros, setArrayFiltros] = useState<[]>([])
+  const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
+
+
+  useEffect(() => {
+    setFiltrosRecibidos(arrayFiltros)
+  }, [arrayFiltros])
 
   const session = useSession({
     required: true,
@@ -133,7 +139,7 @@ const Profesionales: FC<ProfesionalesProps> = ({ }) => {
             <div className="flex flex-col  h-full bg-zinc-800 ">
 
               <nav className="bg-gray-200 py-2 px-1  mx-12">
-                <SearchProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
+                <SearchProfesionales arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
               </nav>
               <div className='flex flex-col   mx-12 bg-white h-full'>
                 <div className='bg-white flex flex-row w-full h-full'>

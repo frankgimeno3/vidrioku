@@ -8,7 +8,14 @@ interface SpermisoProps {
 }
 
 
-const Spermiso: FC<SpermisoProps> = ({ setArrayFiltros }) => {
+const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
+    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
+
+    useEffect(() => {
+        setArrayRecibido(arrayFiltros);
+    }, [arrayFiltros]);
+
+
     const [isChecked, setChecked] = useState(false);
     const [permiso, setPermiso] = useState(false)
 
@@ -22,6 +29,17 @@ const Spermiso: FC<SpermisoProps> = ({ setArrayFiltros }) => {
         setPermiso(newChecked);
     };
 
+
+    const handleIsPermisoRequerido = () => {
+        if (!arrayRecibido.includes("Carnet de conducir")) {
+            setArrayRecibido(prevArray => [...prevArray, "Carnet de conducir"]);
+        }
+        setArrayFiltros(arrayRecibido)
+    };
+    
+    useEffect(() => {
+        if (permiso==true) {handleIsPermisoRequerido()}
+    }, [permiso]);
 
     return (
         <div className='flex flex-row justify-left items-center '>

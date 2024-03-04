@@ -3,14 +3,14 @@ import { FC, useState } from 'react';
 import Image from 'next/image';
 import Sdepartamento from './seleccionar/sdepartamento';
 import Sposicion from './seleccionar/sposicion';
-import Subicacion from './seleccionar/subicacion';
+import Subicacion from './seleccionar/spais';
 import Sidioma from './seleccionar/sidiomas';
 import Spermiso from './seleccionar/spermiso';
 
 interface SelectContenidoFiltroProps {
     isDepartamentosSelected: any;
     isPosicionesSelected: any;
-    isUbicacionSelected: any;
+    isPaisSelected: any;
     isIdiomasSelected: any;
     isPermisoSelected: any;
     arrayFiltros:any;
@@ -18,7 +18,7 @@ interface SelectContenidoFiltroProps {
 }
 
 
-const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentosSelected, isPosicionesSelected, isUbicacionSelected, isIdiomasSelected, isPermisoSelected, arrayFiltros, setArrayFiltros }) => {
+const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentosSelected, isPosicionesSelected, isPaisSelected, isIdiomasSelected, isPermisoSelected, arrayFiltros, setArrayFiltros }) => {
 
 
     return (
@@ -33,7 +33,7 @@ const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentos
                     <Sposicion arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
-            {isUbicacionSelected == true &&
+            {isPaisSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
                     <Subicacion arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
                 </div>
