@@ -1,5 +1,5 @@
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Sdepartamento from './seleccionar/sdepartamento';
 import Sposicion from './seleccionar/sposicion';
@@ -19,33 +19,37 @@ interface SelectContenidoFiltroProps {
 
 
 const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentosSelected, isPosicionesSelected, isPaisSelected, isIdiomasSelected, isPermisoSelected, arrayFiltros, setArrayFiltros }) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
+    useEffect(() => {
+        setFiltrosRecibidos(arrayFiltros);
+     }, [arrayFiltros]);
 
     return (
         <>
             {isDepartamentosSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
-                    <Sdepartamento arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
+                    <Sdepartamento arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
             {isPosicionesSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
-                    <Sposicion arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
+                    <Sposicion arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
             {isPaisSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
-                    <Subicacion arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
+                    <Subicacion arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
             {isIdiomasSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
-                    <Sidioma arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
+                    <Sidioma arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
             {isPermisoSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
-                    <Spermiso arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
+                    <Spermiso arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
         </>

@@ -22,7 +22,7 @@ const SActividadEmpresa: FC<SActividadEmpresaProps> = ({ arrayFiltros, setArrayF
 
     return (
         <div className='flex flex-col my-3 '>
-            <p className='mb-3'>Filtrar según el la actividad de la empresa</p>
+            <p className='mb-3'>Filtrar según la actividad de la empresa</p>
             <div className='flex flex-row'>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
                     onClick={() => handleSeleccionActividad('Cristalerías')}

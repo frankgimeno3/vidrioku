@@ -45,9 +45,10 @@ const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
     const handleSeleccionPais = (pais: string) => {
         if (!arrayRecibido.includes(pais)) {
-            setArrayRecibido(prevArray => [...prevArray, pais]);
+            const newArray = [...arrayRecibido, `Pais - ${pais}`];
+            setArrayRecibido(newArray);
+            setArrayFiltros(newArray);
         }
-        setArrayFiltros(arrayRecibido);
     };
 
     return (

@@ -1,10 +1,10 @@
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import SelectContenidoFiltro from './SelectContenidoFiltro';
 
 interface SeleccionFiltrosProps {
-    arrayFiltros:any;
+    arrayFiltros: any;
     setArrayFiltros: any;
 }
 
@@ -15,6 +15,11 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
     const [isPaisSelected, setIsPaisSelected] = useState(false)
     const [isIdiomasSelected, setIsIdiomasSelected] = useState(false)
     const [isPermisoSelected, setIsPermisoSelected] = useState(false)
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+
+    useEffect(() => {
+        setFiltrosRecibidos(arrayFiltros);
+     }, [arrayFiltros]);
 
     const toggleAnadirFiltro = (estado: any, setter: any) => {
         if (estado == false) {
@@ -106,12 +111,12 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
                         <p>Permiso de conducción</p>
                     </div>}
             </div>
-            <SelectContenidoFiltro 
+            <SelectContenidoFiltro
                 isDepartamentosSelected={isDepartamentosSelected}
                 isPosicionesSelected={isPosicionesSelected} isPaisSelected={isPaisSelected}
-                isIdiomasSelected={isIdiomasSelected} isPermisoSelected={isPermisoSelected} 
-                arrayFiltros={arrayFiltros}
-                setArrayFiltros={setArrayFiltros}/>
+                isIdiomasSelected={isIdiomasSelected} isPermisoSelected={isPermisoSelected}
+                arrayFiltros={filtrosRecibidos}
+                setArrayFiltros={setArrayFiltros} />
         </div>
     );
 };

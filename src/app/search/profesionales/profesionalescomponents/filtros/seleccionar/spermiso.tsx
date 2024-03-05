@@ -31,14 +31,23 @@ const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
 
     const handleIsPermisoRequerido = () => {
-        if (!arrayRecibido.includes("Carnet de conducir")) {
-            setArrayRecibido(prevArray => [...prevArray, "Carnet de conducir"]);
+        if (!arrayRecibido.includes("Carnet de conducir - Requerido")) {
+            const newArray = [...arrayRecibido, "Carnet de conducir - Requerido"];
+            setArrayRecibido(newArray);
+            setArrayFiltros(newArray)
         }
-        setArrayFiltros(arrayRecibido)
     };
     
+    const handleQuitarPermisoRequerido = () => {
+        if (arrayRecibido.includes("Carnet de conducir - Requerido")) {
+            const newArray = arrayRecibido.filter(item => item !== "Carnet de conducir - Requerido");
+            setArrayRecibido(newArray);
+            setArrayFiltros(newArray);
+        }
+    };
     useEffect(() => {
         if (permiso==true) {handleIsPermisoRequerido()}
+        if (permiso==false) {handleQuitarPermisoRequerido()}
     }, [permiso]);
 
     return (

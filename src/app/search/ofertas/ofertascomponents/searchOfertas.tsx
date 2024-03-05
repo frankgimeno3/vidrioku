@@ -45,7 +45,7 @@ const SearchOfertas: FC<SearchOfertasProps> = ({ setArrayFiltros, arrayFiltros }
           <svg className='w-5 h-5   mr-2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' >
             <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
           </svg>
-            Filtrar profesionales por criterios de búsqueda
+          Filtrar ofertas por criterios de búsqueda
           </button >
         </div>
       }

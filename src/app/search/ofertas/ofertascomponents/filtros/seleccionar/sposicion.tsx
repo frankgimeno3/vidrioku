@@ -40,7 +40,7 @@ const Sposicion: FC<SposicionProps> = ({ arrayFiltros, setArrayFiltros }) => {
     };
     return (
         <div className='flex flex-col  '>
-            <p className='my-3'>Filtrar según el departamento para el que profesional ha trabajado o estudiado</p>
+            <p className='my-3'>Filtrar según la posición de la vacante</p>
             <div className='flex flex-row text-left my-1'>
                 <button className='text-sm  bg-white flex-1 px-5 mx-1 rounded shadow py-2'
                     onClick={() => selectDepartamento('comercial')}>

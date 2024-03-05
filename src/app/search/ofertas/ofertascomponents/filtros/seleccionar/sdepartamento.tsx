@@ -22,7 +22,7 @@ const Sdepartamento: FC<SdepartamentoProps> = ({ arrayFiltros, setArrayFiltros }
 
     return (
         <div className='flex flex-col my-3 '>
-            <p className='mb-3'>Filtrar según el departamento para el que profesional ha trabajado o estudiado</p>
+            <p className='mb-3'>Filtrar según el departamento de la vacante</p>
             <div className='flex flex-row'>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
                     onClick={() => handleSeleccionDepartamento('Departamento comercial')}

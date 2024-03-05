@@ -33,10 +33,11 @@ const Sposicion: FC<SposicionProps> = ({ arrayFiltros, setArrayFiltros }) => {
     }, [posicionSeleccionada]);
 
     const handleAddPosicion = (posicion: string) => {
-        if (!arrayRecibido.includes(posicion)) {
-            setArrayRecibido(prevArray => [...prevArray, posicion]);
+        if (!arrayRecibido.includes(posicion) ) {
+            if(posicion != ''){     const newArray = [...arrayRecibido, `Posicion - ${posicion}`];
+                setArrayRecibido(newArray);
+                setArrayFiltros(newArray)}
         }
-        setArrayFiltros(arrayRecibido)
     };
     return (
         <div className='flex flex-col  '>

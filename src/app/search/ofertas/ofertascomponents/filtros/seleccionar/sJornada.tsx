@@ -22,7 +22,7 @@ const SJornada: FC<SJornadaProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
     return (
         <div className='flex flex-col my-3 '>
-            <p className='mb-3'>Filtrar según el el tipo de jornada</p>
+            <p className='mb-3'>Filtrar según el el tipo de jornada laboral de la vacante</p>
             <div className='flex flex-row'>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
                     onClick={() => handleSeleccionJornada('Jornada completa sin fines de semana o festivos')}

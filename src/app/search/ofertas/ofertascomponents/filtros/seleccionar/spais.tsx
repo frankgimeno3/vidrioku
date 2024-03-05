@@ -52,7 +52,7 @@ const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
     return (
         <div className='flex flex-col'>
-            <p className='mb-3'>Filtrar según el país en que se encuentra actualmente el candidato</p>
+            <p className='mb-3'>Filtrar según el país en que se busca desarrollar el trabajo</p>
             <p className='font-bold'>Europa</p>
             <div className='flex flex-wrap mb-4'>
                 {paisesEuropa.map((pais, index) => (

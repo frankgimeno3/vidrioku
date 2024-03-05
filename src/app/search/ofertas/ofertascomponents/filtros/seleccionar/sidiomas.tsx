@@ -89,7 +89,7 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
     return (
         <div className='flex flex-col'>
-            <p>Filtrar según los idiomas que el profesional habla</p>
+            <p>Filtrar según los idiomas rerqueridos</p>
             <div className='flex flex-col mb-4'>
                 <div className='flex flex-row items-center'>
                     <input type="checkbox" id="Espanol" className="mr-2" onChange={() => setIsEspanolSelected(!isEspanolSelected)} checked={isEspanolSelected} />
