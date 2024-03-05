@@ -10,16 +10,47 @@ interface FiltrosComponentFiltrosProps {
 
 const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, arrayFiltros }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+    const [queriesList, setQueriesList] = useState('');
     const router = useRouter();
 
     useEffect(() => {
         setFiltrosRecibidos(arrayFiltros);
-        console.log("filtros recibidos", filtrosRecibidos)
-    }, [arrayFiltros]);
+     }, [arrayFiltros]);
 
-    const handleFilterClick = (filtro: string) => {
-        router.push(`/search/profesionales?ubicacion=${filtro}`);
+    const handleFilterClick = (filtros: string) => {
+        router.push(`/search/profesionales?${filtros}`);
     };
+
+    useEffect(() => {
+        let queriesList = "";
+        let queriesArray = [];
+        
+        if (Array.isArray(filtrosRecibidos) && filtrosRecibidos.length > 0) {
+            queriesArray = filtrosRecibidos.map(filtro => filtro?.replace(/-/g, "="));
+            
+            // Iterate through queriesArray to merge duplicate keys
+            const mergedQueries: { [key: string]: string } = {}; // Specify the type of mergedQueries
+    
+            queriesArray.forEach(query => {
+                const [key, value] = query.split("=");
+                if (mergedQueries.hasOwnProperty(key)) {
+                    mergedQueries[key] += `, ${value}`;
+                } else {
+                    mergedQueries[key] = value;
+                }
+            });
+    
+            // Convert merged queries back to array
+            queriesArray = Object.entries(mergedQueries).map(([key, value]) => `${key}=${value}`);
+    
+            // Join queriesArray with "&"
+            queriesList = queriesArray.join("&");
+        }
+    
+        setQueriesList(queriesList);
+    }, [filtrosRecibidos]);
+    
+    
 
     return (
         <div className="ml-2 mr-7 my-3 p-2">
@@ -32,12 +63,10 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
 
             {filtrosRecibidos.length > 0 && (
                 <div className="mt-3 flex flex-row">
-                    {filtrosRecibidos.map((filtro, index) => (
-                        <button key={index} className="block bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mt-2" onClick={() => handleFilterClick(filtro)}>
-                            Aplicar filtro: {filtro}
+                         <button key={queriesList} className="block bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mt-2" onClick={() => handleFilterClick(queriesList)}>
+                            Aplicar filtros: {queriesList}
                         </button>
-                    ))}
-                </div>
+                 </div>
             )}
         </div>
     );
