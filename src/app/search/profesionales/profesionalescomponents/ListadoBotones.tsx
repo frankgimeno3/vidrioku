@@ -6,12 +6,18 @@ interface ListadoBotonesProps {
   setSubArrayseleccionado: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const ListadoBotones: FC<ListadoBotonesProps> = ({ subArraySeleccionado, arrayDe7ElementosPorPagina,  setSubArrayseleccionado }) => {
-  const [arrayRecibido, setArrayRecibido] = useState<any[]>([]);
+const ListadoBotones: FC<ListadoBotonesProps> = ({ subArraySeleccionado,  setSubArrayseleccionado, arrayDe7ElementosPorPagina }) => {
 
+  //recibe un array con x elementos (cada uno son 7 profesionales), viene ya definido del list
+  const [arrayRecibido, setArrayRecibido] = useState<any[]>([]);
   useEffect(() => {
     setArrayRecibido(arrayDe7ElementosPorPagina);
   }, [arrayDe7ElementosPorPagina]);
+
+  //en el return crea tantos botones como elementos
+  //hay un estado que representa cada posicion de cada profesional en el array, y cada boton tiene una posicion asignada
+  //al hacer click en un botón seleccionas una posición = seleccionas el grupo de 7 profesionales a mostrar
+  //el listado también muestra con estilos qué botón es el seleccionado
 
   return (
     <div className="flex flex-row justify-end items-center px-2">

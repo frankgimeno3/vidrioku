@@ -17,8 +17,13 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
         setFiltrosRecibidos(arrayFiltros);
      }, [arrayFiltros]);
 
-    const handleFilterClick = (filtros: string) => {
-        router.push(`/search/profesionales?${filtros}`);
+     const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, filtros: string) => {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado del clic en el botón
+        let filtrosSinEspacios = filtros.replace(/\s/g, '');  
+        router.push(`/search/profesionales?${filtrosSinEspacios}`);
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 200)    
     };
 
     useEffect(() => {
@@ -63,8 +68,9 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
 
             {filtrosRecibidos.length > 0 && (
                 <div className="mt-3 flex flex-row">
-                         <button key={queriesList} className="block bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mt-2" onClick={() => handleFilterClick(queriesList)}>
-                            Aplicar filtros: {queriesList}
+                         <button key={queriesList} className="block bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mt-2" 
+                         onClick={(event) => handleFilterClick(event, queriesList)}>
+                            Aplicar filtros 
                         </button>
                  </div>
             )}
