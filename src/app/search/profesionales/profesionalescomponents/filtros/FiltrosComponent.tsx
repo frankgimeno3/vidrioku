@@ -31,7 +31,7 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
         let queriesArray = [];
         
         if (Array.isArray(filtrosRecibidos) && filtrosRecibidos.length > 0) {
-            queriesArray = filtrosRecibidos.map(filtro => filtro?.replace(/-/g, "="));
+            queriesArray = filtrosRecibidos?.map(filtro => filtro?.replace(/-/g, "="));
             
             // Iterate through queriesArray to merge duplicate keys
             const mergedQueries: { [key: string]: string } = {}; // Specify the type of mergedQueries

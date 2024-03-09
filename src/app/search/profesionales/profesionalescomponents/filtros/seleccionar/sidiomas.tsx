@@ -40,50 +40,51 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
         setArrayRecibido(arrayFiltros);
     }, [arrayFiltros]);
 
-    const handleSeleccionIdiomas = (objetoIdioma: string[]) => {
+    const handleSeleccionIdiomas = (objetoIdioma: string) => {
         if (!arrayRecibido.includes(objetoIdioma)) {
             const newArray = [...arrayRecibido, objetoIdioma];
             setArrayRecibido(newArray);
             setArrayFiltros(newArray);
         }
+ 
     };
 
     useEffect(() => {
         if (espanolLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: español, nivel: ${espanolLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: español, nivel: ${espanolLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (inglesLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: inglés, nivel: ${inglesLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: inglés, nivel: ${inglesLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (francesLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: francés, nivel: ${francesLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: francés, nivel: ${francesLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (alemanLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: alemán, nivel: ${alemanLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: alemán, nivel: ${alemanLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (portuguesLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: portugués, nivel: ${portuguesLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: portugués, nivel: ${portuguesLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (arabeLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: árabe, nivel: ${arabeLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: árabe, nivel: ${arabeLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (catalanValencianoLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: catalán/valenciano, nivel: ${catalanValencianoLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: catalán/valenciano, nivel: ${catalanValencianoLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (vascoLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: vasco, nivel: ${vascoLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: vasco, nivel: ${vascoLevel}`
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (gallegoLevel != '') {
-            let idiomaArray = [`Idiomas - idioma: gallego, nivel: ${gallegoLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: gallego, nivel: ${gallegoLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
 
     }, [espanolLevel, inglesLevel, francesLevel, portuguesLevel, alemanLevel, arabeLevel, catalanValencianoLevel, vascoLevel, gallegoLevel]);
