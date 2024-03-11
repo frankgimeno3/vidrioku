@@ -188,8 +188,8 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
 
         //permiso
         if (filtrosPermiso.length > 0) {
-            console.log("permiso true")
-            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosPermiso.includes(profesional.permiso));
+            console.log("filtrosPermiso: ", filtrosPermiso)
+            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => profesional.permiso == true);
         }
         setProfesionalesRenderizarFiltrado(profesionalesFiltrados);
         console.log("trabajadoresFiltrados: ", profesionalesFiltrados)
