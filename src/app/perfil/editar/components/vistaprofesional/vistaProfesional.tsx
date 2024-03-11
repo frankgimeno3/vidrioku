@@ -32,6 +32,7 @@ interface User {
   linkedin: string;
   profilepicture: any;
   email: string;
+  pais:string;
 }
 const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [user, setUser] = useState<User | undefined>();
@@ -51,6 +52,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [permisoActualizado, setPermisoActualizado] = useState(user?.permiso || false)
   const [vehiculoActualizado, setVehiculoActualizado] = useState(user?.vehiculo || false)
   const [cartaActualizado, setCartaActualizado] = useState(user?.carta)
+  const [paisActualizado, setPaisActualizado] = useState(user?.pais)
 
   const [isCambiarFotoOpen, setIsCambiarFotoOpen] = useState(false)
 
@@ -107,7 +109,9 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
     permiso: any,
     vehiculo: any,
     carta: any,
-    linkedin: any
+    linkedin: any,
+    email:any,
+    pais:any
   ) => {
     try {
       const docRef = doc(db, "users", userId);
@@ -129,6 +133,8 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
           vehiculo: vehiculo,
           carta: carta,
           linkedin: linkedin,
+          email: email,
+          pais:pais
         };
 
         const filteredData = Object.fromEntries(
@@ -170,6 +176,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
               setVehiculoActualizado={setVehiculoActualizado}
               permisoActualizado={permisoActualizado}
               vehiculoActualizado={vehiculoActualizado}
+              setPaisActualizado={setPaisActualizado}
               user={user}
               setFase={setFase}
             />
@@ -202,7 +209,7 @@ const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
       {fase == 4 &&
         <button type="submit" onClick={() => editarPerfil(userDataReceived, apellidosActualizado, edadActualizado, generoActualizado,
           nombreActualizado, ubiActualizado, DNIActualizado, NIEActualizado, telActualizado, permisoActualizado,
-          vehiculoActualizado, cartaActualizado, linkedinActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
+          vehiculoActualizado, cartaActualizado, linkedinActualizado, emailActualizado, paisActualizado)} className="bg-blue-500 text-white px-4 my-2 rounded text-center">
           Guardar Cambios
         </button>}
       {isCambiarFotoOpen && <CambiarFoto setIsCambiarFotoOpen={setIsCambiarFotoOpen} userData={userDataReceived} />}

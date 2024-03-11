@@ -16,11 +16,12 @@ interface fase1Props {
     setVehiculoActualizado: any;
     permisoActualizado: any;
     vehiculoActualizado: any;
+    setPaisActualizado: any;
     user: any;
     setFase: any;
 }
 const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, setApellidosActualizado, setGeneroActualizado, setEdadActualizado, setUbiActualizado,
-    setDNIActualizado, setNIEActualizado, user, setFase, setPermisoActualizado, setVehiculoActualizado, permisoActualizado, vehiculoActualizado }) => {
+    setDNIActualizado, setNIEActualizado, user, setFase, setPermisoActualizado, setVehiculoActualizado, permisoActualizado, vehiculoActualizado, setPaisActualizado }) => {
 
     const [receivedUser, setReceivedUser] = useState<any>()
     const [isDNI, setIsDNI] = useState(true);
@@ -142,6 +143,42 @@ const fase1: FC<fase1Props> = ({ handleModificarPerfil, setNombreActualizado, se
                     <button onClick={DNIhandler} className='bg-gray-50 shadow rounded my-5 border px-3 py-1 mx-24'>
                         Haga click aquí si tiene DNI en vez de NIE</button>
                 </div>}
+                <div className="flex flex-col my-2">
+                    <label htmlFor="pais">País de residencia actual?</label>
+                    <select
+                        id="pais"
+                        name="pais"
+                        onChange={(e) => setPaisActualizado(e.target.value)}
+                        className='w-full text-center bg-transparent shadow rounded border border-gray-100 placeholder-gray-400 py-1'
+                    >
+                        <option value="">Selecciona un país</option>
+                        <option value="Andorra">Andorra</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Bolivia">Bolivia</option>
+                        <option value="Brasil">Brasil</option>
+                        <option value="Chile">Chile</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="Costa Rica">Costa Rica</option>
+                        <option value="Cuba">Cuba</option>
+                        <option value="Ecuador">Ecuador</option>
+                        <option value="Florida">Florida</option>
+                        <option value="El Salvador">El Salvador</option>
+                        <option value="Guatemala">Guatemala</option>
+                        <option value="Honduras">Honduras</option>
+                        <option value="México">México</option>
+                        <option value="Nicaragua">Nicaragua</option>
+                        <option value="Panamá">Panamá</option>
+                        <option value="Paraguay">Paraguay</option>
+                        <option value="Perú">Perú</option>
+                        <option value="Puerto Rico">Puerto Rico</option>
+                        <option value="República Dominicana">República Dominicana</option>
+                        <option value="Uruguay">Uruguay</option>
+                        <option value="Venezuela">Venezuela</option>
+                        <option value="España">España</option>
+                        <option value="Portugal">Portugal</option>
+                    </select>
+                </div>
+
                 <div className="flex flex-col my-2">
                     <label htmlFor="permiso" >Permiso de conducción? </label>
                     <TogglePermiso setPermiso={setPermisoActualizado} permisoActualizado={permisoActualizado} />

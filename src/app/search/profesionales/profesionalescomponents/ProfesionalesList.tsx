@@ -53,37 +53,97 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
     const [profesionalesRenderizar, setProfesionalesRenderizar] = useState<any[]>([]);
     useEffect(() => {
         setProfesionalesRenderizar(trabajadoresProfesionales);
-        console.log("trabajadoresProfesionales: ", trabajadoresProfesionales)
     }, [trabajadoresProfesionales]);
 
     const [profesionalesRenderizarFiltrado, setProfesionalesRenderizarFiltrado] = useState<any[]>([]);
     useEffect(() => {
         let profesionalesFiltrados = profesionalesRenderizar;
-        console.log("trabajadoresFiltrados0: ", profesionalesFiltrados)
+
+        const valoresFiltros = [
+            'Departamentocomercial',
+            'Departamentosdecomprasoaprovisionamiento',
+            'Departamentotécnicoodeingeniería',
+            'Operarioenfabricaciónoinstalaciónenelsectordelvidrio',
+            'Técnicodemantenimientoy/oprevención',
+            'Técnicodecalidad',
+            'Profesionaldelalogística'
+        ];
+
+        const valoresDepartamentos = [
+            'comercial',
+            'compras',
+            'tecnico',
+            'operario',
+            'mantenimiento',
+            'calidad',
+            'logistica'
+        ];
 
         if (filtrosDepartamentos.length > 0) {
-            console.log("depart true")
-            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => profesional?.departamentos || profesional?.departamentos?.length === 0);
-            //ahora tengo que ir caso por caso, porque el query no es el mismo que lo que se asigna al editar el perfil al arrat departamentos
+            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => {
+                const departamentoValido = profesional?.departamentos || profesional?.departamentos?.length === 0;
+                if (!departamentoValido) return false;
+                for (let i = 0; i < valoresFiltros.length; i++) {
+                    if (filtrosDepartamentos.includes(valoresFiltros[i]) && profesional.departamentos.includes(valoresDepartamentos[i])) {
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
-        
+
+
+
 
         //EL RESTO NO ESTÁ NI EMPEZADO
         if (filtrosPosicion.length > 0) {
             console.log("posi true")
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosPosicion.includes(profesional.posicionesMap));
         }
-        
+
+
+        const stringsFiltrosPaises = [
+            'Pais - Argentina',
+            'Pais - Bolivia',
+            'Pais - Brasil',
+            'Pais - Chile',
+            'Pais - Colombia',
+            'Pais - Costa Rica',
+            'Pais - Cuba',
+            'Pais - Ecuador',
+            'Pais - Florida',
+            'Pais - El Salvador',
+            'Pais - Guatemala',
+            'Pais - Honduras',
+            'Pais - México',
+            'Pais - Nicaragua',
+            'Pais - Panamá',
+            'Pais - Paraguay',
+            'Pais - Perú',
+            'Pais - Puerto Rico',
+            'Pais - República Dominicana',
+            'Pais - Uruguay',
+            'Pais - Venezuela',
+            'Pais - Andorra',
+            'Pais - España',
+            'Pais - Portugal',
+        ];
+
         if (filtrosPais.length > 0) {
-            console.log("pais true")
-            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosPais.includes(profesional.pais));
+            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => {
+                return filtrosPais.some(filtro => {
+                    return profesional.pais === filtro;
+                });
+            });
         }
-        
+
+
+
         if (filtrosIdiomas.length > 0) {
             console.log("idiomas true")
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosIdiomas.includes(profesional.idiomas));
         }
-        
+
         if (filtrosPermiso.length > 0) {
             console.log("permiso true")
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosPermiso.includes(profesional.permiso));
