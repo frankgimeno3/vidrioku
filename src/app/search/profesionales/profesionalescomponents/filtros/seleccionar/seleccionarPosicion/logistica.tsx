@@ -21,7 +21,7 @@ const Logistica: FC<LogisticaProps> = ({ posicionSeleccionada, setPosicionSelecc
                 <option value='Instalación de vidrios y/o ventanas'>Instalación de vidrios y/o ventanas</option>
                 <option value='Transportista de vidrios y/o ventanas fuera de fábrica'>Transportista de vidrios y/o ventanas fuera de fábrica</option>
                 <option value='Profesionales de almacén o manipulación interna de vidrios y/o otros bienes'>Profesionales de almacén o manipulación interna de vidrios y/o otros bienes</option>
-                <option value='Mejora contínua'>Gestión de stock, logística y expediciones</option>
+                <option value='Gestión de stock'>Gestión de stock, logística y expediciones</option>
             </select>
         </div>
     );

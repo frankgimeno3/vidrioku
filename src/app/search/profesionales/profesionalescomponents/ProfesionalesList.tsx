@@ -59,6 +59,7 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
     useEffect(() => {
         let profesionalesFiltrados = profesionalesRenderizar;
 
+        //departamentos
         const valoresFiltros = [
             'Departamentocomercial',
             'Departamentosdecomprasoaprovisionamiento',
@@ -92,43 +93,84 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
             });
         }
 
+        //posiciones - ok
 
+        const OpcionesEnFiltro = [
+            'Técnicoencontroldecalidad',
+            'Análisisdestocky/oaprovisionamientos,muestreo',
+            'Creacióndeinformes',
+            'VentasInternacionalesy/oexportación',
+            'Comercialtécnico',
+            'Coordinadordeproyectos',
+            'Gestordeproyectos',
+            'Comprademaquinariaindustrial',
+            'Compradesuministrosparafabricacióny/omanipuladodevidrio',
+            'Otrasexperienciasencompras',
+            'Consultoríaodireccióntécnica',
+            'Arquitecturatécnica',
+            'Análisisocreacióndedocumentacióndeproyectostécnicos',
+            'Mejoracontínua',
+            'Ingenieríadelaedificación,civil,deminas,electromecánica,industrial,técnica-mecánicauotras',
+            'Instalacióndevidriosy/oventanas',
+            'Transportistadevidriosy/oventanasfueradefábrica',
+            'Profesionalesdealmacénomanipulacióninternadevidriosy/ootrosbienes',
+            'Gestióndestock',
+            'Electromecánica,técnicoeléctricoy/omecánico',
+            'Revisiónymantenimientopreventivodeequipos',
+            'Experienciaconsoldaduray/oelectricidad',
+            'Carpinteríadealuminioy/ochapa',
+            'Serigrafia',
+            'Corte,biselado,fresadoy/otratamientoquímicodevidrioplano',
+            'Mecanizado',
+            'Manipulaciónindustrialdevidrioplanoy/ocurvo',
+            'Otrastareascomooperariodefábrica',
+        ]
+        const OpcionesEnArrayPosiciones = ['tecnicoControlCalidad',
+            'analisisStockMuestreo',
+            'informesDocumentacionCalidad',
+            'ventasInternacionalesExport',
+            'comercialTecnico',
+            'coordinadorProyectos',
+            'gestorProyectos',
+            'compraMaquinaria',
+            'compraSuministros',
+            'otrasCompras',
+            'consultoriaDireccionTecnica',
+            'arquitecturaTecnica',
+            'analisisDocumentacionTecnica',
+            'mejoraContinua',
+            'ingenierias',
+            'instalador',
+            'transportista',
+            'almacenManipulacionInterna',
+            'gestionStockLogisticaExpediciones',
+            'tecnicoElectricoMecanico',
+            'revisionMantenimiento',
+            'reparacionResolucionIncidencias',
+            'carpinteriaAluminioChapa',
+            'serigrafia',
+            'corteBiseladoFresadoTratamientoVidrio',
+            'mecanizado',
+            'manipulacionVidrios',
+            'otrosOperarios',]
 
-
-        //EL RESTO NO ESTÁ NI EMPEZADO
         if (filtrosPosicion.length > 0) {
-            console.log("posi true")
-            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosPosicion.includes(profesional.posicionesMap));
+            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => {
+                const posicionesValidas = profesional?.posicionesMap || profesional?.posicionesMap?.length === 0;
+                if (!posicionesValidas) return false;
+                console.log("profesionalesFiltrados", profesionalesFiltrados)
+                console.log("filtrosPosicion", filtrosPosicion)
+                for (let i = 0; i < OpcionesEnFiltro.length; i++) {
+                    if (filtrosPosicion.includes(OpcionesEnFiltro[i]) && profesional.posicionesMap.arrayPosiciones.includes(OpcionesEnArrayPosiciones[i])) {
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
 
 
-        const stringsFiltrosPaises = [
-            'Pais - Argentina',
-            'Pais - Bolivia',
-            'Pais - Brasil',
-            'Pais - Chile',
-            'Pais - Colombia',
-            'Pais - Costa Rica',
-            'Pais - Cuba',
-            'Pais - Ecuador',
-            'Pais - Florida',
-            'Pais - El Salvador',
-            'Pais - Guatemala',
-            'Pais - Honduras',
-            'Pais - México',
-            'Pais - Nicaragua',
-            'Pais - Panamá',
-            'Pais - Paraguay',
-            'Pais - Perú',
-            'Pais - Puerto Rico',
-            'Pais - República Dominicana',
-            'Pais - Uruguay',
-            'Pais - Venezuela',
-            'Pais - Andorra',
-            'Pais - España',
-            'Pais - Portugal',
-        ];
-
+        //pais - ok
         if (filtrosPais.length > 0) {
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => {
                 return filtrosPais.some(filtro => {
@@ -138,12 +180,13 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
         }
 
 
-
+        //idiomas
         if (filtrosIdiomas.length > 0) {
             console.log("idiomas true")
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosIdiomas.includes(profesional.idiomas));
         }
 
+        //permiso
         if (filtrosPermiso.length > 0) {
             console.log("permiso true")
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosPermiso.includes(profesional.permiso));
