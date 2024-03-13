@@ -27,7 +27,6 @@ const rightElems: FC<rightElemsProps> = ({ user, userData,
   const [isRecorridoShown, setIsRecorridoShown] = useState(true)
   const [isEstudiosShown, setIsStudiosShown] = useState(true)
   const [isIdiomasShown, setIsIdiomasShown] = useState(true)
-  const [receivedUser, setReceivedUser] = useState<any>()
 
   useEffect(() => {
     if (user) console.log("recorridoLaboral: ", user?.recorridoLaboral)

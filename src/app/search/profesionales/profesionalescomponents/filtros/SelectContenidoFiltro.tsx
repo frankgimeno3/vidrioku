@@ -11,14 +11,16 @@ interface SelectContenidoFiltroProps {
     isDepartamentosSelected: any;
     isPosicionesSelected: any;
     isPaisSelected: any;
-    isIdiomasSelected: any;
+    // isIdiomasSelected: any;
     isPermisoSelected: any;
     arrayFiltros:any;
     setArrayFiltros: any;
 }
 
 
-const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentosSelected, isPosicionesSelected, isPaisSelected, isIdiomasSelected, isPermisoSelected, arrayFiltros, setArrayFiltros }) => {
+const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentosSelected, isPosicionesSelected, isPaisSelected,
+    //  isIdiomasSelected, 
+     isPermisoSelected, arrayFiltros, setArrayFiltros }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
     useEffect(() => {
@@ -42,11 +44,11 @@ const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentos
                     <Subicacion arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
-            {isIdiomasSelected == true &&
+            {/* {isIdiomasSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
                     <Sidioma arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>
                 </div>
-            }
+            } */}
             {isPermisoSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
                     <Spermiso arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros}/>

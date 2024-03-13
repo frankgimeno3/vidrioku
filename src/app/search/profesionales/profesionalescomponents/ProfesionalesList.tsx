@@ -15,7 +15,7 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
     const [filtrosDepartamentos, setFiltrosDepartamentos] = useState<any[]>([]);
     const [filtrosPosicion, setFiltrosPosicion] = useState<any[]>([]);
     const [filtrosPais, setFiltrosPais] = useState<any[]>([]);
-    const [filtrosIdiomas, setFiltrosIdiomas] = useState<any[]>([]);
+    // const [filtrosIdiomas, setFiltrosIdiomas] = useState<any[]>([]);
     const [filtrosPermiso, setFiltrosPermiso] = useState<any[]>([]);
 
     useEffect(() => {
@@ -24,6 +24,7 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
 
     useEffect(() => {
         if (filtrosRecibidos?.length > 0) {
+            console.log("filtrosRecibidos: ", filtrosRecibidos)
             filtrosRecibidos.forEach(filtro => {
                 const [query, value] = filtro.split('=');
                 switch (query.trim()) {
@@ -36,9 +37,14 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
                     case 'Pais':
                         setFiltrosPais(value.split(','));
                         break;
-                    case 'Idiomas':
-                        setFiltrosIdiomas(value.split(','));
-                        break;
+                    // case 'Idiomas':
+                    //     const idiomasArray = value.split('idioma:').filter((item: string) => item !== '' && item !== '""');
+                    //     const arrayObjetos = idiomasArray.map((item: { split: (arg0: string) => [any, any]; }) => {
+                    //         const [idioma, nivel] = item.split(',nivel:');
+                    //         return { idioma: idioma.trim(), nivel: nivel?.trim() };
+                    //     });
+                    //     setFiltrosIdiomas(arrayObjetos);
+                    //     break;
                     case 'Carnetdeconducir':
                         setFiltrosPermiso(value.split(','));
                         break;
@@ -158,8 +164,7 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => {
                 const posicionesValidas = profesional?.posicionesMap || profesional?.posicionesMap?.length === 0;
                 if (!posicionesValidas) return false;
-                console.log("profesionalesFiltrados", profesionalesFiltrados)
-                console.log("filtrosPosicion", filtrosPosicion)
+
                 for (let i = 0; i < OpcionesEnFiltro.length; i++) {
                     if (filtrosPosicion.includes(OpcionesEnFiltro[i]) && profesional.posicionesMap.arrayPosiciones.includes(OpcionesEnArrayPosiciones[i])) {
                         return true;
@@ -180,11 +185,29 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
         }
 
 
-        //idiomas
-        if (filtrosIdiomas.length > 0) {
-            console.log("idiomas true")
-            profesionalesFiltrados = profesionalesFiltrados.filter(profesional => !filtrosIdiomas.includes(profesional.idiomas));
-        }
+        //idiomas - NEXT ITERATION
+        // if (filtrosIdiomas.length > 0) {
+        //     profesionalesFiltrados = profesionalesFiltrados.filter(profesional => {
+        //         if (profesional.idiomas && Array.isArray(profesional.idiomas)) {
+        //             return filtrosIdiomas.some(filtro => {
+        //                 const filtroIdiomaMin = filtro.idioma.toLowerCase();
+        //                 return profesional.idiomas.some((idiomaProfesional: { idioma: string; }) => {
+        //                     const idiomaProfesionalMin = idiomaProfesional.idioma.toLowerCase();
+        //                     if (idiomaProfesionalMin === filtroIdiomaMin) {
+        //                         return true;
+        //                     } else {
+        //                         console.log("filtroIdiomaMin: ", filtroIdiomaMin, "idiomaProfesionalMin", idiomaProfesionalMin );
+        //                         return false;
+        //                     }
+        //                 });
+        //             });
+        //         } else {
+        //             return false;
+        //         }
+        //     });
+        // }
+        
+
 
         //permiso
         if (filtrosPermiso.length > 0) {
@@ -192,9 +215,10 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
             profesionalesFiltrados = profesionalesFiltrados.filter(profesional => profesional.permiso == true);
         }
         setProfesionalesRenderizarFiltrado(profesionalesFiltrados);
-        console.log("trabajadoresFiltrados: ", profesionalesFiltrados)
 
-    }, [profesionalesRenderizar, filtrosDepartamentos, filtrosPosicion, filtrosPais, filtrosIdiomas, filtrosPermiso]);
+    }, [profesionalesRenderizar, filtrosDepartamentos, filtrosPosicion, filtrosPais, 
+        // filtrosIdiomas, 
+        filtrosPermiso]);
 
 
 
@@ -226,9 +250,7 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
 
     return (
         <ul className='flex flex-col h-full '>
-            {filtrosRecibidos?.map((contenido: any, index: any) => (
-                <p className='text-black text-2xl' key={index}> {contenido}  </p>
-            ))}
+ 
             {arrayMostrado?.map((trabajador: any, index: any) => (
                 <div onClick={() => handleProfesionalClick(trabajador)} key={index} >
                     <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />

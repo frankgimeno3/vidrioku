@@ -13,7 +13,7 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
     const [isDepartamentosSelected, setIsDepartamentosSelected] = useState(false)
     const [isPosicionesSelected, setIsPosicionesSelected] = useState(false)
     const [isPaisSelected, setIsPaisSelected] = useState(false)
-    const [isIdiomasSelected, setIsIdiomasSelected] = useState(false)
+    // const [isIdiomasSelected, setIsIdiomasSelected] = useState(false)
     const [isPermisoSelected, setIsPermisoSelected] = useState(false)
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
@@ -26,7 +26,7 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
             setIsDepartamentosSelected(false)
             setIsPosicionesSelected(false)
             setIsPaisSelected(false)
-            setIsIdiomasSelected(false)
+            // setIsIdiomasSelected(false)
             setIsPermisoSelected(false)
             setter(true)
         }
@@ -81,7 +81,7 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
                         <p>País</p>
                     </div>}
 
-                {isIdiomasSelected == false &&
+                {/* {isIdiomasSelected == false &&
                     <div className='flex flex-row  bg-white rounded  px-2 mr-2 items-center text-sm py-1' onClick={() => { toggleAnadirFiltro(isIdiomasSelected, setIsIdiomasSelected) }}>
                         <svg className='w-4 h-4  mr-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                             <path fillRule='evenodd' d='M10 13a1 1 0 0 1-.707-.293l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4A1 1 0 0 1 10 13z' clipRule='evenodd' />
@@ -94,7 +94,7 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
                             <path fillRule='evenodd' d='M10 7a1 1 0 0 1 .707.293l4 4a1 1 0 1 1-1.414 1.414L10 9.414l-3.293 3.293a1 1 0 1 1-1.414-1.414l4-4A1 1 0 0 1 10 7z' clipRule='evenodd' />
                         </svg>
                         <p>Idiomas</p>
-                    </div>}
+                    </div>} */}
 
                 {isPermisoSelected == false &&
                     <div className='flex flex-row  bg-white rounded  px-2 mr-2 items-center text-sm py-1' onClick={() => { toggleAnadirFiltro(isPermisoSelected, setIsPermisoSelected) }}>
@@ -114,10 +114,11 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
             <SelectContenidoFiltro
                 isDepartamentosSelected={isDepartamentosSelected}
                 isPosicionesSelected={isPosicionesSelected} isPaisSelected={isPaisSelected}
-                isIdiomasSelected={isIdiomasSelected} isPermisoSelected={isPermisoSelected}
+                // isIdiomasSelected={isIdiomasSelected} 
+                isPermisoSelected={isPermisoSelected}
                 arrayFiltros={filtrosRecibidos}
                 setArrayFiltros={setArrayFiltros} />
-        </div>
+        </div>   
     );
 };
 
