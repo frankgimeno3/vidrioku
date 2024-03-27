@@ -32,40 +32,53 @@ const Rendercomponent: FC<RendercomponentProps> = ({
     empresa,
     estado,
 }) => {
- 
+
     return (
-        <div className="flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll">
+        <div className="flex flex-col bg-gray-50 shadow-lg h-full text-left items-left w-full text-gray-500 py-8 px-24 overflow-scroll">
             <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
             <h2 className="mt-5 text-xl">{titulo}</h2>
-            <div className="flex flex-col text-sm text-gray-500">
-                <p>{cargo}</p>
-                <p>{empresa}</p>
-                <p>{ubicacion}</p>
+            <div className="flex flex-row text-sm text-gray-500 mt-5 bg-white  my-2 rounded shadow">
+                <div className="flex flex-col flex-1 p-5">
+                    <p className="font-bold text-gray-400 mr-2 text-md">Cargo: </p>
+                    <p>{cargo}</p>
+                </div>
+                <div className="flex flex-col flex-1 p-5">
+                    <p className="font-bold text-gray-400">Ubicación del empleo: </p>
+                    <p>{ubicacion}</p>
+                </div>
             </div>
-            <p className="text-sm mt-5">
-                Descripción de la oferta
-            </p>
-            <p className="text-sm mt-1">
-                {descripcion}
-            </p>
-            <p className="text-sm mt-5">
-                Requerimientos
-            </p>
-            <p className="text-sm mt-1">
-                {experiencia}
-            </p>
-            <p className="text-sm mt-5">
-                Tipo de jornada
-            </p>
-            <p className="text-sm mt-1">
-                {jornada}
-            </p>
-            <p className="text-sm mt-5">
-                Detalles adicionales
-            </p>
-            <p className="text-sm mt-1">
-                {adicional}
-            </p>
+            <div className="bg-white p-5 my-2 rounded shadow">
+                <p className="text-sm   font-bold text-gray-400">
+                    Descripción de la oferta
+                </p>
+                <p className="text-sm mt-1">
+                    {descripcion}
+                </p>
+            </div>
+            <div className="bg-white p-5 my-2 rounded shadow">
+                <p className="text-sm   font-bold text-gray-400">
+                    Requerimientos
+                </p>
+                <p className="text-sm mt-1">
+                    {experiencia}
+                </p>
+            </div>
+            <div className="bg-white p-5 my-2 rounded shadow">
+                <p className="text-sm  font-bold text-gray-400">
+                    Tipo de jornada
+                </p>
+                <p className="text-sm mt-1">
+                    {jornada}
+                </p>
+            </div>
+            <div className="bg-white p-5 my-2 rounded shadow">
+                <p className="text-sm   font-bold text-gray-400">
+                    Detalles adicionales
+                </p>
+                <p className="text-sm mt-1">
+                    {adicional}
+                </p>
+            </div>
             <Link href={`/solicitar/${id}`}> {/* Se corrigió la plantilla de la URL */}
                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
                     Solicitar Empleo

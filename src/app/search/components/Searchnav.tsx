@@ -15,7 +15,7 @@ const Searchnav: FC<SolicitudesProps> = ({ setOfertas, setTrabajadores, tipoCons
     return (
             <div className="flex flex-col p-5 ">
                 <h2 className='text-center'>Qué desea consultar?</h2>
-                <div className="flex flex-row pt-1 text-xs">
+                <div className="flex flex-row pt-1 text-lg">
                      <button
                         className={`${tipoConsulta == 'Ofertas' ? 'bg-zinc-100 text-zinc-700 shadow-lg' : 'bg-zinc-700 text-zinc-100 shadow-lg'
                             } p-2 w-full mr-1 rounded-lg h-20 mx-3`}

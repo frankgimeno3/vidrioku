@@ -165,7 +165,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
                       </nav>
                     </ul>
                   </div>
-                  <div className='flex-1 h-full bg-gray-100 p-5'>
+                  <div className='flex-1  bg-gray-100 p-5'>
                     {renderoferta && (
                       <Rendercomponent
                         id={renderoferta.id}
