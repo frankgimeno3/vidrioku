@@ -11,10 +11,8 @@ import Navbar from '@/app/components/Navbar';
 import Searchnav from '../components/Searchnav';
 import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
-import { redirect, useSearchParams } from 'react-router-dom';
+import { redirect, useSearchParams } from 'next/navigation';
 
-interface OfertasProps {
-}
 
 type Oferta = {
   titulo: string,
@@ -31,7 +29,7 @@ type Oferta = {
   id: any
 };
 
-const Ofertas: FC<OfertasProps> = ({ }) => {
+const Ofertas: FC = ({ }) => {
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -44,7 +42,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   const setOfertas = () => { setTipoConsulta('Ofertas'); };
   const setTrabajadores = () => { setTipoConsulta('Trabajadores'); };
 
-  const [renderoferta, setrenderoferta] = useState<Oferta | null>(null);
+  const [renderOferta, setRenderOferta] = useState<any>();
 
   const [arrayFiltros, setArrayFiltros] = useState<[]>([])
 
@@ -52,6 +50,7 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
   const searchParams = useSearchParams()
   const [receivedParams, setReceivedParams] = useState<any>()
   const [receivedParamsTratado, setReceivedParamsTratado] = useState<string[] | undefined>([])
+
   useEffect(() => {
     setReceivedParams(searchParams?.toString())
   }, [searchParams])
@@ -107,10 +106,10 @@ const Ofertas: FC<OfertasProps> = ({ }) => {
               </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
-                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setrenderoferta={setrenderoferta} />
+                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} />
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <Rendercomponent renderoferta={renderoferta} />
+                  <Rendercomponent renderoferta={renderOferta} />
                 </div>
               </div>
             </div>

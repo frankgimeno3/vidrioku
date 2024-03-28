@@ -48,15 +48,15 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
     return (
         <div className="flex flex-col bg-gray-50 shadow-lg h-full text-left items-left w-full text-gray-500 py-8 px-24 overflow-scroll">
             <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
-            <h2 className="mt-5 text-xl">{receivedOffer.titulo}</h2>
+            <h2 className="mt-5 text-xl">{receivedOffer?.titulo}</h2>
             <div className="flex flex-row text-sm text-gray-500 mt-5 bg-white  my-2 rounded shadow">
                 <div className="flex flex-col flex-1 p-5">
                     <p className="font-bold text-gray-400 mr-2 text-md">Cargo: </p>
-                    <p>{receivedOffer.cargo}</p>
+                    <p>{receivedOffer?.cargo}</p>
                 </div>
                 <div className="flex flex-col flex-1 p-5">
                     <p className="font-bold text-gray-400">Ubicación del empleo: </p>
-                    <p>{receivedOffer.ubicacion}</p>
+                    <p>{receivedOffer?.ubicacion}</p>
                 </div>
             </div>
             <div className="bg-white p-5 my-2 rounded shadow">
@@ -64,7 +64,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
                     Descripción de la oferta
                 </p>
                 <p className="text-sm mt-1">
-                    {receivedOffer.descripcion}
+                    {receivedOffer?.descripcion}
                 </p>
             </div>
             <div className="bg-white p-5 my-2 rounded shadow">
@@ -72,7 +72,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
                     Requerimientos
                 </p>
                 <p className="text-sm mt-1">
-                    {receivedOffer.experiencia}
+                    {receivedOffer?.experiencia}
                 </p>
             </div>
             <div className="bg-white p-5 my-2 rounded shadow">
@@ -80,7 +80,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
                     Tipo de jornada
                 </p>
                 <p className="text-sm mt-1">
-                    {receivedOffer.jornada}
+                    {receivedOffer?.jornada}
                 </p>
             </div>
             <div className="bg-white p-5 my-2 rounded shadow">
@@ -88,10 +88,10 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
                     Detalles adicionales
                 </p>
                 <p className="text-sm mt-1">
-                    {receivedOffer.adicional}
+                    {receivedOffer?.adicional}
                 </p>
             </div>
-            <Link href={`/solicitar/${receivedOffer.id}`}>  
+            <Link href={`/solicitar/${receivedOffer?.id}`}>  
                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
                     Solicitar Empleo
                 </button>
