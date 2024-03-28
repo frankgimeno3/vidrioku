@@ -2,7 +2,7 @@
 
 import { FC, SetStateAction, useEffect, useState } from 'react';
 import { redirect, useSearchParams } from 'next/navigation';
-import { collection, getDocs, query,  } from 'firebase/firestore';
+import { collection, getDocs, query, } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
@@ -32,61 +32,61 @@ const Profesionales: FC = ({ }) => {
   });
 
   //handle del tipo de consunta para cambiar de página con el searchnav
-    const [tipoConsulta, setTipoConsulta] = useState('Trabajadores');
-    const setOfertas = () => { setTipoConsulta('Ofertas'); };
-    const setTrabajadores = () => { setTipoConsulta('Trabajadores'); };
-    
+  const [tipoConsulta, setTipoConsulta] = useState('Trabajadores');
+  const setOfertas = () => { setTipoConsulta('Ofertas'); };
+  const setTrabajadores = () => { setTipoConsulta('Trabajadores'); };
+
   //estado puente entre lo que se renderiza en el render, y el listado en el el que hay el setrender para seleccionar el profesional a renderizar 
-    const [renderProfesional, setRenderProfesional] = useState<any>()
+  const [renderProfesional, setRenderProfesional] = useState<any>()
 
   //estado puente entre los filtros que se añaden 
-    const [arrayFiltros, setArrayFiltros] = useState<[]>([])
-  
-  //creamos trab vacío, lo rellenamos con peticion a firebase, luego seleccionamos los trabajadores, y hacemos un loading para que cargue
-    const searchParams = useSearchParams()
-    const [receivedParams, setReceivedParams] = useState<any>()
-    const [receivedParamsTratado, setReceivedParamsTratado] = useState<string[] | undefined>([])
-      useEffect(() => {
-        setReceivedParams(searchParams?.toString())
-      }, [searchParams])
+  const [arrayFiltros, setArrayFiltros] = useState<[]>([])
 
-      useEffect(() => {
-        if (receivedParams) {
-          const decodedParams = decodeURIComponent(receivedParams);
-          const paramsArray = decodedParams.split("&");
-          setReceivedParamsTratado(paramsArray);
-        }
-      }, [receivedParams]);
-  
+  //creamos trab vacío, lo rellenamos con peticion a firebase, luego seleccionamos los trabajadores, y hacemos un loading para que cargue
+  const searchParams = useSearchParams()
+  const [receivedParams, setReceivedParams] = useState<any>()
+  const [receivedParamsTratado, setReceivedParamsTratado] = useState<string[] | undefined>([])
+  useEffect(() => {
+    setReceivedParams(searchParams?.toString())
+  }, [searchParams])
+
+  useEffect(() => {
+    if (receivedParams) {
+      const decodedParams = decodeURIComponent(receivedParams);
+      const paramsArray = decodedParams.split("&");
+      setReceivedParamsTratado(paramsArray);
+    }
+  }, [receivedParams]);
+
 
   //creamos trab vacío, lo rellenamos con peticion a firebase, luego seleccionamos los trabajadores, y hacemos un loading para que cargue
   const [trabajadoresArray, setTrabajadoresArray] = useState<any>([]);
   const [trabajadoresProfesionales, setTrabajadoresProfesionales] = useState<any>([]);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-      const fetchData = async () => {
-        setLoading(true);
-        const usersCollection = collection(db, 'users');
-        const q = query(usersCollection);
-        const querySnapshot = await getDocs(q);
-        const usersArray: User[] = [];
-        querySnapshot.forEach((doc) => {
-          usersArray.push(doc.data() as User);
-        });
-        setTrabajadoresArray(usersArray);
-        setLoading(false);
-      }
-      fetchData();
-    }, []);
-
-    useEffect(() => {
-      const filteredArray = trabajadoresArray.filter((trabajador: any) => trabajador.userType === 'profesional');
-      setTrabajadoresProfesionales(filteredArray);
-    }, [trabajadoresArray]);
-
-    if (loading) {
-      return <p>Cargando profesionales...</p>;
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const usersCollection = collection(db, 'users');
+      const q = query(usersCollection);
+      const querySnapshot = await getDocs(q);
+      const usersArray: User[] = [];
+      querySnapshot.forEach((doc) => {
+        usersArray.push(doc.data() as User);
+      });
+      setTrabajadoresArray(usersArray);
+      setLoading(false);
     }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const filteredArray = trabajadoresArray.filter((trabajador: any) => trabajador.userType === 'profesional');
+    setTrabajadoresProfesionales(filteredArray);
+  }, [trabajadoresArray]);
+
+  if (loading) {
+    return <p>Cargando profesionales...</p>;
+  }
 
   return (
     <div className='flex flex-col justify-between '>

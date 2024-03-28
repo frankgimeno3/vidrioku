@@ -4,20 +4,26 @@ import { collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 
 interface OfertaProps {
-  id: any,
-  titulo: string,
-  cargo: string,
-  jornada: string,
-  tipoubi: string,
-  ubicacion: string,
-  descripcion: string,
-  experiencia: string,
-  adicional: string,
-  empresa: string,
-  estado: string,
+  receivedParamsTratado:any;
+  setrenderoferta:any;
+  ofertasArray:any;
 }
 
-const Oferta: FC<OfertaProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia, adicional, empresa, estado }) => {
+// ESTO LO HE pasadO A PELO
+// id={oferta.id}
+// titulo={oferta.titulo}
+// cargo={oferta.cargo}
+// jornada={oferta.jornada}
+// tipoubi={oferta.tipoubi}
+// ubicacion={oferta.ubicacion}
+// descripcion={oferta.descripcion}
+// experiencia={oferta.experiencia}
+// adicional={oferta.adicional}
+// empresa={oferta.empresa}
+// estado={oferta.estado}
+
+
+const OfertasList: FC<OfertaProps> = ({ receivedParamsTratado, setrenderoferta, ofertasArray }) => {
   const [userImage, setUserImage] = useState<string | undefined>();
 
   useEffect(() => {
@@ -70,4 +76,4 @@ const Oferta: FC<OfertaProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacio
   );
 };
 
-export default Oferta;
+export default OfertasList;

@@ -13,7 +13,7 @@ interface SelectContenidoFiltroProps {
     isDepartamentosSelected: any;
     isPosicionesSelected: any;
     isPaisSelected: any;
-    isIdiomasSelected: any;
+    // isIdiomasSelected: any;
     isPermisoSelected: any;
     arrayFiltros:any;
     setArrayFiltros: any;
@@ -22,9 +22,9 @@ isJornadaSelected:any
 }
 
 
-const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentosSelected, isPosicionesSelected, 
-    isPaisSelected, isIdiomasSelected, isPermisoSelected, 
-    arrayFiltros, setArrayFiltros, isActividadEmpresaSelected, isJornadaSelected }) => {
+const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentosSelected, isPosicionesSelected, isPaisSelected, 
+    // isIdiomasSelected, 
+    isPermisoSelected, arrayFiltros, setArrayFiltros, isActividadEmpresaSelected, isJornadaSelected }) => {
 
 
     return (
@@ -44,11 +44,11 @@ const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentos
                     <Subicacion arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
                 </div>
             }
-            {isIdiomasSelected == true &&
+            {/* {isIdiomasSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
                     <Sidioma arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>
                 </div>
-            }
+            } */}
             {isPermisoSelected == true &&
                 <div className='flex flex-col bg-white rounded p-2 px-5'>
                     <Spermiso arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros}/>

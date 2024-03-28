@@ -8,7 +8,7 @@ import FiltroOfertas from './ofertas/ofertascomponents/filtroOfertas'
 import PageListButtons from './ofertas/ofertascomponents/compListados/PageListButtons';
 import Anuncio from './ofertas/ofertascomponents/compListados/Anuncio';
 import Pasarela from './ofertas/ofertascomponents/compListados/Pasarela';
-import Oferta from './ofertas/ofertascomponents/compListados/Oferta';
+import Oferta from './ofertas/ofertascomponents/compListados/OfertasList';
 import Rendercomponent from './ofertas/ofertascomponents/compListados/rendercomponent/Rendercomponent';
 import { Timestamp, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';

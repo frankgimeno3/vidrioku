@@ -20,13 +20,15 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
      const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, filtros: string) => {
         event.preventDefault(); // Prevenir el comportamiento predeterminado del clic en el botón
         let filtrosSinEspacios = filtros.replace(/\s/g, '');  
-        router.push(`/search/profesionales?${filtrosSinEspacios}`);
+         router.push(`/search/profesionales?${filtrosSinEspacios}`);
         // setTimeout(() => {
         //     window.location.reload();
         // }, 200)    
     };
 
     useEffect(() => {
+        console.log("filtrosRecibidos: ", filtrosRecibidos)
+
         let queriesList = "";
         let queriesArray = [];
         
