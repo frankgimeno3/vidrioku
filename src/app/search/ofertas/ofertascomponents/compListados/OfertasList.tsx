@@ -244,6 +244,12 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
         setArrayMostrado(arrayDe7ElementosPorPagina[subArraySeleccionado]);
     }, [arrayDe7ElementosPorPagina, subArraySeleccionado]);
 
+    useEffect(() => {
+        if (arrayMostrado && arrayMostrado.length !== 0) {
+            setRenderOferta(arrayMostrado[0]);
+        }
+    }, [arrayMostrado]);
+
     const handleOfertaClick = (oferta: any) => {
         setRenderOferta(oferta);
     };

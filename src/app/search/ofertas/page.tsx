@@ -38,7 +38,7 @@ const Ofertas: FC = ({ }) => {
   });
 
   //handle del tipo de consunta para cambiar de página con el searchnav
-  const [tipoConsulta, setTipoConsulta] = useState('Trabajadores');
+  const [tipoConsulta, setTipoConsulta] = useState('Ofertas');
   const setOfertas = () => { setTipoConsulta('Ofertas'); };
   const setTrabajadores = () => { setTipoConsulta('Trabajadores'); };
 
@@ -95,15 +95,15 @@ const Ofertas: FC = ({ }) => {
   return (
     <div className='flex flex-col justify-between h-full'>
       <Navbar />
-      <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 h-screen'>
-        <div className="flex flex-col  w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
+      <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 min-h-screen'>
+        <div className="flex flex-col h-full w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
           <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
           <div className="bg-white bg-opacity-5  text-zinc-100 h-full ">
             <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
-            <div className="flex flex-col  h-full bg-zinc-800 ">
-              <nav className="bg-gray-200 py-2 px-1  mx-12">
+            <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
+              <nav className="bg-gray-200 py-2 px-1   ">
                 <SearchOfertas arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} />
-              </nav>
+                </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
                   <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} />
