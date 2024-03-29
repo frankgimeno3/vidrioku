@@ -25,22 +25,22 @@ const SJornada: FC<SJornadaProps> = ({ arrayFiltros, setArrayFiltros }) => {
             <p className='mb-3'>Filtrar según el el tipo de jornada laboral de la vacante</p>
             <div className='flex flex-row'>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionJornada('Jornada completa sin fines de semana o festivos')}
+                    onClick={() => handleSeleccionJornada('Jornada - Jornada completa sin fines de semana o festivos')}
                 >Jornada completa sin fines de semana o festivos</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionJornada('Media jornada sin fines de semana o festivos')}
+                    onClick={() => handleSeleccionJornada('Jornada - Media jornada sin fines de semana o festivos')}
                 >Media jornada sin fines de semana o festivos</button>
                                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionJornada('Jornada completa con fines de semana o festivos')}
+                    onClick={() => handleSeleccionJornada('Jornada - Jornada completa con fines de semana o festivos')}
                 >Jornada completa sin fines de semana o festivos</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionJornada('Media jornada con fines de semana o festivos')}
+                    onClick={() => handleSeleccionJornada('Jornada - Media jornada con fines de semana o festivos')}
                 >Media jornada sin fines de semana o festivos</button>
                                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionJornada('Jornada completa flexible')}
+                    onClick={() => handleSeleccionJornada('Jornada - Jornada completa flexible')}
                 >Jornada completa sin fines de semana o festivos</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionJornada('Media jornada flexible')}
+                    onClick={() => handleSeleccionJornada('Jornada - Media jornada flexible')}
                 >Media jornada sin fines de semana o festivos</button>
             </div>
         </div>

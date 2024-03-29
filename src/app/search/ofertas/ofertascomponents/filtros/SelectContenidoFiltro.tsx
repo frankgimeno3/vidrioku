@@ -1,5 +1,5 @@
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Sdepartamento from './seleccionar/sdepartamento';
 import Sposicion from './seleccionar/sposicion';
@@ -26,6 +26,12 @@ const SelectContenidoFiltro: FC<SelectContenidoFiltroProps> = ({ isDepartamentos
     // isIdiomasSelected, 
     isPermisoSelected, arrayFiltros, setArrayFiltros, isActividadEmpresaSelected, isJornadaSelected }) => {
 
+        const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+
+        useEffect(() => {
+            setFiltrosRecibidos(arrayFiltros);
+         }, [arrayFiltros]);
+         
 
     return (
         <>

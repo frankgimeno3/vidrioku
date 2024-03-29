@@ -40,56 +40,58 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
         setArrayRecibido(arrayFiltros);
     }, [arrayFiltros]);
 
-    const handleSeleccionIdiomas = (objetoIdioma: string[]) => {
+    const handleSeleccionIdiomas = (objetoIdioma: string) => {
         if (!arrayRecibido.includes(objetoIdioma)) {
-            setArrayRecibido(prevArray => [...prevArray, objetoIdioma]);
-            setArrayFiltros((prevArray: any) => [...prevArray, objetoIdioma]);
+            const newArray = [...arrayRecibido, objetoIdioma];
+            setArrayRecibido(newArray);
+            setArrayFiltros(newArray);
         }
+ 
     };
 
     useEffect(() => {
         if (espanolLevel != '') {
-            let idiomaArray = [`idioma: español, nivel: ${espanolLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: español, nivel: ${espanolLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (inglesLevel != '') {
-            let idiomaArray = [`idioma: inglés, nivel: ${inglesLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: inglés, nivel: ${inglesLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (francesLevel != '') {
-            let idiomaArray = [`idioma: francés, nivel: ${francesLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: francés, nivel: ${francesLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (alemanLevel != '') {
-            let idiomaArray = [`idioma: alemán, nivel: ${alemanLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: alemán, nivel: ${alemanLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (portuguesLevel != '') {
-            let idiomaArray = [`idioma: portugués, nivel: ${portuguesLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: portugués, nivel: ${portuguesLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (arabeLevel != '') {
-            let idiomaArray = [`idioma: árabe, nivel: ${arabeLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: árabe, nivel: ${arabeLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (catalanValencianoLevel != '') {
-            let idiomaArray = [`idioma: catalán/valenciano, nivel: ${catalanValencianoLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: catalán/valenciano, nivel: ${catalanValencianoLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (vascoLevel != '') {
-            let idiomaArray = [`idioma: vasco, nivel: ${vascoLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: vasco, nivel: ${vascoLevel}`
+            handleSeleccionIdiomas(idiomaElement)
         }
         if (gallegoLevel != '') {
-            let idiomaArray = [`idioma: gallego, nivel: ${gallegoLevel}` ] 
-            handleSeleccionIdiomas(idiomaArray)
+            let idiomaElement = `Idiomas - idioma: gallego, nivel: ${gallegoLevel}`  
+            handleSeleccionIdiomas(idiomaElement)
         }
 
     }, [espanolLevel, inglesLevel, francesLevel, portuguesLevel, alemanLevel, arabeLevel, catalanValencianoLevel, vascoLevel, gallegoLevel]);
 
     return (
         <div className='flex flex-col'>
-            <p>Filtrar según los idiomas rerqueridos</p>
+            <p>Filtrar según los idiomas que el profesional habla</p>
             <div className='flex flex-col mb-4'>
                 <div className='flex flex-row items-center'>
                     <input type="checkbox" id="Espanol" className="mr-2" onChange={() => setIsEspanolSelected(!isEspanolSelected)} checked={isEspanolSelected} />

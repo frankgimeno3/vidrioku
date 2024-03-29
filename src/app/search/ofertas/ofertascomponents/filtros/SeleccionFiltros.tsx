@@ -1,5 +1,5 @@
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import SelectContenidoFiltro from './SelectContenidoFiltro';
 
@@ -18,17 +18,20 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
     const [isActividadEmpresaSelected, setIsActividadEmpresaSelected] = useState(false)
     const [isJornadaSelected, setIsJornadaSelected] = useState(false)
 
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
 
-    const toggleAnadirFiltro = (estado: any, setter: any) => {
+    useEffect(() => {
+        setFiltrosRecibidos(arrayFiltros);
+     }, [arrayFiltros]);
+
+     const toggleAnadirFiltro = (estado: any, setter: any) => {
         if (estado == false) {
             setIsDepartamentosSelected(false)
             setIsPosicionesSelected(false)
             setIsPaisSelected(false)
             // setIsIdiomasSelected(false)
             setIsPermisoSelected(false)
-            setIsActividadEmpresaSelected(false)
-            setIsJornadaSelected(false)
             setter(true)
         }
         if (estado == true) { setter(false) }
@@ -149,7 +152,7 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
                 // isIdiomasSelected={isIdiomasSelected} 
                 isPermisoSelected={isPermisoSelected}
                 isActividadEmpresaSelected={isActividadEmpresaSelected} isJornadaSelected={isJornadaSelected}
-                arrayFiltros={arrayFiltros}
+                arrayFiltros={filtrosRecibidos}
                 setArrayFiltros={setArrayFiltros} />
         </div>
     );

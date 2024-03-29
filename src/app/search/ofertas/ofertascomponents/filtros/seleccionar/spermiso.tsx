@@ -31,21 +31,30 @@ const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
 
     const handleIsPermisoRequerido = () => {
-        if (!arrayRecibido.includes("No requiere carnet de conducir")) {
-            setArrayRecibido(prevArray => [...prevArray, "No requiere carnet de conducir"]);
+        if (!arrayRecibido.includes("Carnet de conducir - Requerido")) {
+            const newArray = [...arrayRecibido, "Carnet de conducir - Requerido"];
+            setArrayRecibido(newArray);
+            setArrayFiltros(newArray)
         }
-        setArrayFiltros(arrayRecibido)
     };
     
+    const handleQuitarPermisoRequerido = () => {
+        if (arrayRecibido.includes("Carnet de conducir - Requerido")) {
+            const newArray = arrayRecibido.filter(item => item !== "Carnet de conducir - Requerido");
+            setArrayRecibido(newArray);
+            setArrayFiltros(newArray);
+        }
+    };
     useEffect(() => {
         if (permiso==true) {handleIsPermisoRequerido()}
+        if (permiso==false) {handleQuitarPermisoRequerido()}
     }, [permiso]);
 
     return (
         <div className='flex flex-row justify-left items-center '>
-            <p>Mostrar únicamente ofertas que NO requieran permiso de conducción</p>
+            <p>Mostrar únicamente profesionales con permiso de conducción?</p>
             <label htmlFor="togglePermiso" className="flex justify-left  text-left text-sm items-center cursor-pointer ml-12 my-3">
-                <span className="ml-2">Mostrar todas las ofertas</span>
+                <span className="ml-2">No</span>
                 <input
                     type="checkbox"
                     id="togglePermiso"
@@ -56,7 +65,7 @@ const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
                 <div className={`mx-4 relative w-10 h-5 rounded-full transition-all duration-300 border border- ${isChecked ? 'bg-blue-500' : 'bg-gray-300'}`}>
                     <div className={`absolute left-0 w-5 h-5 bg-white rounded-full transform border border- ${isChecked ? 'translate-x-full' : 'translate-x-0'} transition-all duration-300`}></div>
                 </div>
-                <span className="ml-2">Mostrar ofertas que no requieran permiso de conducción</span>
+                <span className="ml-2">Sí</span>
             </label>
         </div>
     );

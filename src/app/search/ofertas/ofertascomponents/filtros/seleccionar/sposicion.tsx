@@ -2,12 +2,13 @@
 import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Comercial from './seleccionarPosicion/comercial';
-import Mantenimiento from './seleccionarPosicion/mantenimiento';
-import Calidad from './seleccionarPosicion/calidad';
 import Compras from './seleccionarPosicion/compras';
 import Dtecnico from './seleccionarPosicion/dtecnico';
+import Calidad from './seleccionarPosicion/calidad';
+import Mantenimiento from './seleccionarPosicion/mantenimiento';
 import Operario from './seleccionarPosicion/operario';
 import Logistica from './seleccionarPosicion/logistica';
+
 
 interface SposicionProps {
     setArrayFiltros: any;
@@ -33,14 +34,15 @@ const Sposicion: FC<SposicionProps> = ({ arrayFiltros, setArrayFiltros }) => {
     }, [posicionSeleccionada]);
 
     const handleAddPosicion = (posicion: string) => {
-        if (!arrayRecibido.includes(posicion)) {
-            setArrayRecibido(prevArray => [...prevArray, posicion]);
+        if (!arrayRecibido.includes(posicion) ) {
+            if(posicion != ''){     const newArray = [...arrayRecibido, `Posicion - ${posicion}`];
+                setArrayRecibido(newArray);
+                setArrayFiltros(newArray)}
         }
-        setArrayFiltros(arrayRecibido)
     };
     return (
         <div className='flex flex-col  '>
-            <p className='my-3'>Filtrar según la posición de la vacante</p>
+            <p className='my-3'>Filtrar según el departamento para el que profesional ha trabajado o estudiado</p>
             <div className='flex flex-row text-left my-1'>
                 <button className='text-sm  bg-white flex-1 px-5 mx-1 rounded shadow py-2'
                     onClick={() => selectDepartamento('comercial')}>

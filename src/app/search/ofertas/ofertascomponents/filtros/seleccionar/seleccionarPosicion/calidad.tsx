@@ -20,7 +20,7 @@ const Calidad: FC<CalidadProps> = ({ posicionSeleccionada, setPosicionSelecciona
                 value={posicionSeleccionada} onChange={handleChange}>
                 <option value='Técnico en control de calidad'>Técnico en control de calidad</option>
                 <option value='Análisis de stock y/o aprovisionamientos, muestreo'>Análisis de stock y/o aprovisionamientos, muestreo</option>
-                <option value='Mejora contínua'>Creación de informes de calidad, documentación</option>
+                <option value='Creación de informes'>Creación de informes de calidad, documentación</option>
             </select>
         </div>
     );

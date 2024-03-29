@@ -25,22 +25,22 @@ const SActividadEmpresa: FC<SActividadEmpresaProps> = ({ arrayFiltros, setArrayF
             <p className='mb-3'>Filtrar según la actividad de la empresa</p>
             <div className='flex flex-row'>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionActividad('Cristalerías')}
+                    onClick={() => handleSeleccionActividad('Actividad - Cristalerías')}
                 >Cristalerías</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionActividad('Departamentos de compras o aprovisionamiento')}
+                    onClick={() => handleSeleccionActividad('Actividad - Departamentos de compras o aprovisionamiento')}
                 >Almacenistas de vidrio</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionActividad('Transformación y tratamiento de vidrio')}
+                    onClick={() => handleSeleccionActividad('Actividad - Transformación y tratamiento de vidrio')}
                 >Departamento técnico o de ingeniería</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionActividad('Fabricante de maquinaria para el sector del vidrio y acristalamientos')}
+                    onClick={() => handleSeleccionActividad('Actividad - Fabricante de maquinaria para el sector del vidrio y acristalamientos')}
                 >Operario en fabricación o instalación en el sector del vidrio</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionActividad('Fabricante de suministros para manufactura de vidrio y acristalamientos')}
+                    onClick={() => handleSeleccionActividad('Actividad - Fabricante de suministros para manufactura de vidrio y acristalamientos')}
                 >Fabricante de suministros para manufactura de vidrio y acristalamientos</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionActividad('Otras actividades empresariales')}
+                    onClick={() => handleSeleccionActividad('Actividad - Otras actividades empresariales')}
                 >Otras actividades empresariales</button>
                  
             </div>

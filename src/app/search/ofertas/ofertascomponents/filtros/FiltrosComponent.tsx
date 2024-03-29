@@ -27,7 +27,6 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
     };
 
     useEffect(() => {
-        console.log("filtrosRecibidos: ", filtrosRecibidos)
         let queriesList = "";
         let queriesArray = [];
         
