@@ -17,10 +17,14 @@ import Requerimientos from './componentes/Requerimientos';
 import Additional from './componentes/Additional';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
+import Fase1 from './fases/fase1';
+import Fase2 from './fases/fase2';
+import Fase3 from './fases/fase3';
 
 
 const Crearoferta: FC = () => {
   const router = useRouter();
+  const [faseActual, setFaseActual  ] = useState(1)
 
   const [titulo, setTitulo] = useState('')
   const [cargo, setCargo] = useState('');
@@ -137,37 +141,25 @@ const Crearoferta: FC = () => {
           <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center w-full">Crear oferta</h2>
           <div className='px-80 mt-12'>
             <form className='flex flex-col mx-72 text-sm '>
-              <Titulo titulo={titulo} setTitulo={setTitulo} />
-              <Cargo cargo={cargo} setCargo={setCargo} />
-              <Jornada tipoJornada={tipoJornada} setTipoJornada={setTipoJornada} />
-              <Localizacion tipoLocalizacion={tipoLocalizacion} setTipoLocalizacion={setTipoLocalizacion} />
-
-              {tipoLocalizacion !== 'Trabajo Remoto' && (
-                <Ubicacion ubicacion={ubicacion} setUbicacion={setUbicacion} />
-              )}
-
-              <Descripcion descripcion={descripcion} setDescripcion={setDescripcion} />
-              <Requerimientos habilidadRequerida={habilidadRequerida} handleHabilidadRequeridaChange={handleHabilidadRequeridaChange} />
-
-              <button onClick={handleInsertarHabilidad} className="bg-white px-3 py-1 rounded-lg mx-44 text-sm m-2 text-gray-500 text-sm mb-2">
-                Insertar requisitos
-              </button>
-
-              <ul className="mx-12 mb-2">
-                {habilidades.map((habilidad, index) => (
-                  <div className="flex flex-row w-full bg-gray-100 text-gray-700 rounded-lg my-1 shadow-lg " key={index}>
-                    <li className="flex-1 my-auto">{habilidad}</li>
-                    <div className="shadow">
-                      <button onClick={() => handleEliminarHabilidad(event, index)} className="m-2 px-2 bg-gray-300 rounded-lg py-0.5 shadow-lg">x</button>
-                    </div>
-                  </div>
-                ))}
-              </ul>
-              <Additional comentarios={comentarios} setComentarios={setComentarios} />
-
-              <button onClick={addOfferInFirebase} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
-                Crear oferta
-              </button>
+              {
+                faseActual == 1 &&
+                <Fase1 setFaseActual={setFaseActual} titulo={titulo} setTitulo={setTitulo} cargo={cargo} setCargo={setCargo} descripcion={descripcion} setDescripcion={setDescripcion} />
+              }
+              {
+                faseActual == 2 &&
+                <Fase2 setFaseActual={setFaseActual} tipoJornada={tipoJornada}
+                setTipoJornada={setTipoJornada}
+                tipoLocalizacion={tipoLocalizacion}
+                setTipoLocalizacion={setTipoLocalizacion}
+                ubicacion={ubicacion}
+                setUbicacion={setUbicacion}/>
+              }
+              {
+                faseActual == 3 &&
+                <Fase3 addOfferInFirebase={addOfferInFirebase} handleEliminarHabilidad={handleEliminarHabilidad} habilidadRequerida={habilidadRequerida}
+                  handleHabilidadRequeridaChange={handleHabilidadRequeridaChange} handleInsertarHabilidad={handleInsertarHabilidad}
+                  comentarios={comentarios} setComentarios={setComentarios} habilidades={habilidades}/>
+              }
             </form>
           </div>
         </div>
