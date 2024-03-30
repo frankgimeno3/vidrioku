@@ -16,6 +16,7 @@ interface TituloProps {
       value={cargo}
       onChange={(e) => setCargo(e.target.value)}
       className="text-gray-500 text-sm mb-2 rounded-md"
+      required  
     />
     </>
   );

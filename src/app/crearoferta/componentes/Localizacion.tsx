@@ -14,6 +14,7 @@ interface TituloProps {
             value={tipoLocalizacion}
             onChange={(e) => setTipoLocalizacion(e.target.value)}
             className="text-gray-500 text-sm mb-2 rounded-md"
+            required  
           >
             <option>Trabajo Híbrido</option>
             <option>Trabajo Remoto</option>

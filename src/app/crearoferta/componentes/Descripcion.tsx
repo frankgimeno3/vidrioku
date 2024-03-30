@@ -15,6 +15,7 @@ interface TituloProps {
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             className="text-gray-500 text-sm mb-2 rounded-md h-44"
+            required  
           />
     </>
   );

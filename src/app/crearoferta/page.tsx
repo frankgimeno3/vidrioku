@@ -39,7 +39,6 @@ const Crearoferta: FC = () => {
   const [departamentos, setDepartamentos] = useState<any>([]);
   const [posiciones, setPosiciones] = useState<any>([]);
   const [otraPosicion, setOtraPosicion] = useState<string>('');
-  const [habilidadAEliminar, setHabilidadAEliminar] = useState<number | null>(null);
 
   const session = useSession({
     required: true,
@@ -84,13 +83,11 @@ const Crearoferta: FC = () => {
         const userData = userDoc.data();
 
         if (userData.ofertascreadas && Array.isArray(userData.ofertascreadas)) {
-          // Conservar el resto del documento y agregar el nuevo offerId al array existente
           await setDoc(docRef, {
             ...userData,
             ofertascreadas: [...userData.ofertascreadas, offerId],
           });
         } else {
-          // Si ofertascreadas no existe o no es un array, crea uno nuevo
           await setDoc(docRef, {
             ...userData,
             ofertascreadas: [offerId],
@@ -116,13 +113,24 @@ const Crearoferta: FC = () => {
           jornada: tipoJornada.trim(),
           tipoubi: tipoLocalizacion.trim(),
           ubicacion: ubicacion.trim(),
+          pais: pais,
           descripcion: descripcion.trim(),
           experiencia: habilidades,
           adicional: comentarios.trim(),
+          departamentos: departamentos,
+          posiciones: posiciones,
+          otraPosicion: otraPosicion,
           empresa: userData,
           solcitantes: [],
           publicacion: Timestamp.now(),
           estado: "activa",
+
+
+          habilidadRequerida
+
+
+
+
 
         });
         await updateDoc(newOfferRef, { id: newOfferRef.id });
@@ -160,7 +168,7 @@ const Crearoferta: FC = () => {
                   ubicacion={ubicacion}
                   setUbicacion={setUbicacion}
                   pais={pais}
-                  setPais={pais}
+                  setPais={setPais}
                   departamentos={departamentos}
                   setDepartamentos={setDepartamentos}
                   posiciones={posiciones}
