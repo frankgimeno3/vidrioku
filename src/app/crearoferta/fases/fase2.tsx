@@ -50,7 +50,6 @@ const Fase2: FC<Fase2Props> = ({ setFaseActual, tipoJornada, setTipoJornada, tip
 
       {/* la actividad no se añade, depende de la empresa */}
 
-      {/* aquí hay que añadir departamentos,    posicion */}
         <Departamentos departamentos={departamentos} setDepartamentos={setDepartamentos} posiciones={posiciones} setPosiciones={setPosiciones} otraPosicion={otraPosicion}
 setOtraPosicion={setOtraPosicion}/>
         
