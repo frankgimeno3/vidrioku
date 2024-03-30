@@ -27,8 +27,8 @@ const Departamentos: React.FC<DepartamentosProps> = ({ departamentos, setDeparta
 
   return (
     <>
-      <div className='my-5 bg-white py-2 rounded-lg pt-8 px-5'>
-        <label htmlFor="departamentos" className='text-gray-600'>En qué departamento trabajará el empleado? </label>
+      <div className='my-5 bg-white py-2 rounded-lg pt-5 px-5'>
+        <label htmlFor="departamentos" className='text-gray-600 font-bold'>En qué departamento trabajará el empleado? </label>
         <div id="departamentos" className="text-sm mb-2 rounded-md flex flex-row text-left text-gray-600">
           <div className='flex flex-col py-5'>
             <label className='flex flex-row mx-5 my-1 items-start'>
@@ -79,8 +79,8 @@ const Departamentos: React.FC<DepartamentosProps> = ({ departamentos, setDeparta
             />
         </div>
       )}
-    {departamentos.length > 0 && <Posicion departamentos={departamentos} posiciones={posiciones} setPosiciones={setPosiciones} />}
     </div>
+    {departamentos.length > 0 && <Posicion departamentos={departamentos} posiciones={posiciones} setPosiciones={setPosiciones} />}
  </>
   );
 };

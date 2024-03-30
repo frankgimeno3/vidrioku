@@ -20,10 +20,10 @@ const Comercial: FC<ComercialProps> = ({ posiciones, setPosiciones }) => {
     };
 
     return (
-        <div className='flex flex-col text-left mr-2'>
-            <p className='mb-2'>Seleccione una posición específica, dentro del departamento comercial</p>
+        <div className='flex flex-col text-left bg-white px-8 py-6 rounded-lg mb-1'>
+            <p className='mb-3 text-center mx-12 font-bold'>Seleccione una posición específica, dentro del departamento comercial</p>
             <label>
-                <input
+                <input className='mr-5'
                     type='checkbox'
                     value='Posicion - Ventas Internacionales y/o exportación'
                     checked={posicionesSeleccionadas.includes('Posicion - Ventas Internacionales y/o exportación')}
@@ -33,7 +33,7 @@ const Comercial: FC<ComercialProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label>
-                <input
+                <input className='mr-5'
                     type='checkbox'
                     value='Posicion - Comercial técnico'
                     checked={posicionesSeleccionadas.includes('Posicion - Comercial técnico')}
@@ -43,7 +43,7 @@ const Comercial: FC<ComercialProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label>
-                <input
+                <input className='mr-5'
                     type='checkbox'
                     value='Posicion - Coordinador de proyectos'
                     checked={posicionesSeleccionadas.includes('Posicion - Coordinador de proyectos')}
@@ -53,7 +53,7 @@ const Comercial: FC<ComercialProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label>
-                <input
+                <input className='mr-5'
                     type='checkbox'
                     value='Posicion - Gestor de proyectos'
                     checked={posicionesSeleccionadas.includes('Posicion - Gestor de proyectos')}

@@ -20,7 +20,7 @@ const Posicion: React.FC<PosicionProps> = ({ departamentos, posiciones, setPosic
     }, [departamentos]);
 
     return (
-        <div className='my-3 px-12 text-gray-500'>
+        <div className='my-3  text-gray-500 mx-12 '>
             {departamentosReceived.includes("comercial") &&
                 <Comercial posiciones={posiciones} setPosiciones={setPosiciones} />
             }

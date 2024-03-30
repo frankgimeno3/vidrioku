@@ -18,11 +18,11 @@ const Dtecnico: FC<DtecnicoProps> = ({ posiciones, setPosiciones }) => {
     };
 
     return (
-        <div className='flex flex-col text-left mr-2'>
-            <p className='mb-2'>Seleccione una posición</p>
+        <div className='flex flex-col text-left bg-white px-8 py-6 rounded-lg mb-1'>
+            <p className='mb-3 text-center mx-12 font-bold'>Seleccione una posición específica, dentro del departamento técnico / ingeniería</p>
 
             <label className="inline-flex items-center mt-2">
-                <input
+                <input className='mr-5'
                     type="checkbox"
                     value='Posicion - Consultoría o dirección técnica'
                     checked={posiciones.includes('Posicion - Consultoría o dirección técnica')}
@@ -32,7 +32,7 @@ const Dtecnico: FC<DtecnicoProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label className="inline-flex items-center mt-2">
-                <input
+                <input className='mr-5'
                     type="checkbox"
                     value='Posicion - Arquitectura técnica'
                     checked={posiciones.includes('Posicion - Arquitectura técnica')}
@@ -42,7 +42,7 @@ const Dtecnico: FC<DtecnicoProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label className="inline-flex items-center mt-2">
-                <input
+                <input className='mr-5'
                     type="checkbox"
                     value='Posicion - Análisis o creación de documentación de proyectos técnicos'
                     checked={posiciones.includes('Posicion - Análisis o creación de documentación de proyectos técnicos')}
@@ -52,7 +52,7 @@ const Dtecnico: FC<DtecnicoProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label className="inline-flex items-center mt-2">
-                <input
+                <input className='mr-5'
                     type="checkbox"
                     value='Posicion - Mejora contínua'
                     checked={posiciones.includes('Posicion - Mejora contínua')}
@@ -62,7 +62,7 @@ const Dtecnico: FC<DtecnicoProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label className="inline-flex items-center mt-2">
-                <input
+                <input className='mr-5'
                     type="checkbox"
                     value='Posicion - Ingeniería de la edificación, civil, de minas, electromecánica, industrial, técnica-mecánica u otras'
                     checked={posiciones.includes('Posicion - Ingeniería de la edificación, civil, de minas, electromecánica, industrial, técnica-mecánica u otras')}

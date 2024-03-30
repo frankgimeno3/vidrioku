@@ -20,11 +20,11 @@ const Compras: FC<ComprasProps> = ({ posiciones, setPosiciones }) => {
     };
 
     return (
-        <div className='flex flex-col text-left mr-2'>
-            <p className='mb-2'>Seleccione una posición</p>
+        <div className='flex flex-col text-left bg-white px-8 py-6 rounded-lg mb-1'>
+            <p className='mb-3 text-center mx-12 font-bold'>Seleccione una posición específica, dentro del departamento de compras/aprovisionamiento</p>
 
             <label>
-                <input
+                <input className='mr-5'
                     type='checkbox'
                     value='Posicion - Compra de maquinaria industrial'
                     checked={seleccionados.includes('Posicion - Compra de maquinaria industrial')}
@@ -34,7 +34,7 @@ const Compras: FC<ComprasProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label>
-                <input
+                <input className='mr-5'
                     type='checkbox'
                     value='Posicion - Compra de suministros para fabricación y/o manipulado de vidrio'
                     checked={seleccionados.includes('Posicion - Compra de suministros para fabricación y/o manipulado de vidrio')}
@@ -44,7 +44,7 @@ const Compras: FC<ComprasProps> = ({ posiciones, setPosiciones }) => {
             </label>
 
             <label>
-                <input
+                <input className='mr-5'
                     type='checkbox'
                     value='Posicion - Otras experiencias en compras'
                     checked={seleccionados.includes('Posicion - Otras experiencias en compras')}

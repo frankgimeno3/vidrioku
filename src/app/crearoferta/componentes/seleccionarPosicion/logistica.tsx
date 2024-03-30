@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 
 interface LogisticaProps {
     posiciones: string[];
@@ -8,7 +8,8 @@ interface LogisticaProps {
 const Logistica: FC<LogisticaProps> = ({ posiciones, setPosiciones }) => {
     const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>({});
 
-    const handleChange = (position: string) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const position = event.target.value;
         const updatedCheckedItems = { ...checkedItems, [position]: !checkedItems[position] };
         setCheckedItems(updatedCheckedItems);
 
@@ -17,20 +18,48 @@ const Logistica: FC<LogisticaProps> = ({ posiciones, setPosiciones }) => {
     };
 
     return (
-        <div className='flex flex-col text-left mr-2'>
-            <p className='mb-2'>Seleccione una posición</p>
+        <div className='flex flex-col text-left bg-white px-8 py-6 rounded-lg mb-1'>
+            <p className='mb-3 text-center mx-12  font-bold'>Seleccione una posición</p>
 
-            {['Posicion - Instalación de vidrios y/o ventanas', 'Posicion - Transportista de vidrios y/o ventanas fuera de fábrica', 'Posicion - Profesionales de almacén o manipulación interna de vidrios y/o otros bienes', 'Posicion - Gestión de stock'].map((position, index) => (
-                <div key={index} className="mb-1">
-                    <input
-                        type="checkbox"
-                        id={position}
-                        checked={checkedItems[position] || false}
-                        onChange={() => handleChange(position)}
-                    />
-                    <label htmlFor={position}>{position}</label>
-                </div>
-            ))}
+            <label>
+                <input className='mr-5'
+                    type='checkbox'
+                    value='Posicion - Instalación de vidrios y/o ventanas'
+                    checked={posiciones.includes('Posicion - Instalación de vidrios y/o ventanas')}
+                    onChange={handleChange}
+                />
+                Instalación de vidrios y/o ventanas
+            </label>
+
+            <label>
+                <input className='mr-5'
+                    type='checkbox'
+                    value='Posicion - Transportista de vidrios y/o ventanas fuera de fábrica'
+                    checked={posiciones.includes('Posicion - Transportista de vidrios y/o ventanas fuera de fábrica')}
+                    onChange={handleChange}
+                />
+                Transportista de vidrios y/o ventanas fuera de fábrica
+            </label>
+
+            <label>
+                <input className='mr-5'
+                    type='checkbox'
+                    value='Posicion - Profesionales de almacén o manipulación interna de vidrios y/o otros bienes'
+                    checked={posiciones.includes('Posicion - Profesionales de almacén o manipulación interna de vidrios y/o otros bienes')}
+                    onChange={handleChange}
+                />
+                Profesionales de almacén o manipulación interna de vidrios y/o otros bienes
+            </label>
+
+            <label>
+                <input className='mr-5'
+                    type='checkbox'
+                    value='Posicion - Gestión de stock'
+                    checked={posiciones.includes('Posicion - Gestión de stock')}
+                    onChange={handleChange}
+                />
+                Gestión de stock
+            </label>
         </div>
     );
 };
