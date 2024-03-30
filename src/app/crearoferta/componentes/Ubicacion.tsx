@@ -2,6 +2,8 @@ import React from 'react';
 interface TituloProps {
     ubicacion: string;
     setUbicacion: (value: string) => void;
+    pais:any;
+    setPais:any;
   }
   
   const Ubicacion: React.FC<TituloProps> = ({ ubicacion, setUbicacion }) => {

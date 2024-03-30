@@ -26,16 +26,16 @@ const Fase1: FC<Fase1Props> = ({ setFaseActual, titulo, setTitulo, cargo, setCar
     }
 
     return (
-        <>
-            <h1>Configuración principal de la oferta</h1>
+        <div className="flex flex-col">
+            <h1 className="text-lg mb-5">Configuración principal de la oferta</h1>
             <Titulo titulo={titulo} setTitulo={setTitulo} />
             <Cargo cargo={cargo} setCargo={setCargo} />
             <Descripcion descripcion={descripcion} setDescripcion={setDescripcion} />
 
-            <button onClick={() => { handleNextFase() }} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
+            <button onClick={() => { handleNextFase() }} className='bg-white px-3 py-1 rounded-lg w-36 mx-auto text-sm m-2 text-gray-500 text-sm mb-2'>
                 Guardar y seguir
             </button>
-        </>
+        </div>
     );
 };
 

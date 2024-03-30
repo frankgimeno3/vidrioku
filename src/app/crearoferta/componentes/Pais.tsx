@@ -1,11 +1,11 @@
 import React from 'react';
-interface TituloProps {
+interface PaisProps {
     tipoJornada: string;
     setTipoJornada: (value: string) => void;
   }
   
-  const Jornada: React.FC<TituloProps> = ({ tipoJornada, setTipoJornada }) => {
-  return (
+  const Pais: React.FC<PaisProps> = ({ tipoJornada, setTipoJornada }) => {
+   return (
     <>
              <label htmlFor="tipoJornada">Tipo de jornada</label>
           <select
@@ -26,4 +26,4 @@ interface TituloProps {
   );
 };
 
-export default Jornada;
+export default Pais;

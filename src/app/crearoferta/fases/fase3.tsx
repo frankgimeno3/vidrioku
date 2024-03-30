@@ -41,12 +41,12 @@ const Fase3: FC<Fase3Props> = ({ addOfferInFirebase, handleEliminarHabilidad, ha
 
 
   return (
-    <>
-      <h1>Requisitos adicionales</h1>
+    <div className="flex flex-col">
+    <h1 className="text-lg mb-5">Requisitos adicionales</h1>
 
       <Requerimientos habilidadRequerida={habilidadRequerida} handleHabilidadRequeridaChange={handleHabilidadRequeridaChange} />
 
-      <button onClick={handleInsertarHabilidad} className="bg-white px-3 py-1 rounded-lg mx-44 text-sm m-2 text-gray-500 text-sm mb-2">
+      <button onClick={handleInsertarHabilidad} className='bg-white px-3 py-1 rounded-lg w-36 mx-auto text-sm m-2 text-gray-500 text-sm mb-2'>
         Insertar requisitos
       </button>
 
@@ -62,10 +62,10 @@ const Fase3: FC<Fase3Props> = ({ addOfferInFirebase, handleEliminarHabilidad, ha
       </ul>
       <Additional comentarios={comentarios} setComentarios={setComentarios} />
 
-      <button onClick={addOfferInFirebase} className='bg-white px-3 py-1 rounded-lg mx-52 text-sm m-2 text-gray-500 text-sm mb-2'>
+      <button onClick={addOfferInFirebase} className='bg-white px-3 py-1 rounded-lg w-36 mx-auto text-sm m-2 text-gray-500 text-sm mb-2'>
         Publicar oferta
       </button>
-    </>
+    </div>
   );
 };
 

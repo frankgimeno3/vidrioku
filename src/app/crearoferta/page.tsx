@@ -24,17 +24,21 @@ import Fase3 from './fases/fase3';
 
 const Crearoferta: FC = () => {
   const router = useRouter();
-  const [faseActual, setFaseActual  ] = useState(1)
+  const [faseActual, setFaseActual] = useState(1)
 
   const [titulo, setTitulo] = useState('')
   const [cargo, setCargo] = useState('');
   const [tipoJornada, setTipoJornada] = useState('Jornada Completa');
   const [tipoLocalizacion, setTipoLocalizacion] = useState('Híbrido');
   const [ubicacion, setUbicacion] = useState('');
+  const [pais, setPais] = useState<string>();
   const [descripcion, setDescripcion] = useState('');
   const [habilidadRequerida, setHabilidadRequerida] = useState('');
   const [habilidades, setHabilidades] = useState<string[]>([]);
   const [comentarios, setComentarios] = useState('');
+  const [departamentos, setDepartamentos] = useState<any>([]);
+  const [posiciones, setPosiciones] = useState<any>([]);
+  const [otraPosicion, setOtraPosicion] = useState<string>('');
   const [habilidadAEliminar, setHabilidadAEliminar] = useState<number | null>(null);
 
   const session = useSession({
@@ -135,12 +139,14 @@ const Crearoferta: FC = () => {
   return (
     <>
       <Navbar />
-      <div className='flex flex-row w-full h-full justify-between bg-white bg-opacity-90'>
+      <div className='flex flex-row w-full   justify-between bg-white bg-opacity-90'>
 
-        <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center  w-full">
+        <div className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 text-center w-full">
           <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center w-full">Crear oferta</h2>
-          <div className='px-80 mt-12'>
-            <form className='flex flex-col mx-72 text-sm '>
+          <div className='mx-24 mt-12 '>
+            <p className='text-xl'>Introduzca datos en los campos requeridos para crear una oferta</p>
+            <p className=' mt-12'>Parte <span>{faseActual}</span>/3</p>
+            <form className='flex flex-col px-56 text-sm  text-md w-full my-1 mb-5'>
               {
                 faseActual == 1 &&
                 <Fase1 setFaseActual={setFaseActual} titulo={titulo} setTitulo={setTitulo} cargo={cargo} setCargo={setCargo} descripcion={descripcion} setDescripcion={setDescripcion} />
@@ -148,17 +154,26 @@ const Crearoferta: FC = () => {
               {
                 faseActual == 2 &&
                 <Fase2 setFaseActual={setFaseActual} tipoJornada={tipoJornada}
-                setTipoJornada={setTipoJornada}
-                tipoLocalizacion={tipoLocalizacion}
-                setTipoLocalizacion={setTipoLocalizacion}
-                ubicacion={ubicacion}
-                setUbicacion={setUbicacion}/>
+                  setTipoJornada={setTipoJornada}
+                  tipoLocalizacion={tipoLocalizacion}
+                  setTipoLocalizacion={setTipoLocalizacion}
+                  ubicacion={ubicacion}
+                  setUbicacion={setUbicacion}
+                  pais={pais}
+                  setPais={pais}
+                  departamentos={departamentos}
+                  setDepartamentos={setDepartamentos}
+                  posiciones={posiciones}
+                  setPosiciones={setPosiciones}
+                  otraPosicion={otraPosicion}
+                  setOtraPosicion={setOtraPosicion}
+                />
               }
               {
                 faseActual == 3 &&
                 <Fase3 addOfferInFirebase={addOfferInFirebase} handleEliminarHabilidad={handleEliminarHabilidad} habilidadRequerida={habilidadRequerida}
                   handleHabilidadRequeridaChange={handleHabilidadRequeridaChange} handleInsertarHabilidad={handleInsertarHabilidad}
-                  comentarios={comentarios} setComentarios={setComentarios} habilidades={habilidades}/>
+                  comentarios={comentarios} setComentarios={setComentarios} habilidades={habilidades} />
               }
             </form>
           </div>
