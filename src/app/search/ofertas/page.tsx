@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import SearchOfertas from './ofertascomponents/searchOfertas'
 import OfertasList from './ofertascomponents/compListados/OfertasList';
 import Rendercomponent from './ofertascomponents/compListados/rendercomponent/Rendercomponent';
-import { Timestamp, collection, getDocs, query, where } from 'firebase/firestore';
+import { Timestamp, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
@@ -85,7 +85,27 @@ const Ofertas: FC = ({ }) => {
   }, []);
 
 
- 
+  const [empresa, setEmpresa] = useState<any>()
+  useEffect(() => {
+    obtainData(renderOferta?.empresa)
+}, [renderOferta]);
+
+const obtainData = async (userId: string) => {
+    try {
+        const docRef = doc(db, "users", userId);
+        const userDoc = await getDoc(docRef);
+
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setEmpresa(userData)
+
+        } else {
+            console.error('El documento del usuario no existe');
+        }
+    } catch (error) {
+        console.error('Error al buscar empresa por id:', error);
+    }
+};
 
   if (loading) {
     return <p>Cargando profesionales...</p>;
@@ -106,10 +126,10 @@ const Ofertas: FC = ({ }) => {
                 </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
-                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} />
+                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} empresa={empresa}/>
                 </div>
                 <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <Rendercomponent renderoferta={renderOferta} />
+                  <Rendercomponent renderoferta={renderOferta} empresa={empresa}/>
                 </div>
               </div>
             </div>

@@ -126,10 +126,8 @@ const Crearoferta: FC = () => {
           estado: "activa",
 
 
-          habilidadRequerida
-
-
-
+          // habilidadRequerida
+ 
 
 
         });

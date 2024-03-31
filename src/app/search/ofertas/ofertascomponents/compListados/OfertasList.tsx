@@ -7,9 +7,10 @@ interface OfertasListProps {
     receivedParamsTratado: any;
     ofertasArray: any;
     setRenderOferta: any;
+    empresa:any;
 }
 
-const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray, setRenderOferta }) => {
+const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray, setRenderOferta, empresa }) => {
     // State to store received filters
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
     const [filtrosDepartamentos, setFiltrosDepartamentos] = useState<any[]>([]);
@@ -267,7 +268,7 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
                         descripcion={oferta.descripcion}
                         experiencia={oferta.experiencia}
                         adicional={oferta.adicional}
-                        empresa={oferta.empresa}
+                        empresa={empresa?.nombre}
                         estado={oferta.estado}
                     />
                 </div>

@@ -4,59 +4,61 @@ import Image from "next/image";
 import Descripcion from "@/app/crearoferta/componentes/Descripcion";
 import { useRouter } from "next/router"; // Se corrigió el import de useRouter
 import Link from "next/link";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/app/firebase";
 
 interface RendercomponentProps {
-    renderoferta:any;
+    renderoferta: any;
+    empresa:any;
 }
 
 
-// id={renderoferta.id}
-// titulo={renderoferta.titulo}
-// cargo={renderoferta.cargo}
-// jornada={renderoferta.jornada}
-// tipoubi={renderoferta.tipoubi}
-// ubicacion={renderoferta.ubicacion}
-// descripcion={renderoferta.descripcion}
-// experiencia={renderoferta.experiencia}
-// adicional={renderoferta.adicional}
-// empresa={renderoferta.empresa}
-// estado={renderoferta.estado}
 
-
-const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
-    // id,
-    // titulo,
-    // cargo,
-    // jornada,
-    // tipoubi,
-    // ubicacion,
-    // descripcion,
-    // experiencia,
-    // adicional,
-    // empresa,
-    // estado,
-}) => {
+const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) => {
 
     const [receivedOffer, setReceivedOffer] = useState<any>()
+    const [empresaProfilePicture, setEmpresProfilePicture] = useState<any>()
 
 
     useEffect(() => {
         setReceivedOffer(renderoferta)
-        
-      }, [renderoferta]);
+        console.log("renderoferta: ", renderoferta)
+    }, [renderoferta]);
+
+
+
+    useEffect(() => {
+        if (empresa?.profilepicture) {
+            if (empresa?.profilepicture != "") {
+                setEmpresProfilePicture("/inventedlogos/1.png")
+            } else { setEmpresProfilePicture(empresa.profilepicture) }}
+        else {
+            setEmpresProfilePicture("/inventedlogos/1.png")
+        }
+    }, [empresa]);
+
+
 
     return (
         <div className="flex flex-col bg-gray-50 shadow-lg h-full text-left items-left w-full text-gray-500 py-8 px-24 overflow-scroll">
-            <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
-            <h2 className="mt-5 text-xl">{receivedOffer?.titulo}</h2>
-            <div className="flex flex-row text-sm text-gray-500 mt-5 bg-white  my-2 rounded shadow">
-                <div className="flex flex-col flex-1 p-5">
-                    <p className="font-bold text-gray-400 mr-2 text-md">Cargo: </p>
-                    <p>{receivedOffer?.cargo}</p>
-                </div>
-                <div className="flex flex-col flex-1 p-5">
-                    <p className="font-bold text-gray-400">Ubicación del empleo: </p>
-                    <p>{receivedOffer?.ubicacion}</p>
+            <div className="flex flex-col items-center ">
+                <Image src={empresaProfilePicture} alt="pepo" height={100} width={100} />
+                <p className="  text-base">{empresa?.nombre}</p>
+            </div>
+            <h2 className="my-5 mx-5 text-xl">{receivedOffer?.titulo}</h2>
+            <div className="flex flex-col text-sm text-gray-500  bg-white  my-2 rounded shadow p-5">
+                <p className="font-bold text-gray-400 mr-2  text-sm  ">Cargo:</p>
+                <p >{receivedOffer?.cargo}</p>
+                <div className="flex flex-col mt-5">
+                    <p className="font-bold text-gray-400 mr-2 text-md">Ubicación del empleo: </p>
+                    <div className="flex flex-wrap flex-1 ">
+                        <p>{receivedOffer?.tipoubi}</p>
+                        {receivedOffer?.tipoubi !== 'Trabajo Remoto' &&
+                            <>
+                                <p className="">, {receivedOffer?.ubicacion},</p>
+                                <p className="ml-2">{receivedOffer?.pais.split(' - ')[1]}</p>
+                            </>}
+                    </div>
                 </div>
             </div>
             <div className="bg-white p-5 my-2 rounded shadow">
@@ -69,11 +71,13 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
             </div>
             <div className="bg-white p-5 my-2 rounded shadow">
                 <p className="text-sm   font-bold text-gray-400">
-                    Requerimientos
+                    Experiencia deseada
                 </p>
-                <p className="text-sm mt-1">
-                    {receivedOffer?.experiencia}
-                </p>
+                <div className="flex flex-col mt-1">
+                    {receivedOffer?.experiencia.map((experiencia: any, index: any) => (
+                        <span key={index}>{experiencia}</span>
+                    ))}
+                </div>
             </div>
             <div className="bg-white p-5 my-2 rounded shadow">
                 <p className="text-sm  font-bold text-gray-400">
@@ -83,15 +87,17 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta
                     {receivedOffer?.jornada}
                 </p>
             </div>
-            <div className="bg-white p-5 my-2 rounded shadow">
+
+            {receivedOffer?.adicional && <div className="bg-white p-5 my-2 rounded shadow">
                 <p className="text-sm   font-bold text-gray-400">
                     Detalles adicionales
                 </p>
                 <p className="text-sm mt-1">
                     {receivedOffer?.adicional}
                 </p>
-            </div>
-            <Link href={`/solicitar/${receivedOffer?.id}`}>  
+            </div>}
+
+            <Link href={`/solicitar/${receivedOffer?.id}`}>
                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
                     Solicitar Empleo
                 </button>
