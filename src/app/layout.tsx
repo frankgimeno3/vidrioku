@@ -1,5 +1,5 @@
 import './globals.css'
-import { EdgeStoreProvider } from './lib/edgestore';
+// import { EdgeStoreProvider } from './lib/edgestore';
 import SessionProvider from './SessionProvider';
 
 
