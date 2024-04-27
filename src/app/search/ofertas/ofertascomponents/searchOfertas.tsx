@@ -7,11 +7,12 @@ import FiltrosComponent from './filtros/FiltrosComponent';
 
 interface SearchOfertasProps {
   setArrayFiltros: any;
-  arrayFiltros: any
+  arrayFiltros: any;
+  setRenderOferta: any
 }
 
 
-const SearchOfertas: FC<SearchOfertasProps> = ({ setArrayFiltros, arrayFiltros }) => {
+const SearchOfertas: FC<SearchOfertasProps> = ({ setArrayFiltros, arrayFiltros, setRenderOferta }) => {
   const [isFiltroOpen, setIsFiltroOpen] = useState(false)
   const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
 
@@ -50,7 +51,7 @@ const SearchOfertas: FC<SearchOfertasProps> = ({ setArrayFiltros, arrayFiltros }
         </div>
       }
       {isFiltroOpen == true &&
-        <FiltrosComponent arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} />
+        <FiltrosComponent arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} setRenderOferta={setRenderOferta}/>
       }
     </div>
   );

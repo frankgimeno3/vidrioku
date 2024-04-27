@@ -65,7 +65,7 @@ const Ofertas: FC = ({ }) => {
 
   //creamos oferta vacío, lo rellenamos con peticion a firebase, luego seleccionamos los trabajadores, y hacemos un loading para que cargue
   const [ofertasArray, setOfertasArray] = useState<any>([]);
-   const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -86,29 +86,29 @@ const Ofertas: FC = ({ }) => {
 
 
   const [empresa, setEmpresa] = useState<any>({})
-  
+
   useEffect(() => {
-    if(renderOferta){
+    if (renderOferta) {
       obtainData(renderOferta?.empresa)
     }
-}, [renderOferta]);
+  }, [renderOferta]);
 
-const obtainData = async (userId: string) => {
+  const obtainData = async (userId: string) => {
     try {
-        const docRef = doc(db, "users", userId);
-        const userDoc = await getDoc(docRef);
+      const docRef = doc(db, "users", userId);
+      const userDoc = await getDoc(docRef);
 
-        if (userDoc.exists()) {
-            const userData = userDoc.data();
-            setEmpresa(userData)
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setEmpresa(userData)
 
-        } else {
-            console.error('El documento del usuario no existe');
-        }
+      } else {
+        console.error('El documento del usuario no existe');
+      }
     } catch (error) {
-        console.error('Error al buscar empresa por id:', error);
+      console.error('Error al buscar empresa por id:', error);
     }
-};
+  };
 
   if (loading) {
     return <p>Cargando ofertas de empleo...</p>;
@@ -125,22 +125,23 @@ const obtainData = async (userId: string) => {
             <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
             <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
               <nav className="bg-gray-200 py-2 px-1   ">
-                <SearchOfertas arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} />
-                </nav>
+                <SearchOfertas arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderOferta={setRenderOferta} />
+              </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
-                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} empresa={empresa}/>
+                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} empresa={empresa} />
                 </div>
                 {
-                  empresa == undefined && 
-                  <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <p>No se ha seleccionado ninguna empresa</p>
+                  renderOferta == undefined &&
+                  <div className='flex-1 flex-col h-full bg-gray-100 p-5 shadow-lg text-left w-full text-gray-500 py-8 px-24 overflow-scroll'>
+                    <p className='text-center my-12'>No se ha seleccionado ninguna empresa</p>
                   </div>
                 }
-{                     empresa != undefined && 
-              <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <Rendercomponent renderoferta={renderOferta} empresa={empresa}/>
-                </div>}
+                {
+                  renderOferta != undefined &&
+                  <div className='flex-1 h-full bg-gray-100 p-5'>
+                    <Rendercomponent renderoferta={renderOferta} empresa={empresa} />
+                  </div>}
               </div>
             </div>
           </div>
