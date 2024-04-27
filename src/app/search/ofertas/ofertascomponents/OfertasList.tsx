@@ -1,16 +1,18 @@
 import { FC, useEffect, useState } from 'react';
 import ListadoBotones from '@/app/search/profesionales/profesionalescomponents/ListadoBotones';
 import OfertaComponent from './compListados/Oferta';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
 
 interface OfertasListProps {
     receivedParamsTratado: any;
     ofertasArray: any;
     setRenderOferta: any;
-    empresa: any;
+    setEmpresa: any;
 }
 
-const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray, setRenderOferta, empresa }) => {
+const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray, setRenderOferta, setEmpresa }) => {
     // State to store received filters
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
     const [filtrosDepartamentos, setFiltrosDepartamentos] = useState<any[]>([]);
@@ -56,6 +58,7 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
         }
     }, [filtrosRecibidos]);
 
+    
     // se reciben las ofertas como prop, se crea un array para ir eliminando antes de renderizar
     const [ofertasRenderizar, setOfertasRenderizar] = useState<any[]>([]);
     useEffect(() => {
@@ -258,8 +261,28 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
     }, [arrayMostrado]);
 
     const handleOfertaClick = (oferta: any) => {
+        obtainData(oferta.empresa)
         setRenderOferta(oferta);
+        console.log("oferta: ", oferta)
     };
+
+    const obtainData = async (userId: string) => {
+        try {
+          const docRef = doc(db, "users", userId);
+          const userDoc = await getDoc(docRef);
+    
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setEmpresa(userData)
+    
+          } else {
+            console.error('El documento del usuario no existe');
+          }
+        } catch (error) {
+          console.error('Error al buscar empresa por id:', error);
+        }
+      };
+
     return (
         <ul className='flex flex-col h-full '>
             {!isArrayMostrado &&
@@ -280,7 +303,7 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
                         descripcion={oferta.descripcion}
                         experiencia={oferta.experiencia}
                         adicional={oferta.adicional}
-                        empresa={empresa?.nombre}
+                        empresaNombre={oferta.empresa}
                         estado={oferta.estado}
                     />
                 </div>

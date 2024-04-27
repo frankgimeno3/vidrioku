@@ -131,7 +131,7 @@ const Ofertas: FC = ({ }) => {
               </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
-                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} empresa={empresa} />
+                  <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} setEmpresa={setEmpresa} />
                 </div>
                 {
                   renderOferta == undefined &&

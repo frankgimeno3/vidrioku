@@ -13,27 +13,37 @@ interface OfertaProps {
   descripcion: string,
   experiencia: string,
   adicional: string,
-  empresa: string,
+  empresaNombre: string,
   estado: string,
 }
 
-const Oferta: FC<OfertaProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacion, descripcion, experiencia, adicional, empresa, estado }) => {
+const Oferta: FC<OfertaProps> = ({  titulo, cargo,  ubicacion,
+  empresaNombre
+ }) => {
   const [userImage, setUserImage] = useState<string | undefined>();
+  const [nombreEmpresa, setNombreEmpresa] = useState<any>('')
 
   useEffect(() => {
-    const fetchDoc = async () => {
-      if (empresa) {
-        const docRef = doc(db, "users", empresa);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const empresaData = response.data() as any;
-          setUserImage(empresaData.profilepicture);
-        }
-      }
-    };
+    obtainData(empresaNombre);
+}, [empresaNombre]);
 
-    fetchDoc();
-  }, [empresa]);
+  const obtainData = async (userId: string) => {
+    try {
+      const docRef = doc(db, "users", userId);
+      const userDoc = await getDoc(docRef);
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setNombreEmpresa(userData.nombre)
+
+      } else {
+        console.error('El documento del usuario no existe');
+      }
+    } catch (error) {
+      console.error('Error al buscar empresa por id:', error);
+    }
+  };
+
 
   return (
     <div className="flex flex-row justify-left items-center p-5 bg-gray-50 hover:bg-gray-100 shadow-lg mb-1 text-gray-600">
@@ -58,7 +68,7 @@ const Oferta: FC<OfertaProps> = ({ id, titulo, cargo, jornada, tipoubi, ubicacio
         <h2>{titulo}</h2>
         <div className="flex flex-row justify-between w-full">
           <div className="flex flex-col text-sm text-gray-500">
-            <p>{empresa}</p>
+            <p>{nombreEmpresa}</p>
             <p>{ubicacion}</p>
           </div>
           <div className="flex flex-row">
