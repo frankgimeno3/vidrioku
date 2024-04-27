@@ -239,10 +239,22 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
     //el array definitivo es el de 7 elementos con indice subArraySeleccionado, que es tomado y modificado por los botones de buttonlist
     const [subArraySeleccionado, setSubArrayseleccionado] = useState<number>(0);
     const [arrayMostrado, setArrayMostrado] = useState<any>([]);
+    const [isArrayMostrado, setIsArrayMostrado] = useState<any>(false);
 
     useEffect(() => {
         setArrayMostrado(arrayDe7ElementosPorPagina[subArraySeleccionado]);
     }, [arrayDe7ElementosPorPagina, subArraySeleccionado]);
+
+    useEffect(() => {
+        if (arrayMostrado && arrayMostrado.length !== 0) {
+            setIsArrayMostrado(true)
+            setRenderProfesional(arrayMostrado[0]);
+        }
+        if (arrayMostrado == undefined || arrayMostrado.length == 0) {
+            setIsArrayMostrado(false)
+            setRenderProfesional(undefined);
+        }
+    }, [arrayMostrado]);
 
     const handleProfesionalClick = (trabajador: any) => {
         setRenderProfesional(trabajador);
@@ -250,8 +262,14 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
 
     return (
         <ul className='flex flex-col h-full '>
- 
-            {arrayMostrado?.map((trabajador: any, index: any) => (
+         {!isArrayMostrado &&
+                <div className='h-full'>
+                    <p className='p-12 my-5 text-gray-500 text-center'> 
+                    No se encontraron ofertas que cumplan con los criterios aplicados
+                    </p>
+                </div>
+            }
+            {isArrayMostrado && arrayMostrado?.map((trabajador: any, index: any) => (
                 <div onClick={() => handleProfesionalClick(trabajador)} key={index} >
                     <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
                 </div>

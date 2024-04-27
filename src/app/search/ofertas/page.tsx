@@ -141,7 +141,8 @@ const Ofertas: FC = ({ }) => {
                   renderOferta != undefined &&
                   <div className='flex-1 h-full bg-gray-100 p-5'>
                     <Rendercomponent renderoferta={renderOferta} empresa={empresa} />
-                  </div>}
+                  </div>
+                  }
               </div>
             </div>
           </div>

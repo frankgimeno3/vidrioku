@@ -104,9 +104,18 @@ const Profesionales: FC = ({ }) => {
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
                   <ProfesionalesList receivedParamsTratado={receivedParamsTratado} trabajadoresProfesionales={trabajadoresProfesionales} setRenderProfesional={setRenderProfesional} />
                 </div>
+                {
+                  renderProfesional == undefined &&
+                  <div className='flex-1 flex-col h-full bg-gray-100 p-5 shadow-lg text-left w-full text-gray-500 py-8 px-24 overflow-scroll'>
+                    <p className='text-center my-12'>No se ha seleccionado ningún profesional</p>
+                  </div>
+                }
+                {
+                  renderProfesional != undefined &&
                 <div className='flex-1 h-full bg-gray-100 p-5'>
                   <Rendercomponent renderProfesional={renderProfesional} />
                 </div>
+                }
               </div>
             </div>
           </div>
