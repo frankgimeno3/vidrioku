@@ -134,7 +134,7 @@ const Ofertas: FC = ({ }) => {
                 {
                   renderOferta == undefined &&
                   <div className='flex-1 flex-col h-full bg-gray-100 p-5 shadow-lg text-left w-full text-gray-500 py-8 px-24 overflow-scroll'>
-                    <p className='text-center my-12'>No se ha seleccionado ninguna empresa</p>
+                    <p className='text-center my-12'>No se ha seleccionado ninguna oferta</p>
                   </div>
                 }
                 {

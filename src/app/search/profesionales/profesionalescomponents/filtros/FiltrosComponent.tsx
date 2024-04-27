@@ -6,9 +6,10 @@ import SeleccionFiltros from './SeleccionFiltros';
 interface FiltrosComponentFiltrosProps {
     setArrayFiltros: any;
     arrayFiltros: any;
+    setRenderProfesional: any;
 }
 
-const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, arrayFiltros }) => {
+const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, arrayFiltros, setRenderProfesional }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
     const [queriesList, setQueriesList] = useState('');
     const router = useRouter();
@@ -58,6 +59,14 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
     }, [filtrosRecibidos]);
     
     
+    const backToSearchProfesionales = () => {
+        router.push('/search/profesionales')
+        setRenderProfesional(undefined)
+        setTimeout(() => {
+            window.location.reload();
+        }, 200)
+    }
+
 
     return (
         <div className="ml-2 mr-7 my-3 p-2">
@@ -74,6 +83,10 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
                          onClick={(event) => handleFilterClick(event, queriesList)}>
                             Aplicar filtros 
                         </button>
+                        <button className="block bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mt-2 ml-3"
+                        onClick={() => { backToSearchProfesionales() }}>
+                        Borrar filtros
+                    </button>
                  </div>
             )}
         </div>

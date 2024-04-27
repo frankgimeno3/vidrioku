@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import SearchOfertas from './ofertas/ofertascomponents/searchOfertas'
-import FiltroOfertas from './ofertas/ofertascomponents/filtroOfertas'
 import PageListButtons from './ofertas/ofertascomponents/compListados/PageListButtons';
 import Anuncio from './ofertas/ofertascomponents/compListados/Anuncio';
 import Pasarela from './ofertas/ofertascomponents/compListados/Pasarela';

@@ -98,7 +98,7 @@ const Profesionales: FC = ({ }) => {
             <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
             <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
               <nav className="bg-gray-200 py-2 px-1   ">
-                <SearchFiltrosProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} />
+                <SearchFiltrosProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional}/>
               </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
