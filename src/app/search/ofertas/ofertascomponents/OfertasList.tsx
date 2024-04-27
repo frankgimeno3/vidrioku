@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import ListadoBotones from '@/app/search/profesionales/profesionalescomponents/ListadoBotones';
-import OfertaComponent from './Oferta';
+import OfertaComponent from './compListados/Oferta';
 
  
 interface OfertasListProps {

@@ -9,7 +9,7 @@ import PageListButtons from './ofertas/ofertascomponents/compListados/PageListBu
 import Anuncio from './ofertas/ofertascomponents/compListados/Anuncio';
 import Pasarela from './ofertas/ofertascomponents/compListados/Pasarela';
 import Oferta from './ofertas/ofertascomponents/compListados/Oferta';
-import Rendercomponent from './ofertas/ofertascomponents/compListados/rendercomponent/Rendercomponent';
+import Rendercomponent from './ofertas/ofertascomponents/Rendercomponent';
 import { Timestamp, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useSession } from 'next-auth/react';

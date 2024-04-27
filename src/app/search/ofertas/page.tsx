@@ -2,8 +2,8 @@
 
 import { FC, useEffect, useState } from 'react';
 import SearchOfertas from './ofertascomponents/searchOfertas'
-import OfertasList from './ofertascomponents/compListados/OfertasList';
-import Rendercomponent from './ofertascomponents/compListados/rendercomponent/Rendercomponent';
+import OfertasList from './ofertascomponents/OfertasList';
+import Rendercomponent from './ofertascomponents/Rendercomponent';
 import { Timestamp, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useSession } from 'next-auth/react';
