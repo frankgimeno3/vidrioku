@@ -85,9 +85,12 @@ const Ofertas: FC = ({ }) => {
   }, []);
 
 
-  const [empresa, setEmpresa] = useState<any>()
+  const [empresa, setEmpresa] = useState<any>({})
+  
   useEffect(() => {
-    obtainData(renderOferta?.empresa)
+    if(renderOferta){
+      obtainData(renderOferta?.empresa)
+    }
 }, [renderOferta]);
 
 const obtainData = async (userId: string) => {
@@ -128,9 +131,16 @@ const obtainData = async (userId: string) => {
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>
                   <OfertasList receivedParamsTratado={receivedParamsTratado} ofertasArray={ofertasArray} setRenderOferta={setRenderOferta} empresa={empresa}/>
                 </div>
-                <div className='flex-1 h-full bg-gray-100 p-5'>
+                {
+                  empresa == undefined && 
+                  <div className='flex-1 h-full bg-gray-100 p-5'>
+                  <p>No se ha seleccionado ninguna empresa</p>
+                  </div>
+                }
+{                     empresa != undefined && 
+              <div className='flex-1 h-full bg-gray-100 p-5'>
                   <Rendercomponent renderoferta={renderOferta} empresa={empresa}/>
-                </div>
+                </div>}
               </div>
             </div>
           </div>

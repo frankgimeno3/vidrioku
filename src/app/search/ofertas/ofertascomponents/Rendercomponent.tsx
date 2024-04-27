@@ -9,7 +9,7 @@ import { db } from "@/app/firebase";
 
 interface RendercomponentProps {
     renderoferta: any;
-    empresa:any;
+    empresa: any;
 }
 
 
@@ -17,7 +17,7 @@ interface RendercomponentProps {
 const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) => {
 
     const [receivedOffer, setReceivedOffer] = useState<any>()
-    const [empresaProfilePicture, setEmpresProfilePicture] = useState<any>()
+    const [empresaProfilePicture, setEmpresProfilePicture] = useState<any>("/inventedlogos/1.png")
 
 
     useEffect(() => {
@@ -31,7 +31,8 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) =>
         if (empresa?.profilepicture) {
             if (empresa?.profilepicture != "") {
                 setEmpresProfilePicture("/inventedlogos/1.png")
-            } else { setEmpresProfilePicture(empresa.profilepicture) }}
+            } else { setEmpresProfilePicture(empresa.profilepicture) }
+        }
         else {
             setEmpresProfilePicture("/inventedlogos/1.png")
         }
@@ -40,9 +41,10 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) =>
 
 
     return (
+
         <div className="flex flex-col bg-gray-50 shadow-lg h-full text-left items-left w-full text-gray-500 py-8 px-24 overflow-scroll">
             <div className="flex flex-col items-center ">
-                <Image src={empresaProfilePicture} alt="pepo" height={100} width={100} />
+                <Image src={empresaProfilePicture} alt="companyProfilePicture" height={100} width={100} />
                 <p className="  text-base">{empresa?.nombre}</p>
             </div>
             <h2 className="my-5 mx-5 text-xl">{receivedOffer?.titulo}</h2>
@@ -56,7 +58,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) =>
                         {receivedOffer?.tipoubi !== 'Trabajo Remoto' &&
                             <>
                                 <p className="">, {receivedOffer?.ubicacion},</p>
-                                <p className="ml-2">{receivedOffer?.pais.split(' - ')[1]}</p>
+                                <p className="ml-2">{receivedOffer?.pais?.split(' - ')[1]}</p>
                             </>}
                     </div>
                 </div>
@@ -103,6 +105,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) =>
                 </button>
             </Link>
         </div>
+
     );
 };
 
