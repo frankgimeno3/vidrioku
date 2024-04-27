@@ -54,6 +54,14 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
     
         setQueriesList(queriesList);
     }, [filtrosRecibidos]);
+
+    const backToSearchOfertas = ()=>{
+        router.push('/search/ofertas')
+        setFiltrosRecibidos([])
+                setTimeout(() => {
+            window.location.reload();
+        }, 200) 
+    }
     
     return (
         <div className="ml-2 mr-7 my-3 p-2">
@@ -69,6 +77,10 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
                          <button key={queriesList} className="block bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mt-2" 
                          onClick={(event) => handleFilterClick(event, queriesList)}>
                             Aplicar filtros 
+                        </button>
+                        <button className="block bg-white px-4 py-2 rounded-md shadow text-gray-500 text-xs mt-2 ml-3" 
+                         onClick={()=>{backToSearchOfertas()}}>
+                            Borrar filtros 
                         </button>
                  </div>
             )}

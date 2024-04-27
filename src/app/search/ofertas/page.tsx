@@ -108,7 +108,7 @@ const obtainData = async (userId: string) => {
 };
 
   if (loading) {
-    return <p>Cargando profesionales...</p>;
+    return <p>Cargando ofertas de empleo...</p>;
   }
 
 
