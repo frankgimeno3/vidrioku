@@ -60,9 +60,11 @@ const Ofertas: FC = ({ }) => {
       const decodedParams = decodeURIComponent(receivedParams);
       const paramsArray = decodedParams.split("&");
       setReceivedParamsTratado(paramsArray);
-    }
+     }
   }, [receivedParams]);
 
+
+  
   //creamos oferta vacío, lo rellenamos con peticion a firebase, luego seleccionamos los trabajadores, y hacemos un loading para que cargue
   const [ofertasArray, setOfertasArray] = useState<any>([]);
   const [loading, setLoading] = useState(true);
@@ -125,7 +127,7 @@ const Ofertas: FC = ({ }) => {
             <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
             <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
               <nav className="bg-gray-200 py-2 px-1   ">
-                <SearchOfertas arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderOferta={setRenderOferta} />
+                <SearchOfertas arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderOferta={setRenderOferta} receivedParamsTratado={receivedParamsTratado} />
               </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>

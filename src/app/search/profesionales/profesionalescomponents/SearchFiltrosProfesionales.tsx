@@ -7,12 +7,13 @@ import FiltrosComponent from './filtros/FiltrosComponent';
 
 interface SearchFiltrosProfesionalesProps {
   setArrayFiltros: any;
-  arrayFiltros: any
-  setRenderProfesional:any
+  arrayFiltros: any;
+  setRenderProfesional:any;
+  receivedParamsTratado:any;
 }
 
 
-const SearchFiltrosProfesionales: FC<SearchFiltrosProfesionalesProps> = ({ setArrayFiltros, arrayFiltros, setRenderProfesional }) => {
+const SearchFiltrosProfesionales: FC<SearchFiltrosProfesionalesProps> = ({ setArrayFiltros, arrayFiltros, setRenderProfesional, receivedParamsTratado }) => {
   const [isFiltroOpen, setIsFiltroOpen] = useState(false)
   const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
 
@@ -51,7 +52,7 @@ const SearchFiltrosProfesionales: FC<SearchFiltrosProfesionalesProps> = ({ setAr
         </div>
       }
       {isFiltroOpen == true &&
-        <FiltrosComponent arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional}/>
+        <FiltrosComponent arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional} receivedParamsTratado={receivedParamsTratado}/>
       }
     </div>
   );

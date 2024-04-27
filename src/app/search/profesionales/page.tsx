@@ -50,6 +50,8 @@ const Profesionales: FC = ({ }) => {
     setReceivedParams(searchParams?.toString())
   }, [searchParams])
 
+
+
   useEffect(() => {
     if (receivedParams) {
       const decodedParams = decodeURIComponent(receivedParams);
@@ -98,7 +100,7 @@ const Profesionales: FC = ({ }) => {
             <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
             <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
               <nav className="bg-gray-200 py-2 px-1   ">
-                <SearchFiltrosProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional}/>
+                <SearchFiltrosProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional} receivedParamsTratado={receivedParamsTratado}/>
               </nav>
               <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                 <div className='flex flex-col flex-1 overflow-scroll h-full'>

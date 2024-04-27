@@ -7,9 +7,10 @@ interface FiltrosComponentFiltrosProps {
     setArrayFiltros: any;
     arrayFiltros: any;
     setRenderOferta: any;
+    receivedParamsTratado:any;
 }
 
-const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, arrayFiltros, setRenderOferta }) => {
+const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, arrayFiltros, setRenderOferta, receivedParamsTratado }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
     const [queriesList, setQueriesList] = useState('');
     const router = useRouter();
@@ -71,7 +72,7 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
             <SeleccionFiltros arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} />
 
             <p className="mt-3">Filtros Aplicados</p>
-            <FiltrosAplicados arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} />
+            <FiltrosAplicados arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} receivedParamsTratado={receivedParamsTratado}/>
 
             {filtrosRecibidos.length > 0 && (
                 <div className="mt-3 flex flex-row">
