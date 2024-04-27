@@ -22,7 +22,6 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) =>
 
     useEffect(() => {
         setReceivedOffer(renderoferta)
-        console.log("renderoferta desde renderComponent: ", renderoferta)
     }, [renderoferta]);
 
 

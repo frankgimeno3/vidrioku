@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
 import Searchnav from '../components/Searchnav';
 import SearchFiltrosProfesionales from "./profesionalescomponents/SearchFiltrosProfesionales"
-import Rendercomponent from './profesionalescomponents/compListados/rendercomponent/Rendercomponent'
+import Rendercomponent from './profesionalescomponents/Rendercomponent'
 import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
 import ProfesionalesList from './profesionalescomponents/ProfesionalesList';
