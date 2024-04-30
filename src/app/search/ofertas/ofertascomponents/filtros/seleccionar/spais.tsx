@@ -1,12 +1,16 @@
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
+import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción para agregar un filtro
 
 interface SPaisProps {
-    setArrayFiltros: any;
-    arrayFiltros: any;
+    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
-const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
+const SPais: FC<SPaisProps> = () => {
+    const dispatch = useDispatch();
+    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
+
     const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
 
     useEffect(() => {
@@ -44,10 +48,11 @@ const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
     ];
 
     const handleSeleccionPais = (pais: string) => {
-        if (!arrayRecibido.includes(pais)) {
-            const newArray = [...arrayRecibido, `Pais - ${pais}`];
+        const paisElement = `Pais - ${pais}`;
+        if (!arrayRecibido.includes(paisElement)) {
+            const newArray = [...arrayRecibido, paisElement];
             setArrayRecibido(newArray);
-            setArrayFiltros(newArray);
+            dispatch(addFiltro(paisElement)); // Utiliza la acción addFiltro para agregar un filtro
         }
     };
 
@@ -57,7 +62,7 @@ const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
             <p className='font-bold'>Europa</p>
             <div className='flex flex-wrap mb-4'>
                 {paisesEuropa.map((pais, index) => (
-                    <button key={index} className='text-sm bg-white px-5 mx-1 rounded shadow py-2 w-36 my-2 '
+                    <button key={index} className='text-sm bg-white px-5 mx-1 rounded shadow py-2 w-36 my-2'
                         onClick={() => handleSeleccionPais(pais)}
                     >{pais}</button>
                 ))}

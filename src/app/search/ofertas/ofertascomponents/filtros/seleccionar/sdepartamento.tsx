@@ -1,25 +1,29 @@
 import { FC, useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
+import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción para agregar un filtro
 
 interface SdepartamentoProps {
-    setArrayFiltros: any;
-    arrayFiltros: any;
+    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
-const Sdepartamento: FC<SdepartamentoProps> = ({ arrayFiltros, setArrayFiltros }) => {
+const Sdepartamento: FC<SdepartamentoProps> = () => {
+    const dispatch = useDispatch();
+    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
+
     const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
 
     useEffect(() => {
         setArrayRecibido(arrayFiltros);
     }, [arrayFiltros]);
 
-const handleSeleccionDepartamento = (departamento: string) => {
-    if (!arrayRecibido.includes(departamento)) {
-        const newArray = [...arrayRecibido, departamento];
-        setArrayRecibido(newArray);
-        setArrayFiltros(newArray);  
-    }
-};
+    const handleSeleccionDepartamento = (departamento: string) => {
+        if (!arrayRecibido.includes(departamento)) {
+            const newArray = [...arrayRecibido, departamento];
+            setArrayRecibido(newArray);
+            dispatch(addFiltro(departamento)); // Utiliza la acción addFiltro para agregar un filtro
+        }
+    };
 
     return (
         <div className='flex flex-col my-3 '>

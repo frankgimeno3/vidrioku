@@ -1,14 +1,16 @@
-
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
+import { addFiltro, removeFiltro } from '@/redux/features/arrayFiltros'; // Importa las acciones para agregar y quitar un filtro
 
 interface SpermisoProps {
-    setArrayFiltros: any;
-    arrayFiltros:any
+    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
+const Spermiso: FC<SpermisoProps> = () => {
+    const dispatch = useDispatch();
+    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
 
-const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
     const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
 
     useEffect(() => {
@@ -31,23 +33,25 @@ const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
 
     const handleIsPermisoRequerido = () => {
-        if (!arrayRecibido.includes("Carnet de conducir - Requerido")) {
-            const newArray = [...arrayRecibido, "Carnet de conducir - Requerido"];
+        const permisoElement = "Carnet de conducir - Requerido";
+        if (!arrayRecibido.includes(permisoElement)) {
+            const newArray = [...arrayRecibido, permisoElement];
             setArrayRecibido(newArray);
-            setArrayFiltros(newArray)
+            dispatch(addFiltro(permisoElement)); // Utiliza la acción addFiltro para agregar un filtro
         }
     };
     
     const handleQuitarPermisoRequerido = () => {
-        if (arrayRecibido.includes("Carnet de conducir - Requerido")) {
-            const newArray = arrayRecibido.filter(item => item !== "Carnet de conducir - Requerido");
+        const permisoElement = "Carnet de conducir - Requerido";
+        if (arrayRecibido.includes(permisoElement)) {
+            const newArray = arrayRecibido.filter(item => item !== permisoElement);
             setArrayRecibido(newArray);
-            setArrayFiltros(newArray);
+            dispatch(removeFiltro(permisoElement)); // Utiliza la acción removeFiltro para quitar un filtro
         }
     };
     useEffect(() => {
-        if (permiso==true) {handleIsPermisoRequerido()}
-        if (permiso==false) {handleQuitarPermisoRequerido()}
+        if (permiso == true) { handleIsPermisoRequerido() }
+        if (permiso == false) { handleQuitarPermisoRequerido() }
     }, [permiso]);
 
     return (
