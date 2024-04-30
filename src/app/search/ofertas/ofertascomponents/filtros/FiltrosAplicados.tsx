@@ -1,27 +1,24 @@
-import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/redux/store';  
+import { removeFiltro } from '@/redux/features/arrayFiltros';
 
 interface FiltrosAplicadosProps {
-    arrayFiltros: any
-    setArrayFiltros: any;
-    receivedParamsTratado: any;
+    receivedParamsTratado: any; // Asumiendo que esta es la lista de parámetros recibidos que necesitas mostrar
 }
 
-const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ arrayFiltros, setArrayFiltros, receivedParamsTratado }) => {
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
-    const router = useRouter()
-
-    useEffect(() => {
-        setFiltrosRecibidos(arrayFiltros)
-    }, [arrayFiltros])
+const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ receivedParamsTratado }) => {
+    const filtrosRecibidos = useSelector((state: RootState) => state.arrayFiltros.filtros);
+    const dispatch = useDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         console.log("receivedParamsTratado: ", receivedParamsTratado)
     }, [receivedParamsTratado])
 
-    const eliminarFiltro = (filtro: never) => {
-        setArrayFiltros((prevArray: any[]) => prevArray.filter(item => item !== filtro));
+    const eliminarFiltro = (filtro: string) => {
+        dispatch(removeFiltro(filtro)); // Utiliza la acción removeFiltro para eliminar un filtro
     }
 
     const reloadWindow = () => {
