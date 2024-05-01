@@ -32,6 +32,8 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
             setIsPaisSelected(false)
             // setIsIdiomasSelected(false)
             setIsPermisoSelected(false)
+            setIsActividadEmpresaSelected(false)
+            setIsJornadaSelected(false)
             setter(true)
         }
         if (estado == true) { setter(false) }
@@ -151,7 +153,8 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
                 isPosicionesSelected={isPosicionesSelected} isPaisSelected={isPaisSelected}
                 // isIdiomasSelected={isIdiomasSelected} 
                 isPermisoSelected={isPermisoSelected}
-                isActividadEmpresaSelected={isActividadEmpresaSelected} isJornadaSelected={isJornadaSelected}
+                isActividadEmpresaSelected={isActividadEmpresaSelected} 
+                isJornadaSelected={isJornadaSelected}
                 arrayFiltros={filtrosRecibidos}
                 setArrayFiltros={setArrayFiltros} />
         </div>
