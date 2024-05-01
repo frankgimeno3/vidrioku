@@ -12,6 +12,7 @@ import Rendercomponent from './profesionalescomponents/Rendercomponent'
 import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
 import ProfesionalesList from './profesionalescomponents/ProfesionalesList';
+import { Providers } from '@/redux/provider';
 
 interface User {
   apellidos: string;
@@ -91,44 +92,47 @@ const Profesionales: FC = ({ }) => {
   }
 
   return (
-    <div className='flex flex-col justify-between '>
-      <Navbar />
-      <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 min-h-screen'>
-        <div className="flex flex-col h-full w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-          <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
-          <div className="bg-white bg-opacity-5  text-zinc-100 h-full ">
-            <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
-            <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
-              <nav className="bg-gray-200 py-2 px-1   ">
-                <SearchFiltrosProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional} receivedParamsTratado={receivedParamsTratado}/>
-              </nav>
-              <div className='flex flex-row bg-white flex flex-row w-full h-full'>
-                <div className='flex flex-col flex-1 overflow-scroll h-full'>
-                  <ProfesionalesList receivedParamsTratado={receivedParamsTratado} trabajadoresProfesionales={trabajadoresProfesionales} setRenderProfesional={setRenderProfesional} />
-                </div>
-                {
-                  renderProfesional == undefined &&
-                  <div className='flex-1 flex-col h-full bg-gray-100 p-5 shadow-lg text-left w-full text-gray-500 py-8 px-24 overflow-scroll'>
-                    <p className='text-center my-12'>No se ha seleccionado ningún profesional</p>
+    <Providers>
+
+      <div className='flex flex-col justify-between '>
+        <Navbar />
+        <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 min-h-screen'>
+          <div className="flex flex-col h-full w-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
+            <h2 className="bg-zinc-800  bg-opacity-50 font-bold text-lg  py-3 text-center ">Búsqueda</h2>
+            <div className="bg-white bg-opacity-5  text-zinc-100 h-full ">
+              <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
+              <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
+                <nav className="bg-gray-200 py-2 px-1   ">
+                  <SearchFiltrosProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional} receivedParamsTratado={receivedParamsTratado} />
+                </nav>
+                <div className='flex flex-row bg-white flex flex-row w-full h-full'>
+                  <div className='flex flex-col flex-1 overflow-scroll h-full'>
+                    <ProfesionalesList receivedParamsTratado={receivedParamsTratado} trabajadoresProfesionales={trabajadoresProfesionales} setRenderProfesional={setRenderProfesional} />
                   </div>
-                }
-                {
-                  renderProfesional != undefined &&
-                <div className='flex-1 h-full bg-gray-100 p-5'>
-                  <Rendercomponent renderProfesional={renderProfesional} />
+                  {
+                    renderProfesional == undefined &&
+                    <div className='flex-1 flex-col h-full bg-gray-100 p-5 shadow-lg text-left w-full text-gray-500 py-8 px-24 overflow-scroll'>
+                      <p className='text-center my-12'>No se ha seleccionado ningún profesional</p>
+                    </div>
+                  }
+                  {
+                    renderProfesional != undefined &&
+                    <div className='flex-1 h-full bg-gray-100 p-5'>
+                      <Rendercomponent renderProfesional={renderProfesional} />
+                    </div>
+                  }
                 </div>
-                }
               </div>
             </div>
           </div>
+          <div className='h-full bg-white bg-opacity-5'>
+            <Banners widthProp={250} />
+          </div>
         </div>
-        <div className='h-full bg-white bg-opacity-5'>
-          <Banners widthProp={250} />
-        </div>
+        <Footer />
       </div>
-      <Footer />
+    </Providers>
 
-    </div>
   );
 };
 

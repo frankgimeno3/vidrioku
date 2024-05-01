@@ -1,12 +1,13 @@
 import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { addFiltro } from '@/redux/features/arrayFiltros';
 
-interface SidiomaProps {
-    setArrayFiltros: any;
-    arrayFiltros: any;
-}
+interface SidiomaProps { }
 
-const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [arrayRecibido, setArrayRecibido] = useState<any[]>([]);
+const Sidioma: FC<SidiomaProps> = () => {
+    const dispatch = useDispatch();
+    const arrayRecibido = useSelector((state: RootState) => state.arrayFiltros.filtros);
 
     const [isEspanolSelected, setIsEspanolSelected] = useState(false);
     const [espanolLevel, setEspanolLevel] = useState('');
@@ -35,59 +36,45 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
     const [isGallegoSelected, setIsGallegoSelected] = useState(false);
     const [gallegoLevel, setGallegoLevel] = useState('');
 
-
-    useEffect(() => {
-        setArrayRecibido(arrayFiltros);
-    }, [arrayFiltros]);
-
-    const handleSeleccionIdiomas = (objetoIdioma: string) => {
-        if (!arrayRecibido.includes(objetoIdioma)) {
-            const newArray = [...arrayRecibido, objetoIdioma];
-            setArrayRecibido(newArray);
-            setArrayFiltros(newArray);
-        }
  
+
+    const handleSeleccionIdiomas = (idioma: string, nivel: string) => {
+        const idiomaElement = `Idiomas - idioma: ${idioma}, nivel: ${nivel}`;
+        if (!arrayRecibido.includes(idiomaElement)) {
+            dispatch(addFiltro(idiomaElement));
+        }
     };
 
     useEffect(() => {
-        if (espanolLevel != '') {
-            let idiomaElement = `Idiomas - idioma: español, nivel: ${espanolLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (espanolLevel !== '') {
+            handleSeleccionIdiomas('español', espanolLevel);
         }
-        if (inglesLevel != '') {
-            let idiomaElement = `Idiomas - idioma: inglés, nivel: ${inglesLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (inglesLevel !== '') {
+            handleSeleccionIdiomas('inglés', inglesLevel);
         }
-        if (francesLevel != '') {
-            let idiomaElement = `Idiomas - idioma: francés, nivel: ${francesLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (francesLevel !== '') {
+            handleSeleccionIdiomas('francés', francesLevel);
         }
-        if (alemanLevel != '') {
-            let idiomaElement = `Idiomas - idioma: alemán, nivel: ${alemanLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (portuguesLevel !== '') {
+            handleSeleccionIdiomas('portugués', portuguesLevel);
         }
-        if (portuguesLevel != '') {
-            let idiomaElement = `Idiomas - idioma: portugués, nivel: ${portuguesLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (alemanLevel !== '') {
+            handleSeleccionIdiomas('alemán', alemanLevel);
         }
-        if (arabeLevel != '') {
-            let idiomaElement = `Idiomas - idioma: árabe, nivel: ${arabeLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (arabeLevel !== '') {
+            handleSeleccionIdiomas('árabe', arabeLevel);
         }
-        if (catalanValencianoLevel != '') {
-            let idiomaElement = `Idiomas - idioma: catalán/valenciano, nivel: ${catalanValencianoLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (catalanValencianoLevel !== '') {
+            handleSeleccionIdiomas('catalán/valenciano', catalanValencianoLevel);
         }
-        if (vascoLevel != '') {
-            let idiomaElement = `Idiomas - idioma: vasco, nivel: ${vascoLevel}`
-            handleSeleccionIdiomas(idiomaElement)
+        if (vascoLevel !== '') {
+            handleSeleccionIdiomas('vasco', vascoLevel);
         }
-        if (gallegoLevel != '') {
-            let idiomaElement = `Idiomas - idioma: gallego, nivel: ${gallegoLevel}`  
-            handleSeleccionIdiomas(idiomaElement)
+        if (gallegoLevel !== '') {
+            handleSeleccionIdiomas('gallego', gallegoLevel);
         }
-
     }, [espanolLevel, inglesLevel, francesLevel, portuguesLevel, alemanLevel, arabeLevel, catalanValencianoLevel, vascoLevel, gallegoLevel]);
+
 
     return (
         <div className='flex flex-col'>
@@ -100,6 +87,21 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
                         <div className='flex flex-row  items-center text-sm ml-12 my-3'>
                             <p>Nivel:</p>
                             <select className='ml-2 h-8 p-1 text-sm' value={espanolLevel} onChange={(e) => setEspanolLevel(e.target.value)} >
+                                <option value="Nativo">Nativo</option>
+                                <option value="Alto">Alto</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Principiante">Principiante</option>
+                            </select>
+                        </div>
+                    }
+                </div>
+                <div className='flex flex-row items-center'>
+                    <input type="checkbox" id="Ingles" className="mr-2" onChange={() => setIsInglesSelected(!isInglesSelected)} checked={isInglesSelected} />
+                    <label htmlFor="Ingles">Inglés</label>
+                    {isInglesSelected &&
+                        <div className='flex flex-row  items-center text-sm ml-12 my-3'>
+                            <p>Nivel:</p>
+                            <select className='ml-2 h-8 p-1 text-sm' value={inglesLevel} onChange={(e) => setInglesLevel(e.target.value)} >
                                 <option value="Nativo">Nativo</option>
                                 <option value="Alto">Alto</option>
                                 <option value="Medio">Medio</option>
@@ -123,22 +125,6 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
                         </div>
                     }
                 </div>
-
-                <div className='flex flex-row items-center'>
-                    <input type="checkbox" id="Ingles" className="mr-2" onChange={() => setIsInglesSelected(!isInglesSelected)} checked={isInglesSelected} />
-                    <label htmlFor="Ingles">Inglés</label>
-                    {isInglesSelected &&
-                        <div className='flex flex-row  items-center text-sm ml-12 my-3'>
-                            <p>Nivel:</p>
-                            <select className='ml-2 h-8 p-1 text-sm' value={inglesLevel} onChange={(e) => setInglesLevel(e.target.value)} >
-                                <option value="Nativo">Nativo</option>
-                                <option value="Alto">Alto</option>
-                                <option value="Medio">Medio</option>
-                                <option value="Principiante">Principiante</option>
-                            </select>
-                        </div>
-                    }
-                </div>
                 <div className='flex flex-row items-center'>
                     <input type="checkbox" id="Portugues" className="mr-2" onChange={() => setIsPortuguesSelected(!isPortuguesSelected)} checked={isPortuguesSelected} />
                     <label htmlFor="Portugues">Portugués</label>
@@ -154,7 +140,6 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
                         </div>
                     }
                 </div>
-
                 <div className='flex flex-row items-center'>
                     <input type="checkbox" id="Aleman" className="mr-2" onChange={() => setIsAlemanSelected(!isAlemanSelected)} checked={isAlemanSelected} />
                     <label htmlFor="Aleman">Alemán</label>
@@ -232,9 +217,7 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
                             </select>
                         </div>
                     }
-                </div>
-
-            </div>
+                </div>        </div>
         </div>
     );
 };

@@ -1,17 +1,13 @@
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción adecuada desde tu slice
 
-interface SPaisProps {
-    setArrayFiltros: any;
-    arrayFiltros: any;
-}
+interface SPaisProps {}
 
-const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
-
-    useEffect(() => {
-        setArrayRecibido(arrayFiltros);
-    }, [arrayFiltros]);
+const SPais: FC<SPaisProps> = () => {
+    const dispatch = useDispatch();
+    const arrayRecibido = useSelector((state: RootState) => state.arrayFiltros.filtros);
 
     const paisesLatam = [
         'Argentina',
@@ -45,9 +41,7 @@ const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
     const handleSeleccionPais = (pais: string) => {
         if (!arrayRecibido.includes(pais)) {
-            const newArray = [...arrayRecibido, `Pais - ${pais}`];
-            setArrayRecibido(newArray);
-            setArrayFiltros(newArray);
+            dispatch(addFiltro(`Pais - ${pais}`)); // Usa la acción addFiltro para agregar el filtro
         }
     };
 

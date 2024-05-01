@@ -1,23 +1,16 @@
-
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción adecuada desde tu slice
 
-interface SpermisoProps {
-    setArrayFiltros: any;
-    arrayFiltros:any
-}
+interface SpermisoProps {}
 
-
-const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
-
-    useEffect(() => {
-        setArrayRecibido(arrayFiltros);
-    }, [arrayFiltros]);
-
+const Spermiso: FC<SpermisoProps> = () => {
+    const dispatch = useDispatch();
+    const arrayRecibido = useSelector((state: RootState) => state.arrayFiltros.filtros);
 
     const [isChecked, setChecked] = useState(false);
-    const [permiso, setPermiso] = useState(false)
+    const [permiso, setPermiso] = useState(false);
 
     useEffect(() => {
         setChecked(permiso || false);
@@ -29,25 +22,26 @@ const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
         setPermiso(newChecked);
     };
 
-
     const handleIsPermisoRequerido = () => {
         if (!arrayRecibido.includes("Carnet de conducir - Requerido")) {
-            const newArray = [...arrayRecibido, "Carnet de conducir - Requerido"];
-            setArrayRecibido(newArray);
-            setArrayFiltros(newArray)
+            dispatch(addFiltro("Carnet de conducir - Requerido")); // Usa la acción addFiltro para agregar el filtro
         }
     };
     
     const handleQuitarPermisoRequerido = () => {
         if (arrayRecibido.includes("Carnet de conducir - Requerido")) {
             const newArray = arrayRecibido.filter(item => item !== "Carnet de conducir - Requerido");
-            setArrayRecibido(newArray);
-            setArrayFiltros(newArray);
+            // Aquí normalmente deberías tener una acción para eliminar el filtro, pero parece que no lo tienes implementado en tu slice
+            // dispatch(removeFiltro("Carnet de conducir - Requerido")); // Usa la acción removeFiltro para eliminar el filtro
         }
     };
+
     useEffect(() => {
-        if (permiso==true) {handleIsPermisoRequerido()}
-        if (permiso==false) {handleQuitarPermisoRequerido()}
+        if (permiso) {
+            handleIsPermisoRequerido();
+        } else {
+            handleQuitarPermisoRequerido();
+        }
     }, [permiso]);
 
     return (
