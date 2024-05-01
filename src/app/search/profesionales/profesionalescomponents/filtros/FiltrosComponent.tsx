@@ -74,7 +74,7 @@ const FiltrosComponent: FC<FiltrosComponentFiltrosProps> = ({ setArrayFiltros, a
             <SeleccionFiltros arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} />
 
             <p className="mt-3">Filtros Aplicados</p>
-            <FiltrosAplicados arrayFiltros={filtrosRecibidos} setArrayFiltros={setArrayFiltros} receivedParamsTratado={receivedParamsTratado} />
+            <FiltrosAplicados  receivedParamsTratado={receivedParamsTratado} />
 
             {filtrosRecibidos.length > 0 && (
                 <div className="mt-3 flex flex-row">

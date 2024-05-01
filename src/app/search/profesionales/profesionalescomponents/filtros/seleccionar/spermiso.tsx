@@ -1,16 +1,23 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { addFiltro } from '@/redux/features/arrayFiltros'; 
+import { addFiltro, removeFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SpermisoProps {}
 
 const Spermiso: FC<SpermisoProps> = () => {
     const dispatch = useDispatch();
-    const arrayRecibido = useSelector((state: RootState) => state.arrayFiltros.filtros);
+    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
+
+    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
+
+    useEffect(() => {
+        setArrayRecibido(arrayFiltros);
+    }, [arrayFiltros]);
+
 
     const [isChecked, setChecked] = useState(false);
-    const [permiso, setPermiso] = useState(false);
+    const [permiso, setPermiso] = useState(false)
 
     useEffect(() => {
         setChecked(permiso || false);
@@ -22,28 +29,28 @@ const Spermiso: FC<SpermisoProps> = () => {
         setPermiso(newChecked);
     };
 
+
     const handleIsPermisoRequerido = () => {
-        if (!arrayRecibido.includes("Carnet de conducir - Requerido")) {
-            dispatch(addFiltro("Carnet de conducir - Requerido")); 
+        const permisoElement = "Carnet de conducir - Requerido";
+        if (!arrayRecibido.includes(permisoElement)) {
+            const newArray = [...arrayRecibido, permisoElement];
+            setArrayRecibido(newArray);
+            dispatch(addFiltro(permisoElement));  
         }
     };
     
     const handleQuitarPermisoRequerido = () => {
-        if (arrayRecibido.includes("Carnet de conducir - Requerido")) {
-            const newArray = arrayRecibido.filter(item => item !== "Carnet de conducir - Requerido");
-            // Aquí normalmente deberías tener una acción para eliminar el filtro, pero parece que no lo tienes implementado en tu slice
-            // dispatch(removeFiltro("Carnet de conducir - Requerido")); // Usa la acción removeFiltro para eliminar el filtro
+        const permisoElement = "Carnet de conducir - Requerido";
+        if (arrayRecibido.includes(permisoElement)) {
+            const newArray = arrayRecibido.filter(item => item !== permisoElement);
+            setArrayRecibido(newArray);
+            dispatch(removeFiltro(permisoElement)); 
         }
     };
-
     useEffect(() => {
-        if (permiso) {
-            handleIsPermisoRequerido();
-        } else {
-            handleQuitarPermisoRequerido();
-        }
+        if (permiso == true) { handleIsPermisoRequerido() }
+        if (permiso == false) { handleQuitarPermisoRequerido() }
     }, [permiso]);
-
     return (
         <div className='flex flex-row justify-left items-center '>
             <p>Mostrar únicamente profesionales con permiso de conducción?</p>

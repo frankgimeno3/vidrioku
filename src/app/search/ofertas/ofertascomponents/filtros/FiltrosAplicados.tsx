@@ -5,7 +5,7 @@ import { RootState } from '@/redux/store';
 import { removeFiltro } from '@/redux/features/arrayFiltros';
 
 interface FiltrosAplicadosProps {
-    receivedParamsTratado: any; // Asumiendo que esta es la lista de parámetros recibidos que necesitas mostrar
+    receivedParamsTratado: any;  
 }
 
 const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ receivedParamsTratado }) => {
@@ -14,11 +14,10 @@ const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ receivedParamsTratado }) 
     const router = useRouter();
 
     useEffect(() => {
-        console.log("receivedParamsTratado: ", receivedParamsTratado)
-    }, [receivedParamsTratado])
+     }, [receivedParamsTratado])
 
     const eliminarFiltro = (filtro: string) => {
-        dispatch(removeFiltro(filtro)); // Utiliza la acción removeFiltro para eliminar un filtro
+        dispatch(removeFiltro(filtro));  
     }
 
     const reloadWindow = () => {

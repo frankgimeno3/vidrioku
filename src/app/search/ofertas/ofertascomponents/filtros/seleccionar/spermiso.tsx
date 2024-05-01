@@ -36,7 +36,7 @@ const Spermiso: FC<SpermisoProps> = () => {
         if (!arrayRecibido.includes(permisoElement)) {
             const newArray = [...arrayRecibido, permisoElement];
             setArrayRecibido(newArray);
-            dispatch(addFiltro(permisoElement)); // Utiliza la acción addFiltro para agregar un filtro
+            dispatch(addFiltro(permisoElement));  
         }
     };
     
