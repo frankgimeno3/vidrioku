@@ -15,25 +15,31 @@ interface SposicionProps {}
 
 const Sposicion: FC<SposicionProps> = () => {
     const dispatch = useDispatch();
-    const arrayRecibido = useSelector((state: RootState) => state.arrayFiltros.filtros);
+    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
 
     const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState('');
     const [posicionSeleccionada, setPosicionSeleccionada] = useState('');
+    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
 
     useEffect(() => {
-        setDepartamentoSeleccionado('');
-    }, [arrayRecibido]);
+        setArrayRecibido(arrayFiltros);
+    }, [arrayFiltros]);
 
     const selectDepartamento = (departamento: string) => {
         setDepartamentoSeleccionado(departamento);
     };
 
+    useEffect(() => {
+        handleAddPosicion(posicionSeleccionada);
+    }, [posicionSeleccionada]);
+
     const handleAddPosicion = (posicion: string) => {
         if (!arrayRecibido.includes(posicion) && posicion !== '') {
-            dispatch(addFiltro(`Posicion - ${posicion}`));  
+            const newArray = [...arrayRecibido, `Posicion - ${posicion}`];
+            setArrayRecibido(newArray);
+            dispatch(addFiltro(`Posicion - ${posicion}`)); 
         }
     };
-
     return (
         <div className='flex flex-col'>
             <p className='my-3'>Filtrar según el departamento para el que profesional ha trabajado o estudiado</p>
