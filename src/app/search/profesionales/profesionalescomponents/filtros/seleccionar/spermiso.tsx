@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción adecuada desde tu slice
+import { addFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SpermisoProps {}
 
@@ -24,7 +24,7 @@ const Spermiso: FC<SpermisoProps> = () => {
 
     const handleIsPermisoRequerido = () => {
         if (!arrayRecibido.includes("Carnet de conducir - Requerido")) {
-            dispatch(addFiltro("Carnet de conducir - Requerido")); // Usa la acción addFiltro para agregar el filtro
+            dispatch(addFiltro("Carnet de conducir - Requerido")); 
         }
     };
     

@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción para agregar un filtro
+import { RootState } from '@/redux/store'; 
+import { addFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SJornadaProps {
-    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
 const SJornada: FC<SJornadaProps> = () => {
@@ -22,7 +21,7 @@ const SJornada: FC<SJornadaProps> = () => {
         if (!arrayRecibido.includes(jornadaElement)) {
             const newArray = [...arrayRecibido, jornadaElement];
             setArrayRecibido(newArray);
-            dispatch(addFiltro(jornadaElement)); // Utiliza la acción addFiltro para agregar un filtro
+            dispatch(addFiltro(jornadaElement)); 
         }
     };
 

@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción para agregar un filtro
+import { RootState } from '@/redux/store'; 
+import { addFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SidiomaProps {
-    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
 const Sidioma: FC<SidiomaProps> = () => {

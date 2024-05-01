@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción adecuada desde tu slice
+import { addFiltro } from '@/redux/features/arrayFiltros';  
 
 import Comercial from './seleccionarPosicion/comercial';
 import Mantenimiento from './seleccionarPosicion/mantenimiento';
@@ -30,7 +30,7 @@ const Sposicion: FC<SposicionProps> = () => {
 
     const handleAddPosicion = (posicion: string) => {
         if (!arrayRecibido.includes(posicion) && posicion !== '') {
-            dispatch(addFiltro(`Posicion - ${posicion}`)); // Usa la acción addFiltro para agregar un filtro
+            dispatch(addFiltro(`Posicion - ${posicion}`));  
         }
     };
 

@@ -1,10 +1,9 @@
 import { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción para agregar un filtro
+import { RootState } from '@/redux/store'; 
+import { addFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SActividadEmpresaProps {
-    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
 const SActividadEmpresa: FC<SActividadEmpresaProps> = () => {
@@ -25,14 +24,14 @@ const SActividadEmpresa: FC<SActividadEmpresaProps> = () => {
                     onClick={() => handleSeleccionActividad('Actividad - Cristalerías')}
                 >Cristalerías</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
-                    onClick={() => handleSeleccionActividad('Actividad - Departamentos de compras o aprovisionamiento')}
+                    onClick={() => handleSeleccionActividad('Actividad - Almacenistas de vidrio')}
                 >Almacenistas de vidrio</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
                     onClick={() => handleSeleccionActividad('Actividad - Transformación y tratamiento de vidrio')}
-                >Departamento técnico o de ingeniería</button>
+                >Transformación y tratamiento de vidrio</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
                     onClick={() => handleSeleccionActividad('Actividad - Fabricante de maquinaria para el sector del vidrio y acristalamientos')}
-                >Operario en fabricación o instalación en el sector del vidrio</button>
+                >Fabricante de maquinaria para el sector del vidrio y acristalamientos</button>
                 <button className='text-sm  bg-white flex-1 px-5  mx-1 rounded shadow py-2'
                     onClick={() => handleSeleccionActividad('Actividad - Fabricante de suministros para manufactura de vidrio y acristalamientos')}
                 >Fabricante de suministros para manufactura de vidrio y acristalamientos</button>

@@ -11,7 +11,6 @@ import Operario from './seleccionarPosicion/operario';
 import Logistica from './seleccionarPosicion/logistica';
 
 interface SposicionProps {
-    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
 const Sposicion: FC<SposicionProps> = () => {
@@ -38,7 +37,7 @@ const Sposicion: FC<SposicionProps> = () => {
         if (!arrayRecibido.includes(posicion) && posicion !== '') {
             const newArray = [...arrayRecibido, `Posicion - ${posicion}`];
             setArrayRecibido(newArray);
-            dispatch(addFiltro(`Posicion - ${posicion}`)); // Utiliza la acción addFiltro para agregar un filtro
+            dispatch(addFiltro(`Posicion - ${posicion}`)); 
         }
     };
 

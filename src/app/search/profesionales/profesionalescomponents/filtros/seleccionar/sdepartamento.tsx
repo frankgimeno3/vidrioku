@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción para agregar un filtro
+import { RootState } from '@/redux/store'; 
+import { addFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SdepartamentoProps {
-    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
 const Sdepartamento: FC<SdepartamentoProps> = () => {
@@ -21,7 +20,7 @@ const Sdepartamento: FC<SdepartamentoProps> = () => {
         if (!arrayRecibido.includes(departamento)) {
             const newArray = [...arrayRecibido, departamento];
             setArrayRecibido(newArray);
-            dispatch(addFiltro(departamento)); // Utiliza la acción addFiltro para agregar un filtro
+            dispatch(addFiltro(departamento)); 
         }
     };
 

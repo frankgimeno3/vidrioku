@@ -36,7 +36,7 @@ const Sidioma: FC<SidiomaProps> = () => {
     const [isGallegoSelected, setIsGallegoSelected] = useState(false);
     const [gallegoLevel, setGallegoLevel] = useState('');
 
- 
+
 
     const handleSeleccionIdiomas = (idioma: string, nivel: string) => {
         const idiomaElement = `Idiomas - idioma: ${idioma}, nivel: ${nivel}`;
@@ -217,7 +217,8 @@ const Sidioma: FC<SidiomaProps> = () => {
                             </select>
                         </div>
                     }
-                </div>        </div>
+                </div>
+            </div>
         </div>
     );
 };

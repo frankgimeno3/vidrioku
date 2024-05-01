@@ -1,8 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción adecuada desde tu slice
-
+import { addFiltro } from '@/redux/features/arrayFiltros';
 interface SPaisProps {}
 
 const SPais: FC<SPaisProps> = () => {
@@ -41,7 +40,7 @@ const SPais: FC<SPaisProps> = () => {
 
     const handleSeleccionPais = (pais: string) => {
         if (!arrayRecibido.includes(pais)) {
-            dispatch(addFiltro(`Pais - ${pais}`)); // Usa la acción addFiltro para agregar el filtro
+            dispatch(addFiltro(`Pais - ${pais}`)); 
         }
     };
 

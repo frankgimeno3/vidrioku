@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
-import { addFiltro } from '@/redux/features/arrayFiltros'; // Importa la acción para agregar un filtro
+import { RootState } from '@/redux/store'; 
+import { addFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SPaisProps {
-    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
 const SPais: FC<SPaisProps> = () => {
@@ -52,7 +51,7 @@ const SPais: FC<SPaisProps> = () => {
         if (!arrayRecibido.includes(paisElement)) {
             const newArray = [...arrayRecibido, paisElement];
             setArrayRecibido(newArray);
-            dispatch(addFiltro(paisElement)); // Utiliza la acción addFiltro para agregar un filtro
+            dispatch(addFiltro(paisElement)); 
         }
     };
 

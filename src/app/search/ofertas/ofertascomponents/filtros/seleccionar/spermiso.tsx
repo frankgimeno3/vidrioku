@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; // Asegúrate de importar el tipo RootState desde tu archivo store
-import { addFiltro, removeFiltro } from '@/redux/features/arrayFiltros'; // Importa las acciones para agregar y quitar un filtro
+import { RootState } from '@/redux/store'; 
+import { addFiltro, removeFiltro } from '@/redux/features/arrayFiltros'; 
 
 interface SpermisoProps {
-    // No necesitas setArrayFiltros y arrayFiltros aquí
 }
 
 const Spermiso: FC<SpermisoProps> = () => {
@@ -46,7 +45,7 @@ const Spermiso: FC<SpermisoProps> = () => {
         if (arrayRecibido.includes(permisoElement)) {
             const newArray = arrayRecibido.filter(item => item !== permisoElement);
             setArrayRecibido(newArray);
-            dispatch(removeFiltro(permisoElement)); // Utiliza la acción removeFiltro para quitar un filtro
+            dispatch(removeFiltro(permisoElement)); 
         }
     };
     useEffect(() => {
