@@ -1,17 +1,17 @@
 "use client"
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { redirect, useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { redirect } from 'next/navigation';
 import Navbar from '../components/Navbar';
-import { signOut, useSession } from 'next-auth/react';
-
+import { useSession } from 'next-auth/react';
 import ChatList from "./components/ChatList"
 import Chatcontent from "./components/Chatcontent"
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
-
+import { updateUser, selectUser } from '@/redux/features/userSlice';
+import { Providers } from '@/redux/provider';
 
 interface User {
   id: any
@@ -23,14 +23,11 @@ interface User {
   userEmail: string;
   conversations: any
 }
-const Mensajes: FC = ({ }) => {
-  const router = useRouter();
+
+const Mensajes: FC = () => {
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState('');
-  const [user, setUser] = useState<User>();
-  const [userId, setUserId] = useState()
-
-  const [conversationChosen, setConversationChosen] = useState()
-
+  const user = useSelector(selectUser); // Obtener el usuario del userSlice
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -46,7 +43,6 @@ const Mensajes: FC = ({ }) => {
     }
   }, [session?.data?.user?.email]);
 
-  //obtenemos datos de nuestro usuario
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {
@@ -54,39 +50,34 @@ const Mensajes: FC = ({ }) => {
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
-          setUser(myUserData);
+          dispatch(updateUser(myUserData));
         }
       }
     };
     fetchDoc();
-  }, [userData]);
+  }, [userData, dispatch]);
 
   useEffect(() => {
-    const fetchDoc = async () => {
-      if (user) {
-        setUserId(user.id)
-      }
-    };
-
-    fetchDoc();
+    console.log("ESTE ES EL ESTADO GUARDADO EN REDUX:", user); // Imprimir el estado guardado en Redux
   }, [user]);
 
-
   return (
-    <div className=' h-screen '>
-      <Navbar />
-      <div className="flex flex-col h-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
-        <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
-        <div className='flex flex-row min-h-screen'>
-          <ChatList user={user} />
-          <Chatcontent />
-          <div className='h-full bg-white bg-opacity-5'>
-            <Banners widthProp={250} />
+    <Providers >
+      <div className=' h-screen '>
+        <Navbar />
+        <div className="flex flex-col h-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
+          <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
+          <div className='flex flex-row min-h-screen'>
+            <ChatList user={user} />
+            <Chatcontent />
+            <div className='h-full bg-white bg-opacity-5'>
+              <Banners widthProp={250} />
+            </div>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </Providers>
   );
 };
 

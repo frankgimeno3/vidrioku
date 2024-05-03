@@ -15,6 +15,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    
     <html lang="en" className="h-full  ">
       <head>
         <link rel="icon" href="/logos/4.png" sizes="any" />
