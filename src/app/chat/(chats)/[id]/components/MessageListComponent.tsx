@@ -1,34 +1,37 @@
-import React, { FC, useEffect, useState } from 'react'
-import Image
-  from 'next/image'
+import React, { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
+import { selectUser } from '@/redux/features/userSlice';
 
 interface MessageListComponentProps {
   conversation: any;
-  user: any;
-  paramsId:any;
+  paramsId: any;
 }
+
 interface User {
-  id: any
+  id: any;
   apellidos: string;
   edad: number;
   genero: string;
   nombre: string;
   ubi: string;
   userEmail: string;
-  conversations: any
+  conversations: any;
 }
+
 interface Conversation {
-  colaborador1: any
-  colaborador2: any
-  conversationId: any
-  lastMessageSeenC1: any
-  lastMessageSeenc2: any
-  lastMessageSent: any
-  messagesArray: any
+  colaborador1: any;
+  colaborador2: any;
+  conversationId: any;
+  lastMessageSeenC1: any;
+  lastMessageSeenc2: any;
+  lastMessageSent: any;
+  messagesArray: any;
 }
+
 interface Mensaje {
   content: any;
   conversationId: any;
@@ -40,21 +43,21 @@ interface Mensaje {
   sent: any;
 }
 
+const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, paramsId }) => {
+  const router = useRouter();
+  const user = useSelector(selectUser);
 
-const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, user, paramsId }) => {
-  const router = useRouter()
-  const [interlocutor, setInterlocutor] = useState<any>()
-  const [conversationData, setConversationData] = useState<any>()
-  const [messagesArray, setMessagesArray] = useState<any>()
-  const [lastMessage, setLastMessage] = useState<any>()
-  const [contenidoUltimo, setContenidoUltimo] = useState<any>()
-  const [conversationId, setConversationId] = useState<any>()
-  const [interlocutorId, setInterlocutorId] = useState<any>()
-  const [quienSomos, setQuienSomos] = useState<any>()
-  const [isMessageSeen, setIsMessageSeen] = useState<any>(true)
-  const [messageCode, setMessageCode] = useState<any>()
+  const [interlocutor, setInterlocutor] = useState<any>();
+  const [conversationData, setConversationData] = useState<any>();
+  const [messagesArray, setMessagesArray] = useState<any>();
+  const [lastMessage, setLastMessage] = useState<any>();
+  const [contenidoUltimo, setContenidoUltimo] = useState<any>();
+  const [conversationId, setConversationId] = useState<any>();
+  const [interlocutorId, setInterlocutorId] = useState<any>();
+  const [quienSomos, setQuienSomos] = useState<any>();
+  const [isMessageSeen, setIsMessageSeen] = useState<any>(true);
+  const [messageCode, setMessageCode] = useState<any>();
   const [backgroundCode, setBackgroundCode] = useState('white');
-  
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -70,38 +73,37 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
     fetchDoc();
   }, [conversation]);
 
-
   useEffect(() => {
     const fetchDoc = async () => {
-      if (conversationData) {
-        if (conversationData.colaborador2 == user.id) {
-          setInterlocutorId(conversationData.colaborador1)
-          setQuienSomos('colaborador2')
-          if (conversationData.lastMessageSeenc2 == false) { setIsMessageSeen(false) }
-          else { setIsMessageSeen(true) }
+      if (conversationData && user) {
+        if (conversationData.colaborador2 === user.id) {
+          setInterlocutorId(conversationData.colaborador1);
+          setQuienSomos('colaborador2');
+          if (conversationData.lastMessageSeenc2 === false) { setIsMessageSeen(false); }
+          else { setIsMessageSeen(true); }
         }
-        if (conversationData.colaborador2 != user.id) {
-          setInterlocutorId(conversationData.colaborador2)
-          setQuienSomos('colaborador1')
-          if (conversationData.lastMessageSeenc1 == false) { setIsMessageSeen(false) }
-          else { setIsMessageSeen(true) }
+        if (conversationData.colaborador2 !== user.id) {
+          setInterlocutorId(conversationData.colaborador2);
+          setQuienSomos('colaborador1');
+          if (conversationData.lastMessageSeenc1 === false) { setIsMessageSeen(false); }
+          else { setIsMessageSeen(true); }
         }
       }
     };
-
     fetchDoc();
-  }, [conversationData]);
+  }, [conversationData, user]);
+  
 
   useEffect(() => {
-    if(paramsId==messageCode){
-      setBackgroundCode('bg-blue-800 bg-opacity-10 hover:bg-opacity-20')
+    if (paramsId == messageCode) {
+      setBackgroundCode('bg-blue-800 bg-opacity-10 hover:bg-opacity-20');
     } else {
       if (isMessageSeen) {
-      setBackgroundCode('bg-white bg-opacity-10 hover:bg-opacity-20');
-    } else {
-      setBackgroundCode('bg-sky-500 bg-opacity-50 hover:bg-opacity-60');
-    }}
-    
+        setBackgroundCode('bg-white bg-opacity-10 hover:bg-opacity-20');
+      } else {
+        setBackgroundCode('bg-sky-500 bg-opacity-50 hover:bg-opacity-60');
+      }
+    }
   }, [isMessageSeen, paramsId, messageCode]);
 
   useEffect(() => {
@@ -119,20 +121,23 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
   }, [interlocutorId]);
 
   useEffect(() => {
-    if (conversationData) { setMessagesArray(conversationData.messagesArray) }
+    if (conversationData) {
+      setMessagesArray(conversationData.messagesArray);
+    }
   }, [conversationData]);
 
   useEffect(() => {
     if (messagesArray) {
       const ultimo = conversationData.messagesArray[conversationData.messagesArray.length - 1];
-      setLastMessage(ultimo)
+      setLastMessage(ultimo);
     }
   }, [messagesArray]);
 
   useEffect(() => {
-    if (conversationData) { setConversationId(conversationData.conversacion) }
+    if (conversationData) {
+      setConversationId(conversationData.conversacion);
+    }
   }, [conversationData]);
-
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -142,15 +147,12 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
         if (response.exists()) {
           const MensajeData = response.data() as Mensaje;
           setContenidoUltimo(MensajeData);
-          console.log("messagedata:", MensajeData)
-          setMessageCode( MensajeData.conversationId)
+          setMessageCode(MensajeData.conversationId);
         }
       }
     };
-
     fetchDoc();
   }, [lastMessage]);
-
 
   const changeReadState = async (lastMessageSeenC1: any, lastMessageSeenc2: any, quienSomos: any) => {
     try {
@@ -159,7 +161,6 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
 
       if (userDoc.exists()) {
         const userData = userDoc.data();
-
 
         if (quienSomos == 'colaborador1') {
           const updatedData = {
@@ -190,46 +191,41 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, use
           });
         }
       } else {
-        console.error('El documento de la conversación');
+        console.error('El documento de la conversación no existe');
       }
     } catch (error) {
-      console.error('Error al crear marcar mensaje como leído:', error);
+      console.error('Error al marcar mensaje como leído:', error);
     }
   };
 
-
   const clickOnChat = () => {
-    router.push(`/chat/${conversationId}`)
-    changeReadState(conversationData.lastMessageSeenC1, conversationData.lastMessageSeenc2, quienSomos)
-    // quitarDeArrayDeMensajesNoLeidos()
-    // quitarDeNotificacionesUnread()
-  }
-
+    router.push(`/chat/${conversationId}`);
+    changeReadState(conversationData.lastMessageSeenC1, conversationData.lastMessageSeenc2, quienSomos);
+  };
 
   return (
     <div
-      className={`flex flex-row mx-6 pb-3 ${backgroundCode}   text-zinc-100 rounded-lg my-1`}
+      className={`flex flex-row mx-6 pb-3 ${backgroundCode} text-zinc-100 rounded-lg my-1`}
       onClick={clickOnChat}>
       <div>
         <Image
           src={interlocutor?.profilepicture || "/icons/empty-user-profile.png"}
-          alt="ing1"
+          alt="Perfil del interlocutor"
           width={100}
           height={100}
-          className=" shadow-lg rounded-full flex-1 mt-3 ml-3"
+          className="shadow-lg rounded-full flex-1 mt-3 ml-3"
         />
       </div>
 
-      <div className='flex flex-col px-3 flex-3  w-full ml-5'>
-        <h2 className='text-right  pt-2 text-gray-400 text-sm'>{interlocutor?.nombre} {interlocutor?.apellidos}</h2>
+      <div className='flex flex-col px-3 flex-3 w-full ml-5'>
+        <h2 className='text-right pt-2 text-gray-400 text-sm'>{interlocutor?.nombre} {interlocutor?.apellidos}</h2>
 
         <div className='flex flex-col'></div>
         <p className='font font-medium mt-4'>Último mensaje de la conversación:</p>
         <p className='mt-1 text-sm mx-10'>''{contenidoUltimo?.content}''</p>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default MessageListComponent
+export default MessageListComponent;

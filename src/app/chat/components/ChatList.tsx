@@ -24,19 +24,23 @@ const ChatList: FC<ChatListProps> = ({}) => {
   }, [user]);
 
   useEffect(() => {
-    if (conversationsArray?.length !== 0) {
-      conversationsArray?.forEach(async (elemento) => {
-        if (elemento != '' && elemento != "") {
+    console.log("conversations array: ", conversationsArray);
+    if (conversationsArray.length !== 0) {
+      Promise.all(conversationsArray.map(async (elemento) => {
+        if (elemento !== '' && elemento !== "") {
           const docRef = doc(db, "conversations", elemento);
           const response = await getDoc(docRef);
           if (response.exists()) {
-            const conversationDataObject = response.data();
-            setConversationsObjectArray((prevArray: any) => [...prevArray, conversationDataObject]);
+            return response.data(); 
           }
         }
+      })).then((conversationDataArray) => {
+        conversationDataArray = conversationDataArray.filter((conversationData) => conversationData);
+        setConversationsObjectArray(conversationDataArray);
+        setNoMessages(conversationDataArray.length === 0); 
       });
-      setNoMessages(false);
     } else {
+      setConversationsObjectArray([]);
       setNoMessages(true);
     }
   }, [conversationsArray]);

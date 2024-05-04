@@ -1,28 +1,20 @@
 import React, { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import MessageListComponent from './MessageListComponent';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
-
-interface User {
-  id: any;
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any;
-}
+import { selectUser } from '@/redux/features/userSlice';
 
 interface ChatListProps {
-  user: any;
-  paramsId:any;
- }
+  paramsId: any;
+}
 
-const ChatList: FC<ChatListProps> = ({ user, paramsId }) => {
+const ChatList: FC<ChatListProps> = ({ paramsId }) => {
+  const user = useSelector(selectUser);
+
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
   const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
-  const [noMessages, setNoMessages] = useState(true)
+  const [noMessages, setNoMessages] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -34,33 +26,37 @@ const ChatList: FC<ChatListProps> = ({ user, paramsId }) => {
 
   useEffect(() => {
     if (conversationsArray.length !== 0) {
-      conversationsArray.forEach(async (elemento) => {
-        if (elemento != '' && elemento != "") {
+      Promise.all(conversationsArray.map(async (elemento) => {
+        if (elemento !== '' && elemento !== "") {
           const docRef = doc(db, "conversations", elemento);
-           const response = await getDoc(docRef);
+          const response = await getDoc(docRef);
           if (response.exists()) {
-            const conversationDataObject = response.data();
-            setConversationsObjectArray((prevArray: any) => [...prevArray, conversationDataObject]);
+            return response.data(); 
           }
         }
+      })).then((conversationDataArray) => {
+        conversationDataArray = conversationDataArray.filter((conversationData) => conversationData);
+        setConversationsObjectArray(conversationDataArray);
+        setNoMessages(conversationDataArray.length === 0);  
       });
-      setNoMessages(false)
     } else {
-      setNoMessages(true)
-    }  }, [conversationsArray]);
-  
+      setConversationsObjectArray([]);
+      setNoMessages(true);
+    }
+  }, [conversationsArray]);
+
   return (
     <div className="my-3 flex flex-1 flex-col w-full">
-            {noMessages &&
+      {noMessages &&
         <div className='flex flex-row mx-6 pb-3  text-zinc-100 rounded-lg my-1'>
-             <p className='font font-medium mt-4 px-3 flex-3  w-full ml-5'>No se encontraron mensajes</p>
-         </div>
+          <p className='font font-medium mt-4 px-3 flex-3  w-full ml-5'>No se encontraron mensajes</p>
+        </div>
       }
       {conversationsObjectArray.map((elemento: any, index: any) => (
-        <MessageListComponent key={index} conversation={elemento.conversacion} user={user} paramsId={paramsId}/>
+        <MessageListComponent key={index} conversation={elemento.conversacion} paramsId={paramsId} />
       ))}
     </div>
-    );
+  );
 };
 
 export default ChatList;
