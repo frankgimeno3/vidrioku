@@ -67,7 +67,7 @@ const Chat: FC = () => {
         <div className="flex flex-col h-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
           <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Mensajes</h2>
           <div className='flex flex-row min-h-screen'>
-            <ChatList user={user} />
+            <ChatList />
             <Chatcontent />
             <div className='h-full bg-white bg-opacity-5'>
               <Banners widthProp={250} />

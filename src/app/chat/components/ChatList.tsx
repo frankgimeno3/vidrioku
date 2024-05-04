@@ -1,27 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
-import MessageListComponent from './MessageListComponent';
+import { useSelector } from 'react-redux';  
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
+import MessageListComponent from './MessageListComponent';
+import { selectUser } from '@/redux/features/userSlice'; 
+ 
 
-interface User {
-  id: any;
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any;
-}
+interface ChatListProps {}
 
-interface ChatListProps {
-  user: any;
-}
-
-const ChatList: FC<ChatListProps> = ({ user }) => {
+const ChatList: FC<ChatListProps> = ({}) => {
+  const user = useSelector(selectUser); 
+  
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
   const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
-  const [noMessages, setNoMessages] = useState(true)
+  const [noMessages, setNoMessages] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -32,12 +24,10 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log("conv array: ", conversationsArray)
     if (conversationsArray?.length !== 0) {
       conversationsArray?.forEach(async (elemento) => {
         if (elemento != '' && elemento != "") {
           const docRef = doc(db, "conversations", elemento);
-          console.log(elemento)
           const response = await getDoc(docRef);
           if (response.exists()) {
             const conversationDataObject = response.data();
@@ -45,9 +35,9 @@ const ChatList: FC<ChatListProps> = ({ user }) => {
           }
         }
       });
-      setNoMessages(false)
+      setNoMessages(false);
     } else {
-      setNoMessages(true)
+      setNoMessages(true);
     }
   }, [conversationsArray]);
 
