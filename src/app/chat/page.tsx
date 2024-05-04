@@ -24,10 +24,11 @@ interface User {
   conversations: any
 }
 
-const Mensajes: FC = () => {
+const Chat: FC = () => {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState('');
-  const user = useSelector(selectUser); // Obtener el usuario del userSlice
+  const user = useSelector(selectUser); 
+
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -57,9 +58,7 @@ const Mensajes: FC = () => {
     fetchDoc();
   }, [userData, dispatch]);
 
-  useEffect(() => {
-    console.log("ESTE ES EL ESTADO GUARDADO EN REDUX:", user); // Imprimir el estado guardado en Redux
-  }, [user]);
+
 
   return (
     <Providers >
@@ -81,4 +80,4 @@ const Mensajes: FC = () => {
   );
 };
 
-export default Mensajes;
+export default Chat;

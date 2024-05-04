@@ -1,14 +1,17 @@
 "use client"
-import Navbar from '@/app/components/Navbar';
-import { useSession } from 'next-auth/react';
+import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { redirect } from 'next/navigation';
-import React, { FC, useEffect, useState } from 'react'
-import ChatList from './components/ChatList';
-import Chatcontent from './components/Chatcontent';
+import Navbar from '../../../components/Navbar';
+import { useSession } from 'next-auth/react';
+import ChatList from "./components/ChatList"
+import Chatcontent from "./components/Chatcontent"
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '@/app/firebase';
-import Banners from '@/app/components/Banners';
-import Footer from '@/app/components/Footer';
+import { db } from '../../../firebase';
+import Footer from '../../../components/Footer';
+import Banners from '../../../components/Banners';
+import { updateUser, selectUser } from '@/redux/features/userSlice';
+import { Providers } from '@/redux/provider';
 
 interface selectedChatProps {
   params: { id: string }
@@ -27,9 +30,9 @@ interface User {
 
 
 const SelectedChat: FC<selectedChatProps> = ({ params }) => {
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState('');
-  const [user, setUser] = useState<User>();
-  const [userId, setUserId] = useState()
+  const user = useSelector(selectUser); 
   const [paramsId, setParamsId] = useState<any>()
 
   const session = useSession({
@@ -60,18 +63,16 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
-          setUser(myUserData);
+          dispatch(updateUser(myUserData));
         }
       }
-
     };
-
     fetchDoc();
-  }, [userData]);
-
+  }, [userData, dispatch]);
 
 
   return (
+    <Providers >
     <div className='h-screen'>
       <Navbar />
       <div className="flex flex-col h-full  bg-gradient-to-b from-zinc-900 to-zinc-600 ">
@@ -86,6 +87,8 @@ const SelectedChat: FC<selectedChatProps> = ({ params }) => {
       </div>
       <Footer />
     </div>
+    </Providers>
+
   );
 }
 
