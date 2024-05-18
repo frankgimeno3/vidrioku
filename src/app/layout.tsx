@@ -1,6 +1,5 @@
 import './globals.css'
-// import { EdgeStoreProvider } from './lib/edgestore';
-import SessionProvider from './SessionProvider';
+ import SessionProvider from './SessionProvider';
 
 
 export const metadata = {
@@ -22,10 +21,8 @@ export default async function RootLayout({
       </head>
       <body className="h-full ">
         <SessionProvider>
-          {/* <EdgeStoreProvider> */}
-            {children}
-          {/* </EdgeStoreProvider> */}
-        </SessionProvider>
+             {children}
+         </SessionProvider>
       </body>
     </html>
   )
