@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation';
 export default function ForgotPassword() {
   const router = useRouter();
 
-
+ 
   const [email, setEmail] = useState('');
   const [videoUrl, setVideoUrl] = useState("");
   const [buttonPushed, setButtonPushed] = useState(false)
@@ -25,7 +25,7 @@ export default function ForgotPassword() {
 
   
   useEffect(() => {
-    setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
+    setVideoUrl("https://vidrioku.s3.eu-west-3.amazonaws.com/videos/HeroVideoVidrioku.mp4");
   }, []);
 
 

@@ -43,7 +43,7 @@ export default function Signup() {
   }  
   
   useEffect(() => {
-    setVideoUrl("https://storage.cloud.google.com/vidriokubucket/perfiles.mp4");
+    setVideoUrl("https://vidrioku.s3.eu-west-3.amazonaws.com/videos/HeroVideoVidrioku.mp4");
   }, []);
 
   const router = useRouter();
