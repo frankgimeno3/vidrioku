@@ -18,7 +18,15 @@ import ProfesionalesContent from './signupComponents/ProfesionalesContent';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Region from './signupComponents/Region';
+import AWS from 'aws-sdk';
 
+AWS.config.update({
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
+  region: process.env.NEXT_PUBLIC_AWS_REGION,
+});
+
+const s3 = new AWS.S3();
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -56,10 +64,10 @@ export default function Signup() {
   };
 
   const addUserInFirebase = async () => {
-    if (userType == 'profesional') {
-      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
-        const userDocRef = doc(db, 'users', email.trim());
+    const userDocRef = doc(db, 'users', email.trim());
 
+    if (userType === 'profesional') {
+      if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && apellidos !== '' && ubi !== '') {
         await setDoc(userDocRef, {
           nombre: nombre.trim(),
           email: email.trim(),
@@ -71,22 +79,43 @@ export default function Signup() {
           solicitudes: []
         });
       }
-    }
-    else {
+    } else {
       if (email !== '' && password !== '' && passwordAgain !== '' && nombre !== '' && cifEmpresa !== '') {
-        const userDocRef = doc(db, 'users', email.trim());
-
         await setDoc(userDocRef, {
           nombre: nombre.trim(),
           email: email.trim(),
           actividad: actividad.trim(),
           userType: userType.trim(),
           cifEmpresa: cifEmpresa.trim(),
-          ofertascreadas:[]
+          ofertascreadas: []
         });
       }
     }
+
+    await createS3Folder(email.trim());
   };
+
+  const createS3Folder = async (userId: string) => {
+    AWS.config.update({
+      accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
+      region: 'eu-west-3',
+    });
+
+    const s3 = new AWS.S3();
+    const params = {
+      Bucket: 'vidrioku',
+      Key: `users/${userId}/`,
+    };
+
+    try {
+      await s3.putObject(params).promise();
+      console.log('Folder created in S3');
+    } catch (error) {
+      console.error('Error creating folder in S3:', error);
+    }
+  };
+
 
   const signup = () => {
     createUserWithEmailAndPassword(auth, email, password); 
@@ -110,7 +139,7 @@ export default function Signup() {
         <NavUnlogged />
 
         <div className=" md:mx-56 md:px-56">
-          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  min-h-screen md:mx-24 bg-zinc-900 bg-opacity-30">
+          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  min-h-screen md:mx-24 bg-zinc-900 bg-opacity-50">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <Image
                 className="mx-auto"

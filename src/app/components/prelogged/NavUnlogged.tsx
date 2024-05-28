@@ -1,5 +1,5 @@
 "use client"
-import { FC, use } from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
  
