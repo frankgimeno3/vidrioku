@@ -32,6 +32,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
   const [solicitudesEnviadas, setSolicitudesEnviadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesAceptadas, setSolicitudesAceptadas] = useState<any>()
+  const [cuentasSeguidas, setCuentasSeguidas] = useState<any>()
 
 
 
@@ -60,6 +61,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
           setMensajesNoLeidos(myUserData.mensajesnoleidos.length || '0')
           setSolicitudesEnviadas(myUserData.solicitudes.length)
           setSolicitudesAceptadas(myUserData.solicitudesAceptadasNoLeidas.length || '0')
+          setCuentasSeguidas(myUserData.seguidos)
         }
       }
     };

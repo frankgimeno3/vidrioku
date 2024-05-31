@@ -29,6 +29,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
   const [ofertascreadas, setOfertasCreadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesNoContestadas, setSolicitudesNoContestadas] = useState<any>()
+  const [cuentasSeguidas, setCuentasSeguidas] = useState<any>()
   const [userDataObject, setUserDataObject] = useState<any>()
 
   useEffect(() => {
@@ -74,6 +75,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
           setOfertasCreadas(myUserData.ofertascreadas?.length)
           setMensajesNoLeidos(myUserData.mensajesnoleidos?.length)
           setSolicitudesNoContestadas(myUserData.solicitudesnocontestadas?.length)
+          setCuentasSeguidas(myUserData.seguidos)
           console.log("mensajesNoLeidos: ", mensajesNoLeidos)
         }
       }
