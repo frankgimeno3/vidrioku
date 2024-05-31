@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 import Contras from './signupComponents/Contras';
 
-import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, setDoc, } from 'firebase/firestore';
+import {doc, setDoc, } from 'firebase/firestore';
 import { db } from '../firebase';
 import Tipo from './signupComponents/Tipo';
 import Correo from './signupComponents/Correo';
@@ -18,16 +18,9 @@ import ProfesionalesContent from './signupComponents/ProfesionalesContent';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Region from './signupComponents/Region';
-import AWS from 'aws-sdk';
+ 
 
-AWS.config.update({
-  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
-  region: process.env.NEXT_PUBLIC_AWS_REGION,
-});
-
-const s3 = new AWS.S3();
-
+ 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -92,40 +85,25 @@ export default function Signup() {
       }
     }
 
-    await createS3Folder(email.trim());
-  };
-
-  const createS3Folder = async (userId: string) => {
-    AWS.config.update({
-      accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
-      region: 'eu-west-3',
-    });
-
-    const s3 = new AWS.S3();
-    const params = {
-      Bucket: 'vidrioku',
-      Key: `users/${userId}/`,
-    };
-
-    try {
-      await s3.putObject(params).promise();
-      console.log('Folder created in S3');
-    } catch (error) {
-      console.error('Error creating folder in S3:', error);
-    }
-  };
+   };
+ 
 
 
   const signup = () => {
-    createUserWithEmailAndPassword(auth, email, password); 
-    addUserInFirebase();  
-    setIsAccepted(true);
-    setTimeout(() => {
-      router.push("/signin");
-    }, 3500); 
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        addUserInFirebase();
+        setIsAccepted(true);
+        setTimeout(() => {
+          router.push("/signin");
+        }, 3500);
+      })
+      .catch((error) => {
+        console.error("Error signing up:", error);
+      });
   };
 
+  
   return (
     <div className='relative'>
       <video
