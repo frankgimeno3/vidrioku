@@ -153,57 +153,64 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
               onClick={() => { router.push("/chat") }}
             >Mis mensajes</button>
           </div>
-          <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'> Solicitudes enviadas</p>
-            {solicitudesEnviadas != 1 && solicitudesEnviadas != 0 &&
-              <p className='text-center font-light text-gray-500 text-base px-12'> Ha enviado {solicitudesEnviadas} solicitudes</p>
-            }
-            {solicitudesEnviadas == 1 &&
-              <p className='text-center font-light text-gray-500 text-base px-12'> Ha enviado {solicitudesEnviadas} solicitud</p>
-            }
-            {solicitudesEnviadas == 0 &&
-              <p className='text-center font-light text-gray-500 text-base px-12'> No ha enviado ninguna solicitud</p>
-            }
-            <button
-              className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
-              onClick={() => { router.push("/missolicitudes") }}
-            >Mis solicitudes</button>
-          </div>
-          <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'> Solicitudes aceptadas</p>
+          <div className='flex flex-row'>
+            <div className='flex-1 shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+              <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'> Solicitudes enviadas</p>
+              {solicitudesEnviadas != 1 && solicitudesEnviadas != 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12'> Ha enviado {solicitudesEnviadas} solicitudes</p>
+              }
+              {solicitudesEnviadas == 1 &&
+                <p className='text-center font-light text-gray-500 text-base px-12'> Ha enviado {solicitudesEnviadas} solicitud</p>
+              }
+              {solicitudesEnviadas == 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12'> No ha enviado ninguna solicitud</p>
+              }
+              <button
+                className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                onClick={() => { router.push("/missolicitudes") }}
+              >Mis solicitudes</button>
+            </div>
+            <div className='flex-1 shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+              <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'> Solicitudes aceptadas</p>
 
-            {solicitudesAceptadas != 1 && solicitudesAceptadas != 0 &&
-              <p className='text-center font-light text-gray-500 text-base px-12 '> {solicitudesAceptadas} empresas han aceptado sus solicitudes</p>
-            }
-            {solicitudesAceptadas == 0 &&
-              <p className='text-center font-light text-gray-500 text-base px-12 '> No hay nuevas solicitudes aceptadas</p>
-            }
-            {solicitudesAceptadas == 1 &&
-              <p className='text-center font-light text-gray-500 text-base px-12 '> {solicitudesAceptadas} empresa ha aceptado una de sus solicitudes</p>
-            }
-            <button
-              className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
-              onClick={() => { router.push("/chat") }}
-            >Ir al chat</button>
+              {solicitudesAceptadas != 1 && solicitudesAceptadas != 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> {solicitudesAceptadas} empresas han aceptado sus solicitudes</p>
+              }
+              {solicitudesAceptadas == 0 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> No hay nuevas solicitudes aceptadas</p>
+              }
+              {solicitudesAceptadas == 1 &&
+                <p className='text-center font-light text-gray-500 text-base px-12 '> {solicitudesAceptadas} empresa ha aceptado una de sus solicitudes</p>
+              }
+              <button
+                className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+                onClick={() => { router.push("/chat") }}
+              >Ir al chat</button>
+            </div>
           </div>
+
           <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Mis Publicaciones</p>
+            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Mis publicaciones</p>
 
             <button
-              className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+              className=" m-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
               onClick={() => { router.push("/publicar") }}
             >Publicar contenido</button>
+            <button
+              className=" m-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+              onClick={() => { router.push("/mispublicaciones") }}
+            >Ver mi contenido publicado</button>
           </div>
           <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-          <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones</p>
+            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones de cuentas que sigues</p>
 
-              {cuentasSeguidas == 0 &&
-                <SinSeguimientos />}
-              {cuentasSeguidas != 0 &&
-                <div><Publicaciones />
+            {cuentasSeguidas == 0 &&
+              <SinSeguimientos />}
+            {cuentasSeguidas != 0 &&
+              <div><Publicaciones />
                 <p>cuentasSeguidas {cuentasSeguidas}</p>
-                </div>}
-            </div>
+              </div>}
+          </div>
         </div>
       </div>
       <div className="shadow shadow-sm">
