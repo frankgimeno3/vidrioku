@@ -5,6 +5,8 @@ import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from '
 import { db } from '../../firebase';
 import { signOut, useSession } from 'next-auth/react';
 import Banners from '@/app/components/Banners';
+import SinSeguimientos from './publicaciones/SinSeguimientos';
+import Publicaciones from './publicaciones/Publicaciones';
 
 
 interface HomeEmprProps {
@@ -75,7 +77,8 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
           setOfertasCreadas(myUserData.ofertascreadas?.length)
           setMensajesNoLeidos(myUserData.mensajesnoleidos?.length)
           setSolicitudesNoContestadas(myUserData.solicitudesnocontestadas?.length)
-          setCuentasSeguidas(myUserData.seguidos)
+          if (myUserData.seguidos == undefined) { setCuentasSeguidas(0) }
+          else { setCuentasSeguidas(myUserData.seguidos?.length) }
           console.log("mensajesNoLeidos: ", mensajesNoLeidos)
         }
       }
@@ -221,7 +224,12 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
                 onClick={() => { router.push("/publicar") }}
               >Publicar contenido</button>
             </div>
-
+            <div>
+              {cuentasSeguidas == 0 &&
+                <SinSeguimientos />}
+              {cuentasSeguidas == 0 &&
+                <Publicaciones />}
+            </div>
           </div>
         </div>
         <Banners widthProp={300} />

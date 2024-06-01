@@ -8,6 +8,8 @@ import { db } from '../../firebase';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Banners from '@/app/components/Banners';
+import SinSeguimientos from './publicaciones/SinSeguimientos';
+import Publicaciones from './publicaciones/Publicaciones';
 
 
 interface HomeTrabProps {
@@ -68,6 +70,10 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
 
     fetchDoc();
   }, [userData]);
+
+  useEffect(() => {
+    console.log("cuentasSeguidas: ", cuentasSeguidas)
+  }, [cuentasSeguidas]);
 
   const miPerfilHandler = () => {
     router.push(`/perfil`)
@@ -188,6 +194,14 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
               onClick={() => { router.push("/publicar") }}
             >Publicar contenido</button>
           </div>
+          <div className='text-gray-600'>
+              {cuentasSeguidas == 0 &&
+                <SinSeguimientos />}
+              {cuentasSeguidas != 0 &&
+                <div><Publicaciones />
+                <p>cuentasSeguidas {cuentasSeguidas}</p>
+                </div>}
+            </div>
         </div>
       </div>
       <div className="shadow shadow-sm">
