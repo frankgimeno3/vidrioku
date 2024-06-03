@@ -1,11 +1,19 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 interface PublicationCardProps {
-
+    publicacion:any
 }
 
-const PublicationCard: FC<PublicationCardProps> = ({ }) => {
+const PublicationCard: FC<PublicationCardProps> = ({ publicacion}) => {
     const [isPublicationLiked, setIsPublicationLiked] = useState(false)
+
+    useEffect(() => {
+    //aqui escuchar publicacion
+    //tomar con su id de la bbdd el objeto
+    //luego pasar a estados los campos a renderizar en el return
+    }, [publicacion]);
+
+
     return (
         <div className='text-left rounded-lg shadow-lg p-1 text-gray-600'>
             <div className='flex flex-row justify-between'>

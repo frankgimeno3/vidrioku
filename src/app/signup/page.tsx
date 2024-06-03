@@ -69,7 +69,9 @@ export default function Signup() {
           genero: genero.trim(),
           ubi: ubi.trim(),
           userType: userType.trim(),
-          solicitudes: []
+          solicitudes: [],
+          seguidos:[],
+          publicaciones:[]
         });
       }
     } else {
@@ -80,7 +82,9 @@ export default function Signup() {
           actividad: actividad.trim(),
           userType: userType.trim(),
           cifEmpresa: cifEmpresa.trim(),
-          ofertascreadas: []
+          ofertascreadas: [],
+          seguidos:[],
+          publicaciones:[]
         });
       }
     }

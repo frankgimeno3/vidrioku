@@ -23,7 +23,7 @@ const SinSeguimientos: FC<SinSeguimientosProps> = ({ }) => {
       <button onClick={handleEncontrarProfesionales}
         className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-2 text-sm m-1 mb-6"
       >Encontrar profesionales</button>
-    </div>
+     </div>
   );
 };
 
