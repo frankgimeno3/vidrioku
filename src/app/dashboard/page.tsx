@@ -1,9 +1,8 @@
 'use client';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react'
-import { useRouter } from "next/navigation";
-import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, where, DocumentSnapshot, DocumentData, } from 'firebase/firestore';
+import { getDoc, doc, } from 'firebase/firestore';
 import { db } from './../firebase';
 
 import Navbar from '../components/Navbar'
@@ -11,30 +10,37 @@ import Footer from '../components/Footer'
 import HomeEmpr from './components/HomeEmpr'
 import HomeTrab from './components/HomeTrab';
 import HomeAdmin from './components/HomeAdmin';
+import { selectUser, updateUser } from '@/redux/features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 interface User {
-  id: any,
+  id: any
+  apellidos: string;
+  edad: number;
+  genero: string;
+  nombre: string;
+  ubi: string;
   userEmail: string;
-  userType: string;
+  conversations: any;
+  userType:any;
 }
-
 
 export default function Dashboard() {
   const [userType, setUserType] = useState<string>('');
   
+
+  const dispatch = useDispatch();
+  const [userData, setUserData] = useState('');
+
+  const user = useSelector(selectUser); 
+
   const session = useSession({
     required: true,
     onUnauthenticated() {
       redirect('/signin');
     },
   });
-  
-  const [userData, setUserData] = useState('');
-  const [docSnap, setDocSnap] = useState<DocumentSnapshot<DocumentData> | null>(null);
-
-  const router = useRouter();
-  
 
   useEffect(() => {
     if (session?.data?.user?.email) {
@@ -43,7 +49,7 @@ export default function Dashboard() {
       setUserData('Usuario');
     }
   }, [session?.data?.user?.email]);
-  
+
   useEffect(() => {
     const fetchDoc = async () => {
       if (userData) {
@@ -51,15 +57,16 @@ export default function Dashboard() {
         const response = await getDoc(docRef);
         if (response.exists()) {
           const myUserData = response.data() as User;
+          dispatch(updateUser(myUserData));
           setUserType(myUserData.userType);
-         }
+
+        }
       }
     };
-
     fetchDoc();
-  }, [userData]);
+  }, [userData, dispatch]);
   
-
+ 
   return (
     <div className=" ">
 

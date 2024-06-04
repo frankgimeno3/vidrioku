@@ -1,12 +1,10 @@
 "use client"
 
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 import { collection, addDoc, getDoc, query, onSnapshot, deleteDoc, doc, } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
 import Banners from '@/app/components/Banners';
 import SinSeguimientos from './publicaciones/SinSeguimientos';
 import Publicaciones from './publicaciones/Publicaciones';
