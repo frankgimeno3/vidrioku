@@ -51,9 +51,9 @@ export interface ParamsState {
 }
 
 export interface Solicitud {
-  id: string;
-  offerId: string;
-  userId: string;
+  id: any;
+  offerId: any;
+  userId: any;
   presentacion: any;
   solicitudId: any;
 };
