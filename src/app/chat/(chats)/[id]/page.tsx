@@ -1,39 +1,32 @@
 // pages/chat/[id].tsx
+
 "use client"
 import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../../../components/Navbar';
 import ChatList from "./components/ChatList"
 import Chatcontent from "./components/Chatcontent"
 import Footer from '../../../components/Footer';
 import Banners from '../../../components/Banners';
 import { selectUser } from '@/redux/features/userSlice';
+import { selectParamsId, setParamsId } from '@/redux/features/paramsSlice';
 import { Providers } from '@/redux/provider';
 import useUserSession from '../../../components/hooks/userSession';
 
-interface selectedChatProps {
-  params: { id: string }
+interface SelectedChatProps {
+  params: { id: string };
 }
 
-interface User {
-  id: any;
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any;
-}
-
-const SelectedChat: FC<selectedChatProps> = ({ params }) => {
+const SelectedChat: FC<SelectedChatProps> = ({ params }) => {
+  const dispatch = useDispatch();
   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
-  const [paramsId, setParamsId] = useState<any>(params.id);
+  const paramsId = useSelector(selectParamsId);
 
   useEffect(() => {
-    setParamsId(params.id);
-  }, [params]);
+    // Update paramsId in Redux state when params change
+    dispatch(setParamsId(params.id));
+  }, [dispatch, params.id]);
 
   return (
     <Providers>
