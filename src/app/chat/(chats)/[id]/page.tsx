@@ -22,7 +22,8 @@ const SelectedChat: FC<SelectedChatProps> = ({ params }) => {
   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
   const paramsId = useSelector(selectParamsId);
-
+  const [isLoading, setIsLoading] = useState(false)
+  
   useEffect(() => {
     // Update paramsId in Redux state when params change
     dispatch(setParamsId(params.id));

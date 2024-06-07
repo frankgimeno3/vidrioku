@@ -1,17 +1,4 @@
-// interfaces.ts
 
-export interface User {
-    id: any;
-    apellidos: string;
-    edad: number;
-    genero: string;
-    nombre: string;
-    ubi: string;
-    userEmail: string;
-    conversations: any;
-    profilepicture:any;
-    unreadnotifications:any;
-  }
   
   export interface Conversation {
     colaborador1: any;
@@ -43,7 +30,15 @@ export interface User {
     id: string | null;
   }
   
-  export interface ArrayFiltrosState {
-    // Define las propiedades de ArrayFiltrosState
+  export interface User {
+    id: any;
+    apellidos: string;
+    edad: number;
+    genero: string;
+    nombre: string;
+    ubi: string;
+    userEmail: string;
+    conversations: any;
+    profilepicture:any;
+    unreadnotifications:any;
   }
-  

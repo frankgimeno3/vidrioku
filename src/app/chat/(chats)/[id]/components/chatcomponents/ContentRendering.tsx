@@ -46,11 +46,10 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
     setFilteredArray(sortedArray);
   }, [renderingObjectArray]);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);  // Referencia para el contenedor de scroll
+  const scrollContainerRef = useRef<HTMLDivElement>(null);   
 
   useEffect(() => {
     if (scrollContainerRef.current) {
-      // Ajusta la posición de scroll al final del contenedor
       scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
     }
   }, [filteredArray]);

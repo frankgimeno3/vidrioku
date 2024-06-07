@@ -9,7 +9,6 @@ interface InputFormProps {
   userObject: User | null;
 }
 
- 
 const InputForm: FC<InputFormProps> = ({ userId, conversationId, userObject }) => {
   const [inputContent, setInputContent] = useState<string>('');
   const [conversationData, setConversationData] = useState<Conversation | null>(null);

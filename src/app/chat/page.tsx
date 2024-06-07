@@ -1,16 +1,13 @@
 
 "use client"
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import Navbar from '../components/Navbar';
+ import Navbar from '../components/Navbar';
 import ChatList from "./components/ChatList"
 import Chatcontent from "./components/Chatcontent"
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
-import { selectUser } from '@/redux/features/userSlice';
-import { Providers } from '@/redux/provider';
-import useUserSession from '../components/hooks/userSession';
-
+ import { Providers } from '@/redux/provider';
+ 
 
 
 const Chat: FC = () => {
