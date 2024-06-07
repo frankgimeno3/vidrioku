@@ -1,7 +1,6 @@
 "use client"
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { redirect, useRouter } from 'next/navigation';
+ import { redirect, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useSession } from 'next-auth/react';
