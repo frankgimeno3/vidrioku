@@ -9,30 +9,17 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Footer from '@/app/components/Footer';
+import { Oferta } from '@/app/components/interfaces/interfaces';
 
 interface SolicitudProps {
   params: { id: string }
 }
-
-type OfertaProps = {
-  titulo: string,
-  cargo: string,
-  jornada: string,
-  tipoubi: string,
-  ubicacion: string,
-  descripcion: string,
-  experiencia: string,
-  adicional: string,
-  empresa: string,
-  estado: string,
-  id: any
-};
-
+ 
 const Solicitud: FC<SolicitudProps> = ({ params }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(true);
   const [userObject, setUserObject] = useState<any>();
-  const [oferta, setOferta] = useState<OfertaProps>();
+  const [oferta, setOferta] = useState<Oferta>();
   const [presentacion, setPresentacion] =  useState("")
   //primero detectamos el usuario, registramos su id, y de paso bloqueamos la ruta
   const session = useSession({
@@ -73,7 +60,7 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        setOferta(doc.data() as OfertaProps);
+        setOferta(doc.data() as Oferta);
       });
 
       setLoading(false);

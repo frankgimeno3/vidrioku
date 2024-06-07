@@ -42,6 +42,8 @@ export interface Oferta {
   adicional: string,
   empresaNombre: string,
   estado: string,
+    solicitudes: any;
+  
 };
 
 

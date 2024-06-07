@@ -8,12 +8,9 @@ import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
+import { Oferta } from '../components/interfaces/interfaces';
 
-type Oferta = {
-  titulo: string;
-  cargo: string;
-  solicitudes: any;
-};
+
 
 function page() {
   const [misOfertas, setMisOfertas] = useState<Oferta[]>([]);

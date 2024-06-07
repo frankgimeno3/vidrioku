@@ -24,7 +24,7 @@ const ConectarButton: React.FC<ConectarButtonProps> = ({ usuario }) => {
     //creamos funcion para crear primer mensaje para usar + adelante
 
     return (
-        
+        <></>
     )
 }
 
