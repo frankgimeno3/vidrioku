@@ -19,7 +19,7 @@
     readc2: any;
     receptor: any;
     sent: any;
-  }
+   }
   
   export interface MessageListComponentProps {
     conversation: any;

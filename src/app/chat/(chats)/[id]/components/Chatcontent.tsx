@@ -9,9 +9,11 @@ import { Conversation,  User } from '../../../../components/interfaces/interface
 
 interface ChatcontentProps {
   conversationChosen: any;
+  setIsLoading:any;
+  isLoading:any;
 }
 
-const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
+const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen, setIsLoading, isLoading }) => {
   const { userData, session } = useUserSession();
 
   const [conversationData, setConversationData] = useState<Conversation | undefined>();
@@ -80,7 +82,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
   return (
     <div className='flex flex-col h-full flex-1'>
       <ChatHeader interlocutor={interlocutor} interlocutorImg={interlocutorImg} />
-      <ContentRendering interlocutor={interlocutor} userId={userIdRecibido} messagesArray={messagesArray} />
+      <ContentRendering interlocutor={interlocutor} userId={userIdRecibido} messagesArray={messagesArray} isLoading={isLoading}/>
       <InputForm userId={userIdRecibido} conversationId={conversationRecibida} userObject={userObject} />
     </div>
   );

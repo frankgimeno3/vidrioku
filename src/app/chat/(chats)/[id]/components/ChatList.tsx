@@ -8,9 +8,10 @@ import useUserSession from '../../../../components/hooks/userSession';
 
 interface ChatListProps {
   paramsId: any;
+  setIsLoading: any;
 }
 
-const ChatList: FC<ChatListProps> = ({ paramsId }) => {
+const ChatList: FC<ChatListProps> = ({ paramsId, setIsLoading }) => {
   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
 

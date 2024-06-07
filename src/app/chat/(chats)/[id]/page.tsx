@@ -23,7 +23,7 @@ const SelectedChat: FC<SelectedChatProps> = ({ params }) => {
   const user = useSelector(selectUser);
   const paramsId = useSelector(selectParamsId);
   const [isLoading, setIsLoading] = useState(false)
-  
+
   useEffect(() => {
     // Update paramsId in Redux state when params change
     dispatch(setParamsId(params.id));
@@ -36,8 +36,8 @@ const SelectedChat: FC<SelectedChatProps> = ({ params }) => {
         <div className="flex flex-col h-full bg-gradient-to-b from-zinc-900 to-zinc-600">
           <h2 className="bg-zinc-800 bg-white bg-opacity-50 font-bold text-lg py-3 text-center">Mensajes</h2>
           <div className='flex flex-row min-h-screen'>
-            <ChatList paramsId={paramsId} />
-            <Chatcontent conversationChosen={paramsId} />
+            <ChatList paramsId={paramsId} setIsLoading={setIsLoading}/>
+            <Chatcontent conversationChosen={paramsId} setIsLoading={setIsLoading} isLoading={isLoading}/>
             <div className='h-full bg-white bg-opacity-5 hidden md:block'>
               <Banners widthProp={200} />
             </div>

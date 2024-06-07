@@ -6,7 +6,7 @@ import { db } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
 import { selectUser } from '@/redux/features/userSlice';
 import useUserSession from '../../../../components/hooks/userSession';
-import { User, Conversation, Mensaje, MessageListComponentProps } from '../../../../components/interfaces/interfaces';  
+import { User, Conversation, Mensaje, MessageListComponentProps } from '../../../../components/interfaces/interfaces'; // Importa las interfaces desde tu archivo interfaces.ts
 
 const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, paramsId }) => {
   const { userData, session } = useUserSession();
@@ -99,14 +99,14 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
 
   useEffect(() => {
     if (messagesArray) {
-      const ultimo = conversationData?.messagesArray[conversationData.messagesArray.length - 1];
+      const ultimo = conversationData.messagesArray[conversationData.messagesArray.length - 1];
       setLastMessage(ultimo);
     }
   }, [messagesArray]);
 
   useEffect(() => {
     if (conversationData) {
-      setConversationId(conversationData.conversationId);
+      setConversationId(conversationData.conversation);
     }
   }, [conversationData]);
 
@@ -118,7 +118,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
         if (response.exists()) {
           const MensajeData = response.data() as Mensaje;
           setContenidoUltimo(MensajeData);
-          setMessageCode(MensajeData.conversationId);
+          setMessageCode(MensajeData.conversation);
         }
       }
     };
@@ -127,7 +127,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
 
   const changeReadState = async (lastMessageSeenC1: any, lastMessageSeenc2: any, quienSomos: any) => {
     try {
-      const docRef = doc(db, "conversations", conversationId);
+      const docRef = doc(db, "conversations", conversation);
       const userDoc = await getDoc(docRef);
 
       if (userDoc.exists()) {
@@ -170,8 +170,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
   };
 
   const clickOnChat = () => {
-    router.push(`/chat/${conversationId}`);
-    changeReadState(conversationData?.lastMessageSeenc1, conversationData?.lastMessageSeenc2, quienSomos);
+    router.push(`/chat/${conversation}`);
+    changeReadState(conversationData.lastMessageSeenc1, conversationData.lastMessageSeenc2, quienSomos);
   };
 
   return (
