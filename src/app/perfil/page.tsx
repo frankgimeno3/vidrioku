@@ -10,14 +10,9 @@ import { doc, getDoc } from 'firebase/firestore';
 
 import Footer from '@/app/components/Footer';
 import { db } from '../firebase';
+import { User } from '../components/interfaces/interfaces';
 
-
-interface User {
-  id: any,
-  userEmail: string;
-  userType: string;
-}
-
+ 
 
 export default function Miperfil() {
   const session = useSession({
