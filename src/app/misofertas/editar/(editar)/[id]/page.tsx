@@ -8,29 +8,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { Oferta } from '@/app/components/interfaces/interfaces';
 
 interface EditarOfertaProps {
   params: { id: any }
 }
-
-type OfertaObject = {
-  titulo: any,
-  cargo: any,
-  jornada: any,
-  tipoubi: any,
-  ubicacion: any,
-  descripcion: any,
-  experiencia: any,
-  adicional: any,
-  empresa: any,
-  estado: any,
-  id: any
-};
+ 
 
 const EditarOferta: FC<EditarOfertaProps> = ({ params }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(true);
-  const [oferta, setOferta] = useState<OfertaObject>();
+  const [oferta, setOferta] = useState<Oferta>();
   const [presentacion, setPresentacion] = useState("")
 
   const [tituloOferta, setTituloOferta] = useState<any>()
@@ -93,7 +81,7 @@ const EditarOferta: FC<EditarOfertaProps> = ({ params }) => {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        setOferta(doc.data() as OfertaObject);
+        setOferta(doc.data() as Oferta);
       });
 
       setLoading(false);

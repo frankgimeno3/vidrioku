@@ -28,10 +28,17 @@ export interface MessageListComponentProps {
 
 
 export interface Oferta {
-  id: string;
-  titulo: string;
-  cargo: string;
-  estado: any
+  titulo: any,
+  cargo: any,
+  jornada: any,
+  tipoubi: any,
+  ubicacion: any,
+  descripcion: any,
+  experiencia: any,
+  adicional: any,
+  empresa: any,
+  estado: any,
+  id: any
 };
 
 
