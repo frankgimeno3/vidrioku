@@ -1,24 +1,22 @@
-import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import React, { FC, useEffect, useState } from 'react';
 
 interface SdepartamentoProps {
-    arrayFiltros:any;
-    setArrayFiltros: any;
+    arrayFiltros: any;
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const Sdepartamento: FC<SdepartamentoProps> = (arrayFiltros, setArrayFiltros) => {
+const Sdepartamento: FC<SdepartamentoProps> = ({ arrayFiltros, setArrayFiltros }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
     useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos);
-     }, [arrayFiltros]);
+        setFiltrosRecibidos(arrayFiltros);
+    }, [arrayFiltros]);
 
     const handleSeleccionDepartamento = (departamento: string) => {
         if (!filtrosRecibidos.includes(departamento)) {
             const newArray = [...filtrosRecibidos, departamento];
             setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray); 
+            setArrayFiltros(newArray);
         }
     };
 

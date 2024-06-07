@@ -11,19 +11,20 @@ interface FiltrosAplicadosProps {
 }
  
 
-const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ arrayFiltros, setArrayFiltros,  receivedParamsTratado }) => {
- 
+const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ arrayFiltros, setArrayFiltros, receivedParamsTratado }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
-    const router = useRouter();
+    const router = useRouter()
 
     useEffect(() => {
-    }, [receivedParamsTratado])
-
-    useEffect(() => {
+        setFiltrosRecibidos(arrayFiltros)
     }, [arrayFiltros])
 
-    const eliminarFiltro = (filtro: string) => {
-         
+    useEffect(() => {
+        console.log("receivedParamsTratado: ", receivedParamsTratado)
+    }, [receivedParamsTratado])
+
+    const eliminarFiltro = (filtro: never) => {
+        setArrayFiltros((prevArray: any[]) => prevArray.filter(item => item !== filtro));
     }
 
     const reloadWindow = () => {

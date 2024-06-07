@@ -22,7 +22,7 @@ const SeleccionFiltros: FC<SeleccionFiltrosProps> = ({ arrayFiltros, setArrayFil
      }, [arrayFiltros]);
 
     const toggleAnadirFiltro = (estado: any, setter: any) => {
-        if (estado == false) {
+         if (estado == false) {
             setIsDepartamentosSelected(false)
             setIsPosicionesSelected(false)
             setIsPaisSelected(false)

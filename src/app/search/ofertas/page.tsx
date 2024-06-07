@@ -13,22 +13,9 @@ import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
 import { redirect, useSearchParams } from 'next/navigation';
 import { Providers } from '@/redux/provider';
+import { Oferta } from '@/app/components/interfaces/interfaces';
 
 
-type Oferta = {
-  titulo: string,
-  cargo: string,
-  jornada: string,
-  tipoubi: string,
-  ubicacion: string,
-  descripcion: string,
-  experiencia: string,
-  adicional: string,
-  empresa: string,
-  publicacion: Timestamp,
-  estado: string,
-  id: any
-};
 
 const Ofertas: FC = ({ }) => {
   const session = useSession({
