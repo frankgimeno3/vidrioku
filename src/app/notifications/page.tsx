@@ -10,19 +10,9 @@ import UnreadNotif from './components/UnreadNotif';
 import Readnotif from './components/Readnotif';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
+import { User } from '../components/interfaces/interfaces';
 
-interface User {
-  idnotificacion: any
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any;
-  notifications: any;
-}
-
+ 
 
 const Notifications: FC = ({ }) => {
   const router = useRouter();
