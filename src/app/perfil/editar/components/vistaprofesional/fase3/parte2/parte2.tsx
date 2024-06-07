@@ -16,20 +16,7 @@ interface parte2Props {
     setParte: any;
     departamentosUpdated: any;
 }
-
-interface User {
-    nombre: string;
-    anoCreacion: string;
-    empleados: any;
-    actividad: string;
-    ubi: string;
-    web: string;
-    email: string;
-    tel: string;
-    linkedin: string;
-    descripcion: any;
-    departamentos: Array<string>;
-}
+ 
 
 const Parte2: FC<parte2Props> = ({ user, setParte, departamentosUpdated }) => {
     const [departamentosInicial, setDepartamentosInicial] = useState<Array<string>>([]);

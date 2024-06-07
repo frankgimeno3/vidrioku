@@ -1,3 +1,4 @@
+import { User } from '@/app/components/interfaces/interfaces';
 import { db } from '@/app/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
@@ -9,19 +10,6 @@ interface parte1Props {
     setDepartamentosUpdated: any;
 }
 
-interface User {
-    nombre: string;
-    anoCreacion: string;
-    empleados: any;
-    actividad: string;
-    ubi: string;
-    web: string;
-    email: string;
-    tel: string;
-    linkedin: string;
-    descripcion: any;
-    departamentos: Array<string>;
-}
 
 const Parte1: FC<parte1Props> = ({ user, setParte, departamentosUpdated, setDepartamentosUpdated }) => {
     const [receivedUser, setReceivedUser] = useState<any>();

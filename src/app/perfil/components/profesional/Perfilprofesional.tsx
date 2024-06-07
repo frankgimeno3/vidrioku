@@ -15,26 +15,13 @@ import AnadirIdiomas from './anadir/anadirIdiomas'
 import EditarRecorrido from './editar/editarRecorrido'
 import EditarEstudios from './editar/editarEstudios'
 import EditarIdiomas from './editar/editarIdiomas'
+import { User } from '@/app/components/interfaces/interfaces';
 
 
 interface PerfilprofesionalProps {
   userData: any
 }
-
-interface User {
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  tel: any;
-  linkedin: any;
-  DNI: any;
-  permiso: any;
-  vehiculo: any;
-  carta: any;
-}
+ 
 
 const Perfilprofesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [isRecorridoSelected, setIsRecorridoSelected] = useState(false)

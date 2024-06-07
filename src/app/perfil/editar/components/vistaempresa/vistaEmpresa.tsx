@@ -13,25 +13,13 @@ import CambiarFoto from '../CambiarFoto';
 import Fase1 from './fase1'
 import Fase2 from './fase2'
 import Fase3 from './fase3'
+import { User } from '@/app/components/interfaces/interfaces';
  
 
 interface vistaEmpresaProps {
   userData: any
 }
-
-interface User {
-  nombre: string;
-  anoCreacion: string;
-  empleados: any;
-  actividad: string;
-  ubi: string;
-  web: string;
-  email: string;
-  tel: string;
-  linkedin: string;
-  descripcion: any;
-}
-
+ 
 const VistaEmpresa: FC<vistaEmpresaProps> = ({ userData }) => {
   const [user, setUser] = useState<User | undefined>();
   const [userDataReceived, setUserDataReceived] = useState("");

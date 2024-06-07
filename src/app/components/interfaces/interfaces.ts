@@ -46,7 +46,7 @@ export interface ParamsState {
   id: string | null;
 }
 
-export interface Solicitud  {
+export interface Solicitud {
   id: string;
   offerId: string;
   userId: string;
@@ -65,5 +65,20 @@ export interface User {
   profilepicture: any;
   unreadnotifications: any;
   userType: string;
-  posicionesMap:any;
-}
+  posicionesMap: any;
+  tel: any;
+  DNI: any;
+  permiso: any;
+  vehiculo: any;
+  carta: any;
+  NIE: string;
+  pais:string;
+     anoCreacion: string;
+    empleados: any;
+    actividad: string;
+     web: string;
+    email: string;
+     linkedin: string;
+    descripcion: any;
+    departamentos: Array<string>;
+}  

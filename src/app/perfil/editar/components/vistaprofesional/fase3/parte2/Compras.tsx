@@ -1,3 +1,4 @@
+import { User } from '@/app/components/interfaces/interfaces';
 import { db } from '@/app/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
@@ -12,11 +13,7 @@ interface ComercialProps {
   user: any;
   cambioComponenteMostrar: any;
 }
-
-interface User {
-  posicionesMap: any
-}
-
+ 
 const Comercial: FC<ComercialProps> = ({ user, cambioComponenteMostrar }) => {
 
   const [compraMaquinaria, setCompraMaquinaria] = useState(false);

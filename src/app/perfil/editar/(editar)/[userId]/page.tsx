@@ -10,14 +10,9 @@ import VistaProfesional from '../../components/vistaprofesional/vistaProfesional
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../../firebase';
 import Footer from '@/app/components/Footer';
+import { User } from '@/app/components/interfaces/interfaces';
 
-
-interface User {
-  id: any,
-  userEmail: string;
-  userType: string;
-}
-
+ 
 
 export default function EditarPerfil() {
   const session = useSession({

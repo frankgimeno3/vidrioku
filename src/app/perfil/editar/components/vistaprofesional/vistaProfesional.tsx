@@ -12,28 +12,12 @@ import Fase2 from './fase2'
 import Fase3base from './fase3/fase3base'
 
 import CambiarFoto from '../CambiarFoto';
+import { User } from '@/app/components/interfaces/interfaces';
 
 interface PerfilprofesionalProps {
   userData: any
 }
-
-interface User {
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  DNI: string;
-  NIE: string;
-  tel: string;
-  permiso: string;
-  vehiculo: string;
-  carta: string;
-  linkedin: string;
-  profilepicture: any;
-  email: string;
-  pais:string;
-}
+ 
 const vistaProfesional: FC<PerfilprofesionalProps> = ({ }) => {
   const [user, setUser] = useState<User | undefined>();
   const [userDataReceived, setUserDataReceived] = useState("");
