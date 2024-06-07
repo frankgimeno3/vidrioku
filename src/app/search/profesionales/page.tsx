@@ -13,16 +13,8 @@ import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
 import ProfesionalesList from './profesionalescomponents/ProfesionalesList';
 import { Providers } from '@/redux/provider';
+import { User } from '@/app/components/interfaces/interfaces';
 
-interface User {
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  userType: any;
-}
 
 const Profesionales: FC = ({ }) => {
   const session = useSession({

@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 
 
 export interface Conversation {
@@ -39,6 +40,7 @@ export interface Oferta {
   empresa: any,
   estado: any,
   id: any
+  publicacion: Timestamp,
 };
 
 

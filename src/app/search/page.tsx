@@ -1,16 +1,7 @@
 "use client"
 
 import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { redirect, useRouter } from 'next/navigation';
-import SearchOfertas from './ofertas/ofertascomponents/searchOfertas'
-import PageListButtons from './ofertas/ofertascomponents/compListados/PageListButtons';
-import Anuncio from './ofertas/ofertascomponents/compListados/Anuncio';
-import Pasarela from './ofertas/ofertascomponents/compListados/Pasarela';
-import Oferta from './ofertas/ofertascomponents/compListados/Oferta';
-import Rendercomponent from './ofertas/ofertascomponents/Rendercomponent';
-import { Timestamp, collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '@/app/firebase';
+import { redirect, useRouter } from 'next/navigation'; 
 import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
 import Searchnav from './components/Searchnav';
@@ -19,22 +10,7 @@ import Banners from '../components/Banners';
 
 interface SearchProps {
 }
-
-type Oferta = {
-  titulo: string,
-  cargo: string,
-  jornada: string,
-  tipoubi: string,
-  ubicacion: string,
-  descripcion: string,
-  experiencia: string,
-  adicional: string,
-  empresa: string,
-  publicacion: Timestamp,
-  estado: string,
-  id: any
-};
-
+ 
 const Search: FC<SearchProps> = ({ }) => {
   const router = useRouter();
   const [userData, setUserData] = useState("")
