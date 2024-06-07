@@ -2,15 +2,17 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-interface SidiomaProps {    arrayFiltros:any;
-    setArrayFiltros: any;}
+interface SidiomaProps {
+    arrayFiltros: any[];
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
+}
 
-const Sidioma: FC<SidiomaProps> = (arrayFiltros, setArrayFiltros) => {
+const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
     useEffect(() => {
         setFiltrosRecibidos(filtrosRecibidos);
-     }, [arrayFiltros]);
+    }, [arrayFiltros]);
 
 
     const [isEspanolSelected, setIsEspanolSelected] = useState(false);

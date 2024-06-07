@@ -1,18 +1,16 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
 
 interface SPaisProps {
-    arrayFiltros:any;
-    setArrayFiltros: any;
+    arrayFiltros: any[];
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const SPais: FC<SPaisProps> = (arrayFiltros, setArrayFiltros) => {
+const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
     useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos);
-     }, [arrayFiltros]);
+        setFiltrosRecibidos(filtrosRecibidos); 
+    }, [arrayFiltros]);
 
     const paisesLatam = [
         'Argentina',
@@ -43,13 +41,12 @@ const SPais: FC<SPaisProps> = (arrayFiltros, setArrayFiltros) => {
         'España',
         'Portugal',
     ];
- 
 
     const handleSeleccionPais = (pais: string) => {
         if (!filtrosRecibidos.includes(pais) && pais !== '') {
             const newArray = [...filtrosRecibidos, `Pais - ${pais}`];
             setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray); 
+            setArrayFiltros(newArray);
         }
     };
 
@@ -59,7 +56,7 @@ const SPais: FC<SPaisProps> = (arrayFiltros, setArrayFiltros) => {
             <p className='font-bold'>Europa</p>
             <div className='flex flex-wrap mb-4'>
                 {paisesEuropa.map((pais, index) => (
-                    <button key={index} className='text-sm bg-white px-5 mx-1 rounded shadow py-2 w-36 my-2 '
+                    <button key={index} className='text-sm bg-white px-5 mx-1 rounded shadow py-2 w-36 my-2'
                         onClick={() => handleSeleccionPais(pais)}
                     >{pais}</button>
                 ))}

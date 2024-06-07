@@ -1,21 +1,18 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 interface SpermisoProps {
-    arrayFiltros:any;
-    setArrayFiltros: any;
+    arrayFiltros: any[];
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const Spermiso: FC<SpermisoProps> = (arrayFiltros, setArrayFiltros) => {
+const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+    const [isChecked, setChecked] = useState(false);
+    const [permiso, setPermiso] = useState(false);
 
     useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos);
-     }, [arrayFiltros]);
-
-
-    const [isChecked, setChecked] = useState(false);
-    const [permiso, setPermiso] = useState(false)
+        setFiltrosRecibidos(filtrosRecibidos); // This line seems unnecessary, consider removing it.
+    }, [arrayFiltros]);
 
     useEffect(() => {
         setChecked(permiso || false);
@@ -27,28 +24,33 @@ const Spermiso: FC<SpermisoProps> = (arrayFiltros, setArrayFiltros) => {
         setPermiso(newChecked);
     };
 
-
     const handleIsPermisoRequerido = () => {
         const permisoElement = "Carnet de conducir - Requerido";
         if (!filtrosRecibidos.includes(permisoElement)) {
             const newArray = [...filtrosRecibidos, permisoElement];
             setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray); 
+            setArrayFiltros(newArray);
         }
     };
-    
+
     const handleQuitarPermisoRequerido = () => {
         const permisoElement = "Carnet de conducir - Requerido";
         if (filtrosRecibidos.includes(permisoElement)) {
-            const newArray = filtrosRecibidos.filter(item => item !== permisoElement);
+            const newArray = filtrosRecibidos.filter((item) => item !== permisoElement);
             setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray); 
+            setArrayFiltros(newArray);
         }
     };
+
     useEffect(() => {
-        if (permiso == true) { handleIsPermisoRequerido() }
-        if (permiso == false) { handleQuitarPermisoRequerido() }
+        if (permiso === true) {
+            handleIsPermisoRequerido();
+        }
+        if (permiso === false) {
+            handleQuitarPermisoRequerido();
+        }
     }, [permiso]);
+
     return (
         <div className='flex flex-row justify-left items-center '>
             <p>Mostrar únicamente profesionales con permiso de conducción?</p>
