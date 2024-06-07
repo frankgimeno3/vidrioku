@@ -1,11 +1,7 @@
 "use client"
 import { FC, useEffect, useState } from "react";
-import Image from "next/image";
-import Descripcion from "@/app/crearoferta/componentes/Descripcion";
-import { useRouter } from "next/router"; // Se corrigió el import de useRouter
-import Link from "next/link";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import Image from "next/image"; 
+import Link from "next/link"; 
 
 interface RendercomponentProps {
     renderoferta: any;
