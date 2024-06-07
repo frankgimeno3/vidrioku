@@ -42,8 +42,7 @@ export interface Oferta {
   adicional: string,
   empresaNombre: string,
   estado: string,
-    solicitudes: any;
-  
+  solicitudes: any;
 };
 
 
@@ -56,6 +55,7 @@ export interface Solicitud {
   offerId: string;
   userId: string;
   presentacion: any;
+  solicitudId: any;
 };
 
 export interface User {
@@ -77,13 +77,13 @@ export interface User {
   vehiculo: any;
   carta: any;
   NIE: string;
-  pais:string;
-     anoCreacion: string;
-    empleados: any;
-    actividad: string;
-     web: string;
-    email: string;
-     linkedin: string;
-    descripcion: any;
-    departamentos: Array<string>;
+  pais: string;
+  anoCreacion: string;
+  empleados: any;
+  actividad: string;
+  web: string;
+  email: string;
+  linkedin: string;
+  descripcion: any;
+  departamentos: Array<string>;
 }  

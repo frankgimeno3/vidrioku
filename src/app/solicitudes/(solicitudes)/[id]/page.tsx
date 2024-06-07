@@ -11,33 +11,20 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
+import { Solicitud, User } from '@/app/components/interfaces/interfaces';
 
-type solicitudProps = {
-    id: any;
-    offerId: any;
-    userId: any;
-};
+ 
 interface SolicitudesProps {
     params: { id: string }
 }
-
-interface User {
-    id: any
-    apellidos: string;
-    edad: number;
-    genero: string;
-    nombre: string;
-    ubi: string;
-    email: any;
-    conversations: any
-}
+ 
 
 const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
     const router = useRouter()
 
     const [userData, setUserData] = useState<User>();
     const [userObject, setUserObject] = useState<any>();
-    const [solicitud, setSolicitud] = useState<solicitudProps>();
+    const [solicitud, setSolicitud] = useState<Solicitud>();
     const [loading, setLoading] = useState(true);
     const [isOfertaClicked, setIsOfertaClicked] = useState(false)
     const [isPerfilClicked, setIsPerfilClicked] = useState(false)
@@ -92,7 +79,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
             const querySnapshot = await getDocs(q);
 
             querySnapshot.forEach((doc) => {
-                setSolicitud(doc.data() as solicitudProps);
+                setSolicitud(doc.data() as Solicitud);
             });
 
             setLoading(false);
@@ -103,7 +90,7 @@ const solicitudseleccionada: FC<SolicitudesProps> = ({ params }) => {
 
     useEffect(() => {
         if (solicitud) {
-            setSolicitudId(solicitud.id);
+            setSolicitudId(solicitud.solicitudId);
             setInterlocutor(solicitud.userId);
             setOferta(solicitud.offerId);
         }

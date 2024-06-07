@@ -1,23 +1,16 @@
+import { User } from '@/app/components/interfaces/interfaces';
 import { db } from '@/app/firebase';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react'
 
-type perfilProps = {
+type DetallesPerfilProps = {
     usuario: any;
  };
- interface usuarioProps {
-    apellidos: string;
-    edad: number;
-    genero: string;
-    nombre: string;
-    ubi: string;
-    userEmail: string;
-   
-}
 
- const DetallesPerfil: FC< perfilProps> = ({ usuario }) => {
+
+ const DetallesPerfil: FC< DetallesPerfilProps> = ({ usuario }) => {
     const [loading, setLoading] = useState(true);
-    const [ usuarioSelected, setUsuarioSelected] = useState< usuarioProps>();
+    const [ usuarioSelected, setUsuarioSelected] = useState< User>();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +20,7 @@ type perfilProps = {
           const querySnapshot = await getDocs(q);
     
           querySnapshot.forEach((doc) => {
-            setUsuarioSelected(doc.data() as  usuarioProps);
+            setUsuarioSelected(doc.data() as  User);
           });
     
           setLoading(false);

@@ -1,3 +1,4 @@
+import { Solicitud } from '@/app/components/interfaces/interfaces';
 import { db } from '@/app/firebase';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react'
@@ -6,15 +7,7 @@ import React, { FC, useEffect, useState } from 'react'
 type solicitudProps = {
     solicitudId: any;
  };
-
- interface Solicitud {
-  solicitudId: any;
-  offerId:any
-  userId:any
-  presentacion:any
  
-}
-
 
 const DetallesSolicitud: FC<solicitudProps> = ({solicitudId}) => {
     const [loading, setLoading] = useState(true);
