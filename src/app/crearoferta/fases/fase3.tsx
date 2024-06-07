@@ -3,7 +3,6 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { FC, useEffect, useState } from "react";
-import Titulo from "../componentes/Titulo";
 import Additional from "../componentes/Additional";
 import Requerimientos from "../componentes/Requerimientos";
 

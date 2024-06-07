@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
+
 interface CambiarAnuncioProps {
     setIsCambiarAnuncioOpen:any;
     nombre: any;

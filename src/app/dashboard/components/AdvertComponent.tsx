@@ -14,9 +14,6 @@ interface AdvertComponentProps {
      id:any
 }
 
-
-
-
 const  AdvertComponent : FC<AdvertComponentProps> = ({ bannerName, activo,  bannerUrl, id}) => {
 
   const [isCambiarAnuncioOpen, setIsCambiarAnuncioOpen] = useState(false)

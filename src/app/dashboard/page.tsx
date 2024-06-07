@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react'
 import { getDoc, doc, } from 'firebase/firestore';
 import { db } from './../firebase';
-
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import HomeEmpr from './components/HomeEmpr'
@@ -12,19 +11,8 @@ import HomeTrab from './components/HomeTrab';
 import HomeAdmin from './components/HomeAdmin';
 import { selectUser, updateUser } from '@/redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
-
-interface User {
-  id: any
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any;
-  userType:any;
-}
+import { User } from '../components/interfaces/interfaces';
+ 
 
 export default function Dashboard() {
   const [userType, setUserType] = useState<string>('');

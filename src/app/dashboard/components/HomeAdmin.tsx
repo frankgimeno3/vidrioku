@@ -7,21 +7,13 @@ import { db } from '../../firebase';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import AdvertComponent from './AdvertComponent';
+import { User } from '@/app/components/interfaces/interfaces';
 
 
 interface HomeTrabProps {
   userData: any
 }
-
-interface User {
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-}
-
+ 
 
 const HomeAdmin: FC<HomeTrabProps> = ({ userData }) => {
   const router = useRouter();

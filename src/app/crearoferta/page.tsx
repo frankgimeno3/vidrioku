@@ -7,14 +7,6 @@ import { Timestamp, addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'f
 import { db } from '../firebase';
 import { useSession } from 'next-auth/react';
 
-import Titulo from './componentes/Titulo';
-import Cargo from './componentes/Cargo';
-import Jornada from './componentes/Jornada';
-import Localizacion from './componentes/Localizacion';
-import Ubicacion from './componentes/Ubicacion';
-import Descripcion from './componentes/Descripcion';
-import Requerimientos from './componentes/Requerimientos';
-import Additional from './componentes/Additional';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 import Fase1 from './fases/fase1';
@@ -124,12 +116,6 @@ const Crearoferta: FC = () => {
           solcitantes: [],
           publicacion: Timestamp.now(),
           estado: "activa",
-
-
-          // habilidadRequerida
- 
-
-
         });
         await updateDoc(newOfferRef, { id: newOfferRef.id });
 

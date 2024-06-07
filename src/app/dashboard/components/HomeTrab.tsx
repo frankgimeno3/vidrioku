@@ -8,22 +8,13 @@ import { signOut, useSession } from 'next-auth/react';
 import Banners from '@/app/components/Banners';
 import SinSeguimientos from './publicaciones/SinSeguimientos';
 import Publicaciones from './publicaciones/Publicaciones';
+import { User } from '@/app/components/interfaces/interfaces';
 
 
 interface HomeTrabProps {
   userData: any
 }
-
-interface User {
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  profilepicture: any;
-}
-
+ 
 
 const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
   const router = useRouter();
