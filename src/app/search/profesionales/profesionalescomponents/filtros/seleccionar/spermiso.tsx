@@ -11,7 +11,7 @@ const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
     const [permiso, setPermiso] = useState(false);
 
     useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos); // This line seems unnecessary, consider removing it.
+        setFiltrosRecibidos(filtrosRecibidos); 
     }, [arrayFiltros]);
 
     useEffect(() => {

@@ -18,12 +18,7 @@ import { Oferta } from '@/app/components/interfaces/interfaces';
 
 
 const Ofertas: FC = ({ }) => {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
+ 
 
   //handle del tipo de consunta para cambiar de página con el searchnav
   const [tipoConsulta, setTipoConsulta] = useState('Ofertas');

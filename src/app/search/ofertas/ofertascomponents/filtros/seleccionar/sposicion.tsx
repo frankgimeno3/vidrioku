@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';   
-import { addFiltro } from '@/redux/features/arrayFiltros'; 
 import Comercial from './seleccionarPosicion/comercial';
 import Compras from './seleccionarPosicion/compras';
 import Dtecnico from './seleccionarPosicion/dtecnico';
@@ -11,18 +9,18 @@ import Operario from './seleccionarPosicion/operario';
 import Logistica from './seleccionarPosicion/logistica';
 
 interface SposicionProps {
+    arrayFiltros: any;
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const Sposicion: FC<SposicionProps> = () => {
-    const dispatch = useDispatch();
-    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
+const Sposicion: FC<SposicionProps> = ({arrayFiltros, setArrayFiltros}) => {
 
-    const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState('');
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+    const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState<any>()
     const [posicionSeleccionada, setPosicionSeleccionada] = useState('');
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
 
     useEffect(() => {
-        setArrayRecibido(arrayFiltros);
+        setFiltrosRecibidos(arrayFiltros);
     }, [arrayFiltros]);
 
     const selectDepartamento = (departamento: string) => {
@@ -34,12 +32,13 @@ const Sposicion: FC<SposicionProps> = () => {
     }, [posicionSeleccionada]);
 
     const handleAddPosicion = (posicion: string) => {
-        if (!arrayRecibido.includes(posicion) && posicion !== '') {
-            const newArray = [...arrayRecibido, `Posicion - ${posicion}`];
-            setArrayRecibido(newArray);
-            dispatch(addFiltro(`Posicion - ${posicion}`)); 
+        if (!filtrosRecibidos.includes(posicion)) {
+            const newArray = [...filtrosRecibidos, `Posicion - ${posicion}`];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray);
         }
     };
+
 
     return (
         <div className='flex flex-col'>

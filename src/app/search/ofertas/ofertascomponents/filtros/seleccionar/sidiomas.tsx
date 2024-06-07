@@ -1,16 +1,18 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; 
-import { addFiltro } from '@/redux/features/arrayFiltros'; 
+import { useDispatch, useSelector } from 'react-redux'; 
 
 interface SidiomaProps {
+    arrayFiltros:any;
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const Sidioma: FC<SidiomaProps> = () => {
-    const dispatch = useDispatch();
-    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
+const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
+    useEffect(() => {
+        setFiltrosRecibidos(filtrosRecibidos);
+    }, [arrayFiltros]);
+
 
     const [isEspanolSelected, setIsEspanolSelected] = useState(false);
     const [espanolLevel, setEspanolLevel] = useState('');
@@ -39,30 +41,47 @@ const Sidioma: FC<SidiomaProps> = () => {
     const [isGallegoSelected, setIsGallegoSelected] = useState(false);
     const [gallegoLevel, setGallegoLevel] = useState('');
 
-    useEffect(() => {
-        setArrayRecibido(arrayFiltros);
-    }, [arrayFiltros]);
+ 
 
     const handleSeleccionIdiomas = (idioma: string, nivel: string) => {
         const idiomaElement = `Idiomas - idioma: ${idioma}, nivel: ${nivel}`;
-        if (!arrayRecibido.includes(idiomaElement)) {
-            const newArray = [...arrayRecibido, idiomaElement];
-            setArrayRecibido(newArray);
-            dispatch(addFiltro(idiomaElement)); // Utiliza la acción addFiltro para agregar un filtro
+        if (!filtrosRecibidos.includes(idiomaElement) && idioma !== '') {
+            const newArray = [...filtrosRecibidos, `Idiomas - idioma: ${idioma}, nivel: ${nivel}`];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray); 
         }
     };
-
+    
     useEffect(() => {
-        handleSeleccionIdiomas('español', espanolLevel);
-        handleSeleccionIdiomas('inglés', inglesLevel);
-        handleSeleccionIdiomas('francés', francesLevel);
-        handleSeleccionIdiomas('portugués', portuguesLevel);
-        handleSeleccionIdiomas('alemán', alemanLevel);
-        handleSeleccionIdiomas('árabe', arabeLevel);
-        handleSeleccionIdiomas('catalán/valenciano', catalanValencianoLevel);
-        handleSeleccionIdiomas('vasco', vascoLevel);
-        handleSeleccionIdiomas('gallego', gallegoLevel);
+        if (espanolLevel !== '') {
+            handleSeleccionIdiomas('español', espanolLevel);
+        }
+        if (inglesLevel !== '') {
+            handleSeleccionIdiomas('inglés', inglesLevel);
+        }
+        if (francesLevel !== '') {
+            handleSeleccionIdiomas('francés', francesLevel);
+        }
+        if (portuguesLevel !== '') {
+            handleSeleccionIdiomas('portugués', portuguesLevel);
+        }
+        if (alemanLevel !== '') {
+            handleSeleccionIdiomas('alemán', alemanLevel);
+        }
+        if (arabeLevel !== '') {
+            handleSeleccionIdiomas('árabe', arabeLevel);
+        }
+        if (catalanValencianoLevel !== '') {
+            handleSeleccionIdiomas('catalán/valenciano', catalanValencianoLevel);
+        }
+        if (vascoLevel !== '') {
+            handleSeleccionIdiomas('vasco', vascoLevel);
+        }
+        if (gallegoLevel !== '') {
+            handleSeleccionIdiomas('gallego', gallegoLevel);
+        }
     }, [espanolLevel, inglesLevel, francesLevel, portuguesLevel, alemanLevel, arabeLevel, catalanValencianoLevel, vascoLevel, gallegoLevel]);
+
 
     return (
         <div className='flex flex-col'>

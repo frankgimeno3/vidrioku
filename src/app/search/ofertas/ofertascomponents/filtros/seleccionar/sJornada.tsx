@@ -1,29 +1,30 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; 
-import { addFiltro } from '@/redux/features/arrayFiltros'; 
+import { useDispatch, useSelector } from 'react-redux'; 
 
 interface SJornadaProps {
+    arrayFiltros:any;
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const SJornada: FC<SJornadaProps> = () => {
-    const dispatch = useDispatch();
-    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
-
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
+const SJornada: FC<SJornadaProps> = ({arrayFiltros, setArrayFiltros}) => { 
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
     useEffect(() => {
-        setArrayRecibido(arrayFiltros);
+        setFiltrosRecibidos(arrayFiltros);
     }, [arrayFiltros]);
+
+   
 
     const handleSeleccionJornada = (jornada: string) => {
         const jornadaElement = `Jornada - ${jornada}`;
-        if (!arrayRecibido.includes(jornadaElement)) {
-            const newArray = [...arrayRecibido, jornadaElement];
-            setArrayRecibido(newArray);
-            dispatch(addFiltro(jornadaElement)); 
+        if (!filtrosRecibidos.includes(jornada)) {
+            const newArray = [...filtrosRecibidos, jornada];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray);
         }
     };
+
+   
 
     return (
         <div className='flex flex-col my-3 '>

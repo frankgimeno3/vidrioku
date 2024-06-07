@@ -1,32 +1,33 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store';  
-import { removeFiltro } from '@/redux/features/arrayFiltros';
-
+ 
 interface FiltrosAplicadosProps {
     receivedParamsTratado: any;  
+    arrayFiltros:any;
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ receivedParamsTratado }) => {
-    const filtrosRecibidos = useSelector((state: RootState) => state.arrayFiltros.filtros);
-    const dispatch = useDispatch();
-    const router = useRouter();
+const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ receivedParamsTratado, arrayFiltros, setArrayFiltros }) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
+    const router = useRouter()
 
     useEffect(() => {
-     }, [receivedParamsTratado])
+        setFiltrosRecibidos(arrayFiltros)
+    }, [arrayFiltros])
+ 
 
-    const eliminarFiltro = (filtro: string) => {
-        dispatch(removeFiltro(filtro));  
+    const eliminarFiltro = (filtro: never) => {
+        setArrayFiltros((prevArray: any[]) => prevArray.filter(item => item !== filtro));
     }
 
     const reloadWindow = () => {
-        router.push('/search/ofertas')
+        router.push('/search/profesionales')
         setTimeout(() => {
             window.location.reload();
         }, 150)
     }
-
     return (
         <div className="flex flex-wrap">
             {filtrosRecibidos.map((filtro, index) => (

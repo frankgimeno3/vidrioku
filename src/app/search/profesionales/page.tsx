@@ -4,18 +4,17 @@ import { FC, useEffect, useState } from 'react';
 import { redirect, useSearchParams } from 'next/navigation';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '@/app/firebase';
-import { useSession } from 'next-auth/react';
-import Navbar from '@/app/components/Navbar';
+ import Navbar from '@/app/components/Navbar';
 import Searchnav from '../components/Searchnav';
 import SearchFiltrosProfesionales from "./profesionalescomponents/SearchFiltrosProfesionales"
 import Rendercomponent from './profesionalescomponents/Rendercomponent'
 import Footer from '@/app/components/Footer';
 import Banners from '@/app/components/Banners';
 import ProfesionalesList from './profesionalescomponents/ProfesionalesList';
+
 import { Providers } from '@/redux/provider';
 import { User } from '@/app/components/interfaces/interfaces';
-import { useSelector } from 'react-redux';
- 
+  
 const Profesionales: FC = ({ }) => {
  
   //handle del tipo de consunta para cambiar de página con el searchnav

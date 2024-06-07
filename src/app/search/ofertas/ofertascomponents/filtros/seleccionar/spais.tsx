@@ -1,19 +1,16 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; 
-import { addFiltro } from '@/redux/features/arrayFiltros'; 
+import { useDispatch, useSelector } from 'react-redux'; 
 
 interface SPaisProps {
+    arrayFiltros:any;
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const SPais: FC<SPaisProps> = () => {
-    const dispatch = useDispatch();
-    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
-
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
+const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
     useEffect(() => {
-        setArrayRecibido(arrayFiltros);
+        setFiltrosRecibidos(filtrosRecibidos); 
     }, [arrayFiltros]);
 
     const paisesLatam = [
@@ -47,11 +44,10 @@ const SPais: FC<SPaisProps> = () => {
     ];
 
     const handleSeleccionPais = (pais: string) => {
-        const paisElement = `Pais - ${pais}`;
-        if (!arrayRecibido.includes(paisElement)) {
-            const newArray = [...arrayRecibido, paisElement];
-            setArrayRecibido(newArray);
-            dispatch(addFiltro(paisElement)); 
+        if (!filtrosRecibidos.includes(pais) && pais !== '') {
+            const newArray = [...filtrosRecibidos, `Pais - ${pais}`];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray);
         }
     };
 

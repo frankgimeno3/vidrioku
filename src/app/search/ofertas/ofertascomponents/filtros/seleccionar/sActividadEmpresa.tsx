@@ -1,20 +1,25 @@
-import { FC, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store'; 
-import { addFiltro } from '@/redux/features/arrayFiltros'; 
+import React, { FC, useState, useEffect } from 'react';
 
 interface SActividadEmpresaProps {
+    arrayFiltros:any;
+    setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const SActividadEmpresa: FC<SActividadEmpresaProps> = () => {
-    const dispatch = useDispatch();
-    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
+const SActividadEmpresa: FC<SActividadEmpresaProps> = ({arrayFiltros, setArrayFiltros}) => { 
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+
+    useEffect(() => {
+        setFiltrosRecibidos(arrayFiltros);
+    }, [arrayFiltros]);
 
     const handleSeleccionActividad = (actividadEmpresa: string) => {
-        if (!arrayFiltros.includes(actividadEmpresa)) {
-            dispatch(addFiltro(actividadEmpresa)); // Utiliza la acción addFiltro para agregar un filtro
+        if (!filtrosRecibidos.includes(actividadEmpresa)) {
+            const newArray = [...filtrosRecibidos, actividadEmpresa];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray);
         }
     };
+     
 
     return (
         <div className='flex flex-col my-3 '>

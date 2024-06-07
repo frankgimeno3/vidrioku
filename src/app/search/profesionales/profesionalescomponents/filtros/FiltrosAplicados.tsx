@@ -18,10 +18,7 @@ const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ arrayFiltros, setArrayFil
     useEffect(() => {
         setFiltrosRecibidos(arrayFiltros)
     }, [arrayFiltros])
-
-    useEffect(() => {
-        console.log("receivedParamsTratado: ", receivedParamsTratado)
-    }, [receivedParamsTratado])
+ 
 
     const eliminarFiltro = (filtro: never) => {
         setArrayFiltros((prevArray: any[]) => prevArray.filter(item => item !== filtro));
