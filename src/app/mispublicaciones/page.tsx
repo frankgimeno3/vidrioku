@@ -6,12 +6,7 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-
-interface User {
-    id: any,
-    userEmail: string;
-    userType: string;
-  }
+import { User } from '../components/interfaces/interfaces';
  
 interface MispublicacionesProps {
   
