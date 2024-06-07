@@ -3,7 +3,7 @@
   export interface Conversation {
     colaborador1: any;
     colaborador2: any;
-    conversationId: any;
+    conversation: any;
     lastMessageSeenc1: any;
     lastMessageSeenc2: any;
     lastMessageSent: any;

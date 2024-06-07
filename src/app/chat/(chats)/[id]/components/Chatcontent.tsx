@@ -75,7 +75,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen, setIsLoading, i
 
   useEffect(() => {
     if (conversationData) {
-      setConversationRecibida(conversationData.conversationId);
+      setConversationRecibida(conversationData.conversation);
     }
   }, [conversationData]);
 

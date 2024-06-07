@@ -1,7 +1,6 @@
-// hooks/useUserSession.ts
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -20,6 +19,7 @@ interface User {
 
 const useUserSession = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { data: session } = useSession();
   const [userData, setUserData] = useState<User | null>(null);
 
@@ -34,11 +34,12 @@ const useUserSession = () => {
           dispatch(updateUser(userData));
         }
       } else {
-        redirect('/auth/login');
+        router.push('/auth/login');  
       }
     };
+
     fetchUserData();
-  }, [session, dispatch]);
+  }, [session, dispatch, router]);
 
   return { userData, session };
 };

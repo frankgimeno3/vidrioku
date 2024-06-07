@@ -99,7 +99,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
 
   useEffect(() => {
     if (messagesArray) {
-      const ultimo = conversationData.messagesArray[conversationData.messagesArray.length - 1];
+      const ultimo = conversationData?.messagesArray[conversationData.messagesArray.length - 1];
       setLastMessage(ultimo);
     }
   }, [messagesArray]);
@@ -118,7 +118,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
         if (response.exists()) {
           const MensajeData = response.data() as Mensaje;
           setContenidoUltimo(MensajeData);
-          setMessageCode(MensajeData.conversation);
+          setMessageCode(MensajeData.conversationId);
         }
       }
     };
@@ -171,7 +171,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
 
   const clickOnChat = () => {
     router.push(`/chat/${conversation}`);
-    changeReadState(conversationData.lastMessageSeenc1, conversationData.lastMessageSeenc2, quienSomos);
+    changeReadState(conversationData?.lastMessageSeenc1, conversationData?.lastMessageSeenc2, quienSomos);
   };
 
   return (
