@@ -46,6 +46,13 @@ export interface ParamsState {
   id: string | null;
 }
 
+export interface Solicitud  {
+  id: string;
+  offerId: string;
+  userId: string;
+  presentacion: any;
+};
+
 export interface User {
   id: string;
   apellidos: string;

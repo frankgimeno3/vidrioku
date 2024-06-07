@@ -8,13 +8,9 @@ import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
+import { Solicitud } from '../components/interfaces/interfaces';
 
-type Solicitud = {
-  id: string;
-  offerId: string;
-  userId: string;
-  presentacion: any;
-};
+
 
 function misSolicitudes() {
   const session = useSession({
