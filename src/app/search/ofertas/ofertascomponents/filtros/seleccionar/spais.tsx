@@ -7,12 +7,7 @@ interface SPaisProps {
 }
 
 const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-
-    useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos); 
-    }, [arrayFiltros]);
-
+    
     const paisesLatam = [
         'Argentina',
         'Bolivia',
@@ -44,10 +39,9 @@ const SPais: FC<SPaisProps> = ({ arrayFiltros, setArrayFiltros }) => {
     ];
 
     const handleSeleccionPais = (pais: string) => {
-        if (!filtrosRecibidos.includes(pais) && pais !== '') {
-            const newArray = [...filtrosRecibidos, `Pais - ${pais}`];
-            setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray);
+        if (!arrayFiltros.includes(pais) && pais !== '') {
+            const newArray = [...arrayFiltros, `Pais - ${pais}`];
+             setArrayFiltros(newArray);
         }
     };
 

@@ -6,17 +6,11 @@ interface SActividadEmpresaProps {
 }
 
 const SActividadEmpresa: FC<SActividadEmpresaProps> = ({arrayFiltros, setArrayFiltros}) => { 
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-
-    useEffect(() => {
-        setFiltrosRecibidos(arrayFiltros);
-    }, [arrayFiltros]);
-
+ 
     const handleSeleccionActividad = (actividadEmpresa: string) => {
-        if (!filtrosRecibidos.includes(actividadEmpresa)) {
-            const newArray = [...filtrosRecibidos, actividadEmpresa];
-            setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray);
+        if (!arrayFiltros.includes(actividadEmpresa)) {
+            const newArray = [...arrayFiltros, actividadEmpresa];
+             setArrayFiltros(newArray);
         }
     };
      

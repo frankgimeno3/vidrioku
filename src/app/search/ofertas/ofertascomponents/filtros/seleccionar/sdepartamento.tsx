@@ -7,21 +7,16 @@ interface SdepartamentoProps {
     setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const Sdepartamento: FC<SdepartamentoProps> = ({arrayFiltros, setArrayFiltros}) => { 
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-
-    useEffect(() => {
-        setFiltrosRecibidos(arrayFiltros);
-    }, [arrayFiltros]);
+const Sdepartamento: FC<SdepartamentoProps> = ({ arrayFiltros, setArrayFiltros }) => {
+  
 
     const handleSeleccionDepartamento = (departamento: string) => {
-        if (!filtrosRecibidos.includes(departamento)) {
-            const newArray = [...filtrosRecibidos, departamento];
-            setFiltrosRecibidos(newArray);
+        if (!arrayFiltros.includes(departamento)) {
+            const newArray = [...arrayFiltros, departamento];
             setArrayFiltros(newArray);
         }
     };
- 
+
 
     return (
         <div className='flex flex-col my-3 '>

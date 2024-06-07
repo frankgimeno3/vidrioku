@@ -6,13 +6,9 @@ interface SpermisoProps {
 }
 
 const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-    const [isChecked, setChecked] = useState(false);
+     const [isChecked, setChecked] = useState(false);
     const [permiso, setPermiso] = useState(false);
-
-    useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos); 
-    }, [arrayFiltros]);
+ 
 
     useEffect(() => {
         setChecked(permiso || false);
@@ -26,19 +22,17 @@ const Spermiso: FC<SpermisoProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
     const handleIsPermisoRequerido = () => {
         const permisoElement = "Carnet de conducir - Requerido";
-        if (!filtrosRecibidos.includes(permisoElement)) {
-            const newArray = [...filtrosRecibidos, permisoElement];
-            setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray);
+        if (!arrayFiltros.includes(permisoElement)) {
+            const newArray = [...arrayFiltros, permisoElement];
+             setArrayFiltros(newArray);
         }
     };
 
     const handleQuitarPermisoRequerido = () => {
         const permisoElement = "Carnet de conducir - Requerido";
-        if (filtrosRecibidos.includes(permisoElement)) {
-            const newArray = filtrosRecibidos.filter((item) => item !== permisoElement);
-            setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray);
+        if (arrayFiltros.includes(permisoElement)) {
+            const newArray = arrayFiltros.filter((item: string) => item !== permisoElement);
+             setArrayFiltros(newArray);
         }
     };
 

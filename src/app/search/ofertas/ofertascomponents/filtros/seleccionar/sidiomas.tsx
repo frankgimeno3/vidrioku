@@ -7,11 +7,7 @@ interface SidiomaProps {
 }
 
 const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-
-    useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos);
-    }, [arrayFiltros]);
+     
 
 
     const [isEspanolSelected, setIsEspanolSelected] = useState(false);
@@ -45,10 +41,9 @@ const Sidioma: FC<SidiomaProps> = ({ arrayFiltros, setArrayFiltros }) => {
 
     const handleSeleccionIdiomas = (idioma: string, nivel: string) => {
         const idiomaElement = `Idiomas - idioma: ${idioma}, nivel: ${nivel}`;
-        if (!filtrosRecibidos.includes(idiomaElement) && idioma !== '') {
-            const newArray = [...filtrosRecibidos, `Idiomas - idioma: ${idioma}, nivel: ${nivel}`];
-            setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray); 
+        if (!arrayFiltros.includes(idiomaElement) && idioma !== '') {
+            const newArray = [...arrayFiltros, `Idiomas - idioma: ${idioma}, nivel: ${nivel}`];
+             setArrayFiltros(newArray); 
         }
     };
     

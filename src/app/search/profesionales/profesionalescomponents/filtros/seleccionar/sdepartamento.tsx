@@ -6,16 +6,11 @@ interface SdepartamentoProps {
 }
 
 const Sdepartamento: FC<SdepartamentoProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-
-    useEffect(() => {
-        setFiltrosRecibidos(arrayFiltros);
-    }, [arrayFiltros]);
+  
 
     const handleSeleccionDepartamento = (departamento: string) => {
-        if (!filtrosRecibidos.includes(departamento)) {
-            const newArray = [...filtrosRecibidos, departamento];
-            setFiltrosRecibidos(newArray);
+        if (!arrayFiltros.includes(departamento)) {
+            const newArray = [...arrayFiltros, departamento];
             setArrayFiltros(newArray);
         }
     };

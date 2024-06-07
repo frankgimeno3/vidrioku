@@ -13,15 +13,10 @@ interface SposicionProps {
     setArrayFiltros: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const Sposicion: FC<SposicionProps> = ({arrayFiltros, setArrayFiltros}) => {
-
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-    const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState<any>()
+const Sposicion: FC<SposicionProps> = ({ arrayFiltros, setArrayFiltros }) => {
+     const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState('');
     const [posicionSeleccionada, setPosicionSeleccionada] = useState('');
-
-    useEffect(() => {
-        setFiltrosRecibidos(arrayFiltros);
-    }, [arrayFiltros]);
+  
 
     const selectDepartamento = (departamento: string) => {
         setDepartamentoSeleccionado(departamento);
@@ -32,9 +27,8 @@ const Sposicion: FC<SposicionProps> = ({arrayFiltros, setArrayFiltros}) => {
     }, [posicionSeleccionada]);
 
     const handleAddPosicion = (posicion: string) => {
-        if (!filtrosRecibidos.includes(posicion)) {
-            const newArray = [...filtrosRecibidos, `Posicion - ${posicion}`];
-            setFiltrosRecibidos(newArray);
+        if (!arrayFiltros.includes(posicion) && posicion != '') {
+            const newArray = [...arrayFiltros, `Posicion - ${posicion}`];
             setArrayFiltros(newArray);
         }
     };

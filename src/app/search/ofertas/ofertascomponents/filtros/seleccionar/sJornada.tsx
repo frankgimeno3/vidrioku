@@ -7,20 +7,11 @@ interface SJornadaProps {
 }
 
 const SJornada: FC<SJornadaProps> = ({arrayFiltros, setArrayFiltros}) => { 
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
-
-    useEffect(() => {
-        setFiltrosRecibidos(arrayFiltros);
-    }, [arrayFiltros]);
-
-   
-
-    const handleSeleccionJornada = (jornada: string) => {
+   const handleSeleccionJornada = (jornada: string) => {
         const jornadaElement = `Jornada - ${jornada}`;
-        if (!filtrosRecibidos.includes(jornada)) {
-            const newArray = [...filtrosRecibidos, jornada];
-            setFiltrosRecibidos(newArray);
-            setArrayFiltros(newArray);
+        if (!arrayFiltros.includes(jornada)) {
+            const newArray = [...arrayFiltros, jornada];
+             setArrayFiltros(newArray);
         }
     };
 

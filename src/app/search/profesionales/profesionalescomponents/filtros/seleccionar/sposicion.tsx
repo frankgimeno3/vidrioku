@@ -13,30 +13,24 @@ interface SposicionProps {
 }
 
 const Sposicion: FC<SposicionProps> = ({ arrayFiltros, setArrayFiltros }) => {
-    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
     const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState('');
-    const [posicionSeleccionada, setPosicionSeleccionada] = useState('');
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
+   const [posicionSeleccionada, setPosicionSeleccionada] = useState('');
+ 
 
-    useEffect(() => {
-        setFiltrosRecibidos(filtrosRecibidos);
-    }, [arrayFiltros]);
+   const selectDepartamento = (departamento: string) => {
+       setDepartamentoSeleccionado(departamento);
+   };
 
-    const selectDepartamento = (departamento: string) => {
-        setDepartamentoSeleccionado(departamento);
-    };
+   useEffect(() => {
+       handleAddPosicion(posicionSeleccionada);
+   }, [posicionSeleccionada]);
 
-    useEffect(() => {
-        handleAddPosicion(posicionSeleccionada);
-    }, [posicionSeleccionada]);
-
-    const handleAddPosicion = (posicion: string) => {
-        if (!arrayRecibido.includes(posicion) && posicion !== '') {
-            const newArray = [...arrayRecibido, `Posicion - ${posicion}`];
-            setArrayRecibido(newArray);
-            setArrayFiltros(newArray);
-        }
-    };
+   const handleAddPosicion = (posicion: string) => {
+       if (!arrayFiltros.includes(posicion) && posicion != '') {
+           const newArray = [...arrayFiltros, `Posicion - ${posicion}`];
+           setArrayFiltros(newArray);
+       }
+   };
 
     return (
         <div className='flex flex-col'>
