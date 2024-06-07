@@ -1,26 +1,29 @@
-import { FC, use, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/redux/store';  
-import { removeFiltro } from '@/redux/features/arrayFiltros';
-import { useDispatch, useSelector } from 'react-redux';
+ 
 
 interface FiltrosAplicadosProps {
     receivedParamsTratado: any;  
-
+    arrayFiltros:any;
+    setArrayFiltros:any;
 }
  
 
-const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({   receivedParamsTratado }) => {
-    const filtrosRecibidos = useSelector((state: RootState) => state.arrayFiltros.filtros);
-    const dispatch = useDispatch();
+const FiltrosAplicados: FC<FiltrosAplicadosProps> = ({ arrayFiltros, setArrayFiltros,  receivedParamsTratado }) => {
+ 
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState([])
     const router = useRouter();
 
     useEffect(() => {
-     }, [receivedParamsTratado])
+    }, [receivedParamsTratado])
+
+    useEffect(() => {
+    }, [arrayFiltros])
 
     const eliminarFiltro = (filtro: string) => {
-        dispatch(removeFiltro(filtro));  
+         
     }
 
     const reloadWindow = () => {

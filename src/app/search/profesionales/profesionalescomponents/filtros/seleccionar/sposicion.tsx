@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
-import { addFiltro } from '@/redux/features/arrayFiltros';  
 
 import Comercial from './seleccionarPosicion/comercial';
 import Mantenimiento from './seleccionarPosicion/mantenimiento';
@@ -11,19 +9,22 @@ import Dtecnico from './seleccionarPosicion/dtecnico';
 import Operario from './seleccionarPosicion/operario';
 import Logistica from './seleccionarPosicion/logistica';
 
-interface SposicionProps {}
+interface SposicionProps {
+    arrayFiltros:any;
+    setArrayFiltros: any;
+}
 
-const Sposicion: FC<SposicionProps> = () => {
-    const dispatch = useDispatch();
-    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
+const Sposicion: FC<SposicionProps> = (arrayFiltros, setArrayFiltros) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+
+    useEffect(() => {
+        setFiltrosRecibidos(filtrosRecibidos);
+     }, [arrayFiltros]);
 
     const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState('');
     const [posicionSeleccionada, setPosicionSeleccionada] = useState('');
     const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
-
-    useEffect(() => {
-        setArrayRecibido(arrayFiltros);
-    }, [arrayFiltros]);
+ 
 
     const selectDepartamento = (departamento: string) => {
         setDepartamentoSeleccionado(departamento);
@@ -37,7 +38,7 @@ const Sposicion: FC<SposicionProps> = () => {
         if (!arrayRecibido.includes(posicion) && posicion !== '') {
             const newArray = [...arrayRecibido, `Posicion - ${posicion}`];
             setArrayRecibido(newArray);
-            dispatch(addFiltro(`Posicion - ${posicion}`)); 
+            setArrayFiltros(newArray); 
         }
     };
     return (

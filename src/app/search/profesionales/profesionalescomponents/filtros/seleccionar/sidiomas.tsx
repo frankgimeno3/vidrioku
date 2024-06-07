@@ -1,13 +1,17 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
-import { addFiltro } from '@/redux/features/arrayFiltros';
 
-interface SidiomaProps { }
 
-const Sidioma: FC<SidiomaProps> = () => {
-    const dispatch = useDispatch();
-    const arrayRecibido = useSelector((state: RootState) => state.arrayFiltros.filtros);
+interface SidiomaProps {    arrayFiltros:any;
+    setArrayFiltros: any;}
+
+const Sidioma: FC<SidiomaProps> = (arrayFiltros, setArrayFiltros) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+
+    useEffect(() => {
+        setFiltrosRecibidos(filtrosRecibidos);
+     }, [arrayFiltros]);
+
 
     const [isEspanolSelected, setIsEspanolSelected] = useState(false);
     const [espanolLevel, setEspanolLevel] = useState('');
@@ -36,15 +40,17 @@ const Sidioma: FC<SidiomaProps> = () => {
     const [isGallegoSelected, setIsGallegoSelected] = useState(false);
     const [gallegoLevel, setGallegoLevel] = useState('');
 
-
+ 
 
     const handleSeleccionIdiomas = (idioma: string, nivel: string) => {
         const idiomaElement = `Idiomas - idioma: ${idioma}, nivel: ${nivel}`;
-        if (!arrayRecibido.includes(idiomaElement)) {
-            dispatch(addFiltro(idiomaElement));
+        if (!filtrosRecibidos.includes(idiomaElement) && idioma !== '') {
+            const newArray = [...filtrosRecibidos, `Idiomas - idioma: ${idioma}, nivel: ${nivel}`];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray); 
         }
     };
-
+    
     useEffect(() => {
         if (espanolLevel !== '') {
             handleSeleccionIdiomas('español', espanolLevel);

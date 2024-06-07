@@ -1,13 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import paramsReducer from "./features/paramsSlice"; 
-import arrayFiltrosReducer from "./features/arrayFiltros";  
-import userReducer from "./features/userSlice"; 
+ import userReducer from "./features/userSlice"; 
 
 export const store = configureStore({
   reducer: {
-    params: paramsReducer,  
-    arrayFiltros: arrayFiltrosReducer,
-    user: userReducer,
+      user: userReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

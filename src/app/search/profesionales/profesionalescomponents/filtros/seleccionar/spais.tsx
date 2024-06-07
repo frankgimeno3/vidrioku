@@ -1,12 +1,18 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { addFiltro } from '@/redux/features/arrayFiltros';
-interface SPaisProps {}
 
-const SPais: FC<SPaisProps> = () => {
-    const dispatch = useDispatch();
-    const arrayRecibido = useSelector((state: RootState) => state.arrayFiltros.filtros);
+interface SPaisProps {
+    arrayFiltros:any;
+    setArrayFiltros: any;
+}
+
+const SPais: FC<SPaisProps> = (arrayFiltros, setArrayFiltros) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
+
+    useEffect(() => {
+        setFiltrosRecibidos(filtrosRecibidos);
+     }, [arrayFiltros]);
 
     const paisesLatam = [
         'Argentina',
@@ -37,10 +43,13 @@ const SPais: FC<SPaisProps> = () => {
         'España',
         'Portugal',
     ];
+ 
 
     const handleSeleccionPais = (pais: string) => {
-        if (!arrayRecibido.includes(pais)) {
-            dispatch(addFiltro(`Pais - ${pais}`)); 
+        if (!filtrosRecibidos.includes(pais) && pais !== '') {
+            const newArray = [...filtrosRecibidos, `Pais - ${pais}`];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray); 
         }
     };
 

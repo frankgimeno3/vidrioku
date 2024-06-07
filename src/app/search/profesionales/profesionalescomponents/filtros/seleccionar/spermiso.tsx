@@ -1,19 +1,17 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
-import { addFiltro, removeFiltro } from '@/redux/features/arrayFiltros'; 
 
-interface SpermisoProps {}
+interface SpermisoProps {
+    arrayFiltros:any;
+    setArrayFiltros: any;
+}
 
-const Spermiso: FC<SpermisoProps> = () => {
-    const dispatch = useDispatch();
-    const arrayFiltros = useSelector((state: RootState) => state.arrayFiltros.filtros);
-
-    const [arrayRecibido, setArrayRecibido] = useState<string[]>([]);
+const Spermiso: FC<SpermisoProps> = (arrayFiltros, setArrayFiltros) => {
+    const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
 
     useEffect(() => {
-        setArrayRecibido(arrayFiltros);
-    }, [arrayFiltros]);
+        setFiltrosRecibidos(filtrosRecibidos);
+     }, [arrayFiltros]);
 
 
     const [isChecked, setChecked] = useState(false);
@@ -32,19 +30,19 @@ const Spermiso: FC<SpermisoProps> = () => {
 
     const handleIsPermisoRequerido = () => {
         const permisoElement = "Carnet de conducir - Requerido";
-        if (!arrayRecibido.includes(permisoElement)) {
-            const newArray = [...arrayRecibido, permisoElement];
-            setArrayRecibido(newArray);
-            dispatch(addFiltro(permisoElement));  
+        if (!filtrosRecibidos.includes(permisoElement)) {
+            const newArray = [...filtrosRecibidos, permisoElement];
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray); 
         }
     };
     
     const handleQuitarPermisoRequerido = () => {
         const permisoElement = "Carnet de conducir - Requerido";
-        if (arrayRecibido.includes(permisoElement)) {
-            const newArray = arrayRecibido.filter(item => item !== permisoElement);
-            setArrayRecibido(newArray);
-            dispatch(removeFiltro(permisoElement)); 
+        if (filtrosRecibidos.includes(permisoElement)) {
+            const newArray = filtrosRecibidos.filter(item => item !== permisoElement);
+            setFiltrosRecibidos(newArray);
+            setArrayFiltros(newArray); 
         }
     };
     useEffect(() => {

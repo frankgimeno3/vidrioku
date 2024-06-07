@@ -1,8 +1,8 @@
 "use client"
 
-import { FC, SetStateAction, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { redirect, useSearchParams } from 'next/navigation';
-import { collection, getDocs, query, } from 'firebase/firestore';
+import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
@@ -14,16 +14,10 @@ import Banners from '@/app/components/Banners';
 import ProfesionalesList from './profesionalescomponents/ProfesionalesList';
 import { Providers } from '@/redux/provider';
 import { User } from '@/app/components/interfaces/interfaces';
-
-
+import { useSelector } from 'react-redux';
+ 
 const Profesionales: FC = ({ }) => {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
-
+ 
   //handle del tipo de consunta para cambiar de página con el searchnav
   const [tipoConsulta, setTipoConsulta] = useState('Trabajadores');
   const setOfertas = () => { setTipoConsulta('Ofertas'); };
@@ -33,7 +27,7 @@ const Profesionales: FC = ({ }) => {
   const [renderProfesional, setRenderProfesional] = useState<any>()
 
   //estado puente entre los filtros que se añaden 
-  const [arrayFiltros, setArrayFiltros] = useState<[]>([])
+  const [arrayFiltrosLocal, setArrayFiltrosLocal] = useState<[]>([])
 
   //creamos trab vacío, lo rellenamos con peticion a firebase, luego seleccionamos los trabajadores, y hacemos un loading para que cargue
   const searchParams = useSearchParams()
@@ -43,8 +37,6 @@ const Profesionales: FC = ({ }) => {
     setReceivedParams(searchParams?.toString())
   }, [searchParams])
 
-
-
   useEffect(() => {
     if (receivedParams) {
       const decodedParams = decodeURIComponent(receivedParams);
@@ -53,11 +45,11 @@ const Profesionales: FC = ({ }) => {
     }
   }, [receivedParams]);
 
-
   //creamos trab vacío, lo rellenamos con peticion a firebase, luego seleccionamos los trabajadores, y hacemos un loading para que cargue
   const [trabajadoresArray, setTrabajadoresArray] = useState<any>([]);
   const [trabajadoresProfesionales, setTrabajadoresProfesionales] = useState<any>([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -85,7 +77,6 @@ const Profesionales: FC = ({ }) => {
 
   return (
     <Providers>
-
       <div className='flex flex-col justify-between '>
         <Navbar />
         <div className='flex flex-row w-full  justify-between bg-white bg-opacity-90 min-h-screen'>
@@ -95,7 +86,7 @@ const Profesionales: FC = ({ }) => {
               <Searchnav setOfertas={setOfertas} setTrabajadores={setTrabajadores} tipoConsulta={tipoConsulta} />
               <div className="flex flex-col  h-full bg-zinc-800  mx-8  ">
                 <nav className="bg-gray-200 py-2 px-1   ">
-                  <SearchFiltrosProfesionales arrayFiltros={arrayFiltros} setArrayFiltros={setArrayFiltros} setRenderProfesional={setRenderProfesional} receivedParamsTratado={receivedParamsTratado} />
+                  <SearchFiltrosProfesionales arrayFiltros={arrayFiltrosLocal} setArrayFiltros={setArrayFiltrosLocal} setRenderProfesional={setRenderProfesional} receivedParamsTratado={receivedParamsTratado} />
                 </nav>
                 <div className='flex flex-row bg-white flex flex-row w-full h-full'>
                   <div className='flex flex-col flex-1 overflow-scroll h-full'>
@@ -124,8 +115,7 @@ const Profesionales: FC = ({ }) => {
         <Footer />
       </div>
     </Providers>
-
   );
 };
 
-export default Profesionales
+export default Profesionales;
