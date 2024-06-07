@@ -31,7 +31,7 @@
   }
   
   export interface User {
-    id: any;
+    id: string;
     apellidos: string;
     edad: number;
     genero: string;
@@ -41,4 +41,5 @@
     conversations: any;
     profilepicture:any;
     unreadnotifications:any;
+    userType:string;
   }

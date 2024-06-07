@@ -8,12 +8,9 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import ConfigurationRender from './components/ConfigurationRender';
 import LeftContent from './LeftContent';
+import { User } from '../components/interfaces/interfaces';
 
-interface User {
-  id: any,
-  userEmail: string;
-  userType: string;
-}
+
 
 const Configuracion: FC = ({ }) => {
   const router = useRouter();
