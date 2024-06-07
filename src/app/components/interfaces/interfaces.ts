@@ -65,4 +65,5 @@ export interface User {
   profilepicture: any;
   unreadnotifications: any;
   userType: string;
+  posicionesMap:any;
 }

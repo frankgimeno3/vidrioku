@@ -8,19 +8,12 @@ import { useSession } from 'next-auth/react';
 import EmpresaCard from "./empresaCard"
 import OfertasActivas from './cards/OfertasActivas';
 import RightElems from './rightElems';
+import { User } from '@/app/components/interfaces/interfaces';
 
 interface PerfilempresaProps {
   userData: any
 }
-
-interface User {
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-}
+ 
 
 const Perfilempresa: FC<PerfilempresaProps> = ({ }) => {
 

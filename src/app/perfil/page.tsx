@@ -12,7 +12,7 @@ import Footer from '@/app/components/Footer';
 import { db } from '../firebase';
 import { User } from '../components/interfaces/interfaces';
 
- 
+
 
 export default function Miperfil() {
   const session = useSession({
