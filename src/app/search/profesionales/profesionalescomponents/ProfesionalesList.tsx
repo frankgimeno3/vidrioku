@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import Profesional from './compListados/Profesional';
 import ListadoBotones from './ListadoBotones';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 interface ProfesionalesListProps {
     receivedParamsTratado: any;
@@ -9,6 +11,8 @@ interface ProfesionalesListProps {
 }
 
 const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, trabajadoresProfesionales, setRenderProfesional }) => {
+    const user = useSelector(selectUser);
+
 
     //se reciben los filtros, y se pasan sus valores como strings a un array especifico por tipo de filtro
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
@@ -271,7 +275,8 @@ const ProfesionalesList: FC<ProfesionalesListProps> = ({ receivedParamsTratado, 
             }
             {isArrayMostrado && arrayMostrado?.map((trabajador: any, index: any) => (
                 <div onClick={() => handleProfesionalClick(trabajador)} key={index} >
-                    <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />
+                    {trabajador.email != user?.id &&
+                    <Profesional trabajador={trabajador} setRenderProfesional={setRenderProfesional} />}
                 </div>
             ))}
             <nav className="bg-gray-200 py-2 px-1 text-center  ">
