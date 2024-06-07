@@ -21,13 +21,14 @@ const SelectedChat: FC<SelectedChatProps> = ({ params }) => {
   const dispatch = useDispatch();
   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
-  const paramsId = useSelector(selectParamsId);
-  const [isLoading, setIsLoading] = useState(false)
-
   useEffect(() => {
-    // Update paramsId in Redux state when params change
     dispatch(setParamsId(params.id));
   }, [dispatch, params.id]);
+
+
+  const paramsId = useSelector(selectParamsId);
+  const [isLoading, setIsLoading] = useState(false)
+//esto es para que cuando tarde en cargar el render muestre un loading en vez de blanco
 
   return (
     <Providers>
