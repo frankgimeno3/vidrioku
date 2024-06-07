@@ -8,10 +8,11 @@ interface ContentRenderingProps {
   userId: string | null;
   messagesArray: string[] | null;
   isLoading: any;
+  setIsLoading:any
 }
 
 
-const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, messagesArray, isLoading }) => {
+const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, messagesArray, isLoading, setIsLoading }) => {
   const [renderingObjectArray, setRenderingObjectArray] = useState<Mensaje[]>([]);
   const [filteredArray, setFilteredArray] = useState<Mensaje[]>([]);
   const fetchDoc = async () => {
@@ -34,6 +35,8 @@ const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, mes
 
   useEffect(() => {
     fetchDoc();
+    if(messagesArray== undefined){setIsLoading(true)}
+    if(messagesArray!= undefined){setIsLoading(false)}
   }, [messagesArray]);
 
   useEffect(() => {

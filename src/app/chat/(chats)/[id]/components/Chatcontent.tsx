@@ -82,7 +82,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen, setIsLoading, i
   return (
     <div className='flex flex-col h-full flex-1'>
       <ChatHeader interlocutor={interlocutor} interlocutorImg={interlocutorImg} />
-      <ContentRendering interlocutor={interlocutor} userId={userIdRecibido} messagesArray={messagesArray} isLoading={isLoading}/>
+      <ContentRendering interlocutor={interlocutor} userId={userIdRecibido} messagesArray={messagesArray}  setIsLoading={setIsLoading} isLoading={isLoading}/>
       <InputForm userId={userIdRecibido} conversationId={conversationRecibida} userObject={userObject} />
     </div>
   );
