@@ -5,25 +5,16 @@ import ChatHeader from './chatcomponents/ChatHeader';
 import ContentRendering from './chatcomponents/ContentRendering';
 import InputForm from './chatcomponents/InputForm';
 import useUserSession from '../../../../components/hooks/userSession';
+import { Conversation,  User } from '../../../../components/interfaces/interfaces';  
 
 interface ChatcontentProps {
   conversationChosen: any;
 }
 
-interface Conversation {
-  colaborador1: any;
-  colaborador2: any;
-  conversationId: any;
-  lastMessageSeenC1: any;
-  lastMessageSeenc2: any;
-  lastMessageSent: any;
-  messagesArray: any;
-}
-
 const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
   const { userData, session } = useUserSession();
 
-  const [conversationData, setConversationData] = useState<any>();
+  const [conversationData, setConversationData] = useState<Conversation | undefined>();
   const [messagesArray, setMessagesArray] = useState<any>();
   const [userIdRecibido, setUserIdRecibido] = useState<any>();
   const [conversationRecibida, setConversationRecibida] = useState<any>();
@@ -62,7 +53,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
         const docRef = doc(db, "users", interlocutor);
         const response = await getDoc(docRef);
         if (response.exists()) {
-          const interlocutorUserData = response.data() as any;
+          const interlocutorUserData = response.data() as User;
           setInterlocutorImg(interlocutorUserData.profilepicture);
         }
       }
@@ -82,7 +73,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
 
   useEffect(() => {
     if (conversationData) {
-      setConversationRecibida(conversationData.conversacion);
+      setConversationRecibida(conversationData.conversationId);
     }
   }, [conversationData]);
 

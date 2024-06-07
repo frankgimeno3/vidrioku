@@ -6,54 +6,18 @@ import { db } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
 import { selectUser } from '@/redux/features/userSlice';
 import useUserSession from '../../../../components/hooks/userSession';
-
-interface MessageListComponentProps {
-  conversation: any;
-  paramsId: any;
-}
-
-interface User {
-  id: any;
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any;
-}
-
-interface Conversation {
-  colaborador1: any;
-  colaborador2: any;
-  conversationId: any;
-  lastMessageSeenC1: any;
-  lastMessageSeenc2: any;
-  lastMessageSent: any;
-  messagesArray: any;
-}
-
-interface Mensaje {
-  content: any;
-  conversationId: any;
-  emisor: any;
-  messageId: any;
-  readc1: any;
-  readc2: any;
-  receptor: any;
-  sent: any;
-}
+import { User, Conversation, Mensaje, MessageListComponentProps } from '../../../../components/interfaces/interfaces';  
 
 const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, paramsId }) => {
   const { userData, session } = useUserSession();
   const router = useRouter();
   const user = useSelector(selectUser);
 
-  const [interlocutor, setInterlocutor] = useState<any>();
-  const [conversationData, setConversationData] = useState<any>();
+  const [interlocutor, setInterlocutor] = useState<User | undefined>();
+  const [conversationData, setConversationData] = useState<Conversation | undefined>();
   const [messagesArray, setMessagesArray] = useState<any>();
   const [lastMessage, setLastMessage] = useState<any>();
-  const [contenidoUltimo, setContenidoUltimo] = useState<any>();
+  const [contenidoUltimo, setContenidoUltimo] = useState<Mensaje | undefined>();
   const [conversationId, setConversationId] = useState<any>();
   const [interlocutorId, setInterlocutorId] = useState<any>();
   const [quienSomos, setQuienSomos] = useState<any>();
@@ -67,7 +31,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
         const docRef = doc(db, "conversations", conversation);
         const response = await getDoc(docRef);
         if (response.exists()) {
-          const conversationDataObject = response.data();
+          const conversationDataObject = response.data() as Conversation;
           setConversationData(conversationDataObject);
         }
       }
@@ -135,14 +99,14 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
 
   useEffect(() => {
     if (messagesArray) {
-      const ultimo = conversationData.messagesArray[conversationData.messagesArray.length - 1];
+      const ultimo = conversationData?.messagesArray[conversationData.messagesArray.length - 1];
       setLastMessage(ultimo);
     }
   }, [messagesArray]);
 
   useEffect(() => {
     if (conversationData) {
-      setConversationId(conversationData.conversacion);
+      setConversationId(conversationData.conversationId);
     }
   }, [conversationData]);
 
@@ -207,7 +171,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
 
   const clickOnChat = () => {
     router.push(`/chat/${conversationId}`);
-    changeReadState(conversationData.lastMessageSeenC1, conversationData.lastMessageSeenc2, quienSomos);
+    changeReadState(conversationData?.lastMessageSeenc1, conversationData?.lastMessageSeenc2, quienSomos);
   };
 
   return (

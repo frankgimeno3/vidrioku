@@ -1,6 +1,7 @@
 import { db } from '@/app/firebase';
 import { Timestamp, addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState } from 'react';
+import { Conversation,  User } from '../../../../../components/interfaces/interfaces';  
 
 interface InputFormProps {
   userId: string | null;
@@ -8,28 +9,7 @@ interface InputFormProps {
   userObject: User | null;
 }
 
-interface User {
-  id: string;
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: string[];
-  unreadnotifications?: string[]; 
-}
-
-interface Conversation {
-  colaborador1: string;
-  colaborador2: string;
-  conversationId: string;
-  lastMessageSeenC1: boolean;
-  lastMessageSeenc2: boolean;
-  lastMessageSent: string;
-  messagesArray: string[];
-}
-
+ 
 const InputForm: FC<InputFormProps> = ({ userId, conversationId, userObject }) => {
   const [inputContent, setInputContent] = useState<string>('');
   const [conversationData, setConversationData] = useState<Conversation | null>(null);

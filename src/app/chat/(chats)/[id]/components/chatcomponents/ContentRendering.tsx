@@ -1,23 +1,14 @@
 import { db } from '@/app/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { FC, useEffect, useState, useRef } from 'react';
+import { Mensaje,  User } from '../../../../../components/interfaces/interfaces';  
 
 interface ContentRenderingProps {
   interlocutor: string | null;
   userId: string | null;
   messagesArray: string[] | null;
 }
-
-interface Mensaje {
-  content: string;
-  conversacion: string;
-  emisor: string;
-  messageId: string;
-  readc1: boolean;
-  readc2: boolean;
-  receptor: string;
-  sent: string;
-}
+ 
 
 const ContentRendering: FC<ContentRenderingProps> = ({ interlocutor, userId, messagesArray }) => {
   const [renderingObjectArray, setRenderingObjectArray] = useState<Mensaje[]>([]);
