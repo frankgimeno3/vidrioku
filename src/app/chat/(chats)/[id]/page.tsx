@@ -21,6 +21,7 @@ const SelectedChat: FC<SelectedChatProps> = ({ params }) => {
   const dispatch = useDispatch();
   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
+  
   useEffect(() => {
     dispatch(setParamsId(params.id));
   }, [dispatch, params.id]);

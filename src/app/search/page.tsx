@@ -1,42 +1,31 @@
 "use client"
 
 import { FC, useEffect, useState } from 'react';
-import { redirect, useRouter } from 'next/navigation'; 
-import { useSession } from 'next-auth/react';
+import { redirect, useRouter } from 'next/navigation'; import { useSession } from 'next-auth/react';
 import Navbar from '@/app/components/Navbar';
 import Searchnav from './components/Searchnav';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
+import useUserSession from '../components/hooks/userSession';
+
 
 interface SearchProps {
 }
  
 const Search: FC<SearchProps> = ({ }) => {
-  const router = useRouter();
-  const [userData, setUserData] = useState("")
-  const [tipoConsulta, setTipoConsulta] = useState('');
+   useUserSession();
+
+   const [tipoConsulta, setTipoConsulta] = useState('');
 
 
   const setOfertas = () => {
     setTipoConsulta('Ofertas');
   };
-
   const setTrabajadores = () => {
     setTipoConsulta('Trabajadores');
   };
 
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
-
-  useEffect(() => {
-    if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
-    } else { setUserData("Usuario") }
-  }, [session?.data?.user?.email]);
+ 
 
   return (
     <>

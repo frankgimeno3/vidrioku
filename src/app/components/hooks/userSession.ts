@@ -1,38 +1,50 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { updateUser } from '@/redux/features/userSlice';
-import { User  } from '../interfaces/interfaces'; 
- 
+import { User } from '../interfaces/interfaces'; 
 
 const useUserSession = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { data: session } = useSession();
-  const [userData, setUserData] = useState<User | null>(null);
+  const [userData, setUserData] = useState<string | null>(null); // Ensure userData is a string or null
+  const [userType, setUserType] = useState<string>('');
+
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signin');
+    },
+  });
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (session?.user?.email) {
-        const docRef = doc(db, 'users', session.user.email);
+    if (session?.data?.user?.email) {
+      setUserData(session.data.user.email);
+    } else {
+      setUserData("Usuario");
+    }
+  }, [session?.data?.user?.email]);
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      if (userData) {
+        const docRef = doc(db, "users", userData);  
         const response = await getDoc(docRef);
         if (response.exists()) {
-          const userData = response.data() as User;
-          setUserData(userData);
-          dispatch(updateUser(userData));
+          const myUserData = response.data() as User;
+          dispatch(updateUser(myUserData));
+          setUserType(myUserData.userType);
+           setUserData(myUserData.email || "Usuario");
         }
-      } else {
-        router.push('/auth/login');  
       }
     };
+    fetchDoc();
+  }, [userData, dispatch]);
 
-    fetchUserData();
-  }, [session, dispatch, router]);
-
-  return { userData, session };
+  return { userData, session, userType };
 };
 
 export default useUserSession;
