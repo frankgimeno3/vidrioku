@@ -8,13 +8,7 @@ import { db } from '../firebase';
 import Link from 'next/link';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
-
-type Oferta = {
-  id: string;
-  titulo: string;
-  cargo: string;
-  estado: any
-};
+import { Oferta } from '../components/interfaces/interfaces';
 
 const Misofertas: FC = () => {
   const router = useRouter();
