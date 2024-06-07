@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
 import { selectUser } from '@/redux/features/userSlice';
+import useUserSession from '../../../../components/hooks/userSession';
 
 interface MessageListComponentProps {
   conversation: any;
@@ -44,6 +45,7 @@ interface Mensaje {
 }
 
 const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, paramsId }) => {
+  const { userData, session } = useUserSession();
   const router = useRouter();
   const user = useSelector(selectUser);
 
@@ -79,20 +81,25 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
         if (conversationData.colaborador2 === user.id) {
           setInterlocutorId(conversationData.colaborador1);
           setQuienSomos('colaborador2');
-          if (conversationData.lastMessageSeenc2 === false) { setIsMessageSeen(false); }
-          else { setIsMessageSeen(true); }
+          if (conversationData.lastMessageSeenc2 === false) {
+            setIsMessageSeen(false);
+          } else {
+            setIsMessageSeen(true);
+          }
         }
         if (conversationData.colaborador2 !== user.id) {
           setInterlocutorId(conversationData.colaborador2);
           setQuienSomos('colaborador1');
-          if (conversationData.lastMessageSeenc1 === false) { setIsMessageSeen(false); }
-          else { setIsMessageSeen(true); }
+          if (conversationData.lastMessageSeenc1 === false) {
+            setIsMessageSeen(false);
+          } else {
+            setIsMessageSeen(true);
+          }
         }
       }
     };
     fetchDoc();
   }, [conversationData, user]);
-  
 
   useEffect(() => {
     if (paramsId == messageCode) {
@@ -164,7 +171,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
 
         if (quienSomos == 'colaborador1') {
           const updatedData = {
-            lastMessageSeenC1: true
+            lastMessageSeenC1: true,
           };
 
           const filteredData = Object.fromEntries(
@@ -178,7 +185,7 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
         }
         if (quienSomos == 'colaborador2') {
           const updatedData = {
-            lastMessageSeenc2: true
+            lastMessageSeenc2: true,
           };
 
           const filteredData = Object.fromEntries(
@@ -206,7 +213,8 @@ const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, par
   return (
     <div
       className={`flex flex-row mx-6 pb-3 ${backgroundCode} text-zinc-100 rounded-lg my-1`}
-      onClick={clickOnChat}>
+      onClick={clickOnChat}
+    >
       <div>
         <Image
           src={interlocutor?.profilepicture || "/icons/empty-user-profile.png"}

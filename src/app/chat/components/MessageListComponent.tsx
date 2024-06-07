@@ -8,25 +8,7 @@ interface MessageListComponentProps {
   conversation: any;
   user: any;
  }
-interface User {
-  id: any
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any
-}
-interface Conversation {
-  colaborador1: any
-  colaborador2: any
-  conversationId: any
-  lastMessageSeenC1: any
-  lastMessageSeenc2: any
-  lastMessageSent: any
-  messagesArray: any
-}
+ 
 interface Mensaje {
   content: any;
   conversacion: any;
@@ -40,6 +22,9 @@ interface Mensaje {
 
 
 const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, user }) => {
+ 
+
+
   const [interlocutor, setInterlocutor] = useState<any>()
   const [conversationData, setConversationData] = useState<any>()
   const [colab2, setColab2] = useState()

@@ -1,11 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import ChatHeader from './chatcomponents/ChatHeader';
 import ContentRendering from './chatcomponents/ContentRendering';
 import InputForm from './chatcomponents/InputForm';
-import { selectUser } from '@/redux/features/userSlice';
+import useUserSession from '../../../../components/hooks/userSession';
 
 interface ChatcontentProps {
   conversationChosen: any;
@@ -22,13 +21,13 @@ interface Conversation {
 }
 
 const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
-  const user = useSelector(selectUser);
+  const { userData, session } = useUserSession();
 
   const [conversationData, setConversationData] = useState<any>();
   const [messagesArray, setMessagesArray] = useState<any>();
   const [userIdRecibido, setUserIdRecibido] = useState<any>();
   const [conversationRecibida, setConversationRecibida] = useState<any>();
-  const [interlocutorImg, setinterlocutorImg] = useState<any>();
+  const [interlocutorImg, setInterlocutorImg] = useState<any>();
   const [interlocutor, setInterlocutor] = useState<any>();
   const [userObject, setUserObject] = useState<any>();
 
@@ -47,15 +46,15 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
   }, [conversationChosen]);
 
   useEffect(() => {
-    if (user) {
-      if (conversationData?.colaborador2 == user.id) {
+    if (userData) {
+      if (conversationData?.colaborador2 == userData.id) {
         setInterlocutor(conversationData?.colaborador1);
       }
-      if (conversationData?.colaborador2 != user.id) {
+      if (conversationData?.colaborador2 != userData.id) {
         setInterlocutor(conversationData?.colaborador2);
       }
     }
-  }, [user, conversationData]);
+  }, [userData, conversationData]);
 
   useEffect(() => {
     const fetchDoc = async () => {
@@ -64,7 +63,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
         const response = await getDoc(docRef);
         if (response.exists()) {
           const interlocutorUserData = response.data() as any;
-          setinterlocutorImg(interlocutorUserData.profilepicture);
+          setInterlocutorImg(interlocutorUserData.profilepicture);
         }
       }
     };
@@ -77,9 +76,9 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
   }, [conversationData]);
 
   useEffect(() => {
-    setUserIdRecibido(user?.id);
-    setUserObject(user);
-  }, [user]);
+    setUserIdRecibido(userData?.id);
+    setUserObject(userData);
+  }, [userData]);
 
   useEffect(() => {
     if (conversationData) {
@@ -88,7 +87,7 @@ const Chatcontent: FC<ChatcontentProps> = ({ conversationChosen }) => {
   }, [conversationData]);
 
   return (
-    <div className='flex flex-col h-full flex-1  '>
+    <div className='flex flex-col h-full flex-1'>
       <ChatHeader interlocutor={interlocutor} interlocutorImg={interlocutorImg} />
       <ContentRendering interlocutor={interlocutor} userId={userIdRecibido} messagesArray={messagesArray} />
       <InputForm userId={userIdRecibido} conversationId={conversationRecibida} userObject={userObject} />

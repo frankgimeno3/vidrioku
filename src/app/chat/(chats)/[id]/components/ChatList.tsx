@@ -4,16 +4,18 @@ import MessageListComponent from './MessageListComponent';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import { selectUser } from '@/redux/features/userSlice';
+import useUserSession from '../../../../components/hooks/userSession';
 
 interface ChatListProps {
   paramsId: any;
 }
 
 const ChatList: FC<ChatListProps> = ({ paramsId }) => {
+  const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
 
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
-  const [conversationsObjectArray, setConversationsObjectArray] = useState<any>([]);
+  const [conversationsObjectArray, setConversationsObjectArray] = useState<any[]>([]);
   const [noMessages, setNoMessages] = useState(true);
 
   useEffect(() => {
@@ -31,13 +33,13 @@ const ChatList: FC<ChatListProps> = ({ paramsId }) => {
           const docRef = doc(db, "conversations", elemento);
           const response = await getDoc(docRef);
           if (response.exists()) {
-            return response.data(); 
+            return response.data();
           }
         }
       })).then((conversationDataArray) => {
         conversationDataArray = conversationDataArray.filter((conversationData) => conversationData);
         setConversationsObjectArray(conversationDataArray);
-        setNoMessages(conversationDataArray.length === 0);  
+        setNoMessages(conversationDataArray.length === 0);
       });
     } else {
       setConversationsObjectArray([]);
@@ -47,11 +49,11 @@ const ChatList: FC<ChatListProps> = ({ paramsId }) => {
 
   return (
     <div className="my-3 flex flex-1 flex-col w-full">
-      {noMessages &&
-        <div className='flex flex-row mx-6 pb-3  text-zinc-100 rounded-lg my-1'>
-          <p className='font font-medium mt-4 px-3 flex-3  w-full ml-5'>No se encontraron mensajes</p>
+      {noMessages && (
+        <div className='flex flex-row mx-6 pb-3 text-zinc-100 rounded-lg my-1'>
+          <p className='font-medium mt-4 px-3 flex-3 w-full ml-5'>No se encontraron mensajes</p>
         </div>
-      }
+      )}
       {conversationsObjectArray.map((elemento: any, index: any) => (
         <MessageListComponent key={index} conversation={elemento.conversacion} paramsId={paramsId} />
       ))}

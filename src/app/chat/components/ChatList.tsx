@@ -4,11 +4,15 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
 import MessageListComponent from './MessageListComponent';
 import { selectUser } from '@/redux/features/userSlice'; 
+import useUserSession from '@/app/components/hooks/userSession';
  
 
+
+ 
 interface ChatListProps {}
 
 const ChatList: FC<ChatListProps> = ({}) => {
+  // const { userData, session } = useUserSession();
   const user = useSelector(selectUser); 
   
   const [conversationsArray, setConversationsArray] = useState<string[]>([]);
