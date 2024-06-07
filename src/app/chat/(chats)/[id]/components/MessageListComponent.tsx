@@ -6,7 +6,7 @@ import { db } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
 import { selectUser } from '@/redux/features/userSlice';
 import useUserSession from '../../../../components/hooks/userSession';
-import { User, Conversation, Mensaje, MessageListComponentProps } from '../../../../components/interfaces/interfaces'; // Importa las interfaces desde tu archivo interfaces.ts
+import { User, Conversation, Mensaje, MessageListComponentProps } from '../../../../components/interfaces/interfaces'; 
 
 const MessageListComponent: FC<MessageListComponentProps> = ({ conversation, paramsId }) => {
   const { userData, session } = useUserSession();

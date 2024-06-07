@@ -5,17 +5,8 @@ import { useSession } from 'next-auth/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { updateUser } from '@/redux/features/userSlice';
-
-interface User {
-  id: any;
-  apellidos: string;
-  edad: number;
-  genero: string;
-  nombre: string;
-  ubi: string;
-  userEmail: string;
-  conversations: any;
-}
+import { User  } from '../interfaces/interfaces'; 
+ 
 
 const useUserSession = () => {
   const dispatch = useDispatch();
