@@ -16,9 +16,11 @@ const Publicaciones: FC<PublicacionesProps> = ({ }) => {
 
   return (
     <div>
-      {receivedPublicaciones.map((publicacion, index) => (
+      {receivedPublicaciones.length >= 1 && receivedPublicaciones.map((publicacion, index) => (
         <PublicationCard key={index} publicacion={publicacion} />
       ))}
+      {receivedPublicaciones.length == 0 && 
+      <p className='text-sm py-12'>No se encontraron publicaciones recientes de las cuentas que sigues</p>}
     </div>
   );
 };

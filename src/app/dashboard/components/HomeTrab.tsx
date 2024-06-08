@@ -15,35 +15,29 @@ import { selectUser } from '@/redux/features/userSlice';
 
 interface HomeTrabProps {
 }
- 
 
-const HomeTrab: FC<HomeTrabProps> = ({  }) => {
+
+const HomeTrab: FC<HomeTrabProps> = ({ }) => {
   const router = useRouter();
- 
+
   const [solicitudesEnviadas, setSolicitudesEnviadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesAceptadas, setSolicitudesAceptadas] = useState<any>()
-  const [cuentasSeguidas, setCuentasSeguidas] = useState<any>()
   const user = useSelector(selectUser);
 
 
- 
+
 
   useEffect(() => {
-       if (user) {
-        
-          setMensajesNoLeidos(user.mensajesnoleidos.length || '0')
-          setSolicitudesEnviadas(user.solicitudes.length)
-          setSolicitudesAceptadas(user.solicitudesAceptadasNoLeidas.length || '0')
-          setCuentasSeguidas(user.seguidos)
-        }
-    
+    if (user) {
+      setMensajesNoLeidos(user.mensajesnoleidos.length || '0')
+      setSolicitudesEnviadas(user.solicitudes.length)
+      setSolicitudesAceptadas(user.solicitudesAceptadasNoLeidas.length || '0')
+      console.log("seguidos: ", user?.seguidos)
+    }
+
 
   }, [user]);
-
-  useEffect(() => {
-    console.log("cuentasSeguidas: ", cuentasSeguidas)
-  }, [cuentasSeguidas]);
 
   const miPerfilHandler = () => {
     router.push(`/perfil`)
@@ -58,6 +52,10 @@ const HomeTrab: FC<HomeTrabProps> = ({  }) => {
   const handleConfiguracion = async () => {
     router.push("/configuracion")
   };
+
+  const handleseguidos = ()=>{
+    router.push("/seguimientos")
+  }
 
   return (
     <div className="flex flex-row w-full justify-between  bg-gradient-to-b from-zinc-900 to-zinc-600 " style={{ height: '800px' }} >
@@ -171,15 +169,20 @@ const HomeTrab: FC<HomeTrabProps> = ({  }) => {
               onClick={() => { router.push("/mispublicaciones") }}
             >Ver mi contenido publicado</button>
           </div>
-          <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones de cuentas que sigues</p>
+          <div className='text-gray-400 shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+            <div className='flex flex-row justify-between'>
+              <p className='text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones de cuentas que sigues</p>
+              {user?.seguidos.length != 0 &&
+                <p className='pr-5 text-left hover:text-blue-900 ml-5 mt-3 text-sm font-medium hover:underline' onClick={()=>{handleseguidos()}}>
+                  Administrar usuarios seguidos: ( {user?.seguidos.length  } )</p>
+               }
+            </div>
 
-            {cuentasSeguidas == 0 &&
+            {user?.seguidos.length == 0 &&
               <SinSeguimientos />}
-            {cuentasSeguidas != 0 &&
-              <div><Publicaciones />
-                <p>cuentasSeguidas {cuentasSeguidas}</p>
-              </div>}
+            {user?.seguidos.length != 0 &&
+              <Publicaciones />
+            }
           </div>
         </div>
       </div>
