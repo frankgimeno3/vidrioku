@@ -1,21 +1,22 @@
-"use client"
+ "use client"
 import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 import { Oferta } from '../components/interfaces/interfaces';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/redux/features/userSlice';
 import useUserSession from '../components/hooks/userSession';
+interface SolicitudesProps {
+  
+}
 
-
-
-function page() {
+const Solicitudes: FC<SolicitudesProps> = ({ }) => {
   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
 
@@ -91,5 +92,4 @@ function page() {
       );
 }
 
-      export default page
-
+export default Solicitudes;
