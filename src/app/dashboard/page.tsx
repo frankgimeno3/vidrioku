@@ -19,17 +19,14 @@ export default function Dashboard() {
    const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
 
-  const dispatch = useDispatch();
-  
-
  
   return (
     <div className=" ">
 
       <main className=' bg-gradient-to-b from-zinc-900 to-zinc-600   '>
         <Navbar />
-        {user?.userType == 'empresa' && <HomeEmpr userData={userData?.id} />}
-        {user?.userType == 'profesional' &&<HomeTrab userData={userData?.id} /> }
+        {user?.userType == 'empresa' && <HomeEmpr  />}
+        {user?.userType == 'profesional' &&<HomeTrab  /> }
         {user?.userType == 'admin' &&<HomeAdmin userData={userData?.id} /> }
         <Footer  />
 

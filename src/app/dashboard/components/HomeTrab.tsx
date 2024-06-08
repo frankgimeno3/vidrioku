@@ -9,56 +9,37 @@ import Banners from '@/app/components/Banners';
 import SinSeguimientos from './publicaciones/SinSeguimientos';
 import Publicaciones from './publicaciones/Publicaciones';
 import { User } from '@/app/components/interfaces/interfaces';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 
 interface HomeTrabProps {
-  userData: any
 }
  
 
-const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
+const HomeTrab: FC<HomeTrabProps> = ({  }) => {
   const router = useRouter();
-  const [user, setUser] = useState<User>();
-
+ 
   const [solicitudesEnviadas, setSolicitudesEnviadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesAceptadas, setSolicitudesAceptadas] = useState<any>()
   const [cuentasSeguidas, setCuentasSeguidas] = useState<any>()
+  const user = useSelector(selectUser);
 
 
-
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as User;
-          setUser(myUserData);
-        }
-      }
-    };
-
-    fetchDoc();
-  }, [userData]);
+ 
 
   useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as any;
-          setMensajesNoLeidos(myUserData.mensajesnoleidos.length || '0')
-          setSolicitudesEnviadas(myUserData.solicitudes.length)
-          setSolicitudesAceptadas(myUserData.solicitudesAceptadasNoLeidas.length || '0')
-          setCuentasSeguidas(myUserData.seguidos)
+       if (user) {
+        
+          setMensajesNoLeidos(user.mensajesnoleidos.length || '0')
+          setSolicitudesEnviadas(user.solicitudes.length)
+          setSolicitudesAceptadas(user.solicitudesAceptadasNoLeidas.length || '0')
+          setCuentasSeguidas(user.seguidos)
         }
-      }
-    };
+    
 
-    fetchDoc();
-  }, [userData]);
+  }, [user]);
 
   useEffect(() => {
     console.log("cuentasSeguidas: ", cuentasSeguidas)
@@ -104,7 +85,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ userData }) => {
                 <span className="capitalize">{user?.apellidos}</span>
               </p>
               <span className='text-sm'>{user?.ubi}</span>
-              <span className='italic text-sm'>{userData}</span>
+              <span className='italic text-sm'>{user?.email}</span>
             </div>
             <button
               className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-5 text-sm m-1"

@@ -8,22 +8,22 @@ import Banners from '@/app/components/Banners';
 import SinSeguimientos from './publicaciones/SinSeguimientos';
 import Publicaciones from './publicaciones/Publicaciones';
 import { User } from '@/app/components/interfaces/interfaces';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 
 interface HomeEmprProps {
-  userData: any
 }
  
-const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
+const HomeEmpr: FC<HomeEmprProps> = ({  }) => {
   const router = useRouter();
-  const [user, setUser] = useState<User>();
-  const [compStyles1, setCompStyles1] = useState({});
+   const [compStyles1, setCompStyles1] = useState({});
   const [compStyles2, setCompStyles2] = useState({});
   const [ofertascreadas, setOfertasCreadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesNoContestadas, setSolicitudesNoContestadas] = useState<any>()
   const [cuentasSeguidas, setCuentasSeguidas] = useState<any>()
-  const [userDataObject, setUserDataObject] = useState<any>()
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,42 +41,17 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+ 
 
   useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as User;
-          setUser(myUserData);
-        }
-      }
-    };
-
-    fetchDoc();
-  }, [userData]);
-
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as any;
-          setUserDataObject(myUserData)
-          setOfertasCreadas(myUserData.ofertascreadas?.length)
-          setMensajesNoLeidos(myUserData.mensajesnoleidos?.length)
-          setSolicitudesNoContestadas(myUserData.solicitudesnocontestadas?.length)
-          if (myUserData.seguidos == undefined) { setCuentasSeguidas(0) }
-          else { setCuentasSeguidas(myUserData.seguidos?.length) }
-          console.log("mensajesNoLeidos: ", mensajesNoLeidos)
-        }
-      }
-    };
-
-    fetchDoc();
-  }, [userData]);
+    if (user)
+{          setOfertasCreadas(user.ofertascreadas?.length)
+          setMensajesNoLeidos(user.mensajesnoleidos?.length)
+          setSolicitudesNoContestadas(user.solicitudesnocontestadas?.length)
+          if (user.seguidos == undefined) { setCuentasSeguidas(0) }
+          else { setCuentasSeguidas(user.seguidos?.length) }
+}        
+   }, [user]);
 
   const perfilhandler = () => {
     router.push("/perfil")
@@ -90,7 +65,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
   }
 
   const miPerfilHandler = () => {
-    router.push(`/perfil/${userData}`)
+    router.push(`/perfil/${user?.email}`)
   }
 
   const handleCerrarSesion = async () => {
@@ -129,7 +104,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ userData }) => {
                       <span className="capitalize">{user?.apellidos}</span>
                     </p>
                     <span>{user?.ubi}</span>
-                    <span className='italic'>{userData}</span>
+                    <span className='italic'>{user?.email}</span>
                   </div>
                 </div>
                 <button
