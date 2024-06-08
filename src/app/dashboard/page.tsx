@@ -12,48 +12,17 @@ import HomeAdmin from './components/HomeAdmin';
 import { selectUser, updateUser } from '@/redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../components/interfaces/interfaces';
+import useUserSession from '../components/hooks/userSession';
  
 
 export default function Dashboard() {
   const [userType, setUserType] = useState<string>('');
-  
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
 
   const dispatch = useDispatch();
-  const [userData, setUserData] = useState('');
-
-  const user = useSelector(selectUser); 
-
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
-
-  useEffect(() => {
-    if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
-    } else {
-      setUserData('Usuario');
-    }
-  }, [session?.data?.user?.email]);
-
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as User;
-          dispatch(updateUser(myUserData));
-          setUserType(myUserData.userType);
-
-        }
-      }
-    };
-    fetchDoc();
-  }, [userData, dispatch]);
-  
+ 
+   
  
   return (
     <div className=" ">

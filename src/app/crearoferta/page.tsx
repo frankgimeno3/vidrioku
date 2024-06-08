@@ -12,9 +12,16 @@ import Banners from '../components/Banners';
 import Fase1 from './fases/fase1';
 import Fase2 from './fases/fase2';
 import Fase3 from './fases/fase3';
+import useUserSession from '../components/hooks/userSession';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 
 const Crearoferta: FC = () => {
+
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
+  
   const router = useRouter();
   const [faseActual, setFaseActual] = useState(1)
 
@@ -31,23 +38,7 @@ const Crearoferta: FC = () => {
   const [departamentos, setDepartamentos] = useState<any>([]);
   const [posiciones, setPosiciones] = useState<any>([]);
   const [otraPosicion, setOtraPosicion] = useState<string>('');
-
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
-  const [userData, setUserData] = useState("")
-
-  useEffect(() => {
-    if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
-    } else { setUserData("Usuario") }
-  }, [session?.data?.user?.email]);
-
-
-
+ 
   const handleHabilidadRequeridaChange = (e: any) => {
     setHabilidadRequerida(e.target.value);
   };
@@ -95,7 +86,7 @@ const Crearoferta: FC = () => {
 
   const addOfferInFirebase = async (event: any) => {
     event.preventDefault();
-    if (titulo !== '' && cargo !== '' && tipoJornada !== '' && tipoLocalizacion !== '') {
+    if (titulo !== '' && cargo !== '' && tipoJornada !== '' && tipoLocalizacion !== '' && user) {
       try {
         const offersCollection = collection(db, 'ofertas');
         const newOfferRef = await addDoc(offersCollection, {
@@ -119,7 +110,7 @@ const Crearoferta: FC = () => {
         });
         await updateDoc(newOfferRef, { id: newOfferRef.id });
 
-        addOfferToAuthor(userData, newOfferRef.id)
+        addOfferToAuthor(user.id, newOfferRef.id)
         router.push('/misofertas');
       } catch (error) {
         console.error('Error al crear la oferta en Firestore:', error);
