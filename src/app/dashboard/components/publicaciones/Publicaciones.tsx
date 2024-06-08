@@ -44,7 +44,7 @@ const Publicaciones: FC<PublicacionesProps> = () => {
   }, [publicacionesArray, usuariosSeguidos]);
 
   return (
-    <div>
+    <div className='p-5'>
       {publicacionesFiltradas.length >= 1 ? (
         publicacionesFiltradas.map((publicacion, index) => (
           <PublicationCard key={index} publicacion={publicacion} />

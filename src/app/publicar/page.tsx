@@ -57,7 +57,8 @@ const Publicar: FC<PublicarProps> = ({}) => {
                     id: '',
                     titulo: titulo.trim(),
                     contenido: contenido.trim(),
-                    autor: user.email
+                    autor: user.email,
+                    isLiked:false
                 });
                 await updateDoc(newPublicationRef, { id: newPublicationRef.id });
 
