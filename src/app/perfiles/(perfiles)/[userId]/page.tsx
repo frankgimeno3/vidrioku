@@ -1,6 +1,11 @@
+import useUserSession from '@/app/components/hooks/userSession';
+import { selectUser } from '@/redux/features/userSlice';
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 function page() {
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
   return (
     <div>
         <p>Se pilla user id por params, se hace fetch, y pillamos el type</p>

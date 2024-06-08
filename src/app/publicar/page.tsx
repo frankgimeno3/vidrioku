@@ -1,40 +1,25 @@
 'use client'
 
 import { signOut, useSession } from 'next-auth/react';
-
 import React, { FC, useEffect, useState } from 'react'
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { redirect, useRouter } from 'next/navigation';
 import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
- 
+import useUserSession from '../components/hooks/userSession';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
-interface PublicarProps {
-}
+interface PublicarProps {}
 
-const Publicar: FC<PublicarProps> = ({ }) => {
-    const [userData, setUserData] = useState('');
+const Publicar: FC<PublicarProps> = ({}) => {
+    const { userData, session } = useUserSession();
+    const user = useSelector(selectUser);
+
     const [titulo, setTitulo] = useState('');
     const [contenido, setContenido] = useState('');
     const router = useRouter()
-
-    const session = useSession({
-        required: true,
-        onUnauthenticated() {
-            redirect('/signin');
-        },
-    });
-
-
-    useEffect(() => {
-        if (session?.data?.user?.email) {
-            setUserData(session.data.user.email);
-        } else {
-            setUserData('Usuario');
-        }
-    }, [session?.data?.user?.email]);
-
 
     const addPublicationToAuthor = async (userId: string, publicationId: string) => {
         try {
@@ -63,7 +48,6 @@ const Publicar: FC<PublicarProps> = ({ }) => {
         }
     };
 
-
     const crearPublicacion = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (titulo.trim() !== '' && contenido.trim() !== '') {
@@ -76,7 +60,12 @@ const Publicar: FC<PublicarProps> = ({ }) => {
                 });
                 await updateDoc(newPublicationRef, { id: newPublicationRef.id });
 
-                addPublicationToAuthor(userData, newPublicationRef.id)
+                if (userData && typeof userData.id === 'string') {
+                    await addPublicationToAuthor(userData.id, newPublicationRef.id);
+                } else {
+                    console.error('User data is invalid');
+                }
+
                 router.push('/dashboard');
             } catch (error) {
                 console.error('Error al crear la oferta en Firestore:', error);
@@ -113,4 +102,5 @@ const Publicar: FC<PublicarProps> = ({ }) => {
         </>
     );
 }
+
 export default Publicar;

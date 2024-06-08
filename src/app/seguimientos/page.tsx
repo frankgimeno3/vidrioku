@@ -3,12 +3,15 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
+import useUserSession from '../components/hooks/userSession';
 
 
 
 const Seguimientos: FC = ({ }) => {
-  const router = useRouter();
-
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
 
 
   return (

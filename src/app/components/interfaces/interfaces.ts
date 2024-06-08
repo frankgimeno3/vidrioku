@@ -69,6 +69,7 @@ export interface User {
   conversations: any;
   profilepicture: any;
   unreadnotifications: any;
+  readnotifications:any;
   userType: string;
   posicionesMap: any;
   tel: any;

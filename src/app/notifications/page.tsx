@@ -11,48 +11,24 @@ import Readnotif from './components/Readnotif';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 import { User } from '../components/interfaces/interfaces';
+import { useSelector } from 'react-redux';
+import useUserSession from '../components/hooks/userSession';
+import { selectUser } from '@/redux/features/userSlice';
 
  
 
 const Notifications: FC = ({ }) => {
   const router = useRouter();
-  const [userData, setUserData] = useState('');
-  const [user, setUser] = useState<any>();
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
+
   const [userUnreadNotifications, setUserUnreadNotifications] = useState<any>()
   const [userReadNotifications, setUserReadNotifications] = useState<any>()
    const [arrayNotificacionesNoLeidas, setArrayNotificacionesNoLeidas] = useState<any>()
   const [arrayNotificacionesLeidas, setArrayNotificacionesLeidas] = useState<any>()
   const [largoNotifNoLeidas, setlargoNotifNoLeidas] = useState<any>()
 
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
-
-
-  useEffect(() => {
-    if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
-    } else {
-      setUserData('Usuario');
-    }
-  }, [session?.data?.user?.email]);
-
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as User;
-          setUser(myUserData);
-        }
-      }
-    };
-    fetchDoc();
-  }, [userData]);
+   
 
   useEffect(() => {
     if (user) {
