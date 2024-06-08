@@ -9,27 +9,21 @@ import Link from 'next/link';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 import { Oferta } from '../components/interfaces/interfaces';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
+import useUserSession from '../components/hooks/userSession';
 
 const Misofertas: FC = () => {
   const router = useRouter();
-  const [userData, setUserData] = useState("");
-  const [loading, setLoading] = useState(true);
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
+
+  
+   const [loading, setLoading] = useState(true);
   const [misOfertas, setMisOfertas] = useState<Oferta[]>([]);
 
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
-
-  useEffect(() => {
-    if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
-    } else {
-      setUserData("Usuario");
-    }
-  }, [session]);
+  
+ 
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,10 +1,16 @@
 import React, { FC } from 'react';
+import useUserSession from '../components/hooks/userSession';
+import { selectUser } from '@/redux/features/userSlice';
+import { useSelector } from 'react-redux';
 
 interface MisSeguimientosProps {
   
 }
 
 const MisSeguimientos: FC<MisSeguimientosProps> = ({ }) => {
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
+  
   return (
     <div>
         <p>Aqui debería de sacarse un listado con seguimientocards</p>

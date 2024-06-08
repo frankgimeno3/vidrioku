@@ -9,16 +9,16 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 import { Solicitud } from '../components/interfaces/interfaces';
+import useUserSession from '../components/hooks/userSession';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 
 
 function misSolicitudes() {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
+  
   const router = useRouter();
   const [userId, setUserId] = useState("")
   const [loading, setLoading] = useState(true);

@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { User } from '../components/interfaces/interfaces';
+import useUserSession from '../components/hooks/userSession';
  
 interface MispublicacionesProps {
   
@@ -14,39 +15,11 @@ interface MispublicacionesProps {
 
 const Mispublicaciones: FC<MispublicacionesProps> = ({ }) => {
     const dispatch = useDispatch();
-    const [userData, setUserData] = useState('');
- 
+    const { userData, session } = useUserSession();
     const user = useSelector(selectUser); 
-
-    const session = useSession({
-      required: true,
-      onUnauthenticated() {
-        redirect('/signin');
-      },
-    });
-
-    useEffect(() => {
-        if (session?.data?.user?.email) {
-          setUserData(session.data.user.email);
-        } else {
-          setUserData('Usuario');
-        }
-      }, [session?.data?.user?.email]);
-      
-      useEffect(() => {
-        const fetchDoc = async () => {
-          if (userData) {
-            const docRef = doc(db, "users", userData);
-            const response = await getDoc(docRef);
-            if (response.exists()) {
-              const myUserData = response.data() as User;
-              setUserType(myUserData.userType);
-             }
-          }
-        };
     
-        fetchDoc();
-      }, [userData]);
+ 
+       
 
       
   return (
