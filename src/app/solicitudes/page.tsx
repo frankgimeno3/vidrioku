@@ -9,28 +9,19 @@ import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
 import { Oferta } from '../components/interfaces/interfaces';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
+import useUserSession from '../components/hooks/userSession';
 
 
 
 function page() {
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
+
   const [misOfertas, setMisOfertas] = useState<Oferta[]>([]);
-  const [userData, setUserData] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
-
-  useEffect(() => {
-    if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
-    } else {
-      setUserData("Usuario");
-    }
-  }, [session]);
+   const [loading, setLoading] = useState(true);
+ 
 
 
 
