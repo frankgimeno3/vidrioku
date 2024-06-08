@@ -1,26 +1,57 @@
 import React, { FC, useState, useEffect } from 'react';
 import PublicationCard from './PublicationCard';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
+import { collection, query, getDocs } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
-interface PublicacionesProps {
- }
+interface PublicacionesProps {}
 
-const Publicaciones: FC<PublicacionesProps> = ({ }) => {
-  const [receivedPublicaciones, setReceivedPublicaciones] = useState<any[]>([]); // Especifica el tipo de datos que tienes en el array
-// esto se supone que son publications de otros usuarios
+const Publicaciones: FC<PublicacionesProps> = () => {
+  const user = useSelector(selectUser);
 
-//aqui un useEffect que tome user del estado, y del mismo un los SEGUIDOS
-//Luego, para cada seguido, se debe buscar el publicationsarray
-// luego, con cada uno de estos hacemos un superarray de publicaciones, y con el hacemos uno nuevo de objetos, haciendo fetch al collection publicaciones
-//luego lo reordenamos segun publication date
-// una vez obtenido y reordenado, se pasa a publicationcard la info a renderizar
+  const [publicacionesArray, setPublicacionesArray] = useState<any[]>([]);
+  const [usuariosSeguidos, setUsuariosSeguidos] = useState<string[]>([]);
+  const [publicacionesFiltradas, setPublicacionesFiltradas] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      setUsuariosSeguidos(user?.seguidos || []);
+
+      const fetchPublicaciones = async () => {
+        const q = query(collection(db, 'publicaciones'));
+        const querySnapshot = await getDocs(q);
+        const fetchedPublicaciones: any[] = [];
+        querySnapshot.forEach((doc) => {
+          fetchedPublicaciones.push(doc.data());
+        });
+        setPublicacionesArray(fetchedPublicaciones);
+      };
+
+      fetchPublicaciones();
+    }
+  }, [user]);
+
+  useEffect(() => {
+     if (publicacionesArray.length > 0 && usuariosSeguidos.length > 0) {
+      const filteredPublicaciones = publicacionesArray.filter(publicacion =>
+        usuariosSeguidos.includes(publicacion.autor)
+      );
+      setPublicacionesFiltradas(filteredPublicaciones);
+    } else {
+      setPublicacionesFiltradas([]);
+    }
+  }, [publicacionesArray, usuariosSeguidos]);
 
   return (
     <div>
-      {receivedPublicaciones.length >= 1 && receivedPublicaciones.map((publicacion, index) => (
-        <PublicationCard key={index} publicacion={publicacion} />
-      ))}
-      {receivedPublicaciones.length == 0 && 
-      <p className='text-sm py-12'>No se encontraron publicaciones recientes de las cuentas que sigues</p>}
+      {publicacionesFiltradas.length >= 1 ? (
+        publicacionesFiltradas.map((publicacion, index) => (
+          <PublicationCard key={index} publicacion={publicacion} />
+        ))
+      ) : (
+        <p className='text-sm py-12'>No se encontraron publicaciones recientes de las cuentas que sigues</p>
+      )}
     </div>
   );
 };

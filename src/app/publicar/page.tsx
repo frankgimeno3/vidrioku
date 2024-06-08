@@ -50,13 +50,14 @@ const Publicar: FC<PublicarProps> = ({}) => {
 
     const crearPublicacion = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (titulo.trim() !== '' && contenido.trim() !== '') {
+        if (titulo.trim() !== '' && contenido.trim() !== '' && user) {
             try {
                 const publicacionesCollection = collection(db, 'publicaciones');
                 const newPublicationRef = await addDoc(publicacionesCollection, {
                     id: '',
                     titulo: titulo.trim(),
                     contenido: contenido.trim(),
+                    autor: user.email
                 });
                 await updateDoc(newPublicationRef, { id: newPublicationRef.id });
 

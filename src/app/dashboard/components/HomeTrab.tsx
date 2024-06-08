@@ -23,6 +23,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
   const [solicitudesEnviadas, setSolicitudesEnviadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesAceptadas, setSolicitudesAceptadas] = useState<any>()
+
   const user = useSelector(selectUser);
 
 
@@ -181,7 +182,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
             {user?.seguidos.length == 0 &&
               <SinSeguimientos />}
             {user?.seguidos.length != 0 &&
-              <Publicaciones />
+              <Publicaciones   />
             }
           </div>
         </div>
