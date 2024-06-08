@@ -12,9 +12,6 @@ const Seguimientos: FC = ({ }) => {
   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
 
-  useEffect(() => {
-    console.log("seguidos: ", user?.seguidos)
-  }, [user]);
 
   return (
     <>
