@@ -23,6 +23,8 @@ const Seguimientos: FC = ({ }) => {
           {user?.seguidos?.map((id: string) => (
             <Seguidocard key={id} id={id} />
           ))}
+          {user?.seguidos == undefined || user?.seguidos == null &&
+          <p>No se encontró contenido a mostrar</p>}
         </div>
       </div>
     </>

@@ -16,22 +16,21 @@ import useUserSession from '../components/hooks/userSession';
  
 
 export default function Dashboard() {
-  const [userType, setUserType] = useState<string>('');
-  const { userData, session } = useUserSession();
+   const { userData, session } = useUserSession();
   const user = useSelector(selectUser);
 
   const dispatch = useDispatch();
- 
-   
+  
+
  
   return (
     <div className=" ">
 
       <main className=' bg-gradient-to-b from-zinc-900 to-zinc-600   '>
         <Navbar />
-        {userType == 'empresa' && <HomeEmpr userData={userData} />}
-        {userType == 'profesional' &&<HomeTrab userData={userData} /> }
-        {userType == 'admin' &&<HomeAdmin userData={userData} /> }
+        {user?.userType == 'empresa' && <HomeEmpr userData={userData?.id} />}
+        {user?.userType == 'profesional' &&<HomeTrab userData={userData?.id} /> }
+        {user?.userType == 'admin' &&<HomeAdmin userData={userData?.id} /> }
         <Footer  />
 
       </main>
