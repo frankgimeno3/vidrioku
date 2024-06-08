@@ -9,47 +9,21 @@ import { db } from '../firebase';
 import ConfigurationRender from './components/ConfigurationRender';
 import LeftContent from './LeftContent';
 import { User } from '../components/interfaces/interfaces';
+import useUserSession from '../components/hooks/userSession';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 
 
 const Configuracion: FC = ({ }) => {
-  const router = useRouter();
-  const [userType, setUserType] = useState<string>('');
+  
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
 
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
+    const [renderElement, setRenderElement] = useState<string>('none');
 
-  const [userData, setUserData] = useState('');
-  const [user, setUser] = useState<any>();
-  const [renderElement, setRenderElement] = useState<string>('none');
-
-  useEffect(() => {
-    if (session?.data?.user?.email) {
-      setUserData(session.data.user.email);
-    } else {
-      setUserData('Usuario');
-    }
-  }, [session?.data?.user?.email]);
-
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (userData) {
-        const docRef = doc(db, "users", userData);
-        const response = await getDoc(docRef);
-        if (response.exists()) {
-          const myUserData = response.data() as User;
-          setUserType(myUserData.userType);
-          setUser(myUserData)
-        }
-      }
-    };
-
-    fetchDoc();
-  }, [userData]);
+ 
+ 
 
 
   return (

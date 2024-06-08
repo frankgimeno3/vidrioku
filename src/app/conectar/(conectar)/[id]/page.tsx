@@ -8,6 +8,8 @@ import Navbar from '@/app/components/Navbar';
 import { db } from '@/app/firebase';
 import { User } from '../../../components/interfaces/interfaces';
 import useUserSession from '../../../components/hooks/userSession';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 interface ConectarProps {
   params: { id: string };
@@ -15,9 +17,11 @@ interface ConectarProps {
 
 const Conectar: FC<ConectarProps> = ({ params }) => {
   const { userData: nuestroId } = useUserSession();
-  const [user, setUser] = useState<User | null>(null);
-  const [content, setContent] = useState<string>('');
+   const [content, setContent] = useState<string>('');
   const router = useRouter();
+
+  const { userData, session } = useUserSession();
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -26,8 +30,7 @@ const Conectar: FC<ConectarProps> = ({ params }) => {
         const response = await getDoc(docRef);
         if (response.exists()) {
           const userData = response.data() as User;
-          setUser(userData);
-        }
+         }
       }
     };
 
