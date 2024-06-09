@@ -14,10 +14,14 @@ import Banners from '@/app/components/Banners';
 import { redirect, useSearchParams } from 'next/navigation';
 import { Providers } from '@/redux/provider';
 import { Oferta } from '@/app/components/interfaces/interfaces';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
+import useUserSession from '@/app/components/hooks/userSession';
 
 
 
 const Ofertas: FC = ({ }) => {
+  const { userData, session } = useUserSession();
  
 
   //handle del tipo de consunta para cambiar de página con el searchnav

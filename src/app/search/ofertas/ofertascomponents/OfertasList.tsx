@@ -3,6 +3,8 @@ import ListadoBotones from '@/app/search/profesionales/profesionalescomponents/L
 import OfertaComponent from './compListados/Oferta';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/redux/features/userSlice';
 
 
 interface OfertasListProps {
@@ -13,6 +15,8 @@ interface OfertasListProps {
 }
 
 const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray, setRenderOferta, setEmpresa }) => {
+    const user = useSelector(selectUser);
+
     // State to store received filters
     const [filtrosRecibidos, setFiltrosRecibidos] = useState<any[]>([]);
     const [filtrosDepartamentos, setFiltrosDepartamentos] = useState<any[]>([]);
@@ -24,6 +28,10 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
     useEffect(() => {
         setFiltrosRecibidos(receivedParamsTratado);
     }, [receivedParamsTratado]);
+
+    useEffect(() => {
+        console.log("user: ", user);
+    }, [user]);
 
     useEffect(() => {
         if (filtrosRecibidos?.length > 0) {
@@ -258,6 +266,7 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
             setIsArrayMostrado(false)
             setRenderOferta(undefined);
         }
+        console.log("arraymostrado: ", arrayMostrado)
     }, [arrayMostrado]);
 
     const handleOfertaClick = (oferta: any) => {
@@ -294,6 +303,7 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
             }
             {isArrayMostrado && arrayMostrado?.map((oferta: any, index: any) => (
                 <div onClick={() => handleOfertaClick(oferta)} key={index} >
+                    {oferta.empresa != user?.email &&
                     <OfertaComponent id={oferta.id}
                         titulo={oferta.titulo}
                         cargo={oferta.cargo}
@@ -305,7 +315,7 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
                         adicional={oferta.adicional}
                         empresaNombre={oferta.empresa}
                         estado={oferta.estado}
-                    />
+                    />}
                 </div>
             ))}
             <nav className="bg-gray-200 py-2 px-1 text-center  ">

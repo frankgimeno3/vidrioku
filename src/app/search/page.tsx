@@ -1,7 +1,7 @@
 "use client"
 
 import { FC, useEffect, useState } from 'react';
- import Navbar from '@/app/components/Navbar';
+import Navbar from '@/app/components/Navbar';
 import Searchnav from './components/Searchnav';
 import Footer from '../components/Footer';
 import Banners from '../components/Banners';
