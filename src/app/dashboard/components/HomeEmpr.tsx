@@ -23,6 +23,8 @@ const HomeEmpr: FC<HomeEmprProps> = ({ }) => {
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesNoContestadas, setSolicitudesNoContestadas] = useState<any>()
   const [cuentasSeguidas, setCuentasSeguidas] = useState<any>()
+  const [lengthFiltrado, setLengthFiltrado] = useState<number>()
+
   const user = useSelector(selectUser);
 
   useEffect(() => {
@@ -42,20 +44,33 @@ const HomeEmpr: FC<HomeEmprProps> = ({ }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      if (user.seguidos[0] === '') {
+        setLengthFiltrado(0);
+      } else {
+        setLengthFiltrado(user.seguidos.length);
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user) {
       setOfertasCreadas(user.ofertascreadas?.length)
       setMensajesNoLeidos(user.mensajesnoleidos?.length)
       setSolicitudesNoContestadas(user.solicitudesnocontestadas?.length)
-      if (user.seguidos == undefined) { setCuentasSeguidas(0) }
-      else { setCuentasSeguidas(user.seguidos?.length) }
+      if (user.seguidos === undefined) { 
+        setCuentasSeguidas(0) 
+      } else { 
+        setCuentasSeguidas(user.seguidos?.length) 
+      }
     }
   }, [user]);
 
   const perfilhandler = () => {
     router.push("/perfil")
   }
+
   const crearofertahandler = () => {
     router.push("/crearoferta")
   }
@@ -79,7 +94,7 @@ const HomeEmpr: FC<HomeEmprProps> = ({ }) => {
     router.push("/configuracion")
   };
 
-  const handleseguidos = ()=>{
+  const handleseguidos = () => {
     router.push("/seguimientos")
   }
 
@@ -207,8 +222,8 @@ const HomeEmpr: FC<HomeEmprProps> = ({ }) => {
               <p className='text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones de cuentas que sigues</p>
               {user?.seguidos.length != 0 &&
                 <p className='pr-5 text-left hover:text-blue-900 ml-5 mt-3 text-sm font-medium hover:underline' onClick={()=>{handleseguidos()}}>
-                  Administrar usuarios seguidos: ( {user?.seguidos.length  } )</p>
-               }
+                  Administrar usuarios seguidos: ( {lengthFiltrado } )</p>
+                }
             </div>
 
             {user?.seguidos.length == 0 &&

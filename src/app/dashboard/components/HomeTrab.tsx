@@ -23,11 +23,9 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
   const [solicitudesEnviadas, setSolicitudesEnviadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
   const [solicitudesAceptadas, setSolicitudesAceptadas] = useState<any>()
+  const [lengthFiltrado, setLengthFiltrado] = useState<number>()
 
   const user = useSelector(selectUser);
-
-
-
 
   useEffect(() => {
     if (user) {
@@ -36,8 +34,12 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
       setSolicitudesAceptadas(user.solicitudesAceptadasNoLeidas.length || '0')
       console.log("seguidos: ", user?.seguidos)
     }
-
-
+  }, [user]);
+  useEffect(() => {
+    if (user) {
+      if (user.seguidos[0] = ''){      setLengthFiltrado(0)
+      } else{      setLengthFiltrado(user.seguidos.length)      }
+    }
   }, [user]);
 
   const miPerfilHandler = () => {
@@ -175,7 +177,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
               <p className='text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones de cuentas que sigues</p>
               {user?.seguidos.length != 0 &&
                 <p className='pr-5 text-left hover:text-blue-900 ml-5 mt-3 text-sm font-medium hover:underline' onClick={()=>{handleseguidos()}}>
-                  Administrar usuarios seguidos: ( {user?.seguidos.length  } )</p>
+                  Administrar usuarios seguidos: ( {lengthFiltrado } )</p>
                }
             </div>
 
