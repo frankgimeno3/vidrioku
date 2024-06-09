@@ -14,10 +14,10 @@ import { selectUser } from '@/redux/features/userSlice';
 
 interface HomeEmprProps {
 }
- 
-const HomeEmpr: FC<HomeEmprProps> = ({  }) => {
+
+const HomeEmpr: FC<HomeEmprProps> = ({ }) => {
   const router = useRouter();
-   const [compStyles1, setCompStyles1] = useState({});
+  const [compStyles1, setCompStyles1] = useState({});
   const [compStyles2, setCompStyles2] = useState({});
   const [ofertascreadas, setOfertasCreadas] = useState<any>()
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState<any>()
@@ -41,17 +41,17 @@ const HomeEmpr: FC<HomeEmprProps> = ({  }) => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
- 
+
 
   useEffect(() => {
-    if (user)
-{          setOfertasCreadas(user.ofertascreadas?.length)
-          setMensajesNoLeidos(user.mensajesnoleidos?.length)
-          setSolicitudesNoContestadas(user.solicitudesnocontestadas?.length)
-          if (user.seguidos == undefined) { setCuentasSeguidas(0) }
-          else { setCuentasSeguidas(user.seguidos?.length) }
-}        
-   }, [user]);
+    if (user) {
+      setOfertasCreadas(user.ofertascreadas?.length)
+      setMensajesNoLeidos(user.mensajesnoleidos?.length)
+      setSolicitudesNoContestadas(user.solicitudesnocontestadas?.length)
+      if (user.seguidos == undefined) { setCuentasSeguidas(0) }
+      else { setCuentasSeguidas(user.seguidos?.length) }
+    }
+  }, [user]);
 
   const perfilhandler = () => {
     router.push("/perfil")
@@ -74,6 +74,14 @@ const HomeEmpr: FC<HomeEmprProps> = ({  }) => {
       signOut()
     }, 1000);
   };
+
+  const handleConfiguracion = async () => {
+    router.push("/configuracion")
+  };
+
+  const handleseguidos = ()=>{
+    router.push("/seguimientos")
+  }
 
   return (
     <div className='flex flex-col h-full bg-gray-400 bg-gray-700'>
@@ -112,16 +120,16 @@ const HomeEmpr: FC<HomeEmprProps> = ({  }) => {
                   onClick={miPerfilHandler}
                 >Perfil Completo</button>
               </div>
-              <div className='hidden md:block flex flex-col flex-1 md:pt-12  px-12'>
-                <button
-                  className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-5 text-sm m-1 font-light "
-                  onClick={() => { router.push("/configuracion") }}
-                >Configuración de la cuenta</button>
-                <button
-                  className="bg-gray-200 hover:bg-gray-400 shadow-lg border text-gray-700 border-gray-200 rounded px-4 py-2 md:mt-5 mt-2 text-sm m-1 w-36 font-light"
-                  onClick={() => { handleCerrarSesion() }}
-                >Cerrar Sesión</button>
-              </div>
+              <div className='flex flex-col flex-1 pt-12 px-12'>
+            <button
+              className="bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mt-5 text-sm m-1"
+              onClick={() => { handleConfiguracion() }}
+            >Configuración de la cuenta</button>
+            <button
+              className="bg-gray-200 hover:bg-gray-400 shadow-lg border text-gray-700 border-gray-200 rounded px-4 py-2 mt-5 text-sm m-1"
+              onClick={() => { handleCerrarSesion() }}
+            >Cerrar Sesión</button>
+          </div>
             </div>
           </div>
         </div>
@@ -185,23 +193,30 @@ const HomeEmpr: FC<HomeEmprProps> = ({  }) => {
             <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
             <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Mis publicaciones</p>
 
-              <button
-                className=" bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
-                onClick={() => { router.push("/publicar") }}
-              >Publicar contenido</button>
-                       <button
+            <button
+              className=" m-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
+              onClick={() => { router.push("/publicar") }}
+            >Publicar contenido</button>
+            <button
               className=" m-1 bg-white hover:bg-gray-100 shadow-lg border text-gray-500 border-gray-100 rounded px-4 py-2 mb-6 mt-2 text-sm font-light "
               onClick={() => { router.push("/mispublicaciones") }}
             >Ver mi contenido publicado</button>
+          </div>
+          <div className='text-gray-400 shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+            <div className='flex flex-row justify-between'>
+              <p className='text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones de cuentas que sigues</p>
+              {user?.seguidos.length != 0 &&
+                <p className='pr-5 text-left hover:text-blue-900 ml-5 mt-3 text-sm font-medium hover:underline' onClick={()=>{handleseguidos()}}>
+                  Administrar usuarios seguidos: ( {user?.seguidos.length  } )</p>
+               }
             </div>
-            <div className='shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
-            <p className='text-gray-400 text-left ml-5 mt-3 text-sm font-medium'>  Mis Publicaciones</p>
 
-              {cuentasSeguidas == 0 &&
-                <SinSeguimientos />}
-              {cuentasSeguidas == 0 &&
-                <Publicaciones />}
-            </div>
+            {user?.seguidos.length == 0 &&
+              <SinSeguimientos />}
+            {user?.seguidos.length != 0 &&
+              <Publicaciones   />
+            }
+          </div>
           </div>
         </div>
         <Banners widthProp={300} />
