@@ -32,14 +32,16 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
       setMensajesNoLeidos(user.mensajesnoleidos.length || '0')
       setSolicitudesEnviadas(user.solicitudes.length)
       setSolicitudesAceptadas(user.solicitudesAceptadasNoLeidas.length || '0')
-      console.log("seguidos: ", user?.seguidos)
-    }
+     }
   }, [user]);
   useEffect(() => {
-    if (user) {
-      if (user.seguidos[0] = ''){      setLengthFiltrado(0)
-      } else{      setLengthFiltrado(user.seguidos.length)      }
-    }
+    if (user?.seguidos) {
+      if (user.seguidos[0] === '') {
+        setLengthFiltrado(0);
+      } else {
+        setLengthFiltrado(user.seguidos.length);
+      }
+    } else {setLengthFiltrado(0)}
   }, [user]);
 
   const miPerfilHandler = () => {
@@ -61,8 +63,8 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
   }
 
   return (
-    <div className="flex flex-row w-full justify-between  bg-gradient-to-b from-zinc-900 to-zinc-600 " style={{ height: '800px' }} >
-      <div className='flex flex-row h-full w-full flex shadow shadow-sm ' style={{ height: '800px', width: '500px' }}           >
+    <div className="flex flex-row w-full justify-between min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 " style={{ height: '800px' }} >
+      <div className='flex flex-row h-full min-h-screen w-full flex shadow shadow-sm ' style={{ height: '800px', width: '500px' }}           >
         <div className="flex flex-col   flex  text-center justify-center w-full  bg-white text-gray-500  ">
           <div className='bg-gradient-to-b from-cyan-950 to-zinc-700 h-full px-12 flex flex-col py-12 flex-1'>
             <div className="relative w-44 h-44 overflow-hidden rounded-full mx-auto my-5 shadow-xl">
@@ -172,7 +174,7 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
               onClick={() => { router.push("/mispublicaciones") }}
             >Ver mi contenido publicado</button>
           </div>
-          <div className='text-gray-400 shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg'>
+          <div className='text-gray-400 shadow shadow-lg border border-gray-100 border-sm mx-6 my-4 bg-white rounded-lg overflow-scroll'>
             <div className='flex flex-row justify-between'>
               <p className='text-left ml-5 mt-3 text-sm font-medium'>  Publicaciones de cuentas que sigues</p>
               {user?.seguidos.length != 0 &&
@@ -181,9 +183,9 @@ const HomeTrab: FC<HomeTrabProps> = ({ }) => {
                }
             </div>
 
-            {user?.seguidos.length == 0 &&
+            {lengthFiltrado == 0 &&
               <SinSeguimientos />}
-            {user?.seguidos.length != 0 &&
+            {lengthFiltrado != 0 &&
               <Publicaciones   />
             }
           </div>

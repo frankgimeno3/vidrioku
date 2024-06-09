@@ -23,14 +23,14 @@ export default function Dashboard() {
   return (
     <div className=" ">
 
-      <main className=' bg-gradient-to-b from-zinc-900 to-zinc-600   '>
         <Navbar />
+      <main className=' bg-gradient-to-b from-zinc-900 to-zinc-600   '>
         {user?.userType == 'empresa' && <HomeEmpr  />}
         {user?.userType == 'profesional' &&<HomeTrab  /> }
         {user?.userType == 'admin' &&<HomeAdmin userData={userData?.id} /> }
-        <Footer  />
 
       </main>
+        <Footer  />
     </div>
   )
 }
