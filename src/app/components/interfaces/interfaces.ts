@@ -38,7 +38,7 @@ export interface Oferta {
   tipoubi: string,
   ubicacion: string,
   descripcion: string,
-  experiencia: string,
+  experiencia: any,
   adicional: string,
   empresaNombre: string,
   estado: string,

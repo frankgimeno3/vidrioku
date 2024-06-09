@@ -204,57 +204,82 @@ const Solicitud: FC<SolicitudProps> = ({ params }) => {
       <div className="flex flex-col max-h-screen bg-zinc-800">
         <div className='flex flex-col mx-12 bg-white'>
           <div className='bg-white flex flex-row w-full h-screen'>
-            <div className="flex flex-col bg-gray-50 shadow-lg h-full text-center items-center w-full text-gray-500 py-8 px-24 overflow-scroll">
-              <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
-              <h2 className="mt-5 text-xl">{oferta?.titulo}</h2>
-              <div className="flex flex-col text-sm text-gray-500">
-                <p>{oferta?.cargo}</p>
-                <p>{oferta?.empresa}</p>
-                <p>{oferta?.ubicacion}</p>
+            <div className="flex flex-col bg-gray-50 shadow-lg h-full text-left items-left w-full text-gray-500 py-8 px-24 overflow-scroll">
+              <div className="flex flex-col items-center ">
+                <Image src={"/inventedlogos/1.png"} alt="pepo" height={100} width={100} />
+                <h2 className="my-5 mx-5 text-xl">"{oferta?.titulo}"</h2>
+                <div className="flex flex-col text-gray-500  bg-white  my-2 rounded shadow p-5">
+                  <div className='mx-5'>
+                    <h2 className="my-5   text-xl">Detalles de la oferta</h2>
+                    <p className="font-bold text-gray-400 mr-2   ">Cargo:</p>
+                    <p>{oferta?.cargo}</p>
+                    <div className="flex flex-col mt-5">
+                      <p className="font-bold text-gray-400 mr-2 text-md">Ubicación del empleo: </p>
+                      <div className="flex flex-wrap flex-1 ">
+                        <p>{oferta?.ubicacion}</p>
+                        <p>{oferta?.empresa}</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col mt-5">
+                      <p className="  font-bold text-gray-400">
+                        Descripción de la oferta
+                      </p>
+                      <p className="mt-1">
+                        {oferta?.descripcion}
+                      </p>
+                    </div>
+                    <div className="flex flex-col mt-5">
+                      <p className="font-bold text-gray-400">
+                        Experiencia requerida
+                      </p>
+                      <div className="mt-1 flex flex-col">
+                        {oferta?.experiencia?.map((exp:any, index:any) => (
+                          <div key={index} className="py-1 ml-2">
+                           ·   {exp}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-col mt-5">
+                      <p className="  font-bold text-gray-400">
+                        Tipo de jornada
+                      </p>
+                      <p className="mt-1">
+                        {oferta?.jornada}
+                      </p>
+                    </div>
+                    <div className="flex flex-col mt-5">
+                      <p className="  font-bold text-gray-400">
+                        Detalles adicionales
+                      </p>
+                      <p className="mt-1">
+                        {oferta?.adicional}
+                      </p>
+                    </div>
+                    <div className="flex flex-col mt-5">
+                      <p className="  font-bold text-gray-400">Agrega un mensaje personal</p>
+                      <form className=' w-full py-5'>
+                        <label htmlFor="presentacion"> </label>
+                        <textarea
+                          placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas"
+                          className=' rounded shadow w-full h-56 bg-gray-50'
+                          onChange={(e) => setPresentacion(e.target.value)} />
+                      </form>
+                    </div>
+                  </div>
+                  <button
+                    className="p-2 border shadow-lg rounded-lg text-xs mt-1 w-36 mx-auto"
+                    onClick={() => {
+                      if (userData && typeof userData.id === 'string' && oferta) {
+                        addSolicitudInFirebase(userData.id, oferta.id, oferta.empresa, presentacion);
+                      } else {
+                        console.error('User data is invalid or oferta is not defined');
+                      }
+                    }}>
+                    Enviar solicitud
+                  </button>
+                </div>
               </div>
-              <p className="text-sm mt-5">
-                Descripción de la oferta
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.descripcion}
-              </p>
-              <p className="text-sm mt-5">
-                Requerimientos
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.experiencia}
-              </p>
-              <p className="text-sm mt-5">
-                Tipo de jornada
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.jornada}
-              </p>
-              <p className="text-sm mt-5">
-                Detalles adicionales
-              </p>
-              <p className="text-sm mt-1">
-                {oferta?.adicional}
-              </p>
-              <form className='mt-5 w-full'>
-                <h2>Agrega un mensaje personal</h2>
-                <label htmlFor="presentacion"> </label>
-                <textarea
-                  placeholder="Añada aquí una descripción, como carta de presentación que se mostrará a las empresas"
-                  className='m-5 rounded shadow w-96 h-56 bg-gray-50'
-                  onChange={(e) => setPresentacion(e.target.value)} />
-              </form>
-              <button
-                className="p-2 border shadow-lg rounded-lg text-xs mt-1"
-                onClick={() => {
-                  if (userData && typeof userData.id === 'string' && oferta) {
-                    addSolicitudInFirebase(userData.id, oferta.id, oferta.empresa, presentacion);
-                  } else {
-                    console.error('User data is invalid or oferta is not defined');
-                  }
-                }}>
-                Enviar solicitud
-              </button>
             </div>
           </div>
         </div>
