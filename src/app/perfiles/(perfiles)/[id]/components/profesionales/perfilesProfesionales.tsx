@@ -29,19 +29,19 @@ const perfilesProfesionales: FC<perfilesProfesionalesProps> = ({ id }) => {
 
   return (
     <div className="flex flex-col  min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-600 h-full">
-      <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Perfil de {id}</h2>
+      <h2 className="bg-zinc-800  bg-white bg-opacity-50 font-bold text-lg  py-3 text-center">Perfil de {selectedUserObject?.nombre} {selectedUserObject?.apellidos}</h2>
       <div className="flex flex-col bg-gray-50 shadow-lg h-full text-left items-left w-full text-gray-500 py-8 px-24 overflow-scroll">
         <div className="flex flex-col items-center">
           <Image src="/icons/empty-user-profile.png" alt="pepo" height={150} width={150} className="rounded-full shadow-xl" />
           <h2 className="mt-5 text-xl">{selectedUserObject?.nombre} {selectedUserObject?.apellidos}</h2>
           <div className='flex flex-row py-5 pb-12 text-md'>
-          <button className="p-2 border shadow-lg rounded-lg  mt-5">
-            Contactar profesional
-          </button>
-          <button className="ml-5 p-2 border shadow-lg rounded-lg   mt-5">
-            Seguir
-          </button>
-        </div>
+            <button className="p-2 border shadow-lg rounded-lg  mt-5">
+              Contactar profesional
+            </button>
+            <button className="ml-5 p-2 border shadow-lg rounded-lg   mt-5">
+              Seguir
+            </button>
+          </div>
         </div>
         <div className="flex flex-col text-sm text-gray-500 bg-white my-2 rounded shadow p-5">
 
@@ -92,7 +92,7 @@ const perfilesProfesionales: FC<perfilesProfesionalesProps> = ({ id }) => {
             </div>
           ))}
         </div>
-       
+
       </div>
     </div>
 
