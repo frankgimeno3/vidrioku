@@ -313,7 +313,8 @@ const OfertasList: FC<OfertasListProps> = ({ receivedParamsTratado, ofertasArray
                         descripcion={oferta.descripcion}
                         experiencia={oferta.experiencia}
                         adicional={oferta.adicional}
-                        empresaNombre={oferta.empresa}
+                        empresaNombre={oferta.empresaNombre}
+                        empresa={oferta.empresa}
                         estado={oferta.estado}
                     />}
                 </div>

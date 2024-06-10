@@ -93,12 +93,18 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) =>
                     {receivedOffer?.adicional}
                 </p>
             </div>}
-
+            <div className="flex flex-row">
             <Link href={`/solicitar/${receivedOffer?.id}`}>
                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
                     Solicitar Empleo
                 </button>
             </Link>
+            <Link href={`/perfiles/${receivedOffer?.id}`}>
+                <button className="ml-5 p-2 border shadow-lg rounded-lg text-xs mt-5">
+                    Ver Perfil completo
+                </button>
+            </Link>
+            </div>
         </div>
 
     );

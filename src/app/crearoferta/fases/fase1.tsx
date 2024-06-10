@@ -17,9 +17,12 @@ interface Fase1Props {
     setCargo: any;
     descripcion: any;
     setDescripcion: any;
+    nombreEmpresa: any;
+setNombreEmpresa: any;
 }
 
-const Fase1: FC<Fase1Props> = ({ setFaseActual, titulo, setTitulo, cargo, setCargo, descripcion, setDescripcion }) => {
+const Fase1: FC<Fase1Props> = ({ setFaseActual, titulo, setTitulo, cargo, setCargo, descripcion, setDescripcion, nombreEmpresa,
+    setNombreEmpresa }) => {
 
     const handleNextFase = () => {
         setFaseActual(2)
@@ -28,7 +31,7 @@ const Fase1: FC<Fase1Props> = ({ setFaseActual, titulo, setTitulo, cargo, setCar
     return (
         <div className="flex flex-col">
             <h1 className="text-lg mb-5">Configuración principal de la oferta</h1>
-            <Titulo titulo={titulo} setTitulo={setTitulo} />
+            <Titulo titulo={titulo} setTitulo={setTitulo} nombreEmpresa={nombreEmpresa} setNombreEmpresa={setNombreEmpresa}/>
             <Cargo cargo={cargo} setCargo={setCargo} />
             <Descripcion descripcion={descripcion} setDescripcion={setDescripcion} />
 

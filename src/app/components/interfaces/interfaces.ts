@@ -30,6 +30,7 @@ export interface MessageListComponentProps {
 
 export interface Oferta {
   empresa: any,
+  empresaNombre: string,
   publicacion: Timestamp,
   id: any,
   titulo: string,
@@ -40,7 +41,6 @@ export interface Oferta {
   descripcion: string,
   experiencia: any,
   adicional: string,
-  empresaNombre: string,
   estado: string,
   solicitudes: any;
 };

@@ -14,12 +14,11 @@ interface OfertaProps {
   experiencia: string,
   adicional: string,
   empresaNombre: string,
+  empresa: string,
   estado: string,
 }
 
-const Oferta: FC<OfertaProps> = ({  titulo, cargo,  ubicacion,
-  empresaNombre
- }) => {
+const Oferta: FC<OfertaProps> = ({  titulo, cargo,  ubicacion, empresa, empresaNombre }) => {
   const [userImage, setUserImage] = useState<string | undefined>();
   const [nombreEmpresa, setNombreEmpresa] = useState<any>('')
 
@@ -34,7 +33,7 @@ const Oferta: FC<OfertaProps> = ({  titulo, cargo,  ubicacion,
 
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        setNombreEmpresa(userData.nombre)
+        setNombreEmpresa(empresaNombre)
 
       } else {
         console.error('El documento del usuario no existe');
@@ -68,7 +67,7 @@ const Oferta: FC<OfertaProps> = ({  titulo, cargo,  ubicacion,
         <h2>{titulo}</h2>
         <div className="flex flex-row justify-between w-full">
           <div className="flex flex-col text-sm text-gray-500">
-            <p>{nombreEmpresa}</p>
+            <p>{empresaNombre}</p>
             <p>{ubicacion}</p>
           </div>
           <div className="flex flex-row">

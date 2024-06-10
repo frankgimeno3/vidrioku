@@ -38,6 +38,7 @@ const Crearoferta: FC = () => {
   const [departamentos, setDepartamentos] = useState<any>([]);
   const [posiciones, setPosiciones] = useState<any>([]);
   const [otraPosicion, setOtraPosicion] = useState<string>('');
+  const [ nombreEmpresa, setNombreEmpresa] = useState<string>()
  
   const handleHabilidadRequeridaChange = (e: any) => {
     setHabilidadRequerida(e.target.value);
@@ -104,6 +105,7 @@ const Crearoferta: FC = () => {
           posiciones: posiciones,
           otraPosicion: otraPosicion,
           empresa: userData,
+          empresaNombre: userData,
           solcitantes: [],
           publicacion: Timestamp.now(),
           estado: "activa",
@@ -132,7 +134,8 @@ const Crearoferta: FC = () => {
             <form className='flex flex-col px-56 text-sm  text-md w-full my-1 mb-5'>
               {
                 faseActual == 1 &&
-                <Fase1 setFaseActual={setFaseActual} titulo={titulo} setTitulo={setTitulo} cargo={cargo} setCargo={setCargo} descripcion={descripcion} setDescripcion={setDescripcion} />
+                <Fase1 setFaseActual={setFaseActual} titulo={titulo} setTitulo={setTitulo} cargo={cargo} setCargo={setCargo} 
+                descripcion={descripcion} setDescripcion={setDescripcion} nombreEmpresa={nombreEmpresa} setNombreEmpresa={setNombreEmpresa} />
               }
               {
                 faseActual == 2 &&
