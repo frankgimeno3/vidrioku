@@ -99,7 +99,7 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderoferta, empresa }) =>
                     Solicitar Empleo
                 </button>
             </Link>
-            <Link href={`/perfiles/${receivedOffer?.id}`}>
+            <Link href={`/perfiles/${renderoferta?.empresa}`}>
                 <button className="ml-5 p-2 border shadow-lg rounded-lg text-xs mt-5">
                     Ver Perfil completo
                 </button>
