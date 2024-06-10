@@ -62,11 +62,18 @@ const Rendercomponent: FC<RendercomponentProps> = ({ renderProfesional }) => {
                            </div>
                         ))}
             </div>
+            <div className='flex flex-row'>
             <Link href={`/conectar/${renderProfesional?.id}`}>
                 <button className="p-2 border shadow-lg rounded-lg text-xs mt-5">
                     Contactar profesional
                 </button>
             </Link>
+            <Link href={`/perfiles/${renderProfesional?.id}`}>
+                <button className="ml-5 p-2 border shadow-lg rounded-lg text-xs mt-5">
+                    Ver perfil completo
+                </button>
+            </Link>
+            </div>
         </div>
     );
 };
