@@ -1,4 +1,4 @@
-"use client<>"
+"use client"
 import React, { FC, useEffect } from 'react';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
